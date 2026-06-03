@@ -956,8 +956,6 @@ git push origin main</pre>
 
 
 <section class="page">
-
-<section class="page">
 <h3>19. Screenshot Capture Pipeline Foundation</h3>
 
 <p><strong>Status:</strong> Completed and pushed to <code>main</code>.</p>
@@ -993,6 +991,74 @@ git push origin main</pre>
 
 </section>
 
+
+<section class="page">
+<h3>20. Persistent JSON Settings Service and Source Restoration</h3>
+
+<p><strong>Status:</strong> Completed and synchronized to <code>main</code>.</p>
+
+<p>This phase replaced the temporary in-memory settings scaffold with a real persistent JSON-backed settings provider capable of restoring saved source selections across application restarts.</p>
+
+<h4>Settings Persistence Architecture</h4>
+
+<ul>
+    <li>Created <code>JsonAppSettingsService</code>.</li>
+    <li>Implemented JSON serialization using built-in <code>System.Text.Json</code>.</li>
+    <li>No additional NuGet packages required.</li>
+    <li>Automatic application settings directory creation implemented.</li>
+</ul>
+
+<h4>Persistent Storage Location</h4>
+
+<pre><code>%APPDATA%\Lab Imager\appsettings.json</code></pre>
+
+<h4>Implemented Behavior</h4>
+
+<ul>
+    <li>Selected source can now be saved as the default source.</li>
+    <li>Saved source automatically restores during application startup.</li>
+    <li>Stored source name and DirectShow device path are both persisted.</li>
+    <li>Fallback protection implemented for missing or invalid settings files.</li>
+    <li>Empty or malformed settings files safely return default configuration state.</li>
+</ul>
+
+<h4>Application Integration</h4>
+
+<ul>
+    <li><code>StubAppSettingsService</code> replaced inside <code>MainWindow.xaml.cs</code>.</li>
+    <li>Runtime source restoration verified successfully.</li>
+    <li>Status bar correctly reflected restored source state.</li>
+    <li>Previously selected USB video device restored after relaunch.</li>
+</ul>
+
+<h4>Validation Results</h4>
+
+<ul>
+    <li><code>dotnet build</code> completed successfully with 0 errors.</li>
+    <li><code>dotnet run</code> launched successfully.</li>
+    <li>Application restart persistence verified successfully.</li>
+    <li>Source restoration pipeline functioning correctly.</li>
+</ul>
+
+<h4>Current Engineering State</h4>
+
+<p>Lab Imager now has a stable foundation consisting of:</p>
+
+<pre><code>• Source enumeration
+• Source persistence
+• Screenshot export
+• Viewport framework
+• Notes system scaffold
+• Persistent application settings
+• Capture service abstraction</code></pre>
+
+<h4>Next Engineering Target</h4>
+
+<p>The next major engineering phase is live preview pipeline architecture. This phase will introduce DirectShow renderer graph construction, viewport hosting, frame lifecycle management, renderer teardown handling, and future overlay compatibility planning.</p>
+
+</section>
+
+<section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
 
