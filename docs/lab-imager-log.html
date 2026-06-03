@@ -84,6 +84,7 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Sections 1-5</td><td>Project vision, repository identity, technology stack, hardware pipeline, and first milestone.</td></tr>
 <tr><td>Sections 6-10</td><td>Application layout, annotation model, file naming, project storage, and theme doctrine.</td></tr>
 <tr><td>Sections 11-15</td><td>Repository structure, Git workflow, icon/logo direction, future feature roadmap, and initial build constraints.</td></tr>
+<tr><td>Sections 16-17</td><td>Approved UI concept, engineering viewport reconstruction, reticle stabilization, final interface baseline, build validation, and repository synchronization.</td></tr>
 <tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
 </table>
 
@@ -584,6 +585,210 @@ Screenshot / annotation / saved record</pre>
 <div class="page-num">15</div>
 </section>
 
+
+
+<section class="page">
+<h3>16. M1-A UI Design Approval — Final Approved Concept</h3>
+<p class="sub">Canonical Lab Imager interface direction approved for first-generation UI development.</p>
+
+<div class="note ok">
+<strong>Approved:</strong> Dark engineering workstation layout with deep navy-blue theme, microscope viewport, right-side metadata dock, bottom instrumentation/status bar, and coordinated blue accent system.
+</div>
+
+<h4>Approved Visual Standards</h4>
+<ul>
+<li>Dark-mode-first engineering interface</li>
+<li>Deep navy / pastel-blue instrumentation theme</li>
+<li>Dotted engineering-grid viewport styling</li>
+<li>Microscope framing brackets</li>
+<li>Integrated bottom status bar</li>
+<li>Right-side metadata/session dock</li>
+<li>Soft neon-blue accent system</li>
+<li>ADHD/autism-friendly visual consistency</li>
+<li>Canonical design reference to prevent UI drift</li>
+</ul>
+
+<div class="note watch">
+<strong>Design rule:</strong> Future UI changes must remain visually coordinated with this approved baseline unless a deliberate redesign is logged.
+</div>
+
+<div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
+<img src="assets/ui/lab_design.png" alt="Approved Final Lab Imager UI" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<p class="sub" style="text-align:center;margin-top:8px">Final approved Lab Imager interface direction.</p>
+</div>
+
+<div class="page-num">16</div>
+</section>
+
+<section class="page">
+<h3>17. Engineering Viewport Reconstruction and UI Baseline Finalization</h3>
+<p class="sub">Full record of the Lab Imager viewport remediation cycle, final MainWindow.xaml rebuild, approved interface screenshot, and GitHub synchronization milestone.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> The Lab Imager visual interface has been stabilized and approved as the working UI baseline for active application development. The final state was committed and pushed to <code>origin/main</code> under commit <code>3792a27</code> with message <code>Finalize Lab Imager engineering viewport UI</code>.
+</div>
+
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the complete work performed after the previous UI design approval section. The scope was not limited to cosmetic adjustment. The work became a full UI remediation and recovery cycle because the viewport grid, reticle layout, XAML mutation workflow, and file-editing method all required correction before the project could safely move into real application functionality.
+</p>
+<p>
+The main objective was to convert the approved visual concept into a stable, buildable <code>MainWindow.xaml</code> implementation while preserving the existing WPF shell, custom titlebar, right-side Lab Session panel, and bottom status infrastructure.
+</p>
+
+<h4>Starting Condition</h4>
+<table>
+<tr><th>Area</th><th>State Before Remediation</th></tr>
+<tr><td>Repository</td><td>Initialized, connected to GitHub, and tracking <code>main</code>.</td></tr>
+<tr><td>Application shell</td><td>WPF app launched successfully with custom dark titlebar controls.</td></tr>
+<tr><td>Theme</td><td>DarkTheme resource dictionary existed and was loaded through <code>App.xaml</code>.</td></tr>
+<tr><td>Viewport design</td><td>Approved concept existed, but implementation had drifted from the approved appearance.</td></tr>
+<tr><td>Log file</td><td><code>docs/lab-imager-log.html</code> existed and already contained Section 16 for the approved concept image.</td></tr>
+<tr><td>Image assets</td><td><code>docs/assets/ui/lab_design.png</code> existed as the initial approved concept reference.</td></tr>
+</table>
+
+<h4>Problems Identified During UI Review</h4>
+<table>
+<tr><th>Problem</th><th>Observed Behavior</th><th>Impact</th></tr>
+<tr><td>Viewport grid scale</td><td>The dotted grid appeared too large and heavy, reading visually as a pegboard pattern.</td><td>Failed the approved engineering/microscope workstation aesthetic.</td></tr>
+<tr><td>Reticle placement</td><td>Corner markers appeared misplaced, too far apart, and not properly framing the center viewport focus area.</td><td>Viewport did not read as an imaging or microscope targeting system.</td></tr>
+<tr><td>Reticle direction</td><td>Several bracket paths faced the wrong direction.</td><td>Visual logic was incorrect because the reticles were not pointing inward toward the focal zone.</td></tr>
+<tr><td>Patch workflow</td><td>Incremental search/replace and regex edits repeatedly failed to reliably target the correct XAML regions.</td><td>Created repeated rework cycles and inconsistent file state.</td></tr>
+<tr><td>PowerShell here-string handling</td><td>Large XAML here-strings did not close reliably during terminal paste operations.</td><td>Produced partial writes and malformed XAML.</td></tr>
+<tr><td>XAML validity</td><td>Malformed content triggered WPF parser errors such as <code>MC3000</code>.</td><td>Temporarily broke build integrity until the file was fully restored.</td></tr>
+</table>
+
+<h4>Recorded Build / Parser Failure Modes</h4>
+<div class="note warn">
+<strong>Failure class:</strong> These were file-write and XML integrity failures, not .NET runtime logic failures. The application failed to build only when <code>MainWindow.xaml</code> was partially written or polluted with invalid wrapper text.
+</div>
+<pre>MC3000: 'Data at the root level is invalid. Line 1, position 1.' XML is not valid.
+
+MC3000: 'Unexpected end of file has occurred. The following elements are not closed.' XML is not valid.</pre>
+
+<h4>Root Cause Assessment</h4>
+<table>
+<tr><th>Root Cause</th><th>Engineering Finding</th></tr>
+<tr><td>Oversized dot implementation</td><td>The dot-grid approach did not scale into the desired subtle viewport texture and remained visually too dominant.</td></tr>
+<tr><td>Canvas-margin reticles</td><td>Canvas and margin-based positioning made the reticles fragile and difficult to align predictably.</td></tr>
+<tr><td>Incremental patching</td><td>Small patch commands were inappropriate for a layout-level XAML correction because the viewport was an interdependent visual structure.</td></tr>
+<tr><td>Terminal-paste file replacement</td><td>Very large here-string replacements were too error-prone for this file size and workflow.</td></tr>
+<tr><td>Renderer wrapper contamination</td><td>Markdown/code wrapper markers were mistakenly treated as part of file content during one attempted manual paste path.</td></tr>
+</table>
+
+<h4>Remediation Strategy Change</h4>
+<div class="note ok">
+<strong>Standing rule established:</strong> Major Lab Imager UI/layout changes must use full-file replacement or direct editor overwrite workflows. Do not use manual find/replace hunts, regex surgery, or fragile incremental patching for substantial XAML layout work unless explicitly requested.
+</div>
+<p>
+This rule was established because the UI work repeatedly proved that the stable engineering path is to replace the entire known-good file, validate with <code>dotnet build</code>, run the application, visually confirm, and then commit. This matches the preferred deterministic workflow and avoids repeated local corruption cycles.
+</p>
+
+<h4>MainWindow.xaml Final Reconstruction Summary</h4>
+<table>
+<tr><th>Subsystem</th><th>Final Implementation</th></tr>
+<tr><td>Window shell</td><td>Preserved WPF <code>WindowStyle="None"</code> custom chrome with dark border and centered startup behavior.</td></tr>
+<tr><td>Title bar</td><td>Preserved custom titlebar, microscope icon, app name, minimize button, maximize/restore button, and close button.</td></tr>
+<tr><td>Main layout</td><td>Preserved three-row application shell: titlebar, main content, bottom status bar.</td></tr>
+<tr><td>Viewport</td><td>Rebuilt as a stable Grid-based viewport with clipped content and coordinated dark navy background.</td></tr>
+<tr><td>Engineering grid</td><td>Replaced failed oversized dot system with subtle low-opacity engineering grid lines using tiled <code>DrawingBrush</code> geometry.</td></tr>
+<tr><td>Reticles</td><td>Rebuilt corner reticles using aligned overlay paths instead of fragile Canvas-only margin logic.</td></tr>
+<tr><td>Reticle direction</td><td>Corrected bracket geometry so all four reticles face inward toward the focal center.</td></tr>
+<tr><td>Center targeting</td><td>Added center tick marks around the viewport for a proper microscope/scanner targeting feel.</td></tr>
+<tr><td>Center content</td><td>Preserved microscope icon, <code>MICROSCOPE VIEWPORT</code> title, and live-feed placeholder text.</td></tr>
+<tr><td>Right panel</td><td>Preserved Lab Session controls for project name, board/device, technician, notes, and capture button.</td></tr>
+<tr><td>Status bar</td><td>Preserved ready state, camera connection status, project loaded status, settings symbol, and help marker.</td></tr>
+</table>
+
+<h4>Approved Final UI Baseline Screenshot</h4>
+<div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
+<img src="assets/ui/lab_design_2.png" alt="Approved Final Lab Imager Engineering Viewport UI" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<p class="sub" style="text-align:center;margin-top:8px">Final approved Lab Imager UI baseline after engineering-grid replacement, inward-facing reticle correction, center targeting refinement, and full <code>MainWindow.xaml</code> stabilization.</p>
+</div>
+
+<h4>Visual Acceptance Criteria Met</h4>
+<div class="grid-2">
+<div class="card"><strong>Engineering Grid</strong><span>Subtle line-based grid now reads as an instrumentation overlay rather than an oversized pegboard texture.</span></div>
+<div class="card"><strong>Reticle Direction</strong><span>All four corner brackets now face inward and correctly frame the central viewport area.</span></div>
+<div class="card"><strong>Viewport Balance</strong><span>The viewport has proper central focus and no longer visually fights the right-side session panel.</span></div>
+<div class="card"><strong>Design Continuity</strong><span>Deep navy, pastel/electric blue accents, and dark workstation styling remain consistent with the approved Lab Imager theme.</span></div>
+</div>
+
+<h4>Validation Commands and Results</h4>
+<pre>cd D:\Lab-Imager\src\LabImager
+
+dotnet build</pre>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td>Project restore</td><td>All projects up-to-date for restore.</td></tr>
+<tr><td>Build output</td><td><code>LabImager.dll</code> generated under <code>bin\Debug\net8.0-windows</code>.</td></tr>
+<tr><td>Warnings</td><td><code>0</code></td></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Runtime visual review</td><td>Approved by user after final screenshot.</td></tr>
+</table>
+
+<h4>Repository Commit and Push</h4>
+<pre>cd D:\Lab-Imager
+
+git status
+
+git add src/LabImager/MainWindow.xaml docs/lab-imager-log.html
+
+git commit -m "Finalize Lab Imager engineering viewport UI"
+
+git push origin main</pre>
+<table>
+<tr><th>Git Item</th><th>Result</th></tr>
+<tr><td>Branch</td><td><code>main</code></td></tr>
+<tr><td>Commit hash</td><td><code>3792a27</code></td></tr>
+<tr><td>Commit message</td><td><code>Finalize Lab Imager engineering viewport UI</code></td></tr>
+<tr><td>Files changed</td><td><code>2</code> files changed.</td></tr>
+<tr><td>Change count</td><td><code>128 insertions(+), 104 deletions(-)</code></td></tr>
+<tr><td>Push target</td><td><code>https://github.com/dmcgann-msetech/lab-imager.git</code></td></tr>
+<tr><td>Remote update</td><td><code>5f4ab4b..3792a27 main -&gt; main</code></td></tr>
+<tr><td>Push status</td><td><span class="status done">Completed</span></td></tr>
+</table>
+
+<h4>Current Stable State After Section 17</h4>
+<table>
+<tr><th>Component</th><th>Status</th><th>Notes</th></tr>
+<tr><td>WPF shell</td><td><span class="status done">Stable</span></td><td>Application builds and launches.</td></tr>
+<tr><td>Custom titlebar</td><td><span class="status done">Stable</span></td><td>Minimize, maximize/restore, and close functionality preserved.</td></tr>
+<tr><td>Viewport design</td><td><span class="status done">Approved</span></td><td>Final visual baseline accepted.</td></tr>
+<tr><td>Engineering grid</td><td><span class="status done">Approved</span></td><td>Subtle grid implemented; oversized dots removed.</td></tr>
+<tr><td>Reticles</td><td><span class="status done">Approved</span></td><td>Correct inward-facing orientation achieved.</td></tr>
+<tr><td>Right-side panel</td><td><span class="status done">Stable</span></td><td>Project/session fields preserved.</td></tr>
+<tr><td>Status bar</td><td><span class="status done">Stable</span></td><td>Ready/camera/project indicators preserved.</td></tr>
+<tr><td>GitHub repository</td><td><span class="status done">Synchronized</span></td><td>Origin main updated successfully.</td></tr>
+</table>
+
+<h4>Engineering Lessons Carried Forward</h4>
+<ul>
+<li>For XAML UI work, provide full-file replacements rather than small “find this line” edits.</li>
+<li>Avoid regex surgery for layout architecture unless the scope is very small and the target is verified.</li>
+<li>Use VS Code/direct file replacement for large XAML payloads instead of terminal here-string paste walls.</li>
+<li>Always validate with <code>dotnet build</code> immediately after file replacement.</li>
+<li>Always visually confirm with <code>dotnet run</code> before committing UI changes.</li>
+<li>Major UI milestones must include screenshots in <code>docs/assets/ui/</code> and must be referenced in this log.</li>
+</ul>
+
+<h4>Next Development Phase</h4>
+<div class="note ok">
+<strong>Transition point:</strong> Lab Imager is now past UI firefighting and ready for actual functional application development.
+</div>
+<ol>
+<li>Camera feed foundation.</li>
+<li>Capture screenshot button implementation.</li>
+<li>Project/session field binding.</li>
+<li>Save image plus metadata.</li>
+<li>Image preview/history.</li>
+<li>Measurement and annotation overlay framework.</li>
+<li>Export/report system.</li>
+</ol>
+
+<div class="page-num">17</div>
+</section>
+
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
@@ -603,7 +808,8 @@ dotnet sln add .\src\LabImager\LabImager.csproj</pre>
 <h4>Recommended Documentation Folders</h4>
 <pre>mkdir docs
 mkdir docsrchitecture
-mkdir docsoadmap
+mkdir docs
+oadmap
 mkdir docs\captures
 mkdir assets
 mkdir assets\icons
@@ -641,37 +847,5 @@ Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not reg
 <div class="page-num">Resources</div>
 </section>
 
-<section class="page">
-<h3>16. M1-A UI Design Approval — Final Approved Concept</h3>
-<p class="sub">Canonical Lab Imager interface direction approved for first-generation UI development.</p>
-
-<div class="note ok">
-<strong>Approved:</strong> Dark engineering workstation layout with deep navy-blue theme, microscope viewport, right-side metadata dock, bottom instrumentation/status bar, and coordinated blue accent system.
-</div>
-
-<h4>Approved Visual Standards</h4>
-<ul>
-<li>Dark-mode-first engineering interface</li>
-<li>Deep navy / pastel-blue instrumentation theme</li>
-<li>Dotted engineering-grid viewport styling</li>
-<li>Microscope framing brackets</li>
-<li>Integrated bottom status bar</li>
-<li>Right-side metadata/session dock</li>
-<li>Soft neon-blue accent system</li>
-<li>ADHD/autism-friendly visual consistency</li>
-<li>Canonical design reference to prevent UI drift</li>
-</ul>
-
-<div class="note watch">
-<strong>Design rule:</strong> Future UI changes must remain visually coordinated with this approved baseline unless a deliberate redesign is logged.
-</div>
-
-<div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
-<img src="assets/ui/lab_design.png" alt="Approved Final Lab Imager UI" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
-<p class="sub" style="text-align:center;margin-top:8px">Final approved Lab Imager interface direction.</p>
-</div>
-
-<div class="page-num">16</div>
-</section>
 </body>
 </html>
