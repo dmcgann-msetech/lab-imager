@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lab Imager Project Log - HDMI Microscope Capture and Annotation Workstation</title>
+<style>
+:root{--bg:#eef2f6;--paper:#fff;--ink:#1f2937;--muted:#6b7280;--line:#d6d3d1;--accent:#075985;--soft:#f8fbff;--code:#f3f4f6;--green:#166534;--blue:#075985;--red:#991b1b;--steel:#334155}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+.page{width:8.5in;min-height:11in;margin:24px auto;background:var(--paper);box-shadow:0 10px 30px rgba(0,0,0,.08);padding:.62in .72in .65in;position:relative}
+.cover{padding:1in .9in;display:flex;flex-direction:column;justify-content:space-between}
+.eyebrow{font:700 12px Arial,Helvetica,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.rule{height:2px;background:linear-gradient(90deg,var(--accent),transparent);margin:18px 0 28px}
+h1{font-size:38px;line-height:1.05;margin:.15in 0 0;color:#111827}
+h2{font:600 17px Arial,Helvetica,sans-serif;color:var(--muted);margin:12px 0 0}
+h3{font-size:25px;margin:0 0 8px;color:#111827}
+h4{margin:20px 0 8px;font:700 14px Arial,Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.05em}
+p{line-height:1.58;margin:0 0 10px}
+ul,ol{line-height:1.55;margin:8px 0 14px;padding-left:22px}
+li{margin:4px 0}
+.sub{font:14px Arial,Helvetica,sans-serif;color:var(--muted);margin:0 0 16px}
+.summary,.note{border:1px solid var(--line);border-left:6px solid var(--accent);background:var(--soft);padding:16px 18px;margin:14px 0;font:14px/1.55 Arial,Helvetica,sans-serif}
+.ok{border-left-color:var(--green);background:#f6fff8}
+.warn{border-left-color:var(--red);background:#fff8f8}
+.watch{border-left-color:var(--blue);background:#f0f9ff}
+.steel{border-left-color:var(--steel);background:#f8fafc}
+table{width:100%;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:11.5px;border:1px solid var(--line);background:#fff;margin:10px 0 16px}
+th{background:#eef6fb;padding:9px 8px;text-align:left;text-transform:uppercase;font-size:10px;letter-spacing:.06em}
+td{padding:8px;border-bottom:1px solid #e8edf2;vertical-align:top}
+code,pre{font-family:Consolas,Menlo,monospace;background:var(--code);border:1px solid #e5e7eb;border-radius:4px;color:#111827}
+code{padding:1px 4px;font-size:11px}
+pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;font-size:11px;line-height:1.4;margin:8px 0 14px}
+.status{display:inline-block;border-radius:999px;padding:3px 8px;font:700 10px Arial,Helvetica,sans-serif;text-transform:uppercase}
+.done{background:#dcfce7;color:#166534}.active{background:#e0f2fe;color:#075985}.pending{background:#fef3c7;color:#92400e}.blocked{background:#fee2e2;color:#991b1b}.recovered{background:#dcfce7;color:#166534}.partial{background:#fef3c7;color:#92400e}.watching{background:#e0f2fe;color:#075985}
+.prio{display:inline-block;border-radius:999px;padding:3px 8px;font:700 10px Arial,Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.critical{background:#fee2e2;color:#991b1b}.high{background:#ffedd5;color:#9a3412}.medium{background:#fef3c7;color:#92400e}.low{background:#e0f2fe;color:#075985}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0 20px}
+.card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:13px 14px;font-family:Arial,Helvetica,sans-serif}
+.card strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#111827;margin-bottom:6px}
+.card span{font-size:13px;line-height:1.45;color:#4b5563}
+.section-label{font:700 11px/1 Arial,Helvetica,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-top:20px}
+.toc td:first-child{width:22%;font-weight:700;color:#075985}
+tbody tr:nth-child(even){background:#fafcff}
+.page-num{position:absolute;right:.55in;bottom:.32in;font:11px Arial,Helvetica,sans-serif;color:var(--muted)}
+.icon-mark{font:52px/1 Arial,Helvetica,sans-serif;color:#075985;margin:0 0 18px}
+@page{size:letter;margin:.4in}
+@media print{body{background:#fff}.page{margin:0 auto;box-shadow:none;page-break-after:always}.page:last-child{page-break-after:auto}}
+</style>
+</head>
+<body>
+
+<section class="page cover">
+<div>
+<div class="eyebrow">Lab Imager · Internal Engineering Record</div>
+<div class="rule"></div>
+<div class="icon-mark">🔬</div>
+<h1>Lab Imager Project Log</h1>
+<h2>HDMI Microscope Capture, Annotation, Screenshot, and Bench Documentation Workstation</h2>
+<div class="summary">
+<p>This log tracks the Lab Imager software project from initial concept through repository setup, architecture planning, hardware capture design, annotation workflow design, UI standards, and future implementation checkpoints.</p>
+<p>The objective is to build a Windows-native bench-lab application for soldering, electronics inspection, PCB diagnostics, timestamped microscope screenshots, right-side note entry, and structured image documentation.</p>
+<p>This file is the canonical editable project ledger and is intentionally built as printable HTML so it can be updated directly in PowerShell, VS Code, Git, or future automation workflows.</p>
+</div>
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>Project</td><td><code>Lab Imager</code></td></tr>
+<tr><td>Repository description</td><td>Windows-native HDMI microscope capture and annotation workstation for soldering, PCB inspection, timestamped screenshots, and lab documentation.</td></tr>
+<tr><td>Primary platform</td><td><code>Windows Desktop</code></td></tr>
+<tr><td>Primary stack</td><td><code>C# / .NET / WPF</code></td></tr>
+<tr><td>Hardware input</td><td>HDMI microscope camera through HDMI capture device</td></tr>
+<tr><td>Default appearance</td><td>Dark mode with user-selectable Light and System Default options</td></tr>
+<tr><td>Initialized</td><td><code>2026-06-03 11:24:56</code></td></tr>
+</table>
+</div>
+<div class="sub">Printable engineering, architecture, and build ledger.</div>
+<div class="page-num">Cover</div>
+</section>
+
+<section class="page">
+<h3>Table of Contents</h3>
+<p class="sub">Initial Lab Imager project ledger contents.</p>
+<table class="toc">
+<tr><td>Sections 1-5</td><td>Project vision, repository identity, technology stack, hardware pipeline, and first milestone.</td></tr>
+<tr><td>Sections 6-10</td><td>Application layout, annotation model, file naming, project storage, and theme doctrine.</td></tr>
+<tr><td>Sections 11-15</td><td>Repository structure, Git workflow, icon/logo direction, future feature roadmap, and initial build constraints.</td></tr>
+<tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
+</table>
+
+<h4>Document Control Notes</h4>
+<div class="note ok">
+<strong>Current decision:</strong> Lab Imager will be developed as a Windows-native C#/.NET application, with WPF as the initial UI target.
+</div>
+<div class="note warn">
+<strong>Standing engineering rule:</strong> do not start with advanced annotation/database/project-library systems until the live microscope capture pipeline is stable.
+</div>
+<div class="page-num">TOC</div>
+</section>
+
+<section class="page">
+<h3>Engineering Status / Severity Legend</h3>
+<p class="sub">Visual reference guide for operational status indicators, risk levels, and project-log annotations.</p>
+
+<h4>Status Indicator Meaning</h4>
+<table>
+<tr><th>Indicator</th><th>Meaning</th><th>Usage</th></tr>
+<tr><td><div class="note ok"><strong>Green</strong></div></td><td>Stable / Verified / Operational</td><td>Confirmed decisions, validated systems, successful milestones.</td></tr>
+<tr><td><div class="note warn"><strong>Red</strong></div></td><td>Critical / Broken / Dangerous</td><td>Hardware failures, unsafe architecture paths, build blockers.</td></tr>
+<tr><td><div class="note watch"><strong>Blue</strong></div></td><td>Informational / Monitoring / Architecture</td><td>Design doctrine, forward planning, pending review areas.</td></tr>
+<tr><td><div class="summary"><strong>Neutral</strong></div></td><td>Planning / Transitional / Needs Validation</td><td>Requirements, initial concepts, proposed designs.</td></tr>
+</table>
+
+<h4>Badge Definitions</h4>
+<table>
+<tr><th>Badge</th><th>Meaning</th></tr>
+<tr><td><span class="status done">Completed</span></td><td>Decision, fix, or task verified complete.</td></tr>
+<tr><td><span class="status active">Active</span></td><td>Current workstream.</td></tr>
+<tr><td><span class="status partial">Partial</span></td><td>Started but not fully validated.</td></tr>
+<tr><td><span class="status blocked">Blocked</span></td><td>Requires action before progress can continue safely.</td></tr>
+<tr><td><span class="status watching">Watching</span></td><td>Architecture observation or monitored risk.</td></tr>
+<tr><td><span class="status pending">Pending</span></td><td>Known future work item.</td></tr>
+</table>
+
+<h4>Audit Severity Levels</h4>
+<table>
+<tr><th>Priority</th><th>Definition</th></tr>
+<tr><td><span class="prio critical">Critical</span></td><td>Immediate architecture, capture, data-loss, or reliability risk.</td></tr>
+<tr><td><span class="prio high">High</span></td><td>Significant technical risk that can destabilize development or bench use.</td></tr>
+<tr><td><span class="prio medium">Medium</span></td><td>Important but non-blocking improvement or cleanup.</td></tr>
+<tr><td><span class="prio low">Low</span></td><td>Cosmetic, branding, documentation, or future polish.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Purpose:</strong> This legend standardizes interpretation of Lab Imager engineering logs, milestone records, risk notes, and future build validation entries.
+</div>
+<div class="page-num">Legend</div>
+</section>
+
+<section class="page">
+<h3>1. Project Vision</h3>
+<p class="sub">Initial Lab Imager concept and intended operational purpose.</p>
+
+<div class="summary">
+<p>Lab Imager is intended to be a full bench-lab microscope imaging workstation for soldering, electronics repair, PCB inspection, component diagnostics, and technical documentation.</p>
+<p>The application will show the live HDMI microscope feed, allow screenshots, support annotations directly over the image view, provide zoom/view tools, and expose a right-side panel for notes, filenames, project data, and metadata.</p>
+</div>
+
+<h4>Primary Use Case</h4>
+<table>
+<tr><th>Workflow</th><th>Description</th></tr>
+<tr><td>Electronics inspection</td><td>View solder joints, components, traces, bridges, cold joints, flux residue, damaged pads, and board defects.</td></tr>
+<tr><td>Screenshot capture</td><td>Freeze or capture microscope frames into timestamped image files.</td></tr>
+<tr><td>Annotation</td><td>Mark faults or observations using arrows, circles, rectangles, labels, and future measurement tools.</td></tr>
+<tr><td>Documentation</td><td>Save images with notes and structured metadata for project history, class work, repairs, or engineering records.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Project identity:</strong> Lab Imager is not a generic camera app. It is bench instrumentation software for electronics diagnostics and lab documentation.
+</div>
+<div class="page-num">1</div>
+</section>
+
+<section class="page">
+<h3>2. Repository Identity and Description</h3>
+<p class="sub">Initial repository-facing description and branding direction.</p>
+
+<h4>Repository Description</h4>
+<pre>Windows-native HDMI microscope capture and annotation workstation for soldering, PCB inspection, timestamped screenshots, and lab documentation.</pre>
+
+<h4>Repository Purpose</h4>
+<p>The repository will contain the full Lab Imager source tree, documentation, UI assets, architecture notes, installer/build configuration, and engineering ledger.</p>
+
+<h4>Suggested Repository Topics</h4>
+<table>
+<tr><th>Topic</th><th>Reason</th></tr>
+<tr><td><code>csharp</code></td><td>Primary language.</td></tr>
+<tr><td><code>dotnet</code></td><td>Primary framework.</td></tr>
+<tr><td><code>wpf</code></td><td>Initial Windows UI framework.</td></tr>
+<tr><td><code>microscope</code></td><td>Core hardware use case.</td></tr>
+<tr><td><code>opencv</code></td><td>Potential capture/image pipeline support.</td></tr>
+<tr><td><code>pcb-inspection</code></td><td>Primary domain.</td></tr>
+<tr><td><code>electronics-lab</code></td><td>Bench-lab context.</td></tr>
+</table>
+
+<div class="page-num">2</div>
+</section>
+
+<section class="page">
+<h3>3. Technology Stack Decision</h3>
+<p class="sub">Final initial stack choice after reviewing C, C++, C#, and Python-style options.</p>
+
+<div class="note ok">
+<strong>Decision:</strong> Use <code>C# / .NET</code> with <code>WPF</code> as the first build target.
+</div>
+
+<h4>Reasoning</h4>
+<table>
+<tr><th>Choice</th><th>Assessment</th></tr>
+<tr><td>C</td><td>Too low-level for the first pass. Useful for device drivers or specialized capture libraries, but inefficient for UI-heavy application development.</td></tr>
+<tr><td>C++</td><td>Powerful and appropriate for maximum low-level control, but unnecessary complexity for the first production path unless camera/capture constraints demand it.</td></tr>
+<tr><td>C# / .NET</td><td>Best balance for Windows-native UI, maintainability, installer support, settings storage, file handling, and future hardware integrations.</td></tr>
+</table>
+
+<h4>Initial Technical Direction</h4>
+<table>
+<tr><th>Layer</th><th>Initial Decision</th></tr>
+<tr><td>Language</td><td><code>C#</code></td></tr>
+<tr><td>Runtime</td><td><code>.NET</code></td></tr>
+<tr><td>UI</td><td><code>WPF</code></td></tr>
+<tr><td>Capture</td><td>Windows camera/capture APIs or OpenCV-compatible .NET binding after device validation.</td></tr>
+<tr><td>Image output</td><td>PNG first; JPEG optional later.</td></tr>
+<tr><td>Metadata</td><td>JSON sidecar first; SQLite later when project library matures.</td></tr>
+<tr><td>Packaging</td><td>MSIX or installer build after first stable prototype.</td></tr>
+</table>
+
+<div class="note watch">
+<strong>Forward rule:</strong> Do not commit to a capture library until the HDMI capture device is tested and enumerated on the bench computer.
+</div>
+<div class="page-num">3</div>
+</section>
+
+<section class="page">
+<h3>4. Hardware Capture Pipeline</h3>
+<p class="sub">Expected microscope-to-application signal path.</p>
+
+<h4>Baseline Pipeline</h4>
+<pre>HDMI microscope camera
+        ↓
+HDMI capture device
+        ↓
+Bench computer USB/PCIe input
+        ↓
+Windows camera/capture subsystem
+        ↓
+Lab Imager live preview
+        ↓
+Screenshot / annotation / saved record</pre>
+
+<h4>Pipeline Requirements</h4>
+<table>
+<tr><th>Requirement</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Detect capture device</td><td><span class="status pending">Pending</span></td><td>Must enumerate available video input devices.</td></tr>
+<tr><td>Render live feed</td><td><span class="status pending">Pending</span></td><td>Must be low-latency enough for practical bench use.</td></tr>
+<tr><td>Freeze frame</td><td><span class="status pending">Pending</span></td><td>Needed before annotation workflow.</td></tr>
+<tr><td>Capture still frame</td><td><span class="status pending">Pending</span></td><td>PNG export required for milestone 1.</td></tr>
+<tr><td>Zoom/pan viewport</td><td><span class="status pending">Pending</span></td><td>View transform should not destroy the original captured image.</td></tr>
+</table>
+
+<div class="note warn">
+<strong>Risk:</strong> HDMI capture devices can expose inconsistent names, formats, frame rates, and resolutions. Device enumeration and format negotiation must be treated as a first-class milestone, not an afterthought.
+</div>
+<div class="page-num">4</div>
+</section>
+
+<section class="page">
+<h3>5. First Milestone: M1 Live Capture Window</h3>
+<p class="sub">First implementation target before any advanced project features.</p>
+
+<div class="note ok">
+<strong>M1 Objective:</strong> Build a stable Windows desktop app that opens the HDMI microscope capture feed and displays it in a live viewer.
+</div>
+
+<h4>M1 Deliverables</h4>
+<table>
+<tr><th>Deliverable</th><th>Status</th></tr>
+<tr><td>Launch WPF application shell</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Detect available capture devices</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Select microscope capture device</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Render live microscope preview</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Capture PNG screenshot</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Apply timestamped default filename</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Provide basic zoom control</td><td><span class="status pending">Pending</span></td></tr>
+</table>
+
+<h4>Explicitly Out of Scope for M1</h4>
+<ul>
+<li>Full annotation system</li>
+<li>SQLite project library</li>
+<li>Measurement calibration</li>
+<li>Video recording</li>
+<li>Cloud sync</li>
+<li>Multi-user support</li>
+<li>AI image analysis</li>
+</ul>
+
+<div class="page-num">5</div>
+</section>
+
+<section class="page">
+<h3>6. Application Layout Doctrine</h3>
+<p class="sub">Initial workspace layout for operator usability.</p>
+
+<h4>Primary UI Model</h4>
+<table>
+<tr><th>Region</th><th>Purpose</th></tr>
+<tr><td>Main viewport</td><td>Live microscope image, freeze-frame image, zoomed inspection view, and annotation canvas.</td></tr>
+<tr><td>Top toolbar</td><td>Capture device selection, live/freeze controls, screenshot button, zoom controls, theme selection, settings.</td></tr>
+<tr><td>Right-side panel</td><td>Project name, board/device name, technician, filename, notes, fault category, save location, timestamp data.</td></tr>
+<tr><td>Bottom status bar</td><td>Capture resolution, frame rate, device status, save confirmation, current mode.</td></tr>
+</table>
+
+<h4>Visual Design Target</h4>
+<div class="note steel">
+<strong>Design direction:</strong> industrial inspection software, electronics lab instrumentation, microscope workstation tooling, Keysight/Fluke/Siglent style discipline, and practical long-session readability.
+</div>
+
+<div class="page-num">6</div>
+</section>
+
+<section class="page">
+<h3>7. Annotation System Plan</h3>
+<p class="sub">Planned markup tools after live capture and screenshot foundation is stable.</p>
+
+<h4>Initial Annotation Tools</h4>
+<table>
+<tr><th>Tool</th><th>Purpose</th></tr>
+<tr><td>Arrow</td><td>Point to bridges, cracks, damaged pads, or suspect components.</td></tr>
+<tr><td>Circle / ellipse</td><td>Highlight solder joints, pads, flux residue, or component groups.</td></tr>
+<tr><td>Rectangle</td><td>Frame chips, board zones, connector defects, or inspection regions.</td></tr>
+<tr><td>Text label</td><td>Add fault labels, observations, or repair notes directly on the image.</td></tr>
+<tr><td>Freehand marker</td><td>Quick visual markup during active inspection.</td></tr>
+<tr><td>Undo / redo</td><td>Prevent annotation workflow frustration.</td></tr>
+<tr><td>Clear annotations</td><td>Reset markup while preserving the base capture.</td></tr>
+</table>
+
+<h4>Future Annotation Tools</h4>
+<table>
+<tr><th>Future Tool</th><th>Notes</th></tr>
+<tr><td>Measurement line</td><td>Requires calibration before it can be trusted.</td></tr>
+<tr><td>Scale overlay</td><td>Depends on microscope magnification and camera calibration.</td></tr>
+<tr><td>Layered annotations</td><td>Useful for editability but not required for M1.</td></tr>
+</table>
+
+<div class="note warn">
+<strong>Engineering rule:</strong> annotations must not permanently destroy the original captured frame unless the user intentionally exports a flattened copy.
+</div>
+<div class="page-num">7</div>
+</section>
+
+<section class="page">
+<h3>8. File Naming and Timestamp Standard</h3>
+<p class="sub">Initial save behavior for screenshots and metadata sidecars.</p>
+
+<h4>Default Filename Pattern</h4>
+<pre>YYYY-MM-DD_HH-MM-SS_ProjectName_BoardName.png</pre>
+
+<h4>Example</h4>
+<pre>2026-06-03_07-42-18_Arduino_SolderBridge.png</pre>
+
+<h4>Sidecar Metadata Pattern</h4>
+<pre>YYYY-MM-DD_HH-MM-SS_ProjectName_BoardName.json</pre>
+
+<h4>Initial Metadata Fields</h4>
+<table>
+<tr><th>Field</th><th>Purpose</th></tr>
+<tr><td><code>timestamp</code></td><td>Exact capture date/time.</td></tr>
+<tr><td><code>projectName</code></td><td>Project or lab assignment name.</td></tr>
+<tr><td><code>boardName</code></td><td>PCB, device, component, or inspection target.</td></tr>
+<tr><td><code>technician</code></td><td>Person performing capture or annotation.</td></tr>
+<tr><td><code>notes</code></td><td>Right-side panel notes.</td></tr>
+<tr><td><code>captureDevice</code></td><td>Detected capture device name.</td></tr>
+<tr><td><code>resolution</code></td><td>Image resolution at capture time.</td></tr>
+<tr><td><code>annotations</code></td><td>Future structured annotation data.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Decision:</strong> Use readable PNG + JSON sidecar output first. SQLite can be added later when the project library needs search, indexing, and history views.
+</div>
+<div class="page-num">8</div>
+</section>
+
+<section class="page">
+<h3>9. Project Storage Model</h3>
+<p class="sub">Initial storage plan before database-driven project management.</p>
+
+<h4>Recommended Folder Model</h4>
+<pre>Lab Imager Captures/
+  ProjectName/
+    YYYY-MM-DD/
+      2026-06-03_07-42-18_ProjectName_BoardName.png
+      2026-06-03_07-42-18_ProjectName_BoardName.json</pre>
+
+<h4>Future Project Library</h4>
+<table>
+<tr><th>Feature</th><th>Phase</th></tr>
+<tr><td>Recent captures view</td><td>Phase 3+</td></tr>
+<tr><td>Project/session library</td><td>Phase 4+</td></tr>
+<tr><td>Search by board, technician, category, date</td><td>Phase 4+</td></tr>
+<tr><td>SQLite indexing</td><td>Phase 4+</td></tr>
+<tr><td>Export project packet</td><td>Future</td></tr>
+</table>
+
+<div class="page-num">9</div>
+</section>
+
+<section class="page">
+<h3>10. Theme and Appearance Doctrine</h3>
+<p class="sub">Default dark-mode requirement and user-selectable appearance settings.</p>
+
+<div class="note ok">
+<strong>Decision:</strong> Lab Imager launches in dark mode by default.
+</div>
+
+<h4>Appearance Options</h4>
+<table>
+<tr><th>Option</th><th>Behavior</th></tr>
+<tr><td>Dark</td><td>Default operator mode for bench/lab use.</td></tr>
+<tr><td>Light</td><td>Optional user-selected mode for bright environments or print/screenshot preference.</td></tr>
+<tr><td>System Default</td><td>Follow Windows application theme setting where practical.</td></tr>
+</table>
+
+<h4>Implementation Requirement</h4>
+<pre>Lab Imager will launch in dark mode by default, with a user-selectable appearance setting allowing Dark, Light, or System Default mode. Theme preference should be saved in local application settings and restored on launch.</pre>
+
+<h4>Initial Palette Direction</h4>
+<table>
+<tr><th>Token</th><th>Color</th></tr>
+<tr><td>Background</td><td><code>#111827</code></td></tr>
+<tr><td>Primary</td><td><code>#2563EB</code></td></tr>
+<tr><td>Accent</td><td><code>#60A5FA</code></td></tr>
+<tr><td>Highlight</td><td><code>#93C5FD</code></td></tr>
+</table>
+
+<div class="page-num">10</div>
+</section>
+
+<section class="page">
+<h3>11. Repository Structure Plan</h3>
+<p class="sub">Initial C#/.NET project layout target.</p>
+
+<h4>Recommended Repository Structure</h4>
+<pre>lab-imager/
+├── src/
+│   └── LabImager/
+│       ├── App.xaml
+│       ├── MainWindow.xaml
+│       ├── Core/
+│       ├── Capture/
+│       ├── Annotation/
+│       ├── Imaging/
+│       ├── Storage/
+│       ├── Settings/
+│       ├── Themes/
+│       └── UI/
+├── assets/
+│   ├── icons/
+│   ├── logo/
+│   └── themes/
+├── docs/
+│   ├── architecture/
+│   ├── captures/
+│   ├── roadmap/
+│   └── lab-imager-log.html
+├── tests/
+├── builds/
+├── README.md
+├── LICENSE
+└── .gitignore</pre>
+
+<h4>Folder Purpose</h4>
+<table>
+<tr><th>Folder</th><th>Purpose</th></tr>
+<tr><td><code>Core</code></td><td>Application state, shared services, orchestration.</td></tr>
+<tr><td><code>Capture</code></td><td>Camera device detection, frame acquisition, capture pipeline.</td></tr>
+<tr><td><code>Annotation</code></td><td>Markup tools, annotation objects, undo/redo logic.</td></tr>
+<tr><td><code>Imaging</code></td><td>Image conversion, export, scaling, overlays, rendering helpers.</td></tr>
+<tr><td><code>Storage</code></td><td>File saving, metadata sidecars, future database library.</td></tr>
+<tr><td><code>Settings</code></td><td>User preferences, theme selection, save paths, app configuration.</td></tr>
+<tr><td><code>Themes</code></td><td>Dark, Light, and System Default resource dictionaries.</td></tr>
+<tr><td><code>UI</code></td><td>Controls, panels, dialogs, and reusable WPF components.</td></tr>
+</table>
+
+<div class="page-num">11</div>
+</section>
+
+<section class="page">
+<h3>12. Git Workflow and Branching Standard</h3>
+<p class="sub">Initial workflow recommendation before first code commits.</p>
+
+<h4>Recommended Branches</h4>
+<table>
+<tr><th>Branch</th><th>Purpose</th></tr>
+<tr><td><code>main</code></td><td>Stable known-good state.</td></tr>
+<tr><td><code>dev</code></td><td>Active development integration.</td></tr>
+<tr><td><code>staging</code></td><td>Pre-release validation branch when builds become installable.</td></tr>
+</table>
+
+<h4>Commit Discipline</h4>
+<ul>
+<li>Commit after each validated milestone.</li>
+<li>Do not combine capture-pipeline work with annotation work in the same commit.</li>
+<li>Document architecture decisions in <code>docs/architecture/</code>.</li>
+<li>Keep this HTML log updated after verified project decisions or build milestones.</li>
+<li>Do not rename this log file unless intentionally restructuring docs.</li>
+</ul>
+
+<div class="note ok">
+<strong>Recommended log path:</strong> <code>docs/lab-imager-log.html</code>
+</div>
+<div class="page-num">12</div>
+</section>
+
+<section class="page">
+<h3>13. Icon, Logo, and Favicon Direction</h3>
+<p class="sub">Microscope/electronics branding direction for GitHub, app icon, and future installer identity.</p>
+
+<h4>Approved Direction</h4>
+<table>
+<tr><th>Visual Element</th><th>Usage</th></tr>
+<tr><td>Microscope silhouette</td><td>Primary identity symbol.</td></tr>
+<tr><td>PCB traces</td><td>Electronics-domain signal.</td></tr>
+<tr><td>Crosshair / focus reticle</td><td>Inspection and precision imaging signal.</td></tr>
+<tr><td>Camera aperture</td><td>Capture/image system signal.</td></tr>
+<tr><td>Solder pad / chip outline</td><td>Bench-lab and PCB diagnostics signal.</td></tr>
+</table>
+
+<h4>Style Requirements</h4>
+<ul>
+<li>Readable at 32x32.</li>
+<li>High contrast.</li>
+<li>Works in monochrome.</li>
+<li>Avoid cartoon science icons.</li>
+<li>Avoid generic flat SaaS clipart.</li>
+<li>Favor industrial inspection and lab instrumentation aesthetics.</li>
+</ul>
+
+<h4>Suggested Icon Concept</h4>
+<div class="summary">
+<p>A circular microscope lens with subtle PCB traces inside, paired with a focus reticle or chip outline. The icon should feel like precision inspection software, not a school-science graphic.</p>
+</div>
+
+<div class="page-num">13</div>
+</section>
+
+<section class="page">
+<h3>14. Future Feature Roadmap</h3>
+<p class="sub">Planned feature progression after M1 capture stability.</p>
+
+<table>
+<tr><th>Phase</th><th>Focus</th><th>Deliverables</th></tr>
+<tr><td>Phase 1</td><td>Live capture</td><td>Device detection, live preview, screenshot, timestamped filename.</td></tr>
+<tr><td>Phase 2</td><td>Viewport tools</td><td>Zoom, pan, fullscreen, freeze frame, fit-to-window.</td></tr>
+<tr><td>Phase 3</td><td>Annotations</td><td>Arrow, rectangle, circle, text label, freehand marker, undo/redo.</td></tr>
+<tr><td>Phase 4</td><td>Project records</td><td>Project folders, JSON metadata, recent captures, right-side notes panel.</td></tr>
+<tr><td>Phase 5</td><td>Library/database</td><td>SQLite index, project browser, search/filter, capture history.</td></tr>
+<tr><td>Phase 6</td><td>Packaging</td><td>Installer, app icon, versioning, release notes.</td></tr>
+<tr><td>Future</td><td>Advanced imaging</td><td>Video recording, calibration, measurement tools, comparison mode.</td></tr>
+</table>
+
+<div class="page-num">14</div>
+</section>
+
+<section class="page">
+<h3>15. Initial Build Constraints and Safe Start Rules</h3>
+<p class="sub">Rules to keep the first implementation practical and stable.</p>
+
+<div class="note warn">
+<strong>Primary risk:</strong> overbuilding the application before proving the live capture pipeline.
+</div>
+
+<h4>Safe Start Rules</h4>
+<ol>
+<li>Build the WPF shell first.</li>
+<li>Enumerate capture devices second.</li>
+<li>Render the live feed third.</li>
+<li>Capture PNG screenshots fourth.</li>
+<li>Add timestamped naming fifth.</li>
+<li>Only then add zoom, notes, annotations, and project records.</li>
+</ol>
+
+<h4>Do Not Start With</h4>
+<ul>
+<li>A complex database schema.</li>
+<li>A full annotation engine.</li>
+<li>A plugin system.</li>
+<li>A cloud account model.</li>
+<li>Measurement tools before calibration exists.</li>
+<li>Video recording before still capture is stable.</li>
+</ul>
+
+<div class="note ok">
+<strong>Current next engineering move:</strong> create the repository, add the planned folder structure, commit this log, then build the first WPF application shell.
+</div>
+<div class="page-num">15</div>
+</section>
+
+<section class="page">
+<h3>Resources. Lab Imager Command Library</h3>
+<p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
+
+<div class="note watch">
+These commands are starting points. Paths should be adjusted once the GitHub repository is cloned locally.
+</div>
+
+<h4>Create Initial .NET WPF Project</h4>
+<pre>dotnet new sln -n LabImager
+mkdir src
+cd src
+dotnet new wpf -n LabImager
+cd ..
+dotnet sln add .\src\LabImager\LabImager.csproj</pre>
+
+<h4>Recommended Documentation Folders</h4>
+<pre>mkdir docs
+mkdir docsrchitecture
+mkdir docsoadmap
+mkdir docs\captures
+mkdir assets
+mkdir assets\icons
+mkdir assets\logo
+mkdir builds
+mkdir tests</pre>
+
+<h4>Initial Git Commit</h4>
+<pre>git status
+git add .
+git commit -m "Initialize Lab Imager project structure"
+git push origin main</pre>
+
+<h4>HTML Log Structural Check</h4>
+<pre>python - <<'PY'
+from pathlib import Path
+import re
+
+p = Path('docs/lab-imager-log.html')
+text = p.read_text(encoding='utf-8', errors='replace')
+
+heads = re.findall(r'&lt;h3&gt;(\d+)\.', text)
+
+print('Sections:', heads[0] if heads else 'none', 'through', heads[-1] if heads else 'none', 'count=', len(heads))
+print('body closures:', text.count('&lt;/body&gt;'))
+print('html closures:', text.count('&lt;/html&gt;'))
+print('resources present:', 'Resources. Lab Imager Command Library' in text)
+PY</pre>
+
+<h4>Standing Ledger Rule</h4>
+<div class="note ok">
+Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not regenerate older sections unless explicitly required. Preserve chronological section order and keep the filename stable.
+</div>
+
+<div class="page-num">Resources</div>
+</section>
+
+</body>
+</html>
