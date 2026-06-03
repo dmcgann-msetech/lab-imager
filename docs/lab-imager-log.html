@@ -956,6 +956,43 @@ git push origin main</pre>
 
 
 <section class="page">
+
+<section class="page">
+<h3>19. Screenshot Capture Pipeline Foundation</h3>
+
+<p><strong>Status:</strong> Completed and pushed to <code>main</code>.</p>
+
+<p><strong>Commit:</strong> <code>ca7f380 - Add screenshot capture service and viewport PNG export</code></p>
+
+<p>This phase introduced the first operational imaging-output capability into Lab Imager. The application can now capture the rendered viewport surface and export timestamped PNG screenshots to the local filesystem.</p>
+
+<h4>Completed Work</h4>
+<ul>
+    <li>Created <code>Services/Capture</code>.</li>
+    <li>Added <code>IViewportCaptureService</code>.</li>
+    <li>Added <code>ViewportCaptureService</code>.</li>
+    <li>Named the viewport surface <code>ViewportSurface</code>.</li>
+    <li>Wired the Capture Screenshot button.</li>
+    <li>Saved PNG captures to the user Pictures directory.</li>
+    <li>Confirmed successful runtime screenshot output.</li>
+</ul>
+
+<h4>Validation</h4>
+<ul>
+    <li><code>dotnet build</code> completed with 0 errors.</li>
+    <li><code>dotnet run</code> launched successfully.</li>
+    <li>Status bar displayed the saved screenshot path.</li>
+    <li>No runtime crash occurred.</li>
+</ul>
+
+<h4>Encoding Note</h4>
+<p>Raw emoji glyphs in XAML caused corruption during Windows PowerShell 5.1 edits. XAML iconography was stabilized by using XML-safe numeric Unicode entities instead of raw emoji characters.</p>
+
+<h4>Next Engineering Target</h4>
+<p>Replace <code>StubAppSettingsService</code> with a real persistent settings provider for restoring the selected default source across application restarts.</p>
+
+</section>
+
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
 
