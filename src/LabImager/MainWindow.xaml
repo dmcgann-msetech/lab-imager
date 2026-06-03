@@ -286,6 +286,33 @@
                                      FontSize="15"
                                      Padding="12"/>
 
+ <TextBlock Text="Camera"
+ FontSize="15"
+ FontWeight="SemiBold"
+ Margin="0,0,0,8"/>
+
+ <ComboBox x:Name="CameraSelector"
+ Height="46"
+ MaxDropDownHeight="220"
+ Margin="0,0,0,10"
+ Background="#020B18"
+ Foreground="#E5E7EB"
+ BorderBrush="#2563EB"
+ FontSize="15"
+ Padding="10">
+ <ComboBoxItem Content="No Cameras Detected" Foreground="Black" FontWeight="SemiBold"/>
+ </ComboBox>
+
+ <Button x:Name="SetDefaultCameraButton"
+ Content="Set Selected Camera as Default"
+ Height="42"
+ Margin="0,0,0,18"
+ Background="#0B63F6"
+ Foreground="White"
+ BorderBrush="#38BDF8"
+ FontSize="14"
+ FontWeight="SemiBold"/>
+
                             <TextBlock Text="Notes"
                                        FontSize="15"
                                        FontWeight="SemiBold"
@@ -363,3 +390,4 @@
         </Grid>
     </Border>
 </Window>
+
