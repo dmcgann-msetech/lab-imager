@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -52,9 +52,9 @@ tbody tr:nth-child(even){background:#fafcff}
 
 <section class="page cover">
 <div>
-<div class="eyebrow">Lab Imager · Internal Engineering Record</div>
+<div class="eyebrow">Lab Imager Â· Internal Engineering Record</div>
 <div class="rule"></div>
-<div class="icon-mark">🔬</div>
+<div class="icon-mark">ðŸ”¬</div>
 <h1>Lab Imager Project Log</h1>
 <h2>HDMI Microscope Capture, Annotation, Screenshot, and Bench Documentation Workstation</h2>
 <div class="summary">
@@ -225,15 +225,15 @@ tbody tr:nth-child(even){background:#fafcff}
 
 <h4>Baseline Pipeline</h4>
 <pre>HDMI microscope camera
-        ↓
+        â†“
 HDMI capture device
-        ↓
+        â†“
 Bench computer USB/PCIe input
-        ↓
+        â†“
 Windows camera/capture subsystem
-        ↓
+        â†“
 Lab Imager live preview
-        ↓
+        â†“
 Screenshot / annotation / saved record</pre>
 
 <h4>Pipeline Requirements</h4>
@@ -430,32 +430,32 @@ Screenshot / annotation / saved record</pre>
 
 <h4>Recommended Repository Structure</h4>
 <pre>lab-imager/
-├── src/
-│   └── LabImager/
-│       ├── App.xaml
-│       ├── MainWindow.xaml
-│       ├── Core/
-│       ├── Capture/
-│       ├── Annotation/
-│       ├── Imaging/
-│       ├── Storage/
-│       ├── Settings/
-│       ├── Themes/
-│       └── UI/
-├── assets/
-│   ├── icons/
-│   ├── logo/
-│   └── themes/
-├── docs/
-│   ├── architecture/
-│   ├── captures/
-│   ├── roadmap/
-│   └── lab-imager-log.html
-├── tests/
-├── builds/
-├── README.md
-├── LICENSE
-└── .gitignore</pre>
+â”œâ”€â”€ src/
+â”‚   â””â”€â”€ LabImager/
+â”‚       â”œâ”€â”€ App.xaml
+â”‚       â”œâ”€â”€ MainWindow.xaml
+â”‚       â”œâ”€â”€ Core/
+â”‚       â”œâ”€â”€ Capture/
+â”‚       â”œâ”€â”€ Annotation/
+â”‚       â”œâ”€â”€ Imaging/
+â”‚       â”œâ”€â”€ Storage/
+â”‚       â”œâ”€â”€ Settings/
+â”‚       â”œâ”€â”€ Themes/
+â”‚       â””â”€â”€ UI/
+â”œâ”€â”€ assets/
+â”‚   â”œâ”€â”€ icons/
+â”‚   â”œâ”€â”€ logo/
+â”‚   â””â”€â”€ themes/
+â”œâ”€â”€ docs/
+â”‚   â”œâ”€â”€ architecture/
+â”‚   â”œâ”€â”€ captures/
+â”‚   â”œâ”€â”€ roadmap/
+â”‚   â””â”€â”€ lab-imager-log.html
+â”œâ”€â”€ tests/
+â”œâ”€â”€ builds/
+â”œâ”€â”€ README.md
+â”œâ”€â”€ LICENSE
+â””â”€â”€ .gitignore</pre>
 
 <h4>Folder Purpose</h4>
 <table>
@@ -641,5 +641,77 @@ Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not reg
 <div class="page-num">Resources</div>
 </section>
 
+<section class="page">
+<h3>16. M1-A UI Design Approval — Final Approved Concept</h3>
+<p class="sub">Canonical Lab Imager interface direction approved for first-generation UI development.</p>
+
+<div class="note ok">
+<strong>Approved:</strong> Dark engineering workstation layout with deep navy-blue theme, microscope viewport, right-side metadata dock, bottom instrumentation/status bar, and coordinated blue accent system.
+</div>
+
+<h4>Approved Visual Standards</h4>
+<ul>
+<li>Dark-mode-first engineering interface</li>
+<li>Deep navy / pastel-blue instrumentation theme</li>
+<li>Dotted engineering-grid viewport styling</li>
+<li>Microscope framing brackets</li>
+<li>Integrated bottom status bar</li>
+<li>Right-side metadata/session dock</li>
+<li>Soft neon-blue accent system</li>
+<li>ADHD/autism-friendly visual consistency</li>
+<li>Canonical design reference to prevent UI drift</li>
+</ul>
+
+<div class="note watch">
+<strong>Design rule:</strong> Future UI changes must remain visually coordinated with this approved baseline unless a deliberate redesign is logged.
+</div>
+
+<div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
+<img src="assets/ui/lab_design.png" alt="Approved Final Lab Imager UI" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<p class="sub" style="text-align:center;margin-top:8px">Final approved Lab Imager interface direction.</p>
+</div>
+
+<div class="page-num">16</div>
+</section>
 </body>
 </html>
+
+<div class="log-entry">
+
+    <div class="log-header">
+        <span class="log-title">M1-A UI Design Approval — Final Approved Concept</span>
+        <span class="log-date">2026-06-03</span>
+    </div>
+
+    <p>
+        Finalized and approved the canonical Lab Imager interface direction.
+        This establishes the official UI/UX baseline for future development.
+    </p>
+
+    <ul>
+        <li>Dark-mode-first engineering interface approved</li>
+        <li>Deep navy/pastel-blue instrumentation theme approved</li>
+        <li>Dotted engineering-grid viewport styling approved</li>
+        <li>Microscope framing brackets approved</li>
+        <li>Integrated bottom instrumentation/status bar approved</li>
+        <li>Right-side metadata/session dock approved</li>
+        <li>Soft neon-blue accent system approved</li>
+        <li>ADHD/autism-friendly visual consistency confirmed</li>
+        <li>Canonical design reference established to prevent UI drift</li>
+    </ul>
+
+    <div class="image-container">
+        <img src="assets/ui/lab_design.png"
+             alt="Approved Final Lab Imager UI">
+
+        <div class="image-caption">
+            Final approved Lab Imager interface direction establishing
+            the canonical visual baseline for viewport layout,
+            metadata dock architecture, instrumentation styling,
+            and engineering theme standards.
+        </div>
+    </div>
+
+</div>
+
+

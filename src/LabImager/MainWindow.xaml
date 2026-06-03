@@ -1,12 +1,94 @@
 ﻿<Window x:Class="LabImager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LabImager"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Lab Imager"
+        Height="900"
+        Width="1600"
+        WindowStartupLocation="CenterScreen"
+        Background="#111827"
+        Foreground="#E5E7EB">
+
     <Grid>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="350" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                Margin="10"
+                CornerRadius="8"
+                Background="#1F2937"
+                BorderBrush="#374151"
+                BorderThickness="1">
+
+            <Grid>
+                <TextBlock Text="MICROSCOPE VIEWPORT"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="#6B7280"/>
+            </Grid>
+
+        </Border>
+
+        <Border Grid.Column="1"
+                Margin="0,10,10,10"
+                CornerRadius="8"
+                Background="#1F2937"
+                BorderBrush="#374151"
+                BorderThickness="1">
+
+            <StackPanel Margin="15">
+
+                <TextBlock Text="LAB SESSION"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20"/>
+
+                <TextBlock Text="Project Name"/>
+                <TextBox Height="32"
+                         Margin="0,5,0,15"
+                         Background="#111827"
+                         Foreground="White"
+                         BorderBrush="#374151"/>
+
+                <TextBlock Text="Board / Device"/>
+                <TextBox Height="32"
+                         Margin="0,5,0,15"
+                         Background="#111827"
+                         Foreground="White"
+                         BorderBrush="#374151"/>
+
+                <TextBlock Text="Technician"/>
+                <TextBox Height="32"
+                         Margin="0,5,0,15"
+                         Background="#111827"
+                         Foreground="White"
+                         BorderBrush="#374151"/>
+
+                <TextBlock Text="Notes"/>
+                <TextBox Height="200"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         Margin="0,5,0,15"
+                         Background="#111827"
+                         Foreground="White"
+                         BorderBrush="#374151"/>
+
+                <Button Content="Capture Screenshot"
+                        Height="42"
+                        FontWeight="Bold"
+                        Background="#2563EB"
+                        Foreground="White"
+                        BorderBrush="#2563EB"/>
+
+            </StackPanel>
+
+        </Border>
+
     </Grid>
+
 </Window>
