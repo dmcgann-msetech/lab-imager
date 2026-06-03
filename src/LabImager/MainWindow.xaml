@@ -1,4 +1,4 @@
-<Window x:Class="LabImager.MainWindow"
+﻿<Window x:Class="LabImager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Lab Imager"
@@ -55,7 +55,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center">
 
-                        <Button Content="—"
+                        <Button Content="-"
                                 Width="44"
                                 Height="34"
                                 Background="Transparent"
@@ -64,7 +64,7 @@
                                 FontSize="13"
                                 Click="MinimizeButton_Click"/>
 
-                        <Button Content="□"
+                        <Button Content="[]"
                                 Width="44"
                                 Height="34"
                                 Background="Transparent"
@@ -73,7 +73,7 @@
                                 FontSize="14"
                                 Click="MaximizeRestoreButton_Click"/>
 
-                        <Button Content="×"
+                        <Button Content="X"
                                 Width="44"
                                 Height="34"
                                 Background="Transparent"
@@ -343,9 +343,9 @@
                                         Click="StopPreviewButton_Click"
                                         Content="Stop Preview"
                                         Height="34"
-                                        Background="#7F1D1D"
+                                        Background="#334155"
                                         Foreground="White"
-                                        BorderBrush="#F87171"
+                                        BorderBrush="#64748B"
                                         FontSize="13"
                                         FontWeight="SemiBold"/>
                             </Grid>
@@ -377,8 +377,8 @@
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal"
                                                         Margin="0,0,0,4">
-                                                <Button Content="↶" Width="24" Margin="0,0,4,0"/>
-                                                <Button Content="↷" Width="24" Margin="0,0,8,0"/>
+                                                <Button Content="U" Width="24" Margin="0,0,4,0"/>
+                                                <Button Content="R" Width="24" Margin="0,0,8,0"/>
 
                                                 <ComboBox Width="110"
                                                           Height="28"
@@ -391,15 +391,15 @@
 
                                                 <Button Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold"/>
                                                 <Button Content="I" Width="28" Margin="0,0,4,0" FontStyle="Italic"/>
-                                                <Button Content="U" Width="28" Margin="0,0,4,0"/>
+                                                <Button Content="-" Width="28" Margin="0,0,4,0"/>
                                                 <Button Content="A" Width="28"/>
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal">
-                                                <Button Content="☰" Width="34" Margin="0,0,4,0"/>
-                                                <Button Content="•" Width="34" Margin="0,0,4,0"/>
+                                                <Button Content="List" Width="34" Margin="0,0,4,0"/>
+                                                <Button Content="Align" Width="48" Margin="0,0,4,0"/>
                                                 <Button Content="1." Width="38" Margin="0,0,4,0"/>
-                                                <Button Content="⇥" Width="34"/>
+                                                <Button Content="Tab" Width="34"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
@@ -441,7 +441,7 @@
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center">
 
-                        <TextBlock Text="●"
+                        <TextBlock Text=""
                                    Foreground="#22C55E"
                                    FontSize="18"
                                    Margin="0,0,10,0"/>
@@ -479,3 +479,6 @@
         </Grid>
     </Border>
 </Window>
+
+
+

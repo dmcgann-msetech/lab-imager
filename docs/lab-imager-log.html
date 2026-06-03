@@ -958,186 +958,260 @@ git push origin main</pre>
 
 <section class="page">
 <h3>19. Screenshot Capture Pipeline Foundation</h3>
+<p class="sub">Operational viewport screenshot export milestone, PNG output standard, validation record, and encoding stabilization note.</p>
 
-<p><strong>Status:</strong> Completed and synchronized to <code>main</code>.</p>
-<p><strong>Commit:</strong> <code>ca7f380 - Add screenshot capture service and viewport PNG export</code></p>
+<div class="note ok">
+<strong>Final status:</strong> Screenshot capture is complete and synchronized to <code>main</code> under commit <code>ca7f380</code> with message <code>Add screenshot capture service and viewport PNG export</code>.
+</div>
 
-<p>This phase introduced the first operational imaging-output capability into Lab Imager. The application can now capture the rendered viewport surface and export timestamped PNG screenshots to the local filesystem. This moved the project beyond visual mockup work and into functional imaging workstation behavior.</p>
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the first operational imaging-output capability added to Lab Imager. Prior work established the visual shell, viewport, source selector, and workstation-style interface. This milestone moved the application beyond static UI construction by allowing the rendered microscope viewport surface to be captured and exported as a timestamped PNG file.
+</p>
+<p>
+The implemented capture flow is intentionally practical: capture the current WPF viewport surface, encode it as PNG, save it to a predictable user Pictures location, and report the save path back through the application status layer. This gives Lab Imager an immediate bench-documentation output path before live DirectShow rendering and annotation tools are introduced.
+</p>
 
 <h4>Implementation Summary</h4>
 <table>
-<thead>
-<tr><th>Area</th><th>Change</th><th>Result</th></tr>
-</thead>
-<tbody>
-<tr><td>Capture Service Layer</td><td>Created <code>Services/Capture</code>.</td><td><span class="badge green">COMPLETED</span></td></tr>
-<tr><td>Interface Contract</td><td>Added <code>IViewportCaptureService</code>.</td><td><span class="badge green">COMPLETED</span></td></tr>
-<tr><td>Implementation</td><td>Added <code>ViewportCaptureService</code>.</td><td><span class="badge green">COMPLETED</span></td></tr>
-<tr><td>Viewport Target</td><td>Named viewport surface <code>ViewportSurface</code>.</td><td><span class="badge green">COMPLETED</span></td></tr>
-<tr><td>Button Wiring</td><td>Connected Capture Screenshot button to code-behind.</td><td><span class="badge green">COMPLETED</span></td></tr>
-<tr><td>Filesystem Output</td><td>PNG captures saved to Pictures directory.</td><td><span class="badge green">VALIDATED</span></td></tr>
-</tbody>
+<tr><th>Area</th><th>Change</th><th>Status</th></tr>
+<tr><td>Capture service layer</td><td>Created <code>Services/Capture</code> to isolate viewport export logic from UI event handling.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Service contract</td><td>Added <code>IViewportCaptureService</code> as the stable interface boundary for screenshot capture.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Service implementation</td><td>Added <code>ViewportCaptureService</code> to render a WPF visual into a bitmap and encode PNG output.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Viewport target</td><td>Named the capture target surface <code>ViewportSurface</code> so the screenshot pipeline has a deterministic visual source.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Button wiring</td><td>Connected the <code>Capture Screenshot</code> button to the capture workflow.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Filesystem output</td><td>Confirmed PNG files are written to the configured Pictures directory.</td><td><span class="status done">Validated</span></td></tr>
 </table>
 
 <h4>Capture Output Standard</h4>
 <table>
-<thead>
-<tr><th>Item</th><th>Standard</th></tr>
-</thead>
-<tbody>
-<tr><td>Default Folder</td><td><code>%USERPROFILE%\Pictures\Lab Imager\Captures</code></td></tr>
-<tr><td>File Format</td><td><code>.png</code></td></tr>
-<tr><td>Filename Pattern</td><td><code>lab-imager-capture-yyyyMMdd-HHmmss.png</code></td></tr>
-<tr><td>Renderer</td><td>WPF <code>RenderTargetBitmap</code></td></tr>
-<tr><td>Encoder</td><td><code>PngBitmapEncoder</code></td></tr>
-</tbody>
+<tr><th>Output Item</th><th>Standard</th><th>Purpose</th></tr>
+<tr><td>Default folder</td><td><code>%USERPROFILE%\Pictures\Lab Imager\Captures</code></td><td>Keeps bench captures in a predictable user-owned location.</td></tr>
+<tr><td>File format</td><td><code>.png</code></td><td>Preserves image clarity for PCB inspection and documentation.</td></tr>
+<tr><td>Filename pattern</td><td><code>lab-imager-capture-yyyyMMdd-HHmmss.png</code></td><td>Prevents overwrite collisions and preserves capture chronology.</td></tr>
+<tr><td>Renderer</td><td>WPF <code>RenderTargetBitmap</code></td><td>Captures the current rendered viewport surface.</td></tr>
+<tr><td>Encoder</td><td><code>PngBitmapEncoder</code></td><td>Produces standard PNG output without requiring external imaging libraries.</td></tr>
 </table>
 
 <h4>Validation Matrix</h4>
 <table>
-<thead>
-<tr><th>Validation</th><th>Result</th></tr>
-</thead>
-<tbody>
-<tr><td><code>dotnet build</code></td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td><code>dotnet run</code></td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Screenshot button execution</td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>PNG file written to disk</td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Status bar save-path feedback</td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Viewport layout after integration</td><td><span class="badge green">STABLE</span></td></tr>
-</tbody>
+<tr><th>Validation</th><th>Result</th><th>Notes</th></tr>
+<tr><td><code>dotnet build</code></td><td><span class="status done">Passed</span></td><td>Project compiled successfully after capture-service integration.</td></tr>
+<tr><td><code>dotnet run</code></td><td><span class="status done">Passed</span></td><td>Application launched successfully for runtime review.</td></tr>
+<tr><td>Screenshot button execution</td><td><span class="status done">Passed</span></td><td>Button invoked the viewport capture workflow.</td></tr>
+<tr><td>PNG file written to disk</td><td><span class="status done">Passed</span></td><td>Timestamped PNG output was created successfully.</td></tr>
+<tr><td>Status bar save-path feedback</td><td><span class="status done">Passed</span></td><td>User-facing confirmation reported the output path.</td></tr>
+<tr><td>Viewport layout after integration</td><td><span class="status done">Stable</span></td><td>Capture functionality did not destabilize the approved viewport UI.</td></tr>
 </table>
 
 <h4>Encoding Stabilization Note</h4>
-<p>During this phase, Windows PowerShell 5.1 repeatedly corrupted raw Unicode glyphs in XAML when using unsafe file-write methods. XAML iconography was stabilized by replacing raw emoji glyphs with XML-safe numeric Unicode entities.</p>
+<div class="note warn">
+<strong>Observed issue:</strong> Windows PowerShell 5.1 repeatedly corrupted raw Unicode glyphs in XAML when unsafe file-write methods were used. The stabilization path was to replace raw emoji glyphs with XML-safe numeric Unicode entities where needed.
+</div>
 
-<div class="callout good">
-<strong>Checkpoint Decision:</strong> Screenshot capture is now a real functional subsystem. The app can produce a saved PNG record from the viewport, which is a core requirement for lab documentation and later annotation/export workflows.
+<h4>Engineering Significance</h4>
+<div class="grid-2">
+<div class="card"><strong>Real Output</strong><span>Lab Imager can now produce an actual saved image artifact from the viewport instead of only displaying a mock workstation shell.</span></div>
+<div class="card"><strong>Service Boundary</strong><span>Screenshot logic is separated behind a capture service, keeping the UI layer cleaner for future expansion.</span></div>
+<div class="card"><strong>Bench Documentation</strong><span>The PNG export path supports immediate inspection records, lab notes, and future annotation/export workflows.</span></div>
+<div class="card"><strong>Forward Compatibility</strong><span>The capture mechanism can later be reused after live preview rendering is connected to the viewport.</span></div>
+</div>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Screenshot capture is now a functional subsystem. This satisfies a core Lab Imager requirement for lab documentation and establishes the output path needed before annotation, metadata sidecars, and reporting workflows are expanded.
 </div>
 
 <h4>Next Engineering Target</h4>
-<p>Proceed to persistent settings service implementation so selected sources can survive application restart.</p>
+<p>Proceed to persistent settings service implementation so selected sources can survive application restart and support deterministic camera workflow behavior.</p>
+
+<div class="page-num">19</div>
 </section>
 
 <section class="page">
 <h3>20. Persistent JSON Settings Service and Source Restoration</h3>
+<p class="sub">Disk-backed application settings milestone for selected source persistence, restart restoration, and future preference storage.</p>
 
-<p><strong>Status:</strong> Completed and synchronized to <code>main</code>.</p>
-<p><strong>Commit:</strong> <code>cc2ab98 - Add persistent JSON settings service for source restoration</code></p>
+<div class="note ok">
+<strong>Final status:</strong> JSON-backed settings persistence is complete and synchronized to <code>main</code> under commit <code>cc2ab98</code> with message <code>Add persistent JSON settings service for source restoration</code>.
+</div>
 
-<p>This phase replaced the temporary in-memory settings scaffold with a real JSON-backed settings provider. The application can now save and restore selected source configuration across application restarts.</p>
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the replacement of the temporary in-memory settings scaffold with a disk-backed JSON settings provider. The application can now save selected source configuration and restore it across application restarts, which is required before reliable live preview behavior can be implemented.
+</p>
+<p>
+The persistence layer intentionally uses a simple user-scoped JSON file rather than a database. That decision keeps the application lightweight while still supporting the immediate requirements: default source name, default source device path, safe startup behavior, and future expansion for additional user preferences.
+</p>
 
 <h4>Settings Persistence Architecture</h4>
 <table>
-<thead>
 <tr><th>Component</th><th>Purpose</th><th>Status</th></tr>
-</thead>
-<tbody>
-<tr><td><code>JsonAppSettingsService</code></td><td>Disk-backed settings provider.</td><td><span class="badge green">ADDED</span></td></tr>
-<tr><td><code>System.Text.Json</code></td><td>Built-in JSON serialization.</td><td><span class="badge green">USED</span></td></tr>
-<tr><td><code>%APPDATA%</code> storage</td><td>User-scoped application settings location.</td><td><span class="badge green">IMPLEMENTED</span></td></tr>
-<tr><td>Fallback load behavior</td><td>Returns safe defaults when settings file is missing or empty.</td><td><span class="badge green">IMPLEMENTED</span></td></tr>
-</tbody>
+<tr><td><code>JsonAppSettingsService</code></td><td>Provides the disk-backed implementation of the application settings service.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>IAppSettingsService</code></td><td>Preserves a stable settings-service contract for load/save operations.</td><td><span class="status done">Used</span></td></tr>
+<tr><td><code>System.Text.Json</code></td><td>Serializes and deserializes the application settings model without external dependencies.</td><td><span class="status done">Used</span></td></tr>
+<tr><td><code>%APPDATA%</code> storage</td><td>Stores settings in a user-scoped Windows application data location.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td>Fallback load behavior</td><td>Returns safe defaults when the settings file is missing, empty, or unreadable.</td><td><span class="status done">Implemented</span></td></tr>
 </table>
 
 <h4>Persistent Storage Location</h4>
-<pre><code>%APPDATA%\Lab Imager\appsettings.json</code></pre>
+<pre>%APPDATA%\Lab Imager\appsettings.json</pre>
 
 <h4>Persisted Settings</h4>
 <table>
-<thead>
-<tr><th>Setting</th><th>Purpose</th></tr>
-</thead>
-<tbody>
-<tr><td><code>DefaultCameraName</code></td><td>Stores the display name of the selected default source.</td></tr>
-<tr><td><code>DefaultCameraDevicePath</code></td><td>Stores the DirectShow device path for reliable source restoration.</td></tr>
-</tbody>
+<tr><th>Setting</th><th>Purpose</th><th>Operational Value</th></tr>
+<tr><td><code>DefaultCameraName</code></td><td>Stores the display name of the selected default source.</td><td>Provides user-readable restoration feedback.</td></tr>
+<tr><td><code>DefaultCameraDevicePath</code></td><td>Stores the DirectShow device path for the preferred source.</td><td>Provides a more reliable restoration key than name alone.</td></tr>
 </table>
+
+<h4>Restart Restoration Workflow</h4>
+<pre>Application launch
+        ↓
+Load appsettings.json
+        ↓
+Enumerate available video sources
+        ↓
+Match saved default source by device path/name
+        ↓
+Restore selector state
+        ↓
+Update status bar with selected source</pre>
 
 <h4>Validation Matrix</h4>
 <table>
-<thead>
-<tr><th>Validation</th><th>Result</th></tr>
-</thead>
-<tbody>
-<tr><td><code>dotnet build</code></td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td><code>dotnet run</code></td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Set selected source as default</td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Close and relaunch application</td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Default source restored after restart</td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Status bar restored selected source state</td><td><span class="badge green">PASSED</span></td></tr>
-</tbody>
+<tr><th>Validation</th><th>Result</th><th>Notes</th></tr>
+<tr><td><code>dotnet build</code></td><td><span class="status done">Passed</span></td><td>Project compiled successfully after JSON settings integration.</td></tr>
+<tr><td><code>dotnet run</code></td><td><span class="status done">Passed</span></td><td>Runtime launch confirmed.</td></tr>
+<tr><td>Set selected source as default</td><td><span class="status done">Passed</span></td><td>Selected source was written through the settings service.</td></tr>
+<tr><td>Close and relaunch application</td><td><span class="status done">Passed</span></td><td>Application restart workflow was validated.</td></tr>
+<tr><td>Default source restored after restart</td><td><span class="status done">Passed</span></td><td>Saved source selection returned after relaunch.</td></tr>
+<tr><td>Status bar restored selected source state</td><td><span class="status done">Passed</span></td><td>UI feedback reflected restored source state.</td></tr>
 </table>
 
-<div class="callout good">
-<strong>Checkpoint Decision:</strong> Settings persistence is now stable enough to support preview workflow, source selection, and future user preference storage.
+<h4>Failure Handling Doctrine</h4>
+<div class="note watch">
+<strong>Design rule:</strong> Settings persistence must never become a startup blocker. A missing, empty, or invalid settings file should degrade to safe defaults instead of preventing Lab Imager from launching.
+</div>
+<table>
+<tr><th>Condition</th><th>Expected Behavior</th></tr>
+<tr><td>Settings file missing</td><td>Create or return a default <code>AppSettings</code> model.</td></tr>
+<tr><td>Stored source missing</td><td>Leave selector available and require user selection.</td></tr>
+<tr><td>Device path changed</td><td>Attempt graceful fallback using source name where practical.</td></tr>
+<tr><td>Invalid JSON</td><td>Recover with defaults rather than crashing the application.</td></tr>
+</table>
+
+<h4>Engineering Significance</h4>
+<div class="grid-2">
+<div class="card"><strong>Persistence</strong><span>Lab Imager now remembers selected source configuration across restart cycles.</span></div>
+<div class="card"><strong>Operator Workflow</strong><span>The user no longer needs to repeatedly reselect the same capture source every launch.</span></div>
+<div class="card"><strong>Preview Readiness</strong><span>Live preview work can assume a stable source-selection and default-source foundation.</span></div>
+<div class="card"><strong>Future Preferences</strong><span>The same JSON service can later store theme, save path, technician name, and viewport preferences.</span></div>
+</div>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Settings persistence is stable enough to support preview workflow, source selection, and future user-preference storage. The application now has a proper local configuration layer instead of a temporary stub.
 </div>
 
 <h4>Next Engineering Target</h4>
 <p>Add preview lifecycle controls before attempting live DirectShow rendering.</p>
+
+<div class="page-num">20</div>
 </section>
 
 <section class="page">
 <h3>21. Preview State Management Framework</h3>
+<p class="sub">Preview lifecycle-control milestone establishing start/stop state handling before DirectShow live rendering integration.</p>
 
-<p><strong>Status:</strong> Completed and synchronized to <code>main</code>.</p>
-<p><strong>Commit:</strong> <code>7645ecd - Add preview state controls and workflow</code></p>
+<div class="note ok">
+<strong>Final status:</strong> Preview lifecycle controls are complete and synchronized to <code>main</code> under commit <code>7645ecd</code> with message <code>Add preview state controls and workflow</code>.
+</div>
 
-<p>This phase established the application's first preview lifecycle management framework. No live camera rendering exists yet; this milestone intentionally implemented the preview control layer first so DirectShow graph work can be added behind a stable UI and service boundary.</p>
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the creation of the first preview lifecycle management framework in Lab Imager. The milestone deliberately did not attempt live video rendering. Instead, it established the UI controls, state transitions, selected-source awareness, and preview service boundary needed before DirectShow graph work is connected to the viewport.
+</p>
+<p>
+This sequencing matters because live preview rendering will be a higher-risk subsystem. By proving the control layer first, the project now has stable Start Preview, Stop Preview, source-change behavior, and status feedback that can remain intact while the stub preview service is replaced with a DirectShow implementation.
+</p>
 
 <h4>Preview Control Summary</h4>
 <table>
-<thead>
 <tr><th>UI Element</th><th>Purpose</th><th>Status</th></tr>
-</thead>
-<tbody>
-<tr><td>Start Preview</td><td>Begins preview lifecycle state.</td><td><span class="badge green">ADDED</span></td></tr>
-<tr><td>Stop Preview</td><td>Terminates preview lifecycle state.</td><td><span class="badge green">ADDED</span></td></tr>
-<tr><td>Preview Status</td><td>Displays current preview state.</td><td><span class="badge green">ADDED</span></td></tr>
-<tr><td>Source Change Handling</td><td>Stops active preview state when selected source changes.</td><td><span class="badge green">IMPLEMENTED</span></td></tr>
-</tbody>
+<tr><td><code>Start Preview</code></td><td>Begins the preview lifecycle state for the selected source.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Stop Preview</code></td><td>Terminates the active preview lifecycle state.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Preview Status</code></td><td>Displays the current preview state to the operator.</td><td><span class="status done">Added</span></td></tr>
+<tr><td>Source change handling</td><td>Stops active preview state when the selected source changes.</td><td><span class="status done">Implemented</span></td></tr>
 </table>
 
 <h4>Preview Service Framework</h4>
 <table>
-<thead>
-<tr><th>File</th><th>Purpose</th></tr>
-</thead>
-<tbody>
-<tr><td><code>Services/Preview/ICameraPreviewService.cs</code></td><td>Defines preview lifecycle contract.</td></tr>
-<tr><td><code>Services/Preview/StubCameraPreviewService.cs</code></td><td>Provides temporary preview state implementation before DirectShow rendering.</td></tr>
-</tbody>
+<tr><th>File / Component</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>Services/Preview/ICameraPreviewService.cs</code></td><td>Defines the preview lifecycle contract that future rendering implementations must satisfy.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Services/Preview/StubCameraPreviewService.cs</code></td><td>Provides temporary preview-state behavior before DirectShow rendering is implemented.</td><td><span class="status done">Added</span></td></tr>
 </table>
 
 <h4>State Transition Matrix</h4>
 <table>
-<thead>
 <tr><th>Action</th><th>Expected Behavior</th><th>Result</th></tr>
-</thead>
-<tbody>
-<tr><td>Application launch</td><td>Start enabled, Stop disabled, Preview Idle shown.</td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Start Preview clicked</td><td>Preview Running shown, Start disabled, Stop enabled.</td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Stop Preview clicked</td><td>Preview Stopped shown, Start enabled, Stop disabled.</td><td><span class="badge green">PASSED</span></td></tr>
-<tr><td>Source changed while active</td><td>Preview stops and source-change status appears.</td><td><span class="badge green">PASSED</span></td></tr>
-</tbody>
+<tr><td>Application launch</td><td>Start enabled, Stop disabled, and Preview Idle shown.</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Start Preview clicked</td><td>Preview Running shown, Start disabled, and Stop enabled.</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Stop Preview clicked</td><td>Preview Stopped shown, Start enabled, and Stop disabled.</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Source changed while active</td><td>Preview stops and source-change status appears.</td><td><span class="status done">Passed</span></td></tr>
 </table>
 
 <h4>Validation Commands</h4>
-<pre><code>cd R:\Lab-Imager\src\LabImager
+<pre>cd D:\Lab-Imager\src\LabImager
 
 dotnet build
 
-dotnet run</code></pre>
+dotnet run</pre>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td>Build</td><td><span class="status done">Successful</span></td></tr>
+<tr><td>Runtime launch</td><td><span class="status done">Successful</span></td></tr>
+<tr><td>Preview state controls</td><td><span class="status done">Operational</span></td></tr>
+<tr><td>Source-change interruption behavior</td><td><span class="status done">Operational</span></td></tr>
+<tr><td>Live video rendering</td><td><span class="status pending">Not yet implemented</span></td></tr>
+</table>
+
+<h4>Boundary Clarification</h4>
+<div class="note warn">
+<strong>Important boundary:</strong> Preview controls are currently lifecycle-state controls only. They do not yet render a live camera feed. Live rendering begins in the next DirectShow graph implementation phase.
+</div>
+
+<h4>Current Architecture Stack</h4>
+<pre>Source Discovery
+        ↓
+Source Selection
+        ↓
+Persistent Default Source
+        ↓
+Screenshot Export
+        ↓
+Preview State Lifecycle
+        ↓
+DirectShow Live Rendering</pre>
 
 <h4>Engineering Significance</h4>
-<p>This milestone completes the control layer required for live imaging. The application now contains source enumeration, source persistence, screenshot export, viewport structure, and preview lifecycle management. The remaining major milestone before operational imaging is replacement of the preview stub with a real DirectShow rendering pipeline connected to the viewport surface.</p>
-
-<div class="callout warn">
-<strong>Important Boundary:</strong> Preview controls are currently lifecycle-state controls only. They do not yet render a live camera feed. Live rendering begins in the next DirectShow graph implementation phase.
+<div class="grid-2">
+<div class="card"><strong>Control Layer</strong><span>The application now has proper preview start/stop controls before the rendering subsystem is introduced.</span></div>
+<div class="card"><strong>Service Boundary</strong><span>The preview implementation can be swapped from stub to DirectShow without redesigning the UI workflow.</span></div>
+<div class="card"><strong>Source Safety</strong><span>Changing the selected source while active preview is running now forces a controlled stop state.</span></div>
+<div class="card"><strong>M2-A Readiness</strong><span>All prerequisite infrastructure is in place for the live viewport rendering milestone.</span></div>
 </div>
 
 <h4>Next Engineering Target</h4>
-<p>Implement live DirectShow preview rendering inside the microscope viewport and retire the preview stub service.</p>
+<div class="note ok">
+<strong>Next milestone:</strong> Implement live DirectShow preview rendering inside the microscope viewport and retire the preview stub service.
+</div>
+<ol>
+<li>Inspect current viewport host and determine the rendering-host strategy.</li>
+<li>Extend <code>ICameraPreviewService</code> for real preview start/stop requirements.</li>
+<li>Create a DirectShow preview implementation.</li>
+<li>Bind live output into the Lab Imager viewport.</li>
+<li>Validate start, stop, source switching, and screenshot compatibility.</li>
+</ol>
+
+<div class="page-num">21</div>
 </section>
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>

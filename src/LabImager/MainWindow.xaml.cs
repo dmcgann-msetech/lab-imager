@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,7 +53,7 @@ namespace LabImager
                 StopPreviewButton.IsEnabled = false;
                 PreviewStatusText.Text = "Preview Unavailable";
 
-                CameraStatusText.Text = "📷  No Source Connected";
+                CameraStatusText.Text = "Source: No Source Connected";
                 Title = "Lab Imager";
 
                 return;
@@ -61,10 +61,18 @@ namespace LabImager
 
             foreach (var device in devices)
             {
+                var isDefault =
+                    !string.IsNullOrWhiteSpace(settings.DefaultCameraDevicePath) &&
+                    device.DevicePath == settings.DefaultCameraDevicePath;
+
+                var displayName = isDefault
+                    ? "★ " + device.Name + " (Default)"
+                    : device.Name;
+
                 CameraSelector.Items.Add(
                     new ComboBoxItem
                     {
-                        Content = device.Name,
+                        Content = displayName,
                         Tag = device.DevicePath
                     });
             }
@@ -133,7 +141,7 @@ namespace LabImager
                     DefaultCameraDevicePath = cameraDevicePath
                 });
 
-            CameraStatusText.Text = $"📷  Default Source Set: {cameraName}";
+            CameraStatusText.Text = $"Source: Default Source Set: {cameraName}";
             Title = $"Lab Imager - Default Source: {cameraName}";
         }
 
@@ -163,7 +171,7 @@ namespace LabImager
             _cameraPreviewService.StartPreview(source);
 
             PreviewStatusText.Text = $"Preview Running: {sourceName}";
-            CameraStatusText.Text = $"📷  Preview Started: {sourceName}";
+            CameraStatusText.Text = $"Source: Preview Started: {sourceName}";
 
             StartPreviewButton.IsEnabled = false;
             StopPreviewButton.IsEnabled = true;
@@ -174,7 +182,7 @@ namespace LabImager
             _cameraPreviewService.StopPreview();
 
             PreviewStatusText.Text = "Preview Stopped";
-            CameraStatusText.Text = "📷  Preview Stopped";
+            CameraStatusText.Text = "Source: Preview Stopped";
 
             StartPreviewButton.IsEnabled = true;
             StopPreviewButton.IsEnabled = false;
@@ -185,11 +193,11 @@ namespace LabImager
             try
             {
                 var savedPath = _viewportCaptureService.CaptureElementToPng(ViewportSurface);
-                CameraStatusText.Text = $"📷  Screenshot Saved: {savedPath}";
+                CameraStatusText.Text = $"Source: Screenshot Saved: {savedPath}";
             }
             catch (Exception ex)
             {
-                CameraStatusText.Text = $"📷  Screenshot Failed: {ex.Message}";
+                CameraStatusText.Text = $"Source: Screenshot Failed: {ex.Message}";
             }
         }
 
@@ -205,7 +213,7 @@ namespace LabImager
             if (string.IsNullOrWhiteSpace(cameraName) ||
                 cameraName == "No Cameras Detected")
             {
-                CameraStatusText.Text = "📷  No Source Connected";
+                CameraStatusText.Text = "Source: No Source Connected";
                 Title = "Lab Imager";
                 SetDefaultCameraButton.IsEnabled = false;
                 StartPreviewButton.IsEnabled = false;
@@ -215,7 +223,7 @@ namespace LabImager
                 return;
             }
 
-            CameraStatusText.Text = $"📷  {cameraName}";
+            CameraStatusText.Text = $"Source: {cameraName}";
             Title = $"Lab Imager - {cameraName}";
             SetDefaultCameraButton.IsEnabled = true;
 
@@ -260,3 +268,5 @@ namespace LabImager
         }
     }
 }
+
+
