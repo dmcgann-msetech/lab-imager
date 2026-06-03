@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,7 +20,7 @@ namespace LabImager
             InitializeComponent();
 
             _cameraDeviceService = new DirectShowCameraDeviceService();
-            _appSettingsService = new StubAppSettingsService();
+            _appSettingsService = new JsonAppSettingsService();
             _viewportCaptureService = new ViewportCaptureService();
 
             LoadCameraDevices();
