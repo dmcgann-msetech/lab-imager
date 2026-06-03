@@ -84,7 +84,7 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Sections 1-5</td><td>Project vision, repository identity, technology stack, hardware pipeline, and first milestone.</td></tr>
 <tr><td>Sections 6-10</td><td>Application layout, annotation model, file naming, project storage, and theme doctrine.</td></tr>
 <tr><td>Sections 11-15</td><td>Repository structure, Git workflow, icon/logo direction, future feature roadmap, and initial build constraints.</td></tr>
-<tr><td>Sections 16-17</td><td>Approved UI concept, engineering viewport reconstruction, reticle stabilization, final interface baseline, build validation, and repository synchronization.</td></tr>
+<tr><td>Sections 16-18</td><td>Approved UI concept, engineering viewport reconstruction, reticle stabilization, Phase 2 camera/settings architecture, camera selector scaffold, rich notes toolbar foundation, UI density refinement, build validation, and repository synchronization checkpoints.</td></tr>
 <tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
 </table>
 
@@ -788,6 +788,172 @@ git push origin main</pre>
 
 <div class="page-num">17</div>
 </section>
+
+
+<section class="page">
+<h3>18. Phase 2 UI Density, Camera Selector, Notes Toolbar, and Enumeration Foundation</h3>
+<p class="sub">Audit record for the Lab Imager Phase 2 interface refinement cycle, camera-selection workflow correction, DirectShow enumeration foundation, and pre-save-point stabilization.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> The Lab Imager interface was refined from the oversized first-generation workstation shell into the approved compact widescreen engineering layout. The viewport remains dominant, the right-side Lab Session panel now includes camera-selection controls, the Notes area now has a two-row rich-text toolbar scaffold, and the top/bottom chrome has been reduced to a more professional software-instrument density.
+</div>
+
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the work completed after the approved engineering viewport baseline. The goal was to move Lab Imager from a static UI shell into a Phase 2-ready workstation interface while avoiding premature live-feed work. The user identified a critical design requirement before implementation went too far: the application must allow a camera to be selected and a preferred/default camera to be locked in. That requirement changed the Phase 2 design from simple camera detection to camera detection, camera selection, default-camera persistence, and graceful launch restoration.
+</p>
+<p>
+The session also corrected the application scale. The original UI worked visually, but it read too large and kiosk-like. The revised design keeps the full widescreen window and large microscope viewport, but reduces title/status chrome, tightens right-panel controls, and gives the Notes workflow a proper toolbar foundation.
+</p>
+
+<h4>Phase 2 Architecture Added Before UI Refinement</h4>
+<table>
+<tr><th>Area</th><th>File / Component</th><th>Purpose</th></tr>
+<tr><td>Camera model</td><td><code>Models/Camera/CameraDeviceInfo.cs</code></td><td>Represents a detected camera device with display name, device path, and description output.</td></tr>
+<tr><td>Camera service contract</td><td><code>Services/Camera/ICameraDeviceService.cs</code></td><td>Defines a stable abstraction for retrieving available camera devices.</td></tr>
+<tr><td>Camera service stub</td><td><code>Services/Camera/StubCameraDeviceService.cs</code></td><td>Provides a safe placeholder while real enumeration is developed.</td></tr>
+<tr><td>Settings model</td><td><code>Models/Settings/AppSettings.cs</code></td><td>Stores default camera name and default camera device path for future persistence.</td></tr>
+<tr><td>Settings service contract</td><td><code>Services/Settings/IAppSettingsService.cs</code></td><td>Defines load/save boundaries for application settings.</td></tr>
+<tr><td>Settings service stub</td><td><code>Services/Settings/StubAppSettingsService.cs</code></td><td>Provides a non-persistent in-memory settings layer while disk-backed settings are pending.</td></tr>
+<tr><td>Main window integration</td><td><code>MainWindow.xaml.cs</code></td><td>Introduces camera/settings service wiring without starting live capture.</td></tr>
+</table>
+
+<h4>Phase 2 Camera Workflow Correction</h4>
+<div class="note watch">
+<strong>Requirement correction:</strong> Lab Imager must not simply open the first available camera. The application must enumerate available cameras, display them in a selector, allow one camera to be set as the default, restore that preferred device on launch, and gracefully recover if the preferred camera is missing.
+</div>
+<table>
+<tr><th>Requirement</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Enumerate available cameras</td><td><span class="status partial">Partial</span></td><td>DirectShow package and enumeration service foundation added; UI wiring still pending.</td></tr>
+<tr><td>Display camera selector</td><td><span class="status done">Completed</span></td><td>Camera ComboBox added to the Lab Session panel.</td></tr>
+<tr><td>Set selected camera as default</td><td><span class="status partial">Partial</span></td><td>Button scaffold exists; click logic and persistence are pending.</td></tr>
+<tr><td>Persist default camera</td><td><span class="status partial">Partial</span></td><td>Settings model/service abstraction exists; disk-backed JSON persistence pending.</td></tr>
+<tr><td>Restore preferred camera on launch</td><td><span class="status pending">Pending</span></td><td>Will be implemented after real enumeration populates the selector.</td></tr>
+<tr><td>Live camera feed</td><td><span class="status pending">Pending</span></td><td>Explicitly deferred until selection and persistence are stable.</td></tr>
+</table>
+
+<h4>Camera Enumeration Backend Evaluation</h4>
+<table>
+<tr><th>Backend Attempt</th><th>Result</th><th>Decision</th></tr>
+<tr><td><code>Microsoft.Windows.SDK.Contracts</code></td><td>Rejected after build failures involving Windows target-platform version mismatch and unsupported direct WinMD references in the current WPF/.NET 8 project context.</td><td><span class="status blocked">Rejected</span></td></tr>
+<tr><td><code>DirectShowLib.Net 3.0.0</code></td><td>Installed successfully and built cleanly against the current <code>net8.0-windows</code> project target.</td><td><span class="status active">Selected for Phase 2 enumeration</span></td></tr>
+</table>
+
+<h4>Windows SDK Contracts Remediation</h4>
+<div class="note warn">
+<strong>Failure avoided:</strong> The WinRT/Windows SDK Contracts path was backed out before it contaminated the project architecture. The package reference was removed, the target framework was restored to <code>net8.0-windows</code>, and the failed <code>WindowsCameraDeviceService.cs</code> was deleted.
+</div>
+<pre>dotnet remove package Microsoft.Windows.SDK.Contracts
+
+(Get-Content .\LabImager.csproj -Raw).Replace(
+'net8.0-windows10.0.22621.0',
+'net8.0-windows'
+) | Set-Content .\LabImager.csproj -Encoding UTF8
+
+Remove-Item .\Services\Camera\WindowsCameraDeviceService.cs -Force
+
+dotnet build</pre>
+
+<h4>DirectShow Enumeration Foundation</h4>
+<div class="note ok">
+<strong>Current direction:</strong> DirectShow was selected as the safer next enumeration layer for this Windows-native WPF application. It avoids the WinRT metadata failure path and keeps the project aligned with Windows camera/capture-device discovery before live rendering begins.
+</div>
+<pre>dotnet add package DirectShowLib.Net --version 3.0.0</pre>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td>Package restore</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Project compatibility</td><td><span class="status done">Confirmed</span></td></tr>
+<tr><td>Build after package install</td><td><span class="status done">Successful</span></td></tr>
+<tr><td>Warnings</td><td><code>0</code></td></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+</table>
+
+<h4>UI Refinement Summary</h4>
+<table>
+<tr><th>UI Area</th><th>Change</th><th>Reason</th></tr>
+<tr><td>Application chrome</td><td>Reduced title row from the earlier larger height to a thinner operator-style bar.</td><td>Removed oversized kiosk feel.</td></tr>
+<tr><td>Bottom status bar</td><td>Reduced status row height and tightened status spacing.</td><td>Restored viewport dominance and improved professional density.</td></tr>
+<tr><td>Right panel</td><td>Kept full Lab Session structure but tightened field heights, label typography, and spacing.</td><td>Preserved workflow while reclaiming visual space.</td></tr>
+<tr><td>Viewport</td><td>Preserved approved engineering grid, reticles, and center ticks.</td><td>User confirmed viewport area was already correct.</td></tr>
+<tr><td>Camera selector</td><td>Added Camera label, ComboBox, and Set Selected Camera as Default button.</td><td>Supports deterministic camera selection and future default-camera persistence.</td></tr>
+<tr><td>Notes editor</td><td>Converted plain notes box direction into a RichTextBox foundation with formatting toolbar.</td><td>Supports future technical note formatting, bullets, lists, and emphasis.</td></tr>
+<tr><td>Notes toolbar</td><td>Reworked from a clipped single-line toolbar to a two-row control strip.</td><td>Prevents right-edge clipping and matches approved email-style toolbar behavior.</td></tr>
+</table>
+
+<h4>Notes Toolbar Scope</h4>
+<table>
+<tr><th>Toolbar Item</th><th>Status</th><th>Purpose</th></tr>
+<tr><td>Undo / Redo</td><td><span class="status partial">Visual scaffold</span></td><td>Future note-editing command support.</td></tr>
+<tr><td>Font family selector</td><td><span class="status partial">Visual scaffold</span></td><td>Allows future selection of note font family.</td></tr>
+<tr><td>Bold / Italic / Underline</td><td><span class="status partial">Visual scaffold</span></td><td>Core note emphasis tools.</td></tr>
+<tr><td>Text color / style button</td><td><span class="status partial">Visual scaffold</span></td><td>Future text styling control.</td></tr>
+<tr><td>Alignment</td><td><span class="status partial">Visual scaffold</span></td><td>Future paragraph alignment support.</td></tr>
+<tr><td>Bullets</td><td><span class="status partial">Visual scaffold</span></td><td>Needed for inspection findings and component observations.</td></tr>
+<tr><td>Numbered list</td><td><span class="status partial">Visual scaffold</span></td><td>Needed for step-based repair or test notes.</td></tr>
+<tr><td>Indent</td><td><span class="status partial">Visual scaffold</span></td><td>Needed for nested observations and structured notes.</td></tr>
+</table>
+
+<h4>Approved Current Interface Screenshot</h4>
+<div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
+<img src="assets/ui/lab_design_3.png" alt="Approved Lab Imager Phase 2 Compact UI With Camera Selector and Notes Toolbar" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<p class="sub" style="text-align:center;margin-top:8px">Approved Phase 2 Lab Imager interface baseline after camera selector insertion, notes toolbar foundation, two-row toolbar correction, and top/bottom chrome density refinement.</p>
+</div>
+
+<h4>Validation Commands</h4>
+<pre>cd D:\Lab-Imager\src\LabImager
+
+dotnet build
+
+dotnet run</pre>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td>Build</td><td><span class="status done">Successful</span></td></tr>
+<tr><td>Warnings</td><td><code>0</code></td></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Runtime visual review</td><td><span class="status done">Approved</span></td></tr>
+<tr><td>User design approval</td><td><span class="status done">Confirmed</span></td></tr>
+</table>
+
+<h4>Current Save-Point Scope</h4>
+<table>
+<tr><th>Expected Changed Item</th><th>Reason</th></tr>
+<tr><td><code>src/LabImager/MainWindow.xaml</code></td><td>Camera selector UI, notes toolbar foundation, density refinements, and approved compact layout.</td></tr>
+<tr><td><code>src/LabImager/LabImager.csproj</code></td><td>DirectShowLib.Net package reference if not already committed.</td></tr>
+<tr><td><code>src/LabImager/Services/Camera/DirectShowCameraDeviceService.cs</code></td><td>DirectShow camera enumeration service foundation if present in the working tree.</td></tr>
+<tr><td><code>docs/lab-imager-log.html</code></td><td>This Section 18 engineering record.</td></tr>
+<tr><td><code>docs/assets/ui/lab_design_3.png</code></td><td>Approved current interface screenshot.</td></tr>
+</table>
+
+<h4>Recommended Commit</h4>
+<pre>cd D:\Lab-Imager
+
+git add src/LabImager/MainWindow.xaml \
+        src/LabImager/LabImager.csproj \
+        src/LabImager/Services/Camera/DirectShowCameraDeviceService.cs \
+        docs/lab-imager-log.html \
+        docs/assets/ui/lab_design_3.png
+
+git commit -m "Refine Lab Imager UI density and add Phase 2 camera selector foundation"
+
+git push origin main</pre>
+
+<h4>Next Engineering Targets</h4>
+<ol>
+<li>Wire <code>DirectShowCameraDeviceService</code> into <code>MainWindow.xaml.cs</code>.</li>
+<li>Populate the Camera ComboBox with actual detected capture devices.</li>
+<li>Update the status bar to show the detected/selected camera.</li>
+<li>Implement <code>Set Selected Camera as Default</code> behavior.</li>
+<li>Replace stub settings with disk-backed JSON settings.</li>
+<li>Only after selection and persistence are stable, begin live preview rendering.</li>
+</ol>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> This is a valid save point. The UI direction is approved, build integrity is restored, the failed WinRT route was remediated, and the project is ready to continue with controlled device enumeration wiring.
+</div>
+
+<div class="page-num">18</div>
+</section>
+
 
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
