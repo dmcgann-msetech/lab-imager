@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using LabImager.Services.Camera;
+using LabImager.Services.Capture;
 using LabImager.Services.Settings;
 
 namespace LabImager
@@ -11,6 +13,7 @@ namespace LabImager
     {
         private readonly ICameraDeviceService _cameraDeviceService;
         private readonly IAppSettingsService _appSettingsService;
+        private readonly IViewportCaptureService _viewportCaptureService;
 
         public MainWindow()
         {
@@ -18,6 +21,7 @@ namespace LabImager
 
             _cameraDeviceService = new DirectShowCameraDeviceService();
             _appSettingsService = new StubAppSettingsService();
+            _viewportCaptureService = new ViewportCaptureService();
 
             LoadCameraDevices();
         }
@@ -110,8 +114,21 @@ namespace LabImager
                     DefaultCameraDevicePath = cameraDevicePath
                 });
 
-            CameraStatusText.Text = $"📷  Default Camera Set: {cameraName}";
-            Title = $"Lab Imager - Default Camera: {cameraName}";
+            CameraStatusText.Text = $"📷  Default Source Set: {cameraName}";
+            Title = $"Lab Imager - Default Source: {cameraName}";
+        }
+
+        private void CaptureScreenshotButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var savedPath = _viewportCaptureService.CaptureElementToPng(ViewportSurface);
+                CameraStatusText.Text = $"📷  Screenshot Saved: {savedPath}";
+            }
+            catch (Exception ex)
+            {
+                CameraStatusText.Text = $"📷  Screenshot Failed: {ex.Message}";
+            }
         }
 
         private void UpdateSelectedCameraState()

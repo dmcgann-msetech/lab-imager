@@ -13,12 +13,9 @@
     <Window.Resources>
         <Style x:Key="CameraComboBoxItemStyle"
                TargetType="ComboBoxItem">
-            <Setter Property="Foreground"
-                    Value="Black"/>
-            <Setter Property="Background"
-                    Value="White"/>
-            <Setter Property="FontWeight"
-                    Value="SemiBold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
     </Window.Resources>
 
@@ -44,7 +41,7 @@
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center">
 
-                        <TextBlock Text="🔬"
+                        <TextBlock Text="&#x1F52C;"
                                    FontSize="18"
                                    Margin="0,0,12,0"/>
 
@@ -98,7 +95,8 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- VIEWPORT -->
-                <Border Grid.Column="0"
+                <Border x:Name="ViewportSurface"
+                        Grid.Column="0"
                         CornerRadius="14"
                         Background="#03101F"
                         BorderBrush="#2563EB"
@@ -117,15 +115,12 @@
                                     <DrawingBrush.Drawing>
                                         <GeometryDrawing>
                                             <GeometryDrawing.Pen>
-                                                <Pen Brush="#38BDF8"
-                                                     Thickness="0.25"/>
+                                                <Pen Brush="#38BDF8" Thickness="0.25"/>
                                             </GeometryDrawing.Pen>
                                             <GeometryDrawing.Geometry>
                                                 <GeometryGroup>
-                                                    <LineGeometry StartPoint="0,0"
-                                                                  EndPoint="36,0"/>
-                                                    <LineGeometry StartPoint="0,0"
-                                                                  EndPoint="0,36"/>
+                                                    <LineGeometry StartPoint="0,0" EndPoint="36,0"/>
+                                                    <LineGeometry StartPoint="0,0" EndPoint="0,36"/>
                                                 </GeometryGroup>
                                             </GeometryDrawing.Geometry>
                                         </GeometryDrawing>
@@ -200,7 +195,7 @@
                         <StackPanel HorizontalAlignment="Center"
                                     VerticalAlignment="Center">
 
-                            <TextBlock Text="🔬"
+                            <TextBlock Text="&#x1F52C;"
                                        FontSize="78"
                                        HorizontalAlignment="Center"
                                        Foreground="#64748B"
@@ -240,7 +235,7 @@
                             <StackPanel Orientation="Horizontal"
                                         Margin="0,0,0,18">
 
-                                <TextBlock Text="⚗"
+                                <TextBlock Text="&#x2697;"
                                            FontSize="34"
                                            Foreground="#38BDF8"
                                            Margin="0,0,14,0"/>
@@ -297,7 +292,7 @@
                                      FontSize="13"
                                      Padding="12"/>
 
-                            <TextBlock Text="Camera"
+                            <TextBlock Text="Source"
                                        FontSize="13"
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,8"/>
@@ -315,6 +310,7 @@
                                       Padding="10"/>
 
                             <Button x:Name="SetDefaultCameraButton"
+                                    Click="SetDefaultCameraButton_Click"
                                     Content="Set Selected Source as Default"
                                     Height="36"
                                     Margin="0,0,0,18"
@@ -343,7 +339,6 @@
                                             Padding="6,5">
 
                                         <StackPanel>
-                                            <!-- TOP ROW -->
                                             <StackPanel Orientation="Horizontal"
                                                         Margin="0,0,0,4">
                                                 <Button Content="↶" Width="24" Margin="0,0,4,0"/>
@@ -364,7 +359,6 @@
                                                 <Button Content="A" Width="28"/>
                                             </StackPanel>
 
-                                            <!-- SECOND ROW -->
                                             <StackPanel Orientation="Horizontal">
                                                 <Button Content="☰" Width="34" Margin="0,0,4,0"/>
                                                 <Button Content="•" Width="34" Margin="0,0,4,0"/>
@@ -386,7 +380,8 @@
                         </StackPanel>
 
                         <Button Grid.Row="2"
-                                Content="📷  Capture Screenshot"
+                                Click="CaptureScreenshotButton_Click"
+                                Content="&#x1F4F7;  Capture Screenshot"
                                 Height="40"
                                 FontSize="15"
                                 FontWeight="Bold"
@@ -420,12 +415,12 @@
                                    Margin="0,0,24,0"/>
 
                         <TextBlock x:Name="CameraStatusText"
-                                   Text="📷  No Camera Connected"
+                                   Text="&#x1F4F7;  No Source Connected"
                                    FontSize="14"
                                    Foreground="#CBD5E1"
                                    Margin="0,0,24,0"/>
 
-                        <TextBlock Text="📁  No Project Loaded"
+                        <TextBlock Text="&#x1F4C1;  No Project Loaded"
                                    FontSize="14"
                                    Foreground="#CBD5E1"/>
                     </StackPanel>
@@ -434,7 +429,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center">
 
-                        <TextBlock Text="⚙"
+                        <TextBlock Text="&#x2699;"
                                    FontSize="20"
                                    Foreground="#38BDF8"
                                    Margin="0,0,28,0"/>
