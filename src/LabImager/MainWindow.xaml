@@ -313,12 +313,48 @@
                                     Click="SetDefaultCameraButton_Click"
                                     Content="Set Selected Source as Default"
                                     Height="36"
-                                    Margin="0,0,0,18"
+                                    Margin="0,0,0,10"
                                     Background="#0B63F6"
                                     Foreground="White"
                                     BorderBrush="#38BDF8"
                                     FontSize="14"
                                     FontWeight="SemiBold"/>
+
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button x:Name="StartPreviewButton"
+                                        Grid.Column="0"
+                                        Click="StartPreviewButton_Click"
+                                        Content="Start Preview"
+                                        Height="34"
+                                        Background="#14532D"
+                                        Foreground="White"
+                                        BorderBrush="#22C55E"
+                                        FontSize="13"
+                                        FontWeight="SemiBold"/>
+
+                                <Button x:Name="StopPreviewButton"
+                                        Grid.Column="2"
+                                        Click="StopPreviewButton_Click"
+                                        Content="Stop Preview"
+                                        Height="34"
+                                        Background="#7F1D1D"
+                                        Foreground="White"
+                                        BorderBrush="#F87171"
+                                        FontSize="13"
+                                        FontWeight="SemiBold"/>
+                            </Grid>
+
+                            <TextBlock x:Name="PreviewStatusText"
+                                       Text="Preview Idle"
+                                       FontSize="12"
+                                       Foreground="#94A3B8"
+                                       Margin="0,0,0,18"/>
 
                             <TextBlock Text="Notes"
                                        FontSize="13"

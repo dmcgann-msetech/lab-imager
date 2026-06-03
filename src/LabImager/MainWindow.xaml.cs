@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using LabImager.Services.Camera;
 using LabImager.Services.Capture;
+using LabImager.Services.Preview;
 using LabImager.Services.Settings;
 
 namespace LabImager
@@ -14,6 +15,7 @@ namespace LabImager
         private readonly ICameraDeviceService _cameraDeviceService;
         private readonly IAppSettingsService _appSettingsService;
         private readonly IViewportCaptureService _viewportCaptureService;
+        private readonly ICameraPreviewService _cameraPreviewService;
 
         public MainWindow()
         {
@@ -22,6 +24,9 @@ namespace LabImager
             _cameraDeviceService = new DirectShowCameraDeviceService();
             _appSettingsService = new JsonAppSettingsService();
             _viewportCaptureService = new ViewportCaptureService();
+            _cameraPreviewService = new StubCameraPreviewService();
+
+            StopPreviewButton.IsEnabled = false;
 
             LoadCameraDevices();
         }
@@ -44,8 +49,11 @@ namespace LabImager
 
                 CameraSelector.SelectedIndex = 0;
                 SetDefaultCameraButton.IsEnabled = false;
+                StartPreviewButton.IsEnabled = false;
+                StopPreviewButton.IsEnabled = false;
+                PreviewStatusText.Text = "Preview Unavailable";
 
-                CameraStatusText.Text = "📷  No Camera Connected";
+                CameraStatusText.Text = "📷  No Source Connected";
                 Title = "Lab Imager";
 
                 return;
@@ -82,12 +90,23 @@ namespace LabImager
             CameraSelector.SelectedItem = selectedItem ?? CameraSelector.Items[0];
 
             SetDefaultCameraButton.IsEnabled = true;
+            StartPreviewButton.IsEnabled = true;
+            StopPreviewButton.IsEnabled = false;
+            PreviewStatusText.Text = "Preview Idle";
 
             UpdateSelectedCameraState();
         }
 
         private void CameraSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (_cameraPreviewService.IsPreviewRunning)
+            {
+                _cameraPreviewService.StopPreview();
+                PreviewStatusText.Text = "Preview Stopped - Source Changed";
+                StartPreviewButton.IsEnabled = true;
+                StopPreviewButton.IsEnabled = false;
+            }
+
             UpdateSelectedCameraState();
         }
 
@@ -118,6 +137,49 @@ namespace LabImager
             Title = $"Lab Imager - Default Source: {cameraName}";
         }
 
+        private void StartPreviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CameraSelector.SelectedItem is not ComboBoxItem selectedItem)
+            {
+                return;
+            }
+
+            var sourceName = selectedItem.Content?.ToString() ?? string.Empty;
+            var sourceDevicePath = selectedItem.Tag?.ToString() ?? string.Empty;
+
+            if (string.IsNullOrWhiteSpace(sourceName) ||
+                sourceName == "No Cameras Detected")
+            {
+                PreviewStatusText.Text = "Preview Unavailable";
+                return;
+            }
+
+            var source = new Models.Camera.CameraDeviceInfo
+            {
+                Name = sourceName,
+                DevicePath = sourceDevicePath
+            };
+
+            _cameraPreviewService.StartPreview(source);
+
+            PreviewStatusText.Text = $"Preview Running: {sourceName}";
+            CameraStatusText.Text = $"📷  Preview Started: {sourceName}";
+
+            StartPreviewButton.IsEnabled = false;
+            StopPreviewButton.IsEnabled = true;
+        }
+
+        private void StopPreviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            _cameraPreviewService.StopPreview();
+
+            PreviewStatusText.Text = "Preview Stopped";
+            CameraStatusText.Text = "📷  Preview Stopped";
+
+            StartPreviewButton.IsEnabled = true;
+            StopPreviewButton.IsEnabled = false;
+        }
+
         private void CaptureScreenshotButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -143,9 +205,12 @@ namespace LabImager
             if (string.IsNullOrWhiteSpace(cameraName) ||
                 cameraName == "No Cameras Detected")
             {
-                CameraStatusText.Text = "📷  No Camera Connected";
+                CameraStatusText.Text = "📷  No Source Connected";
                 Title = "Lab Imager";
                 SetDefaultCameraButton.IsEnabled = false;
+                StartPreviewButton.IsEnabled = false;
+                StopPreviewButton.IsEnabled = false;
+                PreviewStatusText.Text = "Preview Unavailable";
 
                 return;
             }
@@ -153,6 +218,12 @@ namespace LabImager
             CameraStatusText.Text = $"📷  {cameraName}";
             Title = $"Lab Imager - {cameraName}";
             SetDefaultCameraButton.IsEnabled = true;
+
+            if (!_cameraPreviewService.IsPreviewRunning)
+            {
+                StartPreviewButton.IsEnabled = true;
+                StopPreviewButton.IsEnabled = false;
+            }
         }
 
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
