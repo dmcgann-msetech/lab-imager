@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -34,12 +34,14 @@ namespace LabImager
                 CameraSelector.Items.Add(
                     new ComboBoxItem
                     {
-                        Content = "No Cameras Detected"
+                        Content = "No Cameras Detected",
+                        Tag = string.Empty
                     });
 
                 CameraSelector.SelectedIndex = 0;
+                SetDefaultCameraButton.IsEnabled = false;
 
-                CameraStatusText.Text = "??  No Camera Connected";
+                CameraStatusText.Text = "📷  No Camera Connected";
                 Title = "Lab Imager";
 
                 return;
@@ -50,13 +52,22 @@ namespace LabImager
                 CameraSelector.Items.Add(
                     new ComboBoxItem
                     {
-                        Content = device.Name
+                        Content = device.Name,
+                        Tag = device.DevicePath
                     });
             }
 
-            ComboBoxItem selectedItem = null;
+            ComboBoxItem? selectedItem = null;
 
-            if (!string.IsNullOrWhiteSpace(settings.DefaultCameraName))
+            if (!string.IsNullOrWhiteSpace(settings.DefaultCameraDevicePath))
+            {
+                selectedItem = CameraSelector.Items
+                    .OfType<ComboBoxItem>()
+                    .FirstOrDefault(item =>
+                        item.Tag?.ToString() == settings.DefaultCameraDevicePath);
+            }
+
+            if (selectedItem == null && !string.IsNullOrWhiteSpace(settings.DefaultCameraName))
             {
                 selectedItem = CameraSelector.Items
                     .OfType<ComboBoxItem>()
@@ -64,14 +75,9 @@ namespace LabImager
                         item.Content?.ToString() == settings.DefaultCameraName);
             }
 
-            if (selectedItem != null)
-            {
-                CameraSelector.SelectedItem = selectedItem;
-            }
-            else
-            {
-                CameraSelector.SelectedIndex = 0;
-            }
+            CameraSelector.SelectedItem = selectedItem ?? CameraSelector.Items[0];
+
+            SetDefaultCameraButton.IsEnabled = true;
 
             UpdateSelectedCameraState();
         }
@@ -79,6 +85,33 @@ namespace LabImager
         private void CameraSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateSelectedCameraState();
+        }
+
+        private void SetDefaultCameraButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CameraSelector.SelectedItem is not ComboBoxItem selectedItem)
+            {
+                return;
+            }
+
+            var cameraName = selectedItem.Content?.ToString() ?? string.Empty;
+            var cameraDevicePath = selectedItem.Tag?.ToString() ?? string.Empty;
+
+            if (string.IsNullOrWhiteSpace(cameraName) ||
+                cameraName == "No Cameras Detected")
+            {
+                return;
+            }
+
+            _appSettingsService.Save(
+                new Models.Settings.AppSettings
+                {
+                    DefaultCameraName = cameraName,
+                    DefaultCameraDevicePath = cameraDevicePath
+                });
+
+            CameraStatusText.Text = $"📷  Default Camera Set: {cameraName}";
+            Title = $"Lab Imager - Default Camera: {cameraName}";
         }
 
         private void UpdateSelectedCameraState()
@@ -93,14 +126,16 @@ namespace LabImager
             if (string.IsNullOrWhiteSpace(cameraName) ||
                 cameraName == "No Cameras Detected")
             {
-                CameraStatusText.Text = "??  No Camera Connected";
+                CameraStatusText.Text = "📷  No Camera Connected";
                 Title = "Lab Imager";
+                SetDefaultCameraButton.IsEnabled = false;
 
                 return;
             }
 
-            CameraStatusText.Text = $"??  {cameraName}";
+            CameraStatusText.Text = $"📷  {cameraName}";
             Title = $"Lab Imager - {cameraName}";
+            SetDefaultCameraButton.IsEnabled = true;
         }
 
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
