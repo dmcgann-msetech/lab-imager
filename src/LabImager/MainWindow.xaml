@@ -19,7 +19,30 @@
             <Setter Property="Background" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
-    </Window.Resources>
+    
+    <Style x:Key="ReadableDisabledButtonStyle" TargetType="Button">
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1"/>
+                <Setter Property="Foreground" Value="#CBD5E1"/>
+                <Setter Property="Background" Value="#334155"/>
+                <Setter Property="BorderBrush" Value="#64748B"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ReadableDisabledComboBoxStyle" TargetType="ComboBox">
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1"/>
+                <Setter Property="Foreground" Value="#CBD5E1"/>
+                <Setter Property="Background" Value="#1E293B"/>
+                <Setter Property="BorderBrush" Value="#64748B"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</Window.Resources>
 
     <Border BorderBrush="#1D4ED8"
             BorderThickness="1"
@@ -112,11 +135,46 @@
                         <wfi:WindowsFormsHost x:Name="PreviewHost"
                                               Panel.ZIndex="1"
                                               Visibility="Collapsed"
-                                              Margin="0"
+                                              Margin="46,34,18,18"
                                               Background="#000000">
                             <wf:Panel x:Name="PreviewPanel"
                                       BackColor="Black"/>
                         </wfi:WindowsFormsHost>
+
+                        <!-- VIEWPORT COORDINATE OVERLAY -->
+                        <Grid x:Name="ViewportCoordinateOverlay"
+                              IsHitTestVisible="False"
+                              Panel.ZIndex="7"
+                              Margin="0">
+
+                            <UniformGrid Rows="1"
+                                         Columns="8"
+                                         Height="24"
+                                         Margin="46,4,18,0"
+                                         VerticalAlignment="Top">
+                                <TextBlock Text="1" Foreground="#93C5FD" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="2" Foreground="#93C5FD" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="3" Foreground="#93C5FD" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="4" Foreground="#93C5FD" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="5" Foreground="#93C5FD" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="6" Foreground="#93C5FD" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="7" Foreground="#93C5FD" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="8" Foreground="#93C5FD" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            </UniformGrid>
+
+                            <UniformGrid Rows="6"
+                                         Columns="1"
+                                         Width="28"
+                                         Margin="8,34,0,18"
+                                         HorizontalAlignment="Left">
+                                <TextBlock Text="A" Foreground="#93C5FD" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="B" Foreground="#93C5FD" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="C" Foreground="#93C5FD" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="D" Foreground="#93C5FD" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="E" Foreground="#93C5FD" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="F" Foreground="#93C5FD" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </UniformGrid>
+                        </Grid>
 
                         <!-- ENGINEERING GRID -->
                         <Rectangle Opacity="0.10">
@@ -311,7 +369,7 @@
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,8"/>
 
-                            <ComboBox x:Name="CameraSelector"
+                            <ComboBox x:Name="CameraSelector" Style="{StaticResource ReadableDisabledComboBoxStyle}"
                                       SelectionChanged="CameraSelector_SelectionChanged"
                                       ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
                                       Height="38"
@@ -323,7 +381,7 @@
                                       FontSize="13"
                                       Padding="10"/>
 
-                            <Button x:Name="SetDefaultCameraButton"
+                            <Button x:Name="SetDefaultCameraButton" Style="{StaticResource ReadableDisabledButtonStyle}"
                                     Click="SetDefaultCameraButton_Click"
                                     Content="Set Selected Source as Default"
                                     Height="36"
@@ -341,7 +399,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Button x:Name="StartPreviewButton"
+                                <Button x:Name="StartPreviewButton" Style="{StaticResource ReadableDisabledButtonStyle}"
                                         Grid.Column="0"
                                         Click="StartPreviewButton_Click"
                                         Content="Start Preview"
@@ -352,7 +410,7 @@
                                         FontSize="13"
                                         FontWeight="SemiBold"/>
 
-                                <Button x:Name="StopPreviewButton"
+                                <Button x:Name="StopPreviewButton" Style="{StaticResource ReadableDisabledButtonStyle}"
                                         Grid.Column="2"
                                         Click="StopPreviewButton_Click"
                                         Content="Stop Preview"
@@ -493,6 +551,8 @@
         </Grid>
     </Border>
 </Window>
+
+
 
 
 

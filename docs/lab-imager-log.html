@@ -1410,6 +1410,92 @@ Use subject to applicable Terms and Conditions.</pre>
 <div class="page-num">23</div>
 </section>
 
+
+<section class="page">
+<h3>24. M2-B Overlay Engine Phase 1 — Viewport Coordinate Overlay Foundation</h3>
+<p class="sub">Initial overlay-system milestone for adding perimeter coordinate references around the live imaging viewport.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> M2-B Phase 1 is complete. Lab Imager now includes a viewport coordinate overlay foundation with top-edge numeric labels and left-edge alphabetic labels for board inspection reference work.
+</div>
+
+<h4>Milestone Summary</h4>
+<table>
+<tr><th>Area</th><th>Result</th><th>Status</th></tr>
+<tr><td>Coordinate overlay layer</td><td>Added a dedicated <code>ViewportCoordinateOverlay</code> grid above the preview area.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Top-edge labels</td><td>Added numeric coordinate labels <code>1</code> through <code>8</code>.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Left-edge labels</td><td>Added alphabetic coordinate labels <code>A</code> through <code>F</code>.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Preview area preservation</td><td>Inset the native preview host to reserve perimeter space for coordinate labels.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Build validation</td><td>Project builds cleanly after overlay insertion.</td><td><span class="status done">Passed</span></td></tr>
+</table>
+
+<h4>Approved Coordinate Scheme</h4>
+<pre>Top Edge:
+1 2 3 4 5 6 7 8
+
+Left Edge:
+A
+B
+C
+D
+E
+F</pre>
+
+<h4>Inspection Reference Examples</h4>
+<table>
+<tr><th>Reference</th><th>Example Use</th></tr>
+<tr><td><code>A3</code></td><td>Possible solder bridge or debris near the upper inspection area.</td></tr>
+<tr><td><code>C5</code></td><td>Potential lifted pad, weak joint, or suspicious component lead.</td></tr>
+<tr><td><code>D2</code></td><td>Flux contamination or residue tracking point.</td></tr>
+<tr><td><code>F7</code></td><td>Trace damage, board edge issue, or lower-region inspection note.</td></tr>
+</table>
+
+<h4>Engineering Rationale</h4>
+<p>
+The coordinate overlay converts vague visual descriptions into repeatable inspection references. Instead of documenting a defect as “near the upper-left pins” or “slightly below the center of the board,” Lab Imager can support references such as <code>B4</code>, <code>D2</code>, or <code>F7</code>. This improves technician communication, screenshot review, annotation placement, troubleshooting history, and future reporting workflows.
+</p>
+
+<p>
+The coordinate labels are intentionally positioned around the viewport perimeter rather than directly over the active imaging area. This preserves as much visible PCB area as possible while still giving the operator a stable reference system for notes and future annotations.
+</p>
+
+<h4>Implementation Notes</h4>
+<table>
+<tr><th>Implementation Area</th><th>Detail</th></tr>
+<tr><td>Host margin</td><td>The native preview host was inset to create room for coordinate labels around the live image.</td></tr>
+<tr><td>Overlay hit testing</td><td>The coordinate overlay is marked non-interactive so it does not interfere with future viewport controls.</td></tr>
+<tr><td>Layering</td><td>The coordinate overlay is assigned a higher panel layer than the preview host.</td></tr>
+<tr><td>Color direction</td><td>Labels use the Lab Imager blue instrumentation palette to remain consistent with the approved UI theme.</td></tr>
+</table>
+
+<h4>Known Architecture Context</h4>
+<div class="note watch">
+<strong>Important context:</strong> Because the current M2-A renderer uses <code>WindowsFormsHost</code>, overlay behavior must continue to be validated carefully. Windows Forms hosting can introduce WPF airspace limitations. The perimeter-coordinate approach is intentionally safer than placing labels directly over the native video surface.
+</div>
+
+<h4>Validation Results</h4>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td><code>dotnet build</code></td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Warnings</td><td><code>0</code></td></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Live preview compatibility</td><td><span class="status pending">Requires visual confirmation</span></td></tr>
+<tr><td>Screenshot overlay capture</td><td><span class="status pending">Requires visual confirmation</span></td></tr>
+</table>
+
+<h4>Engineering Decision</h4>
+<div class="note ok">
+<strong>Decision:</strong> The coordinate overlay concept is approved as part of the Lab Imager inspection workflow. Coordinate labels should remain outside the active camera image whenever possible, preserving maximum board visibility while still enabling repeatable references for documentation and review.
+</div>
+
+<h4>Next Engineering Target</h4>
+<div class="note watch">
+<strong>Next milestone:</strong> Continue M2-B by validating overlay visibility during live preview, confirming screenshot behavior, and then restoring or redesigning the engineering grid overlay in a way that remains compatible with the DirectShow preview architecture.
+</div>
+
+<div class="page-num">24</div>
+</section>
+
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
@@ -1470,5 +1556,6 @@ Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not reg
 
 </body>
 </html>
+
 
 
