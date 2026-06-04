@@ -1496,6 +1496,93 @@ The coordinate labels are intentionally positioned around the viewport perimeter
 <div class="page-num">24</div>
 </section>
 
+
+<section class="page">
+<h3>25. M2-B Overlay Engine Investigation — Native Preview Overlay Blocker</h3>
+<p class="sub">Engineering investigation record for the failed attempt to draw a true grid overlay above the active DirectShow preview surface.</p>
+
+<div class="note warn">
+<strong>Final status:</strong> True grid overlay over the current DirectShow <code>IVideoWindow</code> / <code>WindowsFormsHost</code> preview path is blocked by native rendering behavior. The current preview method remains valid for live video, but it is not the final architecture for overlay-heavy inspection workflows.
+</div>
+
+<h4>Investigation Summary</h4>
+<table>
+<tr><th>Area</th><th>Finding</th><th>Status</th></tr>
+<tr><td>Live preview</td><td>DirectShow live preview remains operational.</td><td><span class="status done">Working</span></td></tr>
+<tr><td>Coordinate border labels</td><td>Perimeter labels can be drawn outside the native preview surface.</td><td><span class="status done">Working</span></td></tr>
+<tr><td>Grid over live video</td><td>WPF overlay elements do not reliably render over the native video surface.</td><td><span class="status blocked">Blocked</span></td></tr>
+<tr><td>WinForms paint overlay</td><td>Attempted native panel paint overlay did not remain above DirectShow video output.</td><td><span class="status blocked">Blocked</span></td></tr>
+<tr><td>Build recovery</td><td>Failed event wiring was removed and the project returned to a clean build state.</td><td><span class="status done">Recovered</span></td></tr>
+</table>
+
+<h4>Observed Behavior</h4>
+<p>
+The user requirement was clarified: the inspection grid must be visible directly on top of the live preview image so the operator can identify the exact grid box being referenced during inspection. Border-only coordinates are not sufficient by themselves because they do not visually divide the live image into readable boxes.
+</p>
+
+<p>
+A WinForms paint-based overlay was attempted on the preview panel. This did not satisfy the requirement because the DirectShow renderer continued to draw over or bypass the expected overlay paint layer. This confirms the issue is architectural, not merely a XAML styling problem.
+</p>
+
+<h4>Root Cause</h4>
+<div class="note watch">
+<strong>Root cause:</strong> The current M2-A preview path uses native DirectShow rendering through <code>IVideoWindow</code> hosted inside <code>WindowsFormsHost</code>. This gives a fast proof-of-camera path, but it creates airspace/rendering limitations that prevent reliable WPF or WinForms overlay drawing above the active video.
+</div>
+
+<h4>Engineering Decision</h4>
+<table>
+<tr><th>Decision</th><th>Reason</th></tr>
+<tr><td>Keep current DirectShow preview path temporarily.</td><td>It successfully proves live camera rendering and remains useful as a working baseline.</td></tr>
+<tr><td>Do not build final overlay tooling on top of <code>IVideoWindow</code>.</td><td>The required grid, coordinate, measurement, and annotation layers need reliable overlay rendering.</td></tr>
+<tr><td>Move overlay work to a new rendering architecture.</td><td>A WPF-compatible frame pipeline or VMR9/windowless DirectShow path is required for true overlay support.</td></tr>
+</table>
+
+<h4>Required Future Architecture</h4>
+<table>
+<tr><th>Option</th><th>Description</th><th>Assessment</th></tr>
+<tr><td>WPF frame pipeline</td><td>Capture camera frames and display them in a WPF <code>Image</code> or similar surface, allowing normal WPF overlays above the image.</td><td><span class="status done">Preferred long-term direction</span></td></tr>
+<tr><td>VMR9/windowless renderer</td><td>Use a DirectShow renderer designed for more controlled video hosting and custom rendering behavior.</td><td><span class="status watching">Possible technical path</span></td></tr>
+<tr><td>Continue <code>IVideoWindow</code></td><td>Use the current native renderer only for basic live preview.</td><td><span class="status warn">Not sufficient for final inspection overlays</span></td></tr>
+</table>
+
+<h4>Clarified Product Requirement</h4>
+<div class="note ok">
+<strong>Approved requirement:</strong> The inspection grid must be toggleable and must appear directly over the active camera image. Coordinates must represent actual grid boxes, not decorative cross sections or unrelated edge markers.
+</div>
+
+<pre>Required Inspection Mode:
+
+Live Camera Feed
+        +
+Toggleable Grid Lines
+        +
+Coordinates Matching Actual Boxes
+
+Example:
+A1 through JJ56</pre>
+
+<h4>Cleanup Action</h4>
+<table>
+<tr><th>Action</th><th>Result</th></tr>
+<tr><td>Restored <code>MainWindow.xaml.cs</code> after failed paint-overlay attempt.</td><td>Removed unstable overlay drawing code.</td></tr>
+<tr><td>Removed dangling <code>InspectionGridToggle_Changed</code> event references from XAML.</td><td>Resolved build errors after rollback.</td></tr>
+<tr><td>Ran <code>dotnet build</code>.</td><td><span class="status done">Passed with 0 warnings and 0 errors.</span></td></tr>
+<tr><td>Verified git status.</td><td><span class="status done">Working tree clean after cleanup commit/push.</span></td></tr>
+</table>
+
+<h4>Engineering Assessment</h4>
+<div class="note ok">
+<strong>Assessment:</strong> This blocker is an expected construction-phase architecture discovery. It does not invalidate the successful M2-A live preview milestone. It clarifies that Lab Imager needs a more overlay-capable rendering path before final inspection grid, coordinate, annotation, and measurement workflows can be completed.
+</div>
+
+<h4>Next Engineering Target</h4>
+<div class="note watch">
+<strong>Next milestone:</strong> Begin evaluating the WPF-compatible frame pipeline approach. The goal is to preserve live camera preview while enabling true WPF overlay layers for grid boxes, coordinates, annotations, and screenshot capture.
+</div>
+
+<div class="page-num">25</div>
+</section>
+
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
@@ -1556,6 +1643,7 @@ Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not reg
 
 </body>
 </html>
+
 
 
 
