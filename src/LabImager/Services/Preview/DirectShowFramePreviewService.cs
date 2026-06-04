@@ -1,4 +1,7 @@
-﻿using System;
+﻿using System.Runtime.InteropServices;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Media.Imaging;
@@ -20,6 +23,11 @@ public sealed class DirectShowFramePreviewService : IWpfFramePreviewService, ISa
     public bool IsPreviewRunning { get; private set; }
 
     public event EventHandler<BitmapSource>? FrameReady;
+
+    private System.Windows.Media.Imaging.BitmapSource? _latestFrame;
+
+    private int _frameCount = 0;
+private DateTime _lastLogTime = DateTime.Now;
 
     public void StartPreview(CameraDeviceInfo source)
     {
@@ -152,14 +160,43 @@ public sealed class DirectShowFramePreviewService : IWpfFramePreviewService, ISa
     }
 
     public int BufferCB(double sampleTime, IntPtr buffer, int bufferLength)
+{
+    try
     {
-        return 0;
+        if (buffer == IntPtr.Zero || bufferLength <= 0)
+            return 0;
+
+        byte[] managedBuffer = new byte[bufferLength];
+        Marshal.Copy(buffer, managedBuffer, 0, bufferLength);
+
+        // SAFE: Do NOT assume dimensions yet
+        System.Windows.Application.Current?.Dispatcher.Invoke(() =>
+        {
+            // Temporary diagnostic frame signal only
+            FrameReady?.Invoke(this, null!);
+        });
+    }
+    catch (Exception ex)
+    {
+        System.Diagnostics.Debug.WriteLine("[FRAME ERROR] " + ex.Message);
     }
 
+    return 0;
+}
+
+private void FrameHeartbeat()
+{
+    System.Diagnostics.Debug.WriteLine("[ANALYSIS MODE] Heartbeat OK");
+}
+
     private void RaiseFrameReady(BitmapSource frame)
+{
+    System.Windows.Application.Current?.Dispatcher.Invoke(() =>
     {
+        if (frame == null) return;
         FrameReady?.Invoke(this, frame);
-    }
+    });
+}
 
     private static void Release(object? obj)
     {
@@ -169,3 +206,9 @@ public sealed class DirectShowFramePreviewService : IWpfFramePreviewService, ISa
         }
     }
 }
+
+
+
+
+
+
