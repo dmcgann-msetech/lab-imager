@@ -1432,6 +1432,63 @@ WPF Image Binding
 </ul>
 <div class="page-num">26</div>
 </section><section class="page">
+<h3>27. M6 UI Cleanup and Stable Build Save Point</h3>
+<p class="sub">Record of the post-M6 UI cleanup pass, inspection-grid removal, readability fixes, and stable checkpoint commit.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> The experimental inspection-grid toggle and related UI clutter were removed from the active interface. Source selector readability was corrected, text-field clipping was addressed, and the current build was saved as a stable checkpoint before continuing Notes-toolbar functionality.
+</div>
+
+<h4>Scope Completed</h4>
+<table>
+<tr><th>Area</th><th>Result</th></tr>
+<tr><td>Inspection grid toggle</td><td>Removed from active UI.</td></tr>
+<tr><td>Grid overlay workstream</td><td>Retired from current development path.</td></tr>
+<tr><td>Source selector readability</td><td>Corrected so selected device text is visible.</td></tr>
+<tr><td>Text field clipping</td><td>Field height and padding corrected for readable entry.</td></tr>
+<tr><td>XAML stability</td><td>Recovered after failed global-replacement attempts and returned to buildable state.</td></tr>
+<tr><td>Repository state</td><td>Saved as stable build checkpoint.</td></tr>
+</table>
+
+<h4>Engineering Decision</h4>
+<div class="note watch">
+<strong>Decision:</strong> The inspection-grid overlay is deferred. The project will prioritize deliverable functionality: camera preview stability, screenshot capture, notes editing, metadata persistence, and workflow usability.
+</div>
+
+<h4>Validation</h4>
+<pre>dotnet build D:\Lab-Imager\src\LabImager\LabImager.csproj</pre>
+
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td>Build</td><td><span class="status done">Successful</span></td></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Warnings</td><td><code>4</code> non-blocking warnings in preview-service scaffolding.</td></tr>
+<tr><td>Runtime launch</td><td><span class="status done">Confirmed</span></td></tr>
+</table>
+
+<h4>Known Remaining UI Work</h4>
+<table>
+<tr><th>Item</th><th>Status</th></tr>
+<tr><td>Notes editor text visibility</td><td><span class="status pending">Needs correction</span></td></tr>
+<tr><td>Notes toolbar buttons</td><td><span class="status pending">Need command wiring</span></td></tr>
+<tr><td>Font selector</td><td><span class="status pending">Needs professional font list and event handling</span></td></tr>
+</table>
+
+<h4>Next Engineering Targets</h4>
+<ol>
+<li>Repair Notes editor foreground/background readability.</li>
+<li>Add professional note-editor fonts.</li>
+<li>Wire notes formatting commands.</li>
+<li>Continue M7 frame decode work after UI usability is stable.</li>
+</ol>
+
+<div class="note ok">
+<strong>Checkpoint outcome:</strong> The Lab Imager working tree has a stable UI cleanup baseline suitable for continued development.
+</div>
+
+<div class="page-num">27</div>
+</section>
+<section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
 <div class="note watch">
@@ -1483,3 +1540,4 @@ Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not reg
 </section>
 </body>
 </html>
+
