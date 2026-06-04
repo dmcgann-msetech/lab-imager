@@ -1,4 +1,4 @@
-<Window x:Class="LabImager.MainWindow"
+﻿<Window x:Class="LabImager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
@@ -434,34 +434,46 @@
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal"
                                                         Margin="0,0,0,4">
-                                                <Button Foreground="Black" Content="U" Width="24" Margin="0,0,4,0"/>
-                                                <Button Foreground="Black" Content="R" Width="24" Margin="0,0,8,0"/>
+                                                <Button Foreground="Black" Content="↶" Width="24" Margin="0,0,4,0" ToolTip="Undo" Click="NotesUndoButton_Click"/>
+                                                <Button Foreground="Black" Content="↷" Width="24" Margin="0,0,8,0" ToolTip="Redo" Click="NotesRedoButton_Click"/>
 
-                                                <ComboBox Foreground="Black" Width="110"
+                                                <ComboBox x:Name="NotesFontSelector"
+                                                          SelectionChanged="NotesFontSelector_SelectionChanged"
+                                                          Foreground="Black"
+                                                          Width="110"
                                                           Height="28"
                                                           SelectedIndex="0"
                                                           Margin="0,0,8,0">
                                                     <ComboBoxItem Content="Segoe UI" Foreground="Black"/>
-                                                    <ComboBoxItem Content="Sans Serif" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Calibri" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Arial" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Verdana" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Tahoma" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Georgia" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Times New Roman" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Cambria" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Book Antiqua" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Garamond" Foreground="Black"/>
                                                     <ComboBoxItem Content="Consolas" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Courier New" Foreground="Black"/>
                                                 </ComboBox>
 
-                                                <Button Foreground="Black" Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold"/>
-                                                <Button Foreground="Black" Content="I" Width="28" Margin="0,0,4,0" FontStyle="Italic"/>
-                                                <Button Foreground="Black" Content="-" Width="28" Margin="0,0,4,0"/>
+                                                <Button Foreground="Black" Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold" Click="NotesBoldButton_Click"/>
+                                                <Button Foreground="Black" Content="I" Width="28" Margin="0,0,4,0" FontStyle="Italic" Click="NotesItalicButton_Click"/>
+                                                <Button Foreground="Black" Content="U" Width="28" Margin="0,0,4,0" Click="NotesUnderlineButton_Click"/>
                                                 <Button Foreground="Black" Content="A" Width="28"/>
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal">
-                                                <Button Foreground="Black" Content="List" Width="34" Margin="0,0,4,0"/>
+                                                <Button Foreground="Black" Content="Bullet" Width="48" Margin="0,0,4,0" ToolTip="Bulleted list" Click="NotesBulletButton_Click"/>
                                                 <Button Foreground="Black" Content="Align" Width="48" Margin="0,0,4,0"/>
-                                                <Button Foreground="Black" Content="1." Width="38" Margin="0,0,4,0"/>
-                                                <Button Foreground="Black" Content="Tab" Width="34"/>
+                                                <Button Foreground="Black" Content="Outline" Width="58" Margin="0,0,4,0" ToolTip="Numbered outline" Click="NotesOutlineButton_Click"/>
+                                                <Button Foreground="Black" Content="Indent" Width="48" ToolTip="Increase indent" Click="NotesIndentButton_Click"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
 
-                                    <RichTextBox Height="260"
+                                    <RichTextBox x:Name="NotesEditor" Height="260"
                                                  BorderThickness="0"
                                                  FontSize="13"
                                                  VerticalScrollBarVisibility="Auto"
@@ -499,7 +511,7 @@
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center">
 
-                        <TextBlock Text=""
+                        <TextBlock Text="Â"
                                    Foreground="#22C55E"
                                    FontSize="18"
                                    Margin="0,0,10,0"/>
@@ -537,3 +549,15 @@
         </Grid>
     </Border>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+

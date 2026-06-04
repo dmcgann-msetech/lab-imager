@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Input;
 using LabImager.Services.Camera;
@@ -300,6 +302,94 @@ namespace LabImager
             Close();
         }
 
+        private void NotesFontSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (NotesEditor is null ||
+                NotesFontSelector.SelectedItem is not ComboBoxItem selectedItem)
+            {
+                return;
+            }
+
+            var fontName = selectedItem.Content?.ToString();
+
+            if (string.IsNullOrWhiteSpace(fontName))
+            {
+                return;
+            }
+
+            var fontFamily = new System.Windows.Media.FontFamily(fontName);
+
+            if (!NotesEditor.Selection.IsEmpty)
+            {
+                NotesEditor.Selection.ApplyPropertyValue(
+                    TextElement.FontFamilyProperty,
+                    fontFamily
+                );
+            }
+            else
+            {
+                NotesEditor.FontFamily = fontFamily;
+            }
+
+            NotesEditor.Focus();
+        }
+
+        private void NotesBoldButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditingCommands.ToggleBold.Execute(null, NotesEditor);
+            NotesEditor.Focus();
+        }
+
+        private void NotesItalicButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditingCommands.ToggleItalic.Execute(null, NotesEditor);
+            NotesEditor.Focus();
+        }
+
+        private void NotesUnderlineButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditingCommands.ToggleUnderline.Execute(null, NotesEditor);
+            NotesEditor.Focus();
+        }
+
+        private void NotesUndoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NotesEditor.CanUndo)
+            {
+                NotesEditor.Undo();
+            }
+
+            NotesEditor.Focus();
+        }
+
+        private void NotesRedoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NotesEditor.CanRedo)
+            {
+                NotesEditor.Redo();
+            }
+
+            NotesEditor.Focus();
+        }
+
+        private void NotesBulletButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditingCommands.ToggleBullets.Execute(null, NotesEditor);
+            NotesEditor.Focus();
+        }
+
+        private void NotesOutlineButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditingCommands.ToggleNumbering.Execute(null, NotesEditor);
+            NotesEditor.Focus();
+        }
+
+        private void NotesIndentButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditingCommands.IncreaseIndentation.Execute(null, NotesEditor);
+            NotesEditor.Focus();
+        }
+
         private void ToggleMaximizeRestore()
         {
             WindowState = WindowState == WindowState.Maximized
@@ -308,6 +398,12 @@ namespace LabImager
         }
     }
 }
+
+
+
+
+
+
 
 
 
