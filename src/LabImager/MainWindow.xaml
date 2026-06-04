@@ -2523,39 +2523,39 @@
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,8"/>
 
-                            <TextBox Height="38"
+                            <TextBox Height="44"
                                      Margin="0,0,0,18"
                                      Background="#020B18"
                                      Foreground="#E5E7EB"
                                      BorderBrush="#2563EB"
                                      FontSize="13"
-                                     Padding="12"/>
+                                     Padding="10,6"/>
 
                             <TextBlock Text="Board / Device"
                                        FontSize="13"
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,8"/>
 
-                            <TextBox Height="38"
+                            <TextBox Height="44"
                                      Margin="0,0,0,18"
                                      Background="#020B18"
                                      Foreground="#E5E7EB"
                                      BorderBrush="#2563EB"
                                      FontSize="13"
-                                     Padding="12"/>
+                                     Padding="10,6"/>
 
                             <TextBlock Text="Technician"
                                        FontSize="13"
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,8"/>
 
-                            <TextBox Height="38"
+                            <TextBox Height="44"
                                      Margin="0,0,0,18"
                                      Background="#020B18"
                                      Foreground="#E5E7EB"
                                      BorderBrush="#2563EB"
                                      FontSize="13"
-                                     Padding="12"/>
+                                     Padding="10,6"/>
 
                             <TextBlock Text="Source"
                                        FontSize="13"
@@ -2568,8 +2568,8 @@
                                       Height="38"
                                       MaxDropDownHeight="220"
                                       Margin="0,0,0,10"
-                                      Background="#020B18"
-                                      Foreground="#E5E7EB"
+                                      Background="White"
+                                      Foreground="Black"
                                       BorderBrush="#2563EB"
                                       FontSize="13"
                                       Padding="10"/>
@@ -2584,17 +2584,6 @@
                                     BorderBrush="#38BDF8"
                                     FontSize="14"
                                     FontWeight="SemiBold"/>
-
-                            <CheckBox x:Name="InspectionGridToggle"
-                                      Content="Inspection Grid"
-                                      IsChecked="True"
-                                      
-                                      
-                                      Foreground="#CBD5E1"
-                                      FontSize="12"
-                                      FontWeight="SemiBold"
-                                      Margin="0,0,0,10"/>
-
                             <Grid Margin="0,0,0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
