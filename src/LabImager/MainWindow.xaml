@@ -140,6 +140,18 @@
                             <wf:Panel x:Name="PreviewPanel"
                                       BackColor="Black"/>
                         </wfi:WindowsFormsHost>
+                        <!-- WPF FRAME PREVIEW HOST -->
+                        <Border x:Name="FramePreviewHost"
+                                Panel.ZIndex="2"
+                                Visibility="Collapsed"
+                                Margin="58,40,18,18"
+                                Background="#000000"
+                                ClipToBounds="True">
+                            <Image x:Name="FramePreviewImage"
+                                   Stretch="Uniform"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"/>
+                        </Border>
                         <!-- VIEWPORT COORDINATE OVERLAY -->
                         <Grid x:Name="ViewportCoordinateOverlay"
                               IsHitTestVisible="False"
@@ -2742,6 +2754,7 @@
         </Grid>
     </Border>
 </Window>
+
 
 
 

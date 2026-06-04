@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8"/>
 <title>Lab Imager Project Log - HDMI Microscope Capture and Annotation Workstation</title>
 <style>
 :root{--bg:#eef2f6;--paper:#fff;--ink:#1f2937;--muted:#6b7280;--line:#d6d3d1;--accent:#075985;--soft:#f8fbff;--code:#f3f4f6;--green:#166534;--blue:#075985;--red:#991b1b;--steel:#334155}
@@ -49,12 +50,11 @@ tbody tr:nth-child(even){background:#fafcff}
 </style>
 </head>
 <body>
-
 <section class="page cover">
 <div>
-<div class="eyebrow">LAB IMAGER &middot; INTERNAL ENGINEERING RECORD</div>
+<div class="eyebrow">LAB IMAGER · INTERNAL ENGINEERING RECORD</div>
 <div class="rule"></div>
-<div class="icon-mark">&#x1F52C;</div>
+<div class="icon-mark">🔬</div>
 <h1>Lab Imager Project Log</h1>
 <h2>HDMI Microscope Capture, Annotation, Screenshot, and Bench Documentation Workstation</h2>
 <div class="summary">
@@ -76,7 +76,6 @@ tbody tr:nth-child(even){background:#fafcff}
 <div class="sub">Printable engineering, architecture, and build ledger.</div>
 <div class="page-num">Cover</div>
 </section>
-
 <section class="page">
 <h3>Table of Contents</h3>
 <p class="sub">Initial Lab Imager project ledger contents.</p>
@@ -87,7 +86,6 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Sections 16-18</td><td>Approved UI concept, engineering viewport reconstruction, reticle stabilization, Phase 2 camera/settings architecture, camera selector scaffold, rich notes toolbar foundation, UI density refinement, build validation, and repository synchronization checkpoints.</td></tr>
 <tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
 </table>
-
 <h4>Document Control Notes</h4>
 <div class="note ok">
 <strong>Current decision:</strong> Lab Imager will be developed as a Windows-native C#/.NET application, with WPF as the initial UI target.
@@ -97,11 +95,9 @@ tbody tr:nth-child(even){background:#fafcff}
 </div>
 <div class="page-num">TOC</div>
 </section>
-
 <section class="page">
 <h3>Engineering Status / Severity Legend</h3>
 <p class="sub">Visual reference guide for operational status indicators, risk levels, and project-log annotations.</p>
-
 <h4>Status Indicator Meaning</h4>
 <table>
 <tr><th>Indicator</th><th>Meaning</th><th>Usage</th></tr>
@@ -110,7 +106,6 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td><div class="note watch"><strong>Blue</strong></div></td><td>Informational / Monitoring / Architecture</td><td>Design doctrine, forward planning, pending review areas.</td></tr>
 <tr><td><div class="summary"><strong>Neutral</strong></div></td><td>Planning / Transitional / Needs Validation</td><td>Requirements, initial concepts, proposed designs.</td></tr>
 </table>
-
 <h4>Badge Definitions</h4>
 <table>
 <tr><th>Badge</th><th>Meaning</th></tr>
@@ -121,7 +116,6 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td><span class="status watching">Watching</span></td><td>Architecture observation or monitored risk.</td></tr>
 <tr><td><span class="status pending">Pending</span></td><td>Known future work item.</td></tr>
 </table>
-
 <h4>Audit Severity Levels</h4>
 <table>
 <tr><th>Priority</th><th>Definition</th></tr>
@@ -130,22 +124,18 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td><span class="prio medium">Medium</span></td><td>Important but non-blocking improvement or cleanup.</td></tr>
 <tr><td><span class="prio low">Low</span></td><td>Cosmetic, branding, documentation, or future polish.</td></tr>
 </table>
-
 <div class="note ok">
 <strong>Purpose:</strong> This legend standardizes interpretation of Lab Imager engineering logs, milestone records, risk notes, and future build validation entries.
 </div>
 <div class="page-num">Legend</div>
 </section>
-
 <section class="page">
 <h3>1. Project Vision</h3>
 <p class="sub">Initial Lab Imager concept and intended operational purpose.</p>
-
 <div class="summary">
 <p>Lab Imager is intended to be a full bench-lab microscope imaging workstation for soldering, electronics repair, PCB inspection, component diagnostics, and technical documentation.</p>
 <p>The application will show the live HDMI microscope feed, allow screenshots, support annotations directly over the image view, provide zoom/view tools, and expose a right-side panel for notes, filenames, project data, and metadata.</p>
 </div>
-
 <h4>Primary Use Case</h4>
 <table>
 <tr><th>Workflow</th><th>Description</th></tr>
@@ -154,23 +144,18 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Annotation</td><td>Mark faults or observations using arrows, circles, rectangles, labels, and future measurement tools.</td></tr>
 <tr><td>Documentation</td><td>Save images with notes and structured metadata for project history, class work, repairs, or engineering records.</td></tr>
 </table>
-
 <div class="note ok">
 <strong>Project identity:</strong> Lab Imager is not a generic camera app. It is bench instrumentation software for electronics diagnostics and lab documentation.
 </div>
 <div class="page-num">1</div>
 </section>
-
 <section class="page">
 <h3>2. Repository Identity and Description</h3>
 <p class="sub">Initial repository-facing description and branding direction.</p>
-
 <h4>Repository Description</h4>
 <pre>Windows-native HDMI microscope capture and annotation workstation for soldering, PCB inspection, timestamped screenshots, and lab documentation.</pre>
-
 <h4>Repository Purpose</h4>
 <p>The repository will contain the full Lab Imager source tree, documentation, UI assets, architecture notes, installer/build configuration, and engineering ledger.</p>
-
 <h4>Suggested Repository Topics</h4>
 <table>
 <tr><th>Topic</th><th>Reason</th></tr>
@@ -182,18 +167,14 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td><code>pcb-inspection</code></td><td>Primary domain.</td></tr>
 <tr><td><code>electronics-lab</code></td><td>Bench-lab context.</td></tr>
 </table>
-
 <div class="page-num">2</div>
 </section>
-
 <section class="page">
 <h3>3. Technology Stack Decision</h3>
 <p class="sub">Final initial stack choice after reviewing C, C++, C#, and Python-style options.</p>
-
 <div class="note ok">
 <strong>Decision:</strong> Use <code>C# / .NET</code> with <code>WPF</code> as the first build target.
 </div>
-
 <h4>Reasoning</h4>
 <table>
 <tr><th>Choice</th><th>Assessment</th></tr>
@@ -201,7 +182,6 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>C++</td><td>Powerful and appropriate for maximum low-level control, but unnecessary complexity for the first production path unless camera/capture constraints demand it.</td></tr>
 <tr><td>C# / .NET</td><td>Best balance for Windows-native UI, maintainability, installer support, settings storage, file handling, and future hardware integrations.</td></tr>
 </table>
-
 <h4>Initial Technical Direction</h4>
 <table>
 <tr><th>Layer</th><th>Initial Decision</th></tr>
@@ -213,30 +193,26 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Metadata</td><td>JSON sidecar first; SQLite later when project library matures.</td></tr>
 <tr><td>Packaging</td><td>MSIX or installer build after first stable prototype.</td></tr>
 </table>
-
 <div class="note watch">
 <strong>Forward rule:</strong> Do not commit to a capture library until the HDMI capture device is tested and enumerated on the bench computer.
 </div>
 <div class="page-num">3</div>
 </section>
-
 <section class="page">
 <h3>4. Hardware Capture Pipeline</h3>
 <p class="sub">Expected microscope-to-application signal path.</p>
-
 <h4>Baseline Pipeline</h4>
 <pre>HDMI microscope camera
-        Ã¢â€ â€œ
+        → "
 HDMI capture device
-        Ã¢â€ â€œ
+        → "
 Bench computer USB/PCIe input
-        Ã¢â€ â€œ
+        → "
 Windows camera/capture subsystem
-        Ã¢â€ â€œ
+        → "
 Lab Imager live preview
-        Ã¢â€ â€œ
+        → "
 Screenshot / annotation / saved record</pre>
-
 <h4>Pipeline Requirements</h4>
 <table>
 <tr><th>Requirement</th><th>Status</th><th>Notes</th></tr>
@@ -246,21 +222,17 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Capture still frame</td><td><span class="status pending">Pending</span></td><td>PNG export required for milestone 1.</td></tr>
 <tr><td>Zoom/pan viewport</td><td><span class="status pending">Pending</span></td><td>View transform should not destroy the original captured image.</td></tr>
 </table>
-
 <div class="note warn">
 <strong>Risk:</strong> HDMI capture devices can expose inconsistent names, formats, frame rates, and resolutions. Device enumeration and format negotiation must be treated as a first-class milestone, not an afterthought.
 </div>
 <div class="page-num">4</div>
 </section>
-
 <section class="page">
 <h3>5. First Milestone: M1 Live Capture Window</h3>
 <p class="sub">First implementation target before any advanced project features.</p>
-
 <div class="note ok">
 <strong>M1 Objective:</strong> Build a stable Windows desktop app that opens the HDMI microscope capture feed and displays it in a live viewer.
 </div>
-
 <h4>M1 Deliverables</h4>
 <table>
 <tr><th>Deliverable</th><th>Status</th></tr>
@@ -272,7 +244,6 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Apply timestamped default filename</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Provide basic zoom control</td><td><span class="status pending">Pending</span></td></tr>
 </table>
-
 <h4>Explicitly Out of Scope for M1</h4>
 <ul>
 <li>Full annotation system</li>
@@ -283,14 +254,11 @@ Screenshot / annotation / saved record</pre>
 <li>Multi-user support</li>
 <li>AI image analysis</li>
 </ul>
-
 <div class="page-num">5</div>
 </section>
-
 <section class="page">
 <h3>6. Application Layout Doctrine</h3>
 <p class="sub">Initial workspace layout for operator usability.</p>
-
 <h4>Primary UI Model</h4>
 <table>
 <tr><th>Region</th><th>Purpose</th></tr>
@@ -299,19 +267,15 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Right-side panel</td><td>Project name, board/device name, technician, filename, notes, fault category, save location, timestamp data.</td></tr>
 <tr><td>Bottom status bar</td><td>Capture resolution, frame rate, device status, save confirmation, current mode.</td></tr>
 </table>
-
 <h4>Visual Design Target</h4>
 <div class="note steel">
 <strong>Design direction:</strong> industrial inspection software, electronics lab instrumentation, microscope workstation tooling, Keysight/Fluke/Siglent style discipline, and practical long-session readability.
 </div>
-
 <div class="page-num">6</div>
 </section>
-
 <section class="page">
 <h3>7. Annotation System Plan</h3>
 <p class="sub">Planned markup tools after live capture and screenshot foundation is stable.</p>
-
 <h4>Initial Annotation Tools</h4>
 <table>
 <tr><th>Tool</th><th>Purpose</th></tr>
@@ -323,7 +287,6 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Undo / redo</td><td>Prevent annotation workflow frustration.</td></tr>
 <tr><td>Clear annotations</td><td>Reset markup while preserving the base capture.</td></tr>
 </table>
-
 <h4>Future Annotation Tools</h4>
 <table>
 <tr><th>Future Tool</th><th>Notes</th></tr>
@@ -331,26 +294,20 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Scale overlay</td><td>Depends on microscope magnification and camera calibration.</td></tr>
 <tr><td>Layered annotations</td><td>Useful for editability but not required for M1.</td></tr>
 </table>
-
 <div class="note warn">
 <strong>Engineering rule:</strong> annotations must not permanently destroy the original captured frame unless the user intentionally exports a flattened copy.
 </div>
 <div class="page-num">7</div>
 </section>
-
 <section class="page">
 <h3>8. File Naming and Timestamp Standard</h3>
 <p class="sub">Initial save behavior for screenshots and metadata sidecars.</p>
-
 <h4>Default Filename Pattern</h4>
 <pre>YYYY-MM-DD_HH-MM-SS_ProjectName_BoardName.png</pre>
-
 <h4>Example</h4>
 <pre>2026-06-03_07-42-18_Arduino_SolderBridge.png</pre>
-
 <h4>Sidecar Metadata Pattern</h4>
 <pre>YYYY-MM-DD_HH-MM-SS_ProjectName_BoardName.json</pre>
-
 <h4>Initial Metadata Fields</h4>
 <table>
 <tr><th>Field</th><th>Purpose</th></tr>
@@ -363,24 +320,20 @@ Screenshot / annotation / saved record</pre>
 <tr><td><code>resolution</code></td><td>Image resolution at capture time.</td></tr>
 <tr><td><code>annotations</code></td><td>Future structured annotation data.</td></tr>
 </table>
-
 <div class="note ok">
 <strong>Decision:</strong> Use readable PNG + JSON sidecar output first. SQLite can be added later when the project library needs search, indexing, and history views.
 </div>
 <div class="page-num">8</div>
 </section>
-
 <section class="page">
 <h3>9. Project Storage Model</h3>
 <p class="sub">Initial storage plan before database-driven project management.</p>
-
 <h4>Recommended Folder Model</h4>
 <pre>Lab Imager Captures/
   ProjectName/
     YYYY-MM-DD/
       2026-06-03_07-42-18_ProjectName_BoardName.png
       2026-06-03_07-42-18_ProjectName_BoardName.json</pre>
-
 <h4>Future Project Library</h4>
 <table>
 <tr><th>Feature</th><th>Phase</th></tr>
@@ -390,18 +343,14 @@ Screenshot / annotation / saved record</pre>
 <tr><td>SQLite indexing</td><td>Phase 4+</td></tr>
 <tr><td>Export project packet</td><td>Future</td></tr>
 </table>
-
 <div class="page-num">9</div>
 </section>
-
 <section class="page">
 <h3>10. Theme and Appearance Doctrine</h3>
 <p class="sub">Default dark-mode requirement and user-selectable appearance settings.</p>
-
 <div class="note ok">
 <strong>Decision:</strong> Lab Imager launches in dark mode by default.
 </div>
-
 <h4>Appearance Options</h4>
 <table>
 <tr><th>Option</th><th>Behavior</th></tr>
@@ -409,10 +358,8 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Light</td><td>Optional user-selected mode for bright environments or print/screenshot preference.</td></tr>
 <tr><td>System Default</td><td>Follow Windows application theme setting where practical.</td></tr>
 </table>
-
 <h4>Implementation Requirement</h4>
 <pre>Lab Imager will launch in dark mode by default, with a user-selectable appearance setting allowing Dark, Light, or System Default mode. Theme preference should be saved in local application settings and restored on launch.</pre>
-
 <h4>Initial Palette Direction</h4>
 <table>
 <tr><th>Token</th><th>Color</th></tr>
@@ -421,43 +368,39 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Accent</td><td><code>#60A5FA</code></td></tr>
 <tr><td>Highlight</td><td><code>#93C5FD</code></td></tr>
 </table>
-
 <div class="page-num">10</div>
 </section>
-
 <section class="page">
 <h3>11. Repository Structure Plan</h3>
 <p class="sub">Initial C#/.NET project layout target.</p>
-
 <h4>Recommended Repository Structure</h4>
 <pre>lab-imager/
-Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ src/
-Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ LabImager/
-Ã¢â€â€š       Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ App.xaml
-Ã¢â€â€š       Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ MainWindow.xaml
-Ã¢â€â€š       Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Core/
-Ã¢â€â€š       Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Capture/
-Ã¢â€â€š       Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Annotation/
-Ã¢â€â€š       Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Imaging/
-Ã¢â€â€š       Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Storage/
-Ã¢â€â€š       Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Settings/
-Ã¢â€â€š       Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ Themes/
-Ã¢â€â€š       Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ UI/
-Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ assets/
-Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ icons/
-Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ logo/
-Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ themes/
-Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ docs/
-Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ architecture/
-Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ captures/
-Ã¢â€â€š   Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ roadmap/
-Ã¢â€â€š   Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ lab-imager-log.html
-Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ tests/
-Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ builds/
-Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ README.md
-Ã¢â€Å“Ã¢â€â‚¬Ã¢â€â‚¬ LICENSE
-Ã¢â€â€Ã¢â€â‚¬Ã¢â€â‚¬ .gitignore</pre>
-
+→Å“→â‚¬→â‚¬ src/
+→"š   →"→â‚¬→â‚¬ LabImager/
+→"š       →Å“→â‚¬→â‚¬ App.xaml
+→"š       →Å“→â‚¬→â‚¬ MainWindow.xaml
+→"š       →Å“→â‚¬→â‚¬ Core/
+→"š       →Å“→â‚¬→â‚¬ Capture/
+→"š       →Å“→â‚¬→â‚¬ Annotation/
+→"š       →Å“→â‚¬→â‚¬ Imaging/
+→"š       →Å“→â‚¬→â‚¬ Storage/
+→"š       →Å“→â‚¬→â‚¬ Settings/
+→"š       →Å“→â‚¬→â‚¬ Themes/
+→"š       →"→â‚¬→â‚¬ UI/
+→Å“→â‚¬→â‚¬ assets/
+→"š   →Å“→â‚¬→â‚¬ icons/
+→"š   →Å“→â‚¬→â‚¬ logo/
+→"š   →"→â‚¬→â‚¬ themes/
+→Å“→â‚¬→â‚¬ docs/
+→"š   →Å“→â‚¬→â‚¬ architecture/
+→"š   →Å“→â‚¬→â‚¬ captures/
+→"š   →Å“→â‚¬→â‚¬ roadmap/
+→"š   →"→â‚¬→â‚¬ lab-imager-log.html
+→Å“→â‚¬→â‚¬ tests/
+→Å“→â‚¬→â‚¬ builds/
+→Å“→â‚¬→â‚¬ README.md
+→Å“→â‚¬→â‚¬ LICENSE
+→"→â‚¬→â‚¬ .gitignore</pre>
 <h4>Folder Purpose</h4>
 <table>
 <tr><th>Folder</th><th>Purpose</th></tr>
@@ -470,14 +413,11 @@ Screenshot / annotation / saved record</pre>
 <tr><td><code>Themes</code></td><td>Dark, Light, and System Default resource dictionaries.</td></tr>
 <tr><td><code>UI</code></td><td>Controls, panels, dialogs, and reusable WPF components.</td></tr>
 </table>
-
 <div class="page-num">11</div>
 </section>
-
 <section class="page">
 <h3>12. Git Workflow and Branching Standard</h3>
 <p class="sub">Initial workflow recommendation before first code commits.</p>
-
 <h4>Recommended Branches</h4>
 <table>
 <tr><th>Branch</th><th>Purpose</th></tr>
@@ -485,7 +425,6 @@ Screenshot / annotation / saved record</pre>
 <tr><td><code>dev</code></td><td>Active development integration.</td></tr>
 <tr><td><code>staging</code></td><td>Pre-release validation branch when builds become installable.</td></tr>
 </table>
-
 <h4>Commit Discipline</h4>
 <ul>
 <li>Commit after each validated milestone.</li>
@@ -494,17 +433,14 @@ Screenshot / annotation / saved record</pre>
 <li>Keep this HTML log updated after verified project decisions or build milestones.</li>
 <li>Do not rename this log file unless intentionally restructuring docs.</li>
 </ul>
-
 <div class="note ok">
 <strong>Recommended log path:</strong> <code>docs/lab-imager-log.html</code>
 </div>
 <div class="page-num">12</div>
 </section>
-
 <section class="page">
 <h3>13. Icon, Logo, and Favicon Direction</h3>
 <p class="sub">Microscope/electronics branding direction for GitHub, app icon, and future installer identity.</p>
-
 <h4>Approved Direction</h4>
 <table>
 <tr><th>Visual Element</th><th>Usage</th></tr>
@@ -514,7 +450,6 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Camera aperture</td><td>Capture/image system signal.</td></tr>
 <tr><td>Solder pad / chip outline</td><td>Bench-lab and PCB diagnostics signal.</td></tr>
 </table>
-
 <h4>Style Requirements</h4>
 <ul>
 <li>Readable at 32x32.</li>
@@ -524,19 +459,15 @@ Screenshot / annotation / saved record</pre>
 <li>Avoid generic flat SaaS clipart.</li>
 <li>Favor industrial inspection and lab instrumentation aesthetics.</li>
 </ul>
-
 <h4>Suggested Icon Concept</h4>
 <div class="summary">
 <p>A circular microscope lens with subtle PCB traces inside, paired with a focus reticle or chip outline. The icon should feel like precision inspection software, not a school-science graphic.</p>
 </div>
-
 <div class="page-num">13</div>
 </section>
-
 <section class="page">
 <h3>14. Future Feature Roadmap</h3>
 <p class="sub">Planned feature progression after M1 capture stability.</p>
-
 <table>
 <tr><th>Phase</th><th>Focus</th><th>Deliverables</th></tr>
 <tr><td>Phase 1</td><td>Live capture</td><td>Device detection, live preview, screenshot, timestamped filename.</td></tr>
@@ -547,18 +478,14 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Phase 6</td><td>Packaging</td><td>Installer, app icon, versioning, release notes.</td></tr>
 <tr><td>Future</td><td>Advanced imaging</td><td>Video recording, calibration, measurement tools, comparison mode.</td></tr>
 </table>
-
 <div class="page-num">14</div>
 </section>
-
 <section class="page">
 <h3>15. Initial Build Constraints and Safe Start Rules</h3>
 <p class="sub">Rules to keep the first implementation practical and stable.</p>
-
 <div class="note warn">
 <strong>Primary risk:</strong> overbuilding the application before proving the live capture pipeline.
 </div>
-
 <h4>Safe Start Rules</h4>
 <ol>
 <li>Build the WPF shell first.</li>
@@ -568,7 +495,6 @@ Screenshot / annotation / saved record</pre>
 <li>Add timestamped naming fifth.</li>
 <li>Only then add zoom, notes, annotations, and project records.</li>
 </ol>
-
 <h4>Do Not Start With</h4>
 <ul>
 <li>A complex database schema.</li>
@@ -578,23 +504,17 @@ Screenshot / annotation / saved record</pre>
 <li>Measurement tools before calibration exists.</li>
 <li>Video recording before still capture is stable.</li>
 </ul>
-
 <div class="note ok">
 <strong>Current next engineering move:</strong> create the repository, add the planned folder structure, commit this log, then build the first WPF application shell.
 </div>
 <div class="page-num">15</div>
 </section>
-
-
-
 <section class="page">
-<h3>16. M1-A UI Design Approval â€” Final Approved Concept</h3>
+<h3>16. M1-A UI Design Approval — Final Approved Concept</h3>
 <p class="sub">Canonical Lab Imager interface direction approved for first-generation UI development.</p>
-
 <div class="note ok">
 <strong>Approved:</strong> Dark engineering workstation layout with deep navy-blue theme, microscope viewport, right-side metadata dock, bottom instrumentation/status bar, and coordinated blue accent system.
 </div>
-
 <h4>Approved Visual Standards</h4>
 <ul>
 <li>Dark-mode-first engineering interface</li>
@@ -607,27 +527,21 @@ Screenshot / annotation / saved record</pre>
 <li>ADHD/autism-friendly visual consistency</li>
 <li>Canonical design reference to prevent UI drift</li>
 </ul>
-
 <div class="note watch">
 <strong>Design rule:</strong> Future UI changes must remain visually coordinated with this approved baseline unless a deliberate redesign is logged.
 </div>
-
 <div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
-<img src="assets/ui/lab_design.png" alt="Approved Final Lab Imager UI" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<img alt="Approved Final Lab Imager UI" src="assets/ui/lab_design.png" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1"/>
 <p class="sub" style="text-align:center;margin-top:8px">Final approved Lab Imager interface direction.</p>
 </div>
-
 <div class="page-num">16</div>
 </section>
-
 <section class="page">
 <h3>17. Engineering Viewport Reconstruction and UI Baseline Finalization</h3>
 <p class="sub">Full record of the Lab Imager viewport remediation cycle, final MainWindow.xaml rebuild, approved interface screenshot, and GitHub synchronization milestone.</p>
-
 <div class="note ok">
 <strong>Final status:</strong> The Lab Imager visual interface has been stabilized and approved as the working UI baseline for active application development. The final state was committed and pushed to <code>origin/main</code> under commit <code>3792a27</code> with message <code>Finalize Lab Imager engineering viewport UI</code>.
 </div>
-
 <h4>Purpose of This Log Entry</h4>
 <p>
 This entry records the complete work performed after the previous UI design approval section. The scope was not limited to cosmetic adjustment. The work became a full UI remediation and recovery cycle because the viewport grid, reticle layout, XAML mutation workflow, and file-editing method all required correction before the project could safely move into real application functionality.
@@ -635,7 +549,6 @@ This entry records the complete work performed after the previous UI design appr
 <p>
 The main objective was to convert the approved visual concept into a stable, buildable <code>MainWindow.xaml</code> implementation while preserving the existing WPF shell, custom titlebar, right-side Lab Session panel, and bottom status infrastructure.
 </p>
-
 <h4>Starting Condition</h4>
 <table>
 <tr><th>Area</th><th>State Before Remediation</th></tr>
@@ -646,7 +559,6 @@ The main objective was to convert the approved visual concept into a stable, bui
 <tr><td>Log file</td><td><code>docs/lab-imager-log.html</code> existed and already contained Section 16 for the approved concept image.</td></tr>
 <tr><td>Image assets</td><td><code>docs/assets/ui/lab_design.png</code> existed as the initial approved concept reference.</td></tr>
 </table>
-
 <h4>Problems Identified During UI Review</h4>
 <table>
 <tr><th>Problem</th><th>Observed Behavior</th><th>Impact</th></tr>
@@ -657,7 +569,6 @@ The main objective was to convert the approved visual concept into a stable, bui
 <tr><td>PowerShell here-string handling</td><td>Large XAML here-strings did not close reliably during terminal paste operations.</td><td>Produced partial writes and malformed XAML.</td></tr>
 <tr><td>XAML validity</td><td>Malformed content triggered WPF parser errors such as <code>MC3000</code>.</td><td>Temporarily broke build integrity until the file was fully restored.</td></tr>
 </table>
-
 <h4>Recorded Build / Parser Failure Modes</h4>
 <div class="note warn">
 <strong>Failure class:</strong> These were file-write and XML integrity failures, not .NET runtime logic failures. The application failed to build only when <code>MainWindow.xaml</code> was partially written or polluted with invalid wrapper text.
@@ -665,7 +576,6 @@ The main objective was to convert the approved visual concept into a stable, bui
 <pre>MC3000: 'Data at the root level is invalid. Line 1, position 1.' XML is not valid.
 
 MC3000: 'Unexpected end of file has occurred. The following elements are not closed.' XML is not valid.</pre>
-
 <h4>Root Cause Assessment</h4>
 <table>
 <tr><th>Root Cause</th><th>Engineering Finding</th></tr>
@@ -675,7 +585,6 @@ MC3000: 'Unexpected end of file has occurred. The following elements are not clo
 <tr><td>Terminal-paste file replacement</td><td>Very large here-string replacements were too error-prone for this file size and workflow.</td></tr>
 <tr><td>Renderer wrapper contamination</td><td>Markdown/code wrapper markers were mistakenly treated as part of file content during one attempted manual paste path.</td></tr>
 </table>
-
 <h4>Remediation Strategy Change</h4>
 <div class="note ok">
 <strong>Standing rule established:</strong> Major Lab Imager UI/layout changes must use full-file replacement or direct editor overwrite workflows. Do not use manual find/replace hunts, regex surgery, or fragile incremental patching for substantial XAML layout work unless explicitly requested.
@@ -683,7 +592,6 @@ MC3000: 'Unexpected end of file has occurred. The following elements are not clo
 <p>
 This rule was established because the UI work repeatedly proved that the stable engineering path is to replace the entire known-good file, validate with <code>dotnet build</code>, run the application, visually confirm, and then commit. This matches the preferred deterministic workflow and avoids repeated local corruption cycles.
 </p>
-
 <h4>MainWindow.xaml Final Reconstruction Summary</h4>
 <table>
 <tr><th>Subsystem</th><th>Final Implementation</th></tr>
@@ -699,13 +607,11 @@ This rule was established because the UI work repeatedly proved that the stable 
 <tr><td>Right panel</td><td>Preserved Lab Session controls for project name, board/device, technician, notes, and capture button.</td></tr>
 <tr><td>Status bar</td><td>Preserved ready state, camera connection status, project loaded status, settings symbol, and help marker.</td></tr>
 </table>
-
 <h4>Approved Final UI Baseline Screenshot</h4>
 <div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
-<img src="assets/ui/lab_design_2.png" alt="Approved Final Lab Imager Engineering Viewport UI" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<img alt="Approved Final Lab Imager Engineering Viewport UI" src="assets/ui/lab_design_2.png" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1"/>
 <p class="sub" style="text-align:center;margin-top:8px">Final approved Lab Imager UI baseline after engineering-grid replacement, inward-facing reticle correction, center targeting refinement, and full <code>MainWindow.xaml</code> stabilization.</p>
 </div>
-
 <h4>Visual Acceptance Criteria Met</h4>
 <div class="grid-2">
 <div class="card"><strong>Engineering Grid</strong><span>Subtle line-based grid now reads as an instrumentation overlay rather than an oversized pegboard texture.</span></div>
@@ -713,7 +619,6 @@ This rule was established because the UI work repeatedly proved that the stable 
 <div class="card"><strong>Viewport Balance</strong><span>The viewport has proper central focus and no longer visually fights the right-side session panel.</span></div>
 <div class="card"><strong>Design Continuity</strong><span>Deep navy, pastel/electric blue accents, and dark workstation styling remain consistent with the approved Lab Imager theme.</span></div>
 </div>
-
 <h4>Validation Commands and Results</h4>
 <pre>cd D:\Lab-Imager\src\LabImager
 
@@ -726,7 +631,6 @@ dotnet build</pre>
 <tr><td>Errors</td><td><code>0</code></td></tr>
 <tr><td>Runtime visual review</td><td>Approved by user after final screenshot.</td></tr>
 </table>
-
 <h4>Repository Commit and Push</h4>
 <pre>cd D:\Lab-Imager
 
@@ -748,7 +652,6 @@ git push origin main</pre>
 <tr><td>Remote update</td><td><code>5f4ab4b..3792a27 main -&gt; main</code></td></tr>
 <tr><td>Push status</td><td><span class="status done">Completed</span></td></tr>
 </table>
-
 <h4>Current Stable State After Section 17</h4>
 <table>
 <tr><th>Component</th><th>Status</th><th>Notes</th></tr>
@@ -761,17 +664,15 @@ git push origin main</pre>
 <tr><td>Status bar</td><td><span class="status done">Stable</span></td><td>Ready/camera/project indicators preserved.</td></tr>
 <tr><td>GitHub repository</td><td><span class="status done">Synchronized</span></td><td>Origin main updated successfully.</td></tr>
 </table>
-
 <h4>Engineering Lessons Carried Forward</h4>
 <ul>
-<li>For XAML UI work, provide full-file replacements rather than small â€œfind this lineâ€ edits.</li>
+<li>For XAML UI work, provide full-file replacements rather than small "find this line" edits.</li>
 <li>Avoid regex surgery for layout architecture unless the scope is very small and the target is verified.</li>
 <li>Use VS Code/direct file replacement for large XAML payloads instead of terminal here-string paste walls.</li>
 <li>Always validate with <code>dotnet build</code> immediately after file replacement.</li>
 <li>Always visually confirm with <code>dotnet run</code> before committing UI changes.</li>
 <li>Major UI milestones must include screenshots in <code>docs/assets/ui/</code> and must be referenced in this log.</li>
 </ul>
-
 <h4>Next Development Phase</h4>
 <div class="note ok">
 <strong>Transition point:</strong> Lab Imager is now past UI firefighting and ready for actual functional application development.
@@ -785,19 +686,14 @@ git push origin main</pre>
 <li>Measurement and annotation overlay framework.</li>
 <li>Export/report system.</li>
 </ol>
-
 <div class="page-num">17</div>
 </section>
-
-
 <section class="page">
 <h3>18. Phase 2 UI Density, Camera Selector, Notes Toolbar, and Enumeration Foundation</h3>
 <p class="sub">Audit record for the Lab Imager Phase 2 interface refinement cycle, camera-selection workflow correction, DirectShow enumeration foundation, and pre-save-point stabilization.</p>
-
 <div class="note ok">
 <strong>Final status:</strong> The Lab Imager interface was refined from the oversized first-generation workstation shell into the approved compact widescreen engineering layout. The viewport remains dominant, the right-side Lab Session panel now includes camera-selection controls, the Notes area now has a two-row rich-text toolbar scaffold, and the top/bottom chrome has been reduced to a more professional software-instrument density.
 </div>
-
 <h4>Purpose of This Log Entry</h4>
 <p>
 This entry records the work completed after the approved engineering viewport baseline. The goal was to move Lab Imager from a static UI shell into a Phase 2-ready workstation interface while avoiding premature live-feed work. The user identified a critical design requirement before implementation went too far: the application must allow a camera to be selected and a preferred/default camera to be locked in. That requirement changed the Phase 2 design from simple camera detection to camera detection, camera selection, default-camera persistence, and graceful launch restoration.
@@ -805,7 +701,6 @@ This entry records the work completed after the approved engineering viewport ba
 <p>
 The session also corrected the application scale. The original UI worked visually, but it read too large and kiosk-like. The revised design keeps the full widescreen window and large microscope viewport, but reduces title/status chrome, tightens right-panel controls, and gives the Notes workflow a proper toolbar foundation.
 </p>
-
 <h4>Phase 2 Architecture Added Before UI Refinement</h4>
 <table>
 <tr><th>Area</th><th>File / Component</th><th>Purpose</th></tr>
@@ -817,7 +712,6 @@ The session also corrected the application scale. The original UI worked visuall
 <tr><td>Settings service stub</td><td><code>Services/Settings/StubAppSettingsService.cs</code></td><td>Provides a non-persistent in-memory settings layer while disk-backed settings are pending.</td></tr>
 <tr><td>Main window integration</td><td><code>MainWindow.xaml.cs</code></td><td>Introduces camera/settings service wiring without starting live capture.</td></tr>
 </table>
-
 <h4>Phase 2 Camera Workflow Correction</h4>
 <div class="note watch">
 <strong>Requirement correction:</strong> Lab Imager must not simply open the first available camera. The application must enumerate available cameras, display them in a selector, allow one camera to be set as the default, restore that preferred device on launch, and gracefully recover if the preferred camera is missing.
@@ -831,14 +725,12 @@ The session also corrected the application scale. The original UI worked visuall
 <tr><td>Restore preferred camera on launch</td><td><span class="status pending">Pending</span></td><td>Will be implemented after real enumeration populates the selector.</td></tr>
 <tr><td>Live camera feed</td><td><span class="status pending">Pending</span></td><td>Explicitly deferred until selection and persistence are stable.</td></tr>
 </table>
-
 <h4>Camera Enumeration Backend Evaluation</h4>
 <table>
 <tr><th>Backend Attempt</th><th>Result</th><th>Decision</th></tr>
 <tr><td><code>Microsoft.Windows.SDK.Contracts</code></td><td>Rejected after build failures involving Windows target-platform version mismatch and unsupported direct WinMD references in the current WPF/.NET 8 project context.</td><td><span class="status blocked">Rejected</span></td></tr>
 <tr><td><code>DirectShowLib.Net 3.0.0</code></td><td>Installed successfully and built cleanly against the current <code>net8.0-windows</code> project target.</td><td><span class="status active">Selected for Phase 2 enumeration</span></td></tr>
 </table>
-
 <h4>Windows SDK Contracts Remediation</h4>
 <div class="note warn">
 <strong>Failure avoided:</strong> The WinRT/Windows SDK Contracts path was backed out before it contaminated the project architecture. The package reference was removed, the target framework was restored to <code>net8.0-windows</code>, and the failed <code>WindowsCameraDeviceService.cs</code> was deleted.
@@ -853,7 +745,6 @@ The session also corrected the application scale. The original UI worked visuall
 Remove-Item .\Services\Camera\WindowsCameraDeviceService.cs -Force
 
 dotnet build</pre>
-
 <h4>DirectShow Enumeration Foundation</h4>
 <div class="note ok">
 <strong>Current direction:</strong> DirectShow was selected as the safer next enumeration layer for this Windows-native WPF application. It avoids the WinRT metadata failure path and keeps the project aligned with Windows camera/capture-device discovery before live rendering begins.
@@ -867,7 +758,6 @@ dotnet build</pre>
 <tr><td>Warnings</td><td><code>0</code></td></tr>
 <tr><td>Errors</td><td><code>0</code></td></tr>
 </table>
-
 <h4>UI Refinement Summary</h4>
 <table>
 <tr><th>UI Area</th><th>Change</th><th>Reason</th></tr>
@@ -879,7 +769,6 @@ dotnet build</pre>
 <tr><td>Notes editor</td><td>Converted plain notes box direction into a RichTextBox foundation with formatting toolbar.</td><td>Supports future technical note formatting, bullets, lists, and emphasis.</td></tr>
 <tr><td>Notes toolbar</td><td>Reworked from a clipped single-line toolbar to a two-row control strip.</td><td>Prevents right-edge clipping and matches approved email-style toolbar behavior.</td></tr>
 </table>
-
 <h4>Notes Toolbar Scope</h4>
 <table>
 <tr><th>Toolbar Item</th><th>Status</th><th>Purpose</th></tr>
@@ -892,13 +781,11 @@ dotnet build</pre>
 <tr><td>Numbered list</td><td><span class="status partial">Visual scaffold</span></td><td>Needed for step-based repair or test notes.</td></tr>
 <tr><td>Indent</td><td><span class="status partial">Visual scaffold</span></td><td>Needed for nested observations and structured notes.</td></tr>
 </table>
-
 <h4>Approved Current Interface Screenshot</h4>
 <div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
-<img src="assets/ui/lab_design_3.png" alt="Approved Lab Imager Phase 2 Compact UI With Camera Selector and Notes Toolbar" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<img alt="Approved Lab Imager Phase 2 Compact UI With Camera Selector and Notes Toolbar" src="assets/ui/lab_design_3.png" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1"/>
 <p class="sub" style="text-align:center;margin-top:8px">Approved Phase 2 Lab Imager interface baseline after camera selector insertion, notes toolbar foundation, two-row toolbar correction, and top/bottom chrome density refinement.</p>
 </div>
-
 <h4>Validation Commands</h4>
 <pre>cd D:\Lab-Imager\src\LabImager
 
@@ -913,7 +800,6 @@ dotnet run</pre>
 <tr><td>Runtime visual review</td><td><span class="status done">Approved</span></td></tr>
 <tr><td>User design approval</td><td><span class="status done">Confirmed</span></td></tr>
 </table>
-
 <h4>Current Save-Point Scope</h4>
 <table>
 <tr><th>Expected Changed Item</th><th>Reason</th></tr>
@@ -923,7 +809,6 @@ dotnet run</pre>
 <tr><td><code>docs/lab-imager-log.html</code></td><td>This Section 18 engineering record.</td></tr>
 <tr><td><code>docs/assets/ui/lab_design_3.png</code></td><td>Approved current interface screenshot.</td></tr>
 </table>
-
 <h4>Recommended Commit</h4>
 <pre>cd D:\Lab-Imager
 
@@ -936,7 +821,6 @@ git add src/LabImager/MainWindow.xaml \
 git commit -m "Refine Lab Imager UI density and add Phase 2 camera selector foundation"
 
 git push origin main</pre>
-
 <h4>Next Engineering Targets</h4>
 <ol>
 <li>Wire <code>DirectShowCameraDeviceService</code> into <code>MainWindow.xaml.cs</code>.</li>
@@ -946,24 +830,17 @@ git push origin main</pre>
 <li>Replace stub settings with disk-backed JSON settings.</li>
 <li>Only after selection and persistence are stable, begin live preview rendering.</li>
 </ol>
-
 <div class="note ok">
 <strong>Checkpoint decision:</strong> This is a valid save point. The UI direction is approved, build integrity is restored, the failed WinRT route was remediated, and the project is ready to continue with controlled device enumeration wiring.
 </div>
-
 <div class="page-num">18</div>
 </section>
-
-
-
 <section class="page">
 <h3>19. Screenshot Capture Pipeline Foundation</h3>
 <p class="sub">Operational viewport screenshot export milestone, PNG output standard, validation record, and encoding stabilization note.</p>
-
 <div class="note ok">
 <strong>Final status:</strong> Screenshot capture is complete and synchronized to <code>main</code> under commit <code>ca7f380</code> with message <code>Add screenshot capture service and viewport PNG export</code>.
 </div>
-
 <h4>Purpose of This Log Entry</h4>
 <p>
 This entry records the first operational imaging-output capability added to Lab Imager. Prior work established the visual shell, viewport, source selector, and workstation-style interface. This milestone moved the application beyond static UI construction by allowing the rendered microscope viewport surface to be captured and exported as a timestamped PNG file.
@@ -971,7 +848,6 @@ This entry records the first operational imaging-output capability added to Lab 
 <p>
 The implemented capture flow is intentionally practical: capture the current WPF viewport surface, encode it as PNG, save it to a predictable user Pictures location, and report the save path back through the application status layer. This gives Lab Imager an immediate bench-documentation output path before live DirectShow rendering and annotation tools are introduced.
 </p>
-
 <h4>Implementation Summary</h4>
 <table>
 <tr><th>Area</th><th>Change</th><th>Status</th></tr>
@@ -982,7 +858,6 @@ The implemented capture flow is intentionally practical: capture the current WPF
 <tr><td>Button wiring</td><td>Connected the <code>Capture Screenshot</code> button to the capture workflow.</td><td><span class="status done">Completed</span></td></tr>
 <tr><td>Filesystem output</td><td>Confirmed PNG files are written to the configured Pictures directory.</td><td><span class="status done">Validated</span></td></tr>
 </table>
-
 <h4>Capture Output Standard</h4>
 <table>
 <tr><th>Output Item</th><th>Standard</th><th>Purpose</th></tr>
@@ -992,7 +867,6 @@ The implemented capture flow is intentionally practical: capture the current WPF
 <tr><td>Renderer</td><td>WPF <code>RenderTargetBitmap</code></td><td>Captures the current rendered viewport surface.</td></tr>
 <tr><td>Encoder</td><td><code>PngBitmapEncoder</code></td><td>Produces standard PNG output without requiring external imaging libraries.</td></tr>
 </table>
-
 <h4>Validation Matrix</h4>
 <table>
 <tr><th>Validation</th><th>Result</th><th>Notes</th></tr>
@@ -1003,12 +877,10 @@ The implemented capture flow is intentionally practical: capture the current WPF
 <tr><td>Status bar save-path feedback</td><td><span class="status done">Passed</span></td><td>User-facing confirmation reported the output path.</td></tr>
 <tr><td>Viewport layout after integration</td><td><span class="status done">Stable</span></td><td>Capture functionality did not destabilize the approved viewport UI.</td></tr>
 </table>
-
 <h4>Encoding Stabilization Note</h4>
 <div class="note warn">
 <strong>Observed issue:</strong> Windows PowerShell 5.1 repeatedly corrupted raw Unicode glyphs in XAML when unsafe file-write methods were used. The stabilization path was to replace raw emoji glyphs with XML-safe numeric Unicode entities where needed.
 </div>
-
 <h4>Engineering Significance</h4>
 <div class="grid-2">
 <div class="card"><strong>Real Output</strong><span>Lab Imager can now produce an actual saved image artifact from the viewport instead of only displaying a mock workstation shell.</span></div>
@@ -1016,25 +888,19 @@ The implemented capture flow is intentionally practical: capture the current WPF
 <div class="card"><strong>Bench Documentation</strong><span>The PNG export path supports immediate inspection records, lab notes, and future annotation/export workflows.</span></div>
 <div class="card"><strong>Forward Compatibility</strong><span>The capture mechanism can later be reused after live preview rendering is connected to the viewport.</span></div>
 </div>
-
 <div class="note ok">
 <strong>Checkpoint decision:</strong> Screenshot capture is now a functional subsystem. This satisfies a core Lab Imager requirement for lab documentation and establishes the output path needed before annotation, metadata sidecars, and reporting workflows are expanded.
 </div>
-
 <h4>Next Engineering Target</h4>
 <p>Proceed to persistent settings service implementation so selected sources can survive application restart and support deterministic camera workflow behavior.</p>
-
 <div class="page-num">19</div>
 </section>
-
 <section class="page">
 <h3>20. Persistent JSON Settings Service and Source Restoration</h3>
 <p class="sub">Disk-backed application settings milestone for selected source persistence, restart restoration, and future preference storage.</p>
-
 <div class="note ok">
 <strong>Final status:</strong> JSON-backed settings persistence is complete and synchronized to <code>main</code> under commit <code>cc2ab98</code> with message <code>Add persistent JSON settings service for source restoration</code>.
 </div>
-
 <h4>Purpose of This Log Entry</h4>
 <p>
 This entry records the replacement of the temporary in-memory settings scaffold with a disk-backed JSON settings provider. The application can now save selected source configuration and restore it across application restarts, which is required before reliable live preview behavior can be implemented.
@@ -1042,7 +908,6 @@ This entry records the replacement of the temporary in-memory settings scaffold 
 <p>
 The persistence layer intentionally uses a simple user-scoped JSON file rather than a database. That decision keeps the application lightweight while still supporting the immediate requirements: default source name, default source device path, safe startup behavior, and future expansion for additional user preferences.
 </p>
-
 <h4>Settings Persistence Architecture</h4>
 <table>
 <tr><th>Component</th><th>Purpose</th><th>Status</th></tr>
@@ -1052,30 +917,26 @@ The persistence layer intentionally uses a simple user-scoped JSON file rather t
 <tr><td><code>%APPDATA%</code> storage</td><td>Stores settings in a user-scoped Windows application data location.</td><td><span class="status done">Implemented</span></td></tr>
 <tr><td>Fallback load behavior</td><td>Returns safe defaults when the settings file is missing, empty, or unreadable.</td><td><span class="status done">Implemented</span></td></tr>
 </table>
-
 <h4>Persistent Storage Location</h4>
 <pre>%APPDATA%\Lab Imager\appsettings.json</pre>
-
 <h4>Persisted Settings</h4>
 <table>
 <tr><th>Setting</th><th>Purpose</th><th>Operational Value</th></tr>
 <tr><td><code>DefaultCameraName</code></td><td>Stores the display name of the selected default source.</td><td>Provides user-readable restoration feedback.</td></tr>
 <tr><td><code>DefaultCameraDevicePath</code></td><td>Stores the DirectShow device path for the preferred source.</td><td>Provides a more reliable restoration key than name alone.</td></tr>
 </table>
-
 <h4>Restart Restoration Workflow</h4>
 <pre>Application launch
-        â†“
+        →“
 Load appsettings.json
-        â†“
+        →“
 Enumerate available video sources
-        â†“
+        →“
 Match saved default source by device path/name
-        â†“
+        →“
 Restore selector state
-        â†“
+        →“
 Update status bar with selected source</pre>
-
 <h4>Validation Matrix</h4>
 <table>
 <tr><th>Validation</th><th>Result</th><th>Notes</th></tr>
@@ -1086,7 +947,6 @@ Update status bar with selected source</pre>
 <tr><td>Default source restored after restart</td><td><span class="status done">Passed</span></td><td>Saved source selection returned after relaunch.</td></tr>
 <tr><td>Status bar restored selected source state</td><td><span class="status done">Passed</span></td><td>UI feedback reflected restored source state.</td></tr>
 </table>
-
 <h4>Failure Handling Doctrine</h4>
 <div class="note watch">
 <strong>Design rule:</strong> Settings persistence must never become a startup blocker. A missing, empty, or invalid settings file should degrade to safe defaults instead of preventing Lab Imager from launching.
@@ -1098,7 +958,6 @@ Update status bar with selected source</pre>
 <tr><td>Device path changed</td><td>Attempt graceful fallback using source name where practical.</td></tr>
 <tr><td>Invalid JSON</td><td>Recover with defaults rather than crashing the application.</td></tr>
 </table>
-
 <h4>Engineering Significance</h4>
 <div class="grid-2">
 <div class="card"><strong>Persistence</strong><span>Lab Imager now remembers selected source configuration across restart cycles.</span></div>
@@ -1106,25 +965,19 @@ Update status bar with selected source</pre>
 <div class="card"><strong>Preview Readiness</strong><span>Live preview work can assume a stable source-selection and default-source foundation.</span></div>
 <div class="card"><strong>Future Preferences</strong><span>The same JSON service can later store theme, save path, technician name, and viewport preferences.</span></div>
 </div>
-
 <div class="note ok">
 <strong>Checkpoint decision:</strong> Settings persistence is stable enough to support preview workflow, source selection, and future user-preference storage. The application now has a proper local configuration layer instead of a temporary stub.
 </div>
-
 <h4>Next Engineering Target</h4>
 <p>Add preview lifecycle controls before attempting live DirectShow rendering.</p>
-
 <div class="page-num">20</div>
 </section>
-
 <section class="page">
 <h3>21. Preview State Management Framework</h3>
 <p class="sub">Preview lifecycle-control milestone establishing start/stop state handling before DirectShow live rendering integration.</p>
-
 <div class="note ok">
 <strong>Final status:</strong> Preview lifecycle controls are complete and synchronized to <code>main</code> under commit <code>7645ecd</code> with message <code>Add preview state controls and workflow</code>.
 </div>
-
 <h4>Purpose of This Log Entry</h4>
 <p>
 This entry records the creation of the first preview lifecycle management framework in Lab Imager. The milestone deliberately did not attempt live video rendering. Instead, it established the UI controls, state transitions, selected-source awareness, and preview service boundary needed before DirectShow graph work is connected to the viewport.
@@ -1132,7 +985,6 @@ This entry records the creation of the first preview lifecycle management framew
 <p>
 This sequencing matters because live preview rendering will be a higher-risk subsystem. By proving the control layer first, the project now has stable Start Preview, Stop Preview, source-change behavior, and status feedback that can remain intact while the stub preview service is replaced with a DirectShow implementation.
 </p>
-
 <h4>Preview Control Summary</h4>
 <table>
 <tr><th>UI Element</th><th>Purpose</th><th>Status</th></tr>
@@ -1141,14 +993,12 @@ This sequencing matters because live preview rendering will be a higher-risk sub
 <tr><td><code>Preview Status</code></td><td>Displays the current preview state to the operator.</td><td><span class="status done">Added</span></td></tr>
 <tr><td>Source change handling</td><td>Stops active preview state when the selected source changes.</td><td><span class="status done">Implemented</span></td></tr>
 </table>
-
 <h4>Preview Service Framework</h4>
 <table>
 <tr><th>File / Component</th><th>Purpose</th><th>Status</th></tr>
 <tr><td><code>Services/Preview/ICameraPreviewService.cs</code></td><td>Defines the preview lifecycle contract that future rendering implementations must satisfy.</td><td><span class="status done">Added</span></td></tr>
 <tr><td><code>Services/Preview/StubCameraPreviewService.cs</code></td><td>Provides temporary preview-state behavior before DirectShow rendering is implemented.</td><td><span class="status done">Added</span></td></tr>
 </table>
-
 <h4>State Transition Matrix</h4>
 <table>
 <tr><th>Action</th><th>Expected Behavior</th><th>Result</th></tr>
@@ -1157,7 +1007,6 @@ This sequencing matters because live preview rendering will be a higher-risk sub
 <tr><td>Stop Preview clicked</td><td>Preview Stopped shown, Start enabled, and Stop disabled.</td><td><span class="status done">Passed</span></td></tr>
 <tr><td>Source changed while active</td><td>Preview stops and source-change status appears.</td><td><span class="status done">Passed</span></td></tr>
 </table>
-
 <h4>Validation Commands</h4>
 <pre>cd D:\Lab-Imager\src\LabImager
 
@@ -1172,25 +1021,22 @@ dotnet run</pre>
 <tr><td>Source-change interruption behavior</td><td><span class="status done">Operational</span></td></tr>
 <tr><td>Live video rendering</td><td><span class="status pending">Not yet implemented</span></td></tr>
 </table>
-
 <h4>Boundary Clarification</h4>
 <div class="note warn">
 <strong>Important boundary:</strong> Preview controls are currently lifecycle-state controls only. They do not yet render a live camera feed. Live rendering begins in the next DirectShow graph implementation phase.
 </div>
-
 <h4>Current Architecture Stack</h4>
 <pre>Source Discovery
-        â†“
+        →“
 Source Selection
-        â†“
+        →“
 Persistent Default Source
-        â†“
+        →“
 Screenshot Export
-        â†“
+        →“
 Preview State Lifecycle
-        â†“
+        →“
 DirectShow Live Rendering</pre>
-
 <h4>Engineering Significance</h4>
 <div class="grid-2">
 <div class="card"><strong>Control Layer</strong><span>The application now has proper preview start/stop controls before the rendering subsystem is introduced.</span></div>
@@ -1198,7 +1044,6 @@ DirectShow Live Rendering</pre>
 <div class="card"><strong>Source Safety</strong><span>Changing the selected source while active preview is running now forces a controlled stop state.</span></div>
 <div class="card"><strong>M2-A Readiness</strong><span>All prerequisite infrastructure is in place for the live viewport rendering milestone.</span></div>
 </div>
-
 <h4>Next Engineering Target</h4>
 <div class="note ok">
 <strong>Next milestone:</strong> Implement live DirectShow preview rendering inside the microscope viewport and retire the preview stub service.
@@ -1210,18 +1055,14 @@ DirectShow Live Rendering</pre>
 <li>Bind live output into the Lab Imager viewport.</li>
 <li>Validate start, stop, source switching, and screenshot compatibility.</li>
 </ol>
-
 <div class="page-num">21</div>
 </section>
-
 <section class="page">
 <h3>22. M2-A DirectShow Live Preview Integration</h3>
 <p class="sub">Major milestone record for converting Lab Imager from a static viewport shell into a functional live imaging application.</p>
-
 <div class="note ok">
 <strong>Final status:</strong> M2-A is complete. Lab Imager successfully rendered a live USB camera feed inside the application viewport using DirectShow and a WindowsFormsHost-based preview surface.
 </div>
-
 <h4>Milestone Summary</h4>
 <table>
 <tr><th>Area</th><th>Result</th><th>Status</th></tr>
@@ -1233,7 +1074,6 @@ DirectShow Live Rendering</pre>
 <tr><td>Live video</td><td>Verified live USB video feed inside the Lab Imager viewport.</td><td><span class="status done">Validated</span></td></tr>
 <tr><td>Screenshot during preview</td><td>Verified screenshot capture while live preview was actively running.</td><td><span class="status done">Validated</span></td></tr>
 </table>
-
 <h4>DirectShow Rendering Pipeline</h4>
 <pre>USB Video Device
         ↓
@@ -1250,7 +1090,6 @@ RenderStream(PinCategory.Preview, MediaType.Video)
 IVideoWindow attached to PreviewPanel.Handle
         ↓
 Live video rendered inside Lab Imager</pre>
-
 <h4>Files Changed</h4>
 <table>
 <tr><th>File</th><th>Purpose</th></tr>
@@ -1262,7 +1101,6 @@ Live video rendered inside Lab Imager</pre>
 <tr><td><code>src/LabImager/Services/Preview/StubCameraPreviewService.cs</code></td><td>Updated stub to match the new preview service contract.</td></tr>
 <tr><td><code>src/LabImager/Services/Preview/DirectShowCameraPreviewService.cs</code></td><td>New DirectShow graph-based preview renderer.</td></tr>
 </table>
-
 <h4>Validation Results</h4>
 <table>
 <tr><th>Validation</th><th>Result</th></tr>
@@ -1277,12 +1115,10 @@ Live video rendered inside Lab Imager</pre>
 <tr><td>Multi-minute preview stability</td><td><span class="status done">Passed</span></td></tr>
 <tr><td>Push to GitHub</td><td><span class="status done">Completed</span></td></tr>
 </table>
-
 <h4>Hardware / Device Availability Investigation</h4>
 <div class="note watch">
 <strong>Engineering observation:</strong> During initial DirectShow stress testing, the live preview temporarily failed and was first suspected to be an application-level DirectShow graph issue. Follow-up validation confirmed the camera device itself had become unavailable at the operating-system level.
 </div>
-
 <table>
 <tr><th>Observed Symptom</th><th>Finding</th></tr>
 <tr><td>Preview failed shortly after earlier success.</td><td>The application showed a DirectShow preview failure rather than a stable feed.</td></tr>
@@ -1290,16 +1126,13 @@ Live video rendered inside Lab Imager</pre>
 <tr><td>Windows Camera error</td><td><code>PageOpenFailed</code> / <code>0x80004003</code>.</td></tr>
 <tr><td>Recovery</td><td>The camera recovered after device-level correction and Lab Imager preview resumed without major software redesign.</td></tr>
 </table>
-
 <div class="note ok">
 <strong>Conclusion:</strong> The failure was classified as a hardware, driver, or device-availability issue rather than a Lab Imager application defect. This is expected during early hardware-integration phases and should be documented as a normal construction-stage diagnostic pattern.
 </div>
-
 <h4>WindowsFormsHost Airspace Limitation</h4>
 <div class="note warn">
 <strong>Known limitation:</strong> <code>WindowsFormsHost</code> introduces expected WPF airspace behavior. When the native preview surface is visible, it can obscure WPF overlay elements such as the engineering grid, reticles, coordinate labels, and future annotation layers.
 </div>
-
 <table>
 <tr><th>Affected Area</th><th>Impact</th><th>Decision</th></tr>
 <tr><td>Engineering grid</td><td>May be hidden behind native preview surface.</td><td>Accepted for M2-A proof-of-camera milestone.</td></tr>
@@ -1307,11 +1140,9 @@ Live video rendered inside Lab Imager</pre>
 <tr><td>Coordinate overlay</td><td>Cannot be finalized on top of this native host approach.</td><td>Approved as future M2-B / M3 work.</td></tr>
 <tr><td>Annotations</td><td>Future annotation layer needs a WPF-compatible rendering strategy.</td><td>Do not build final annotation architecture directly on WinFormsHost overlay assumptions.</td></tr>
 </table>
-
 <div class="note watch">
 <strong>Engineering decision:</strong> Use the WindowsFormsHost DirectShow path as the M2-A proof-of-camera milestone. Future overlay, coordinate, measurement, and annotation work should be designed with this airspace limitation in mind.
 </div>
-
 <h4>Expected Construction-Phase Issues</h4>
 <table>
 <tr><th>Issue Class</th><th>Observed During This Milestone</th><th>Classification</th></tr>
@@ -1320,18 +1151,14 @@ Live video rendered inside Lab Imager</pre>
 <tr><td>External device availability</td><td>USB camera temporarily failed outside the application.</td><td><span class="status watching">Expected hardware integration issue</span></td></tr>
 <tr><td>WinForms airspace behavior</td><td>Native host obscured WPF overlay layers.</td><td><span class="status watching">Known architecture limitation</span></td></tr>
 </table>
-
 <div class="note ok">
 <strong>Milestone assessment:</strong> M2-A successfully proves that Lab Imager can enumerate a camera, select a source, persist that source, build a DirectShow preview graph, render live video in the viewport, and capture screenshots during active preview. This transitions the project from a static engineering shell into a functional imaging application.
 </div>
-
 <div class="page-num">22</div>
 </section>
-
 <section class="page">
 <h3>23. Approved Backlog and Forward Engineering Notes</h3>
 <p class="sub">Backlog items and future design decisions captured immediately after the M2-A live preview milestone.</p>
-
 <h4>Approved Backlog Items</h4>
 <table>
 <tr><th>ID</th><th>Item</th><th>Priority</th><th>Status</th></tr>
@@ -1340,12 +1167,10 @@ Live video rendered inside Lab Imager</pre>
 <tr><td><code>UI-006</code></td><td>Native Window Chrome Review</td><td><span class="prio medium">Medium</span></td><td><span class="status pending">Pending</span></td></tr>
 <tr><td><code>REL-001</code></td><td>Application Branding, Copyright, Terms, and Installer Identity</td><td><span class="prio medium">Medium</span></td><td><span class="status pending">Future Release</span></td></tr>
 </table>
-
 <h4>UI-004 Viewport Coordinate Overlay</h4>
 <div class="note ok">
 <strong>Approved concept:</strong> Add coordinate assignments around the viewport edge to support precise inspection references, defect tracking, screenshot notes, and future annotation workflows.
 </div>
-
 <table>
 <tr><th>Design Element</th><th>Approved Direction</th></tr>
 <tr><td>Top edge</td><td>Numeric coordinate labels such as <code>1 2 3 4 5 6</code>.</td></tr>
@@ -1354,12 +1179,10 @@ Live video rendered inside Lab Imager</pre>
 <tr><td>Implementation rule</td><td>Coordinate overlay should be toggleable and should not be burned into the raw camera image.</td></tr>
 <tr><td>Future screenshot behavior</td><td>Coordinate labels may be optionally included in exported screenshots.</td></tr>
 </table>
-
 <h4>UI-005 Disabled Control Readability Fix</h4>
 <div class="note warn">
 <strong>Required fix:</strong> Disabled controls must remain readable. During preview testing, disabled controls became visually washed out or difficult to read, especially source selection and preview-state controls.
 </div>
-
 <table>
 <tr><th>Affected Control</th><th>Required Behavior</th></tr>
 <tr><td>Source dropdown during active preview</td><td>Text must remain legible even when disabled or inactive.</td></tr>
@@ -1367,33 +1190,27 @@ Live video rendered inside Lab Imager</pre>
 <tr><td>Stop Preview button when disabled</td><td>Must not disappear or lose contrast.</td></tr>
 <tr><td>Future toolbar controls</td><td>Disabled state must use dark slate background, readable light-gray text, and muted border styling.</td></tr>
 </table>
-
 <div class="note watch">
 <strong>UI rule:</strong> Disabled does not mean invisible. Users must always be able to read the control label and understand the control purpose even when interaction is unavailable.
 </div>
-
 <h4>UI-006 Native Window Chrome Review</h4>
 <div class="note watch">
 <strong>Design review:</strong> Lab Imager currently uses a custom titlebar with manual minimize, maximize, and close controls because the window uses <code>WindowStyle=None</code>. During early UI stabilization, custom titlebar glyphs experienced encoding and readability problems.
 </div>
-
 <table>
 <tr><th>Option</th><th>Assessment</th></tr>
 <tr><td>Keep custom titlebar</td><td>Preserves full dark-theme visual control but requires continued manual maintenance.</td></tr>
 <tr><td>Restore native Windows chrome</td><td>Improves reliability and uses operating-system standard minimize, maximize, and close behavior.</td></tr>
 <tr><td>Current decision</td><td>Keep current fallback state temporarily and revisit after core imaging features stabilize.</td></tr>
 </table>
-
 <h4>REL-001 Application Branding, Copyright, Terms, and Installer Identity</h4>
 <div class="note watch">
 <strong>Future release requirement:</strong> Lab Imager will eventually require installer packaging, application identity, version metadata, copyright notice, Terms and Conditions reference, and MSE branding.
 </div>
-
 <pre>© 2026 MSE McGann Systems Engineering.
 All Rights Reserved.
 
 Use subject to applicable Terms and Conditions.</pre>
-
 <table>
 <tr><th>Future Location</th><th>Purpose</th></tr>
 <tr><td>About dialog</td><td>Show application name, version, copyright, Terms reference, and MSE identity.</td></tr>
@@ -1401,24 +1218,18 @@ Use subject to applicable Terms and Conditions.</pre>
 <tr><td>Help menu</td><td>Provide access to About and Terms information.</td></tr>
 <tr><td>Generated reports / metadata</td><td>Optionally include product identity and copyright where appropriate.</td></tr>
 </table>
-
 <h4>Next Engineering Target</h4>
 <div class="note ok">
 <strong>Next milestone:</strong> Begin M2-B Viewport Overlay Engine after this log update is committed and pushed. The next workstream should focus on restoring overlay functionality, adding coordinate labels, and preparing for future annotation and measurement layers.
 </div>
-
 <div class="page-num">23</div>
 </section>
-
-
 <section class="page">
 <h3>24. M2-B Overlay Engine Phase 1 — Viewport Coordinate Overlay Foundation</h3>
 <p class="sub">Initial overlay-system milestone for adding perimeter coordinate references around the live imaging viewport.</p>
-
 <div class="note ok">
 <strong>Final status:</strong> M2-B Phase 1 is complete. Lab Imager now includes a viewport coordinate overlay foundation with top-edge numeric labels and left-edge alphabetic labels for board inspection reference work.
 </div>
-
 <h4>Milestone Summary</h4>
 <table>
 <tr><th>Area</th><th>Result</th><th>Status</th></tr>
@@ -1428,7 +1239,6 @@ Use subject to applicable Terms and Conditions.</pre>
 <tr><td>Preview area preservation</td><td>Inset the native preview host to reserve perimeter space for coordinate labels.</td><td><span class="status done">Completed</span></td></tr>
 <tr><td>Build validation</td><td>Project builds cleanly after overlay insertion.</td><td><span class="status done">Passed</span></td></tr>
 </table>
-
 <h4>Approved Coordinate Scheme</h4>
 <pre>Top Edge:
 1 2 3 4 5 6 7 8
@@ -1440,7 +1250,6 @@ C
 D
 E
 F</pre>
-
 <h4>Inspection Reference Examples</h4>
 <table>
 <tr><th>Reference</th><th>Example Use</th></tr>
@@ -1449,16 +1258,13 @@ F</pre>
 <tr><td><code>D2</code></td><td>Flux contamination or residue tracking point.</td></tr>
 <tr><td><code>F7</code></td><td>Trace damage, board edge issue, or lower-region inspection note.</td></tr>
 </table>
-
 <h4>Engineering Rationale</h4>
 <p>
 The coordinate overlay converts vague visual descriptions into repeatable inspection references. Instead of documenting a defect as “near the upper-left pins” or “slightly below the center of the board,” Lab Imager can support references such as <code>B4</code>, <code>D2</code>, or <code>F7</code>. This improves technician communication, screenshot review, annotation placement, troubleshooting history, and future reporting workflows.
 </p>
-
 <p>
 The coordinate labels are intentionally positioned around the viewport perimeter rather than directly over the active imaging area. This preserves as much visible PCB area as possible while still giving the operator a stable reference system for notes and future annotations.
 </p>
-
 <h4>Implementation Notes</h4>
 <table>
 <tr><th>Implementation Area</th><th>Detail</th></tr>
@@ -1467,12 +1273,10 @@ The coordinate labels are intentionally positioned around the viewport perimeter
 <tr><td>Layering</td><td>The coordinate overlay is assigned a higher panel layer than the preview host.</td></tr>
 <tr><td>Color direction</td><td>Labels use the Lab Imager blue instrumentation palette to remain consistent with the approved UI theme.</td></tr>
 </table>
-
 <h4>Known Architecture Context</h4>
 <div class="note watch">
 <strong>Important context:</strong> Because the current M2-A renderer uses <code>WindowsFormsHost</code>, overlay behavior must continue to be validated carefully. Windows Forms hosting can introduce WPF airspace limitations. The perimeter-coordinate approach is intentionally safer than placing labels directly over the native video surface.
 </div>
-
 <h4>Validation Results</h4>
 <table>
 <tr><th>Validation</th><th>Result</th></tr>
@@ -1482,29 +1286,22 @@ The coordinate labels are intentionally positioned around the viewport perimeter
 <tr><td>Live preview compatibility</td><td><span class="status pending">Requires visual confirmation</span></td></tr>
 <tr><td>Screenshot overlay capture</td><td><span class="status pending">Requires visual confirmation</span></td></tr>
 </table>
-
 <h4>Engineering Decision</h4>
 <div class="note ok">
 <strong>Decision:</strong> The coordinate overlay concept is approved as part of the Lab Imager inspection workflow. Coordinate labels should remain outside the active camera image whenever possible, preserving maximum board visibility while still enabling repeatable references for documentation and review.
 </div>
-
 <h4>Next Engineering Target</h4>
 <div class="note watch">
 <strong>Next milestone:</strong> Continue M2-B by validating overlay visibility during live preview, confirming screenshot behavior, and then restoring or redesigning the engineering grid overlay in a way that remains compatible with the DirectShow preview architecture.
 </div>
-
 <div class="page-num">24</div>
 </section>
-
-
 <section class="page">
 <h3>25. M2-B Overlay Engine Investigation — Native Preview Overlay Blocker</h3>
 <p class="sub">Engineering investigation record for the failed attempt to draw a true grid overlay above the active DirectShow preview surface.</p>
-
 <div class="note warn">
 <strong>Final status:</strong> True grid overlay over the current DirectShow <code>IVideoWindow</code> / <code>WindowsFormsHost</code> preview path is blocked by native rendering behavior. The current preview method remains valid for live video, but it is not the final architecture for overlay-heavy inspection workflows.
 </div>
-
 <h4>Investigation Summary</h4>
 <table>
 <tr><th>Area</th><th>Finding</th><th>Status</th></tr>
@@ -1514,21 +1311,17 @@ The coordinate labels are intentionally positioned around the viewport perimeter
 <tr><td>WinForms paint overlay</td><td>Attempted native panel paint overlay did not remain above DirectShow video output.</td><td><span class="status blocked">Blocked</span></td></tr>
 <tr><td>Build recovery</td><td>Failed event wiring was removed and the project returned to a clean build state.</td><td><span class="status done">Recovered</span></td></tr>
 </table>
-
 <h4>Observed Behavior</h4>
 <p>
 The user requirement was clarified: the inspection grid must be visible directly on top of the live preview image so the operator can identify the exact grid box being referenced during inspection. Border-only coordinates are not sufficient by themselves because they do not visually divide the live image into readable boxes.
 </p>
-
 <p>
 A WinForms paint-based overlay was attempted on the preview panel. This did not satisfy the requirement because the DirectShow renderer continued to draw over or bypass the expected overlay paint layer. This confirms the issue is architectural, not merely a XAML styling problem.
 </p>
-
 <h4>Root Cause</h4>
 <div class="note watch">
 <strong>Root cause:</strong> The current M2-A preview path uses native DirectShow rendering through <code>IVideoWindow</code> hosted inside <code>WindowsFormsHost</code>. This gives a fast proof-of-camera path, but it creates airspace/rendering limitations that prevent reliable WPF or WinForms overlay drawing above the active video.
 </div>
-
 <h4>Engineering Decision</h4>
 <table>
 <tr><th>Decision</th><th>Reason</th></tr>
@@ -1536,7 +1329,6 @@ A WinForms paint-based overlay was attempted on the preview panel. This did not 
 <tr><td>Do not build final overlay tooling on top of <code>IVideoWindow</code>.</td><td>The required grid, coordinate, measurement, and annotation layers need reliable overlay rendering.</td></tr>
 <tr><td>Move overlay work to a new rendering architecture.</td><td>A WPF-compatible frame pipeline or VMR9/windowless DirectShow path is required for true overlay support.</td></tr>
 </table>
-
 <h4>Required Future Architecture</h4>
 <table>
 <tr><th>Option</th><th>Description</th><th>Assessment</th></tr>
@@ -1544,12 +1336,10 @@ A WinForms paint-based overlay was attempted on the preview panel. This did not 
 <tr><td>VMR9/windowless renderer</td><td>Use a DirectShow renderer designed for more controlled video hosting and custom rendering behavior.</td><td><span class="status watching">Possible technical path</span></td></tr>
 <tr><td>Continue <code>IVideoWindow</code></td><td>Use the current native renderer only for basic live preview.</td><td><span class="status warn">Not sufficient for final inspection overlays</span></td></tr>
 </table>
-
 <h4>Clarified Product Requirement</h4>
 <div class="note ok">
 <strong>Approved requirement:</strong> The inspection grid must be toggleable and must appear directly over the active camera image. Coordinates must represent actual grid boxes, not decorative cross sections or unrelated edge markers.
 </div>
-
 <pre>Required Inspection Mode:
 
 Live Camera Feed
@@ -1560,7 +1350,6 @@ Coordinates Matching Actual Boxes
 
 Example:
 A1 through JJ56</pre>
-
 <h4>Cleanup Action</h4>
 <table>
 <tr><th>Action</th><th>Result</th></tr>
@@ -1569,28 +1358,85 @@ A1 through JJ56</pre>
 <tr><td>Ran <code>dotnet build</code>.</td><td><span class="status done">Passed with 0 warnings and 0 errors.</span></td></tr>
 <tr><td>Verified git status.</td><td><span class="status done">Working tree clean after cleanup commit/push.</span></td></tr>
 </table>
-
 <h4>Engineering Assessment</h4>
 <div class="note ok">
 <strong>Assessment:</strong> This blocker is an expected construction-phase architecture discovery. It does not invalidate the successful M2-A live preview milestone. It clarifies that Lab Imager needs a more overlay-capable rendering path before final inspection grid, coordinate, annotation, and measurement workflows can be completed.
 </div>
-
 <h4>Next Engineering Target</h4>
 <div class="note watch">
 <strong>Next milestone:</strong> Begin evaluating the WPF-compatible frame pipeline approach. The goal is to preserve live camera preview while enabling true WPF overlay layers for grid boxes, coordinates, annotations, and screenshot capture.
 </div>
-
 <div class="page-num">25</div>
 </section>
 
+<!-- ===================================================== -->
+<!-- M6 FRAME PIPELINE - FULL FORENSIC ENGINEERING RECORD -->
+<!-- ===================================================== -->
+<!-- ===================================================== -->
+<!-- ============================= -->
+<!-- M6 FRAME PIPELINE SAVE POINT -->
+<!-- STRUCTURED AUDIT ENTRY -->
+<!-- ============================= -->
 <section class="page">
+<h3>26. M6 Frame Pipeline Stabilization</h3>
+<p class="sub">DirectShow → SampleGrabber → WPF frame pipeline stabilization and inspection overlay readiness.</p>
+<div class="note ok">
+<strong>Status:</strong> Frame pipeline is stable at managed-buffer stage with Dispatcher-safe WPF rendering.
+</div>
+<h4>PowerShell Execution Timeline</h4>
+<pre>
+cd R:\Lab-Imager
+dotnet build .\src\LabImager\LabImager.csproj
+git add -A
+git commit -m "M6 Frame Pipeline Stable Save Point"
+git push origin feature/wpf-frame-pipeline
+
+XAML fix:
+- InspectionGridToggle wired via Checked/Unchecked
+
+Frame pipeline:
+- BufferCB stabilized with Marshal.Copy
+- FrameReady dispatched to UI thread
+</pre>
+<h4>File-Level Modifications</h4>
+<table>
+<tr><th>File</th><th>Change</th></tr>
+<tr><td>MainWindow.xaml.cs</td><td>Injected frame service + toggle handler</td></tr>
+<tr><td>MainWindow.xaml</td><td>InspectionGridToggle event wiring fixed</td></tr>
+<tr><td>DirectShowFramePreviewService.cs</td><td>BufferCB stabilized and frame dispatch corrected</td></tr>
+</table>
+<h4>Architecture</h4>
+<pre>
+DirectShow Graph
+↓
+SampleGrabber BufferCB
+↓
+Marshal.Copy (managed buffer)
+↓
+FrameReady (Dispatcher)
+↓
+WPF Image Binding
+</pre>
+<h4>Known Limitations</h4>
+<ul>
+<li>No full RGB/YUY2 decode pipeline yet</li>
+<li>No stride calculation from media format headers</li>
+<li>BitmapSource currently partially stubbed</li>
+</ul>
+<h4>Next Phase (M7)</h4>
+<ul>
+<li>Implement VideoInfoHeader extraction</li>
+<li>Fix stride + pixel format mapping</li>
+<li>Replace placeholder BitmapSource</li>
+<li>Enable full-resolution live rendering</li>
+</ul>
+<div class="page-num">26</div>
+</section><section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
-
 <div class="note watch">
 These commands are starting points. Paths should be adjusted once the GitHub repository is cloned locally.
 </div>
-
 <h4>Create Initial .NET WPF Project</h4>
 <pre>dotnet new sln -n LabImager
 mkdir src
@@ -1598,7 +1444,6 @@ cd src
 dotnet new wpf -n LabImager
 cd ..
 dotnet sln add .\src\LabImager\LabImager.csproj</pre>
-
 <h4>Recommended Documentation Folders</h4>
 <pre>mkdir docs
 mkdir docsrchitecture
@@ -1610,15 +1455,13 @@ mkdir assets\icons
 mkdir assets\logo
 mkdir builds
 mkdir tests</pre>
-
 <h4>Initial Git Commit</h4>
 <pre>git status
 git add .
 git commit -m "Initialize Lab Imager project structure"
 git push origin main</pre>
-
 <h4>HTML Log Structural Check</h4>
-<pre>python - <<'PY'
+<pre>python - &lt;&lt;'PY'
 from pathlib import Path
 import re
 
@@ -1632,18 +1475,11 @@ print('body closures:', text.count('&lt;/body&gt;'))
 print('html closures:', text.count('&lt;/html&gt;'))
 print('resources present:', 'Resources. Lab Imager Command Library' in text)
 PY</pre>
-
 <h4>Standing Ledger Rule</h4>
 <div class="note ok">
 Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not regenerate older sections unless explicitly required. Preserve chronological section order and keep the filename stable.
 </div>
-
 <div class="page-num">Resources</div>
 </section>
-
 </body>
 </html>
-
-
-
-
