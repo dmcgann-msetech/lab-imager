@@ -1270,6 +1270,66 @@ Frame pipeline:
 
 <div class="page-num">29</div>
 </section>
+
+<section class="page">
+<h3>30. M1 Requirements Reconciliation and Runtime Validation Review</h3>
+<p class="sub">Runtime validation review performed against the actual application rather than historical milestone assumptions.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Runtime validation confirmed that device enumeration, source selection, default source restoration, live preview rendering, preview lifecycle controls, screenshot capture, and Notes functionality are operational. Several items previously marked as pending were reclassified based on observed behavior.
+</div>
+
+<h4>Runtime Validation Results</h4>
+<table>
+<tr><th>Requirement</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Detect capture device</td><td><span class="status done">Complete</span></td><td>Multiple capture devices successfully enumerated.</td></tr>
+<tr><td>Source selection</td><td><span class="status done">Complete</span></td><td>Operator can select between detected devices.</td></tr>
+<tr><td>Default source persistence</td><td><span class="status done">Complete</span></td><td>Previously selected source restored correctly.</td></tr>
+<tr><td>Render live feed</td><td><span class="status done">Complete</span></td><td>Live camera image successfully displayed in viewport.</td></tr>
+<tr><td>Preview lifecycle controls</td><td><span class="status done">Complete</span></td><td>Start/Stop Preview workflow operational.</td></tr>
+<tr><td>Capture still frame</td><td><span class="status done">Complete</span></td><td>Screenshot subsystem available and previously validated.</td></tr>
+<tr><td>Notes subsystem</td><td><span class="status done">Complete</span></td><td>Formatting toolbar and editor operational.</td></tr>
+<tr><td>Freeze frame</td><td><span class="status pending">Pending</span></td><td>No verified freeze-frame workflow observed.</td></tr>
+<tr><td>Zoom / Pan viewport</td><td><span class="status pending">Pending</span></td><td>No viewport transform controls observed.</td></tr>
+</table>
+
+<h4>Outstanding Development Backlog</h4>
+<table>
+<tr><th>ID</th><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr>
+<td>M1-FF</td>
+<td>Freeze Frame</td>
+<td><span class="status pending">Pending</span></td>
+<td>Required workflow: Live Preview → Freeze Frame → Static View → Notes / Screenshot / Future Annotation → Resume Preview.</td>
+</tr>
+<tr>
+<td>M1-ZP</td>
+<td>Zoom / Pan Viewport</td>
+<td><span class="status pending">Pending</span></td>
+<td>Implementation should use viewport transforms only and must not modify the original source frame.</td>
+</tr>
+<tr>
+<td>UI-007</td>
+<td>Responsive UI Scaling</td>
+<td><span class="status pending">Pending</span></td>
+<td>Small-window behavior remains unresolved. Right-side panel, Notes editor, and Capture controls require adaptive sizing.</td>
+</tr>
+</table>
+
+<div class="note watch">
+<strong>Next Development Priority:</strong>
+<ol>
+<li>Freeze Frame</li>
+<li>Zoom / Pan Viewport</li>
+<li>Responsive UI Scaling</li>
+<li>Reconcile native DirectShow preview path versus WPF frame pipeline</li>
+<li>Resume advanced frame-pipeline work after M1 completion</li>
+</ol>
+</div>
+
+<div class="page-num">30</div>
+</section>
+
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
