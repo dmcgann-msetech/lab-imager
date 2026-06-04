@@ -9,7 +9,7 @@ public sealed class StubCameraPreviewService : ICameraPreviewService
 
     public CameraDeviceInfo? ActiveSource { get; private set; }
 
-    public void StartPreview(CameraDeviceInfo source)
+    public void StartPreview(CameraDeviceInfo source, IntPtr previewHandle, int width, int height)
     {
         if (string.IsNullOrWhiteSpace(source.Name))
         {
@@ -18,6 +18,11 @@ public sealed class StubCameraPreviewService : ICameraPreviewService
 
         ActiveSource = source;
         IsPreviewRunning = true;
+    }
+
+    public void ResizePreview(int width, int height)
+    {
+        // Stub intentionally does nothing.
     }
 
     public void StopPreview()

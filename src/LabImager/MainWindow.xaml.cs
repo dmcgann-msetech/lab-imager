@@ -24,7 +24,17 @@ namespace LabImager
             _cameraDeviceService = new DirectShowCameraDeviceService();
             _appSettingsService = new JsonAppSettingsService();
             _viewportCaptureService = new ViewportCaptureService();
-            _cameraPreviewService = new StubCameraPreviewService();
+            _cameraPreviewService = new DirectShowCameraPreviewService();
+
+            PreviewPanel.Resize += (_, _) =>
+            {
+                if (_cameraPreviewService.IsPreviewRunning)
+                {
+                    _cameraPreviewService.ResizePreview(
+                        PreviewPanel.ClientSize.Width,
+                        PreviewPanel.ClientSize.Height);
+                }
+            };
 
             StopPreviewButton.IsEnabled = false;
 
@@ -110,6 +120,9 @@ namespace LabImager
             if (_cameraPreviewService.IsPreviewRunning)
             {
                 _cameraPreviewService.StopPreview();
+                PreviewHost.Visibility = Visibility.Collapsed;
+                ViewportPlaceholder.Visibility = Visibility.Visible;
+
                 PreviewStatusText.Text = "Preview Stopped - Source Changed";
                 StartPreviewButton.IsEnabled = true;
                 StopPreviewButton.IsEnabled = false;
@@ -168,18 +181,45 @@ namespace LabImager
                 DevicePath = sourceDevicePath
             };
 
-            _cameraPreviewService.StartPreview(source);
+            try
+            {
+                PreviewHost.Visibility = Visibility.Visible;
+                ViewportPlaceholder.Visibility = Visibility.Collapsed;
+                PreviewHost.UpdateLayout();
 
-            PreviewStatusText.Text = $"Preview Running: {sourceName}";
-            CameraStatusText.Text = $"Source: Preview Started: {sourceName}";
+                _cameraPreviewService.StartPreview(
+                    source,
+                    PreviewPanel.Handle,
+                    PreviewPanel.ClientSize.Width,
+                    PreviewPanel.ClientSize.Height);
 
-            StartPreviewButton.IsEnabled = false;
-            StopPreviewButton.IsEnabled = true;
+                PreviewStatusText.Text = $"Preview Running: {sourceName}";
+                CameraStatusText.Text = $"Source: Preview Started: {sourceName}";
+
+                StartPreviewButton.IsEnabled = false;
+                StopPreviewButton.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                _cameraPreviewService.StopPreview();
+
+                PreviewHost.Visibility = Visibility.Collapsed;
+                ViewportPlaceholder.Visibility = Visibility.Visible;
+
+                PreviewStatusText.Text = "Preview Failed";
+                CameraStatusText.Text = $"Source: Preview Failed: {ex.Message}";
+
+                StartPreviewButton.IsEnabled = true;
+                StopPreviewButton.IsEnabled = false;
+            }
         }
 
         private void StopPreviewButton_Click(object sender, RoutedEventArgs e)
         {
             _cameraPreviewService.StopPreview();
+
+            PreviewHost.Visibility = Visibility.Collapsed;
+            ViewportPlaceholder.Visibility = Visibility.Visible;
 
             PreviewStatusText.Text = "Preview Stopped";
             CameraStatusText.Text = "Source: Preview Stopped";
@@ -268,5 +308,8 @@ namespace LabImager
         }
     }
 }
+
+
+
 
 
