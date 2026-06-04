@@ -1641,8 +1641,237 @@ Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not reg
 <div class="page-num">Resources</div>
 </section>
 
+<!-- ===================================================== -->
+<!-- M6 FRAME PIPELINE - FULL FORENSIC ENGINEERING RECORD -->
+<!-- ===================================================== -->
+
+<section class="log-entry">
+
+<h2>M6 Frame Pipeline Stabilization (Full Engineering Audit)</h2>
+
+<p><b>Purpose:</b> This phase established a working DirectShow → SampleGrabber → WPF frame pipeline with inspection overlay capability. This entry includes full execution trace, scripts used, and structural changes for reproducibility.</p>
+
+<hr/>
+
+<h3>1. PowerShell Execution Timeline (Exact Commands Used)</h3>
+
+<pre>
+cd R:\Lab-Imager
+
+# Build validation
+dotnet build .\src\LabImager\LabImager.csproj
+
+# Git staging + commit
+git add -A
+git commit -m "M6 Frame Pipeline Stable Save Point"
+git push origin feature/wpf-frame-pipeline
+
+# XAML toggle fix
+$xaml = Get-Content .\src\LabImager\MainWindow.xaml -Raw
+$xaml = $xaml -replace '<CheckBox x:Name="InspectionGridToggle"', '<CheckBox x:Name="InspectionGridToggle" Checked="InspectionGridToggle_Changed" Unchecked="InspectionGridToggle_Changed">'
+Set-Content .\src\LabImager\MainWindow.xaml $xaml -Encoding UTF8
+
+# Frame pipeline wiring
+$text = Get-Content .\src\LabImager\Services\Preview\DirectShowFramePreviewService.cs -Raw
+$text = [regex]::Replace($text, "public int BufferCB[\s\S]*?return 0;\s*}", $fixedBuffer)
+Set-Content $path $text -Encoding UTF8
+</pre>
+
+<hr/>
+
+<h3>2. File-Level Modifications</h3>
+
+<h4>MainWindow.xaml.cs</h4>
+<ul>
+<li>Added InspectionGridToggle_Changed handler</li>
+<li>Injected RunFramePipelineTest diagnostic hook</li>
+<li>Bound DirectShowFramePreviewService to FramePreviewImage.Source</li>
+<li>Inserted _cameraFrameService field for frame pipeline isolation</li>
+</ul>
+
+<h4>MainWindow.xaml</h4>
+<ul>
+<li>InspectionGridToggle event wiring fixed (Checked/Unchecked)</li>
+<li>Viewport overlay confirmed visible/collapsible via toggle</li>
+</ul>
+
+<h4>DirectShowFramePreviewService.cs</h4>
+<ul>
+<li>BufferCB rewritten multiple times during stabilization</li>
+<li>Final state: safe managed buffer copy via Marshal.Copy</li>
+<li>FrameReady event dispatch via WPF Dispatcher</li>
+<li>Dummy frame fallback introduced for pipeline stability</li>
+</ul>
+
+<hr/>
+
+<h3>3. Critical Engineering Events</h3>
+
+<ul>
+<li><b>XAML corruption incident:</b> malformed XML introduced during inline replacement of WinFormsHost → resolved via git restore</li>
+<li><b>Class boundary corruption:</b> methods inserted outside class scope → resolved by restoring file and reapplying structured insertion</li>
+<li><b>Toggle instability:</b> event handlers missing → resolved via explicit Checked/Unchecked wiring</li>
+<li><b>Frame pipeline instability:</b> null frame emissions → resolved via safe BitmapSource fallback injection</li>
+</ul>
+
+<hr/>
+
+<h3>4. System Architecture at M6</h3>
+
+<pre>
+DIRECTSHOW GRAPH
+    ↓
+SAMPLE GRABBER (ISampleGrabberCB)
+    ↓
+BufferCB (Marshal.Copy)
+    ↓
+FrameReady Event (Dispatcher safe)
+    ↓
+WPF Image Binding (FramePreviewImage)
+    ↓
+Inspection Grid Overlay (ViewportCoordinateOverlay)
+</pre>
+
+<hr/>
+
+<h3>5. Current Known Limitations</h3>
+
+<ul>
+<li>Frame decoding is still placeholder (no true RGB/YUY2 interpretation)</li>
+<li>BitmapSource currently constructed from dummy or incomplete buffer mapping</li>
+<li>No width/height extraction from media stream (IAMStreamConfig not implemented)</li>
+<li>Performance metrics are debug-only (FPS logging not production-grade)</li>
+</ul>
+
+<hr/>
+
+<h3>6. Next Engineering Phase (M7)</h3>
+
+<ul>
+<li>Implement IAMStreamConfig / VideoInfoHeader extraction</li>
+<li>Introduce correct stride calculation</li>
+<li>Replace dummy BitmapSource with real frame reconstruction</li>
+<li>Eliminate grayscale placeholder pipeline</li>
+<li>Stabilize real-time rendering path</li>
+</ul>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- ============================= -->
+<!-- M6 FRAME PIPELINE SAVE POINT -->
+<!-- STRUCTURED AUDIT ENTRY -->
+<!-- ============================= -->
+
+<section class="log-entry">
+
+<h2>M6 Frame Pipeline Stabilization</h2>
+
+<p><b>Status:</b> Stable pre-decode imaging pipeline with active DirectShow capture and WPF rendering bridge.</p>
+
+<hr/>
+
+<details open>
+<summary><b>1. Execution Commands (PowerShell / Git / Build)</b></summary>
+
+<pre>
+cd R:\Lab-Imager
+
+dotnet build .\src\LabImager\LabImager.csproj
+
+git add -A
+git commit -m "M6 Frame Pipeline Stable Save Point"
+git push origin feature/wpf-frame-pipeline
+
+XAML fix:
+- InspectionGridToggle wired via Checked/Unchecked
+
+Frame pipeline patch:
+- BufferCB replaced with managed Marshal.Copy pipeline
+- FrameReady dispatcher-bound to WPF UI thread
+</pre>
+
+</details>
+
+<hr/>
+
+<details>
+<summary><b>2. File-Level Changes</b></summary>
+
+<ul>
+<li>MainWindow.xaml.cs → Toggle handler + frame service injection</li>
+<li>MainWindow.xaml → InspectionGridToggle event wiring fixed</li>
+<li>DirectShowFramePreviewService.cs → BufferCB pipeline stabilized</li>
+</ul>
+
+</details>
+
+<hr/>
+
+<details>
+<summary><b>3. Frame Pipeline Architecture</b></summary>
+
+<pre>
+DirectShow Graph
+    ↓
+SampleGrabber Callback (BufferCB)
+    ↓
+Marshal.Copy (managed buffer)
+    ↓
+FrameReady event (Dispatcher safe)
+    ↓
+WPF Image Binding (FramePreviewImage)
+</pre>
+
+</details>
+
+<hr/>
+
+<details>
+<summary><b>4. Critical Fix Events</b></summary>
+
+<ul>
+<li>XAML injection corruption resolved via git restore cycles</li>
+<li>Class boundary insertion bugs corrected</li>
+<li>Toggle event binding repaired (Checked + Unchecked)</li>
+<li>Frame pipeline stabilized from null-frame state</li>
+</ul>
+
+</details>
+
+<hr/>
+
+<details>
+<summary><b>5. Current System State</b></summary>
+
+<ul>
+<li>Build: Clean (0 errors)</li>
+<li>Pipeline: Active (pre-decode stage)</li>
+<li>Frame Output: Placeholder-safe BitmapSource</li>
+<li>UI Overlay: Functional</li>
+</ul>
+
+</details>
+
+<hr/>
+
+<details>
+<summary><b>6. Next Phase (M7)</b></summary>
+
+<ul>
+<li>Extract VideoInfoHeader (width/height)</li>
+<li>Implement RGB24/YUY2 decoding</li>
+<li>Replace placeholder BitmapSource</li>
+<li>Enable true camera frame rendering</li>
+</ul>
+
+</details>
+
+</section>
 </body>
 </html>
+
+
 
 
 
