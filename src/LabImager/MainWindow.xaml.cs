@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Controls;
-using System.Windows.Input;
 using LabImager.Services.Camera;
 using LabImager.Services.Capture;
 using LabImager.Services.Preview;
@@ -387,6 +386,67 @@ namespace LabImager
         private void NotesIndentButton_Click(object sender, RoutedEventArgs e)
         {
             EditingCommands.IncreaseIndentation.Execute(null, NotesEditor);
+            NotesEditor.Focus();
+        }
+
+        private void NotesAlignButton_Click(object sender, RoutedEventArgs e)
+        {
+            var paragraph = NotesEditor.CaretPosition.Paragraph;
+
+            if (paragraph is null)
+            {
+                return;
+            }
+
+            var nextAlignment = paragraph.TextAlignment switch
+            {
+                TextAlignment.Left => TextAlignment.Center,
+                TextAlignment.Center => TextAlignment.Right,
+                TextAlignment.Right => TextAlignment.Justify,
+                _ => TextAlignment.Left
+            };
+
+            NotesEditor.Selection.ApplyPropertyValue(
+                Block.TextAlignmentProperty,
+                nextAlignment
+            );
+
+            paragraph.TextAlignment = nextAlignment;
+            NotesEditor.Focus();
+        }
+
+        private void NotesColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NotesColorButton.ContextMenu is null)
+            {
+                return;
+            }
+
+            NotesColorButton.ContextMenu.PlacementTarget = NotesColorButton;
+            NotesColorButton.ContextMenu.IsOpen = true;
+        }
+
+        private void NotesTextColorMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is not MenuItem menuItem ||
+                menuItem.Tag is not string colorName)
+            {
+                return;
+            }
+
+            var brush = new System.Windows.Media.BrushConverter().ConvertFromString(colorName)
+                        as System.Windows.Media.Brush;
+
+            if (brush is null)
+            {
+                return;
+            }
+
+            NotesEditor.Selection.ApplyPropertyValue(
+                TextElement.ForegroundProperty,
+                brush
+            );
+
             NotesEditor.Focus();
         }
 
