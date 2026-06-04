@@ -1489,6 +1489,62 @@ WPF Image Binding
 <div class="page-num">27</div>
 </section>
 <section class="page">
+<h3>27. M6 UI Cleanup and Stable Build Save Point</h3>
+<p class="sub">Post-M6 UI cleanup, overlay retirement, readability remediation, and stable checkpoint validation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> The inspection-grid workstream was removed from the active UI, source-selector readability was corrected, field clipping was remediated, and the application returned to a stable build state suitable for continued development.
+</div>
+
+<h4>Scope Completed</h4>
+<table>
+<tr><th>Area</th><th>Outcome</th></tr>
+<tr><td>Inspection-grid toggle</td><td>Removed from the active interface.</td></tr>
+<tr><td>Viewport overlay workstream</td><td>Deferred until after the core live-preview workflow is complete.</td></tr>
+<tr><td>Source selector text</td><td>Corrected so the active device name remains readable.</td></tr>
+<tr><td>Text-field clipping</td><td>Field sizing and padding corrected for practical use.</td></tr>
+<tr><td>XAML recovery</td><td>Recovered after malformed replacement attempts and returned to a valid parser/build state.</td></tr>
+<tr><td>Stable checkpoint</td><td>Committed and pushed to <code>origin/main</code>.</td></tr>
+</table>
+
+<h4>Validation</h4>
+<pre>dotnet build D:\Lab-Imager\src\LabImager\LabImager.csproj</pre>
+
+<table>
+<tr><th>Validation Item</th><th>Result</th></tr>
+<tr><td>Build</td><td><span class="status done">Successful</span></td></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Warnings</td><td><code>4</code> non-blocking preview-service warnings.</td></tr>
+<tr><td>Runtime launch</td><td><span class="status done">Confirmed</span></td></tr>
+</table>
+
+<h4>Repository Confirmation</h4>
+<pre>git rev-parse HEAD
+git ls-remote origin refs/heads/main</pre>
+
+<table>
+<tr><th>Repository Item</th><th>Value</th></tr>
+<tr><td>Branch</td><td><code>main</code></td></tr>
+<tr><td>Commit</td><td><code>0a3adf1a12229aa5b3f5cefe8509f581a48c908d</code></td></tr>
+<tr><td>Remote status</td><td><span class="status done">Verified synchronized</span></td></tr>
+</table>
+
+<h4>Known Remaining Work</h4>
+<table>
+<tr><th>Item</th><th>Status</th></tr>
+<tr><td>Notes editor text styling</td><td><span class="status pending">Needs refinement</span></td></tr>
+<tr><td>Font-family selector</td><td><span class="status pending">Needs professional font list</span></td></tr>
+<tr><td>Toolbar command wiring</td><td><span class="status pending">Needs implementation</span></td></tr>
+<tr><td>M7 frame decode</td><td><span class="status pending">Next pipeline milestone after UI stabilization</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint outcome:</strong> Lab Imager is back in a controlled, buildable state with a simplified UI baseline and a verified synchronized repository.
+</div>
+
+<div class="page-num">27</div>
+</section>
+<section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
 <div class="note watch">
@@ -1540,4 +1596,5 @@ Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not reg
 </section>
 </body>
 </html>
+
 
