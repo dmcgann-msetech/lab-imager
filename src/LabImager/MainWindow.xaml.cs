@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -307,7 +307,7 @@ namespace LabImager
                 Text = "REC 00:00:00",
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                 VerticalAlignment = System.Windows.VerticalAlignment.Top,
-                Margin = new Thickness(0, -18, 0, 0),
+                Margin = new Thickness(0, -3, 0, 0),
                 FontSize = 14,
                 FontWeight = FontWeights.SemiBold,
                 Foreground = new System.Windows.Media.SolidColorBrush(
@@ -571,6 +571,7 @@ namespace LabImager
         }
     }
 }
+
 
 
 
