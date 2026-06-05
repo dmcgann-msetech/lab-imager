@@ -19,7 +19,6 @@ namespace LabImager
         private readonly IViewportCaptureService _viewportCaptureService;
         private readonly ICameraPreviewService _cameraPreviewService;
         private readonly IRecordingService _recordingService;
-        private TextBlock? _recordingHeaderText;
 
         public MainWindow()
         {
@@ -84,7 +83,7 @@ namespace LabImager
                     device.DevicePath == settings.DefaultCameraDevicePath;
 
                 var displayName = isDefault
-                    ? "? " + device.Name + " (Default)"
+                    ? "★ " + device.Name + " (Default)"
                     : device.Name;
 
                 CameraSelector.Items.Add(
@@ -118,7 +117,7 @@ namespace LabImager
             SetDefaultCameraButton.IsEnabled = true;
             StartPreviewButton.IsEnabled = true;
             FreezePreviewButton.IsEnabled = false;
-            FreezePreviewButton.Content = "?";
+            FreezePreviewButton.Content = "❄";
             StopPreviewButton.IsEnabled = false;
             CameraStatusText.Text = "Source: Preview Idle";
 
@@ -136,7 +135,7 @@ namespace LabImager
                 CameraStatusText.Text = "Source: Preview Stopped - Source Changed";
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "❄";
                 StopPreviewButton.IsEnabled = false;
             }
 
@@ -159,7 +158,7 @@ namespace LabImager
                 return;
             }
 
-            var cleanCameraName = cameraName.Replace("? ", string.Empty).Replace(" (Default)", string.Empty);
+            var cleanCameraName = cameraName.Replace("★ ", string.Empty).Replace(" (Default)", string.Empty);
 
             _appSettingsService.Save(
                 new Models.Settings.AppSettings
@@ -223,7 +222,7 @@ namespace LabImager
 
                 StartPreviewButton.IsEnabled = false;
                 FreezePreviewButton.IsEnabled = true;
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "❄";
                 StopPreviewButton.IsEnabled = true;
             }
             catch (Exception ex)
@@ -238,7 +237,7 @@ namespace LabImager
 
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "❄";
                 StopPreviewButton.IsEnabled = false;
             }
         }
@@ -254,7 +253,7 @@ namespace LabImager
             {
                 _cameraPreviewService.ResumePreview();
 
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "❄";
                 CameraStatusText.Text = "Source: Preview Running";
                 CameraStatusText.Text = "Source: Preview Running";
             }
@@ -262,7 +261,7 @@ namespace LabImager
             {
                 _cameraPreviewService.FreezePreview();
 
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "▶";
                 CameraStatusText.Text = "Source: Preview Frozen";
                 CameraStatusText.Text = "Source: Preview Frozen";
             }
@@ -279,7 +278,7 @@ namespace LabImager
 
             StartPreviewButton.IsEnabled = true;
             FreezePreviewButton.IsEnabled = false;
-            FreezePreviewButton.Content = "?";
+            FreezePreviewButton.Content = "❄";
             StopPreviewButton.IsEnabled = false;
         }
 
@@ -295,49 +294,15 @@ namespace LabImager
             }
         }
 
-        private void EnsureRecordingHeaderText()
-        {
-            if (_recordingHeaderText is not null)
-            {
-                return;
-            }
-
-            _recordingHeaderText = new TextBlock
-            {
-                Text = "REC 00:00:00",
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                VerticalAlignment = System.Windows.VerticalAlignment.Top,
-                Margin = new Thickness(0, -18, 0, 0),
-                FontSize = 14,
-                FontWeight = FontWeights.SemiBold,
-                Foreground = new System.Windows.Media.SolidColorBrush(
-                    System.Windows.Media.Color.FromRgb(0xFF, 0x30, 0x30)),
-                Visibility = Visibility.Collapsed,
-                IsHitTestVisible = false
-            };
-
-            System.Windows.Controls.Panel.SetZIndex(_recordingHeaderText, 100);
-
-            if (ViewportSurface.Parent is System.Windows.Controls.Panel panel)
-            {
-                panel.Children.Add(_recordingHeaderText);
-            }
-        }
-
         private void UpdateRecordingUi()
         {
-            EnsureRecordingHeaderText();
-
             var elapsed = _recordingService.Elapsed.ToString(@"hh\:mm\:ss");
 
             RecordingStateText.Text = $"Recording: {_recordingService.State}";
             RecordingTimeText.Text = elapsed;
+            RecordingHeaderText.Text = $"● REC {elapsed}";
 
-            _recordingHeaderText!.Text = $"REC {elapsed}";
-            _recordingHeaderText.Visibility =
-                _recordingService.State == RecordingState.Recording
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
+            RecordingHeaderText.Visibility = _recordingService.State == RecordingState.Recording ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void CaptureScreenshotButton_Click(object sender, RoutedEventArgs e)
@@ -383,7 +348,7 @@ namespace LabImager
             {
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "❄";
                 StopPreviewButton.IsEnabled = false;
             }
         }
@@ -571,12 +536,6 @@ namespace LabImager
         }
     }
 }
-
-
-
-
-
-
 
 
 
