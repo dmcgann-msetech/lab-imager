@@ -30,19 +30,62 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="ReadableDisabledComboBoxStyle" TargetType="ComboBox">
+
+        <Style x:Key="ReadableDisabledComboBoxStyle" TargetType="ComboBox">
         <Setter Property="Foreground" Value="#E5E7EB"/>
         <Setter Property="Background" Value="#171D24"/>
         <Setter Property="BorderBrush" Value="#334155"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <ToggleButton x:Name="ToggleButton"
+                                      Focusable="False"
+                                      IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                      ClickMode="Press"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <ContentPresenter Margin="10,0,30,0"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"/>
+                                <TextBlock Text="⌄"
+                                           Foreground="#E5E7EB"
+                                           FontSize="16"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,10,2"/>
+                            </Grid>
+                        </ToggleButton>
 
+                        <Popup x:Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                            <Border Background="#171D24"
+                                    BorderBrush="#334155"
+                                    BorderThickness="1"
+                                    MinWidth="{TemplateBinding ActualWidth}">
+                                <ScrollViewer>
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.65"/>
-                <Setter Property="Foreground" Value="#CBD5E1"/>
-                <Setter Property="Background" Value="#171D24"/>
-                <Setter Property="BorderBrush" Value="#334155"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -2673,7 +2716,7 @@
                                       MaxDropDownHeight="185"
                                       Margin="0,0,0,0"
                                       Background="#171D24"
-                                      Foreground="#111827"
+                                      Foreground="#D3D3D"
                                       BorderBrush="#334155"
                                       FontSize="13"
                                       Padding="10"/>
@@ -2714,8 +2757,9 @@
                                                 <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="↶" Width="24" Margin="0,0,4,0" ToolTip="Undo" Click="NotesUndoButton_Click"/>
                                                 <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="↷" Width="24" Margin="0,0,8,0" ToolTip="Redo" Click="NotesRedoButton_Click"/>
 
-                                                <ComboBox x:Name="NotesFontSelector" SelectionChanged="NotesFontSelector_SelectionChanged"
-                                                          Foreground="#111827" Background="#171D24" BorderBrush="#334155" ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
+                                                <ComboBox x:Name="NotesFontSelector"
+                                                          SelectionChanged="NotesFontSelector_SelectionChanged"
+                                                          Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
                                                           Width="110"
                                                           Height="28"
                                                           SelectedIndex="0"
@@ -2846,11 +2890,6 @@
         </Grid>
     </Border>
 </Window>
-
-
-
-
-
 
 
 

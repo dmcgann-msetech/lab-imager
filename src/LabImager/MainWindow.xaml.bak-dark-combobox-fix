@@ -30,19 +30,14 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="ReadableDisabledComboBoxStyle" TargetType="ComboBox">
-        <Setter Property="Foreground" Value="#E5E7EB"/>
-        <Setter Property="Background" Value="#171D24"/>
-        <Setter Property="BorderBrush" Value="#334155"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="10,0"/>
 
+    <Style x:Key="ReadableDisabledComboBoxStyle" TargetType="ComboBox">
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Opacity" Value="0.65"/>
+                <Setter Property="Opacity" Value="1"/>
                 <Setter Property="Foreground" Value="#CBD5E1"/>
-                <Setter Property="Background" Value="#171D24"/>
-                <Setter Property="BorderBrush" Value="#334155"/>
+                <Setter Property="Background" Value="#1E293B"/>
+                <Setter Property="BorderBrush" Value="#64748B"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -2673,7 +2668,7 @@
                                       MaxDropDownHeight="185"
                                       Margin="0,0,0,0"
                                       Background="#171D24"
-                                      Foreground="#111827"
+                                      Foreground="#E5E7EB"
                                       BorderBrush="#334155"
                                       FontSize="13"
                                       Padding="10"/>
@@ -2685,7 +2680,7 @@
                                     Height="28"
                                     Margin="0,0,0,0"
                                     Background="#171D24"
-                                Foreground="#D3D3D3"
+                                Foreground="#E5E7EB"
                                 BorderBrush="#334155"
                                     FontSize="12"
                                     FontWeight="SemiBold"/>
@@ -2702,7 +2697,7 @@
 
                                 <DockPanel>
                                     <Border DockPanel.Dock="Top"
-                                            Height="76"
+                                            Height="56"
                                             Background="#171D24"
                                             BorderBrush="#334155"
                                             BorderThickness="0,0,0,1"
@@ -2714,24 +2709,25 @@
                                                 <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="↶" Width="24" Margin="0,0,4,0" ToolTip="Undo" Click="NotesUndoButton_Click"/>
                                                 <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="↷" Width="24" Margin="0,0,8,0" ToolTip="Redo" Click="NotesRedoButton_Click"/>
 
-                                                <ComboBox x:Name="NotesFontSelector" SelectionChanged="NotesFontSelector_SelectionChanged"
-                                                          Foreground="#111827" Background="#171D24" BorderBrush="#334155" ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
+                                                <ComboBox x:Name="NotesFontSelector"
+                                                          SelectionChanged="NotesFontSelector_SelectionChanged"
+                                                          Foreground="#E5E7EB"
                                                           Width="110"
                                                           Height="28"
                                                           SelectedIndex="0"
                                                           Margin="0,0,8,0">
-                                                    <ComboBoxItem Content="Segoe UI" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Calibri" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Arial" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Verdana" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Tahoma" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Georgia" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Times New Roman" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Cambria" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Book Antiqua" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Garamond" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Consolas" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Courier New" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Segoe UI" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Calibri" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Arial" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Verdana" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Tahoma" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Georgia" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Times New Roman" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Cambria" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Book Antiqua" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Garamond" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Consolas" Foreground="#E5E7EB"/>
+                                                    <ComboBoxItem Content="Courier New" Foreground="#E5E7EB"/>
                                                 </ComboBox>
 
                                                 <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold" Click="NotesBoldButton_Click"/>
@@ -2846,14 +2842,6 @@
         </Grid>
     </Border>
 </Window>
-
-
-
-
-
-
-
-
 
 
 

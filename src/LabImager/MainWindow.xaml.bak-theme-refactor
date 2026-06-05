@@ -15,8 +15,8 @@
     <Window.Resources>
         <Style x:Key="CameraComboBoxItemStyle"
                TargetType="ComboBoxItem">
-            <Setter Property="Foreground" Value="#E5E7EB"/>
-            <Setter Property="Background" Value="#171D24"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
     
@@ -30,19 +30,14 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="ReadableDisabledComboBoxStyle" TargetType="ComboBox">
-        <Setter Property="Foreground" Value="#E5E7EB"/>
-        <Setter Property="Background" Value="#171D24"/>
-        <Setter Property="BorderBrush" Value="#334155"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="10,0"/>
 
+    <Style x:Key="ReadableDisabledComboBoxStyle" TargetType="ComboBox">
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Opacity" Value="0.65"/>
+                <Setter Property="Opacity" Value="1"/>
                 <Setter Property="Foreground" Value="#CBD5E1"/>
-                <Setter Property="Background" Value="#171D24"/>
-                <Setter Property="BorderBrush" Value="#334155"/>
+                <Setter Property="Background" Value="#1E293B"/>
+                <Setter Property="BorderBrush" Value="#64748B"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -59,39 +54,16 @@
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Padding" Value="14,4"/>
         </Style>
-        <Style x:Key="ViewportTransportButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="152"/>
-            <Setter Property="Height" Value="25"/>
+
+        <Style x:Key="ViewportTransportButtonStyle" TargetType="Button" BasedOn="{StaticResource ReadableDisabledButtonStyle}">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="24"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="4,0"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="ButtonShell"
-                                CornerRadius="14"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                BorderBrush="{TemplateBinding BorderBrush}">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background.Color}" Offset="0"/>
-                                    <GradientStop Color="#33111111" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="ButtonShell" Property="Opacity" Value="0.35"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+            <Setter Property="Background" Value="#171D24"/>
+            <Setter Property="BorderBrush" Value="#0EA5E9"/>
         </Style>
 </Window.Resources>
 
@@ -101,7 +73,7 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="28"/>
+                <RowDefinition Height="36"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="42"/>
             </Grid.RowDefinitions>
@@ -122,7 +94,7 @@
                                    Margin="0,0,12,0"/>
 
                         <TextBlock Text="Lab Imager"
-                                   FontSize="13"
+                                   FontSize="15"
                                    FontWeight="SemiBold"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
@@ -135,7 +107,7 @@
                                 Width="44"
                                 Height="34"
                                 Background="Transparent"
-                                Foreground="#E5E7EB"
+                                Foreground="White"
                                 BorderThickness="0"
                                 FontSize="13"
                                 Click="MinimizeButton_Click"/>
@@ -144,16 +116,16 @@
                                 Width="44"
                                 Height="34"
                                 Background="Transparent"
-                                Foreground="#E5E7EB"
+                                Foreground="White"
                                 BorderThickness="0"
-                                FontSize="12"
+                                FontSize="14"
                                 Click="MaximizeRestoreButton_Click"/>
 
                         <Button Content="X"
                                 Width="44"
                                 Height="34"
                                 Background="Transparent"
-                                Foreground="#E5E7EB"
+                                Foreground="White"
                                 BorderThickness="0"
                                 FontSize="18"
                                 Click="CloseButton_Click"/>
@@ -309,64 +281,64 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                                <Border Grid.Row="0" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"/>
-                                <Border Grid.Row="0" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="1" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="2" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="3" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="4" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="4" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="5" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="5" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="6" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="6" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="7" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="7" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="8" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="8" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="9" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="9" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="10" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="10" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="11" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="11" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="12" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="12" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="13" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="13" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="14" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="14" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="15" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="15" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="16" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="16" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="17" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="17" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="18" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="18" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="19" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="19" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="20" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="20" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="21" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="21" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="22" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="22" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="23" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="23" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="24" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="24" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="25" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="25" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="26" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="26" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="27" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="27" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="28" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="28" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="29" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="29" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="30" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="30" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="31" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="31" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="32" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="32" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="33" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="33" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="34" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="34" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="35" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="35" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="36" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="36" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="37" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="37" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="38" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="38" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="39" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="39" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="40" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="40" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="41" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="41" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="42" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="42" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="43" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="43" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="44" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="44" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="45" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="45" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="46" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="46" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="47" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="47" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="48" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="48" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="49" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="49" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="50" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="50" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="51" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="51" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="52" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="52" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="53" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="53" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="54" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="55" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="0" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="56" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                                <Border Grid.Row="1" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="A" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"/>
+                                <Border Grid.Row="0" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="1" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="2" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="3" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="4" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="4" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="5" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="5" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="6" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="6" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="7" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="7" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="8" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="8" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="9" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="9" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="10" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="10" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="11" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="11" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="12" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="12" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="13" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="13" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="14" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="14" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="15" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="15" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="16" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="16" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="17" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="17" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="18" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="18" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="19" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="19" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="20" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="20" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="21" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="21" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="22" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="22" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="23" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="23" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="24" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="24" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="25" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="25" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="26" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="26" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="27" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="27" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="28" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="28" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="29" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="29" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="30" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="30" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="31" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="31" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="32" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="32" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="33" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="33" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="34" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="34" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="35" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="35" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="36" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="36" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="37" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="37" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="38" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="38" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="39" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="39" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="40" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="40" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="41" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="41" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="42" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="42" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="43" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="43" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="44" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="44" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="45" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="45" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="46" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="46" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="47" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="47" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="48" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="48" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="49" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="49" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="50" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="50" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="51" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="51" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="52" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="52" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="53" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="53" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="54" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="55" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="0" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="56" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="1" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="A" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="1" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="1" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="1" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -423,7 +395,7 @@
                                 <Border Grid.Row="1" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="1" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="1" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="2" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="B" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="2" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="B" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="2" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="2" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="2" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -480,7 +452,7 @@
                                 <Border Grid.Row="2" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="2" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="2" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="3" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="C" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="3" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="C" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="3" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="3" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="3" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -537,7 +509,7 @@
                                 <Border Grid.Row="3" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="3" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="3" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="4" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="D" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="4" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="D" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="4" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="4" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="4" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -594,7 +566,7 @@
                                 <Border Grid.Row="4" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="4" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="4" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="5" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="E" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="5" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="E" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="5" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="5" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="5" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -651,7 +623,7 @@
                                 <Border Grid.Row="5" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="5" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="5" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="6" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="F" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="6" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="F" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="6" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="6" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="6" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -708,7 +680,7 @@
                                 <Border Grid.Row="6" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="6" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="6" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="7" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="G" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="7" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="G" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="7" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="7" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="7" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -765,7 +737,7 @@
                                 <Border Grid.Row="7" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="7" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="7" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="8" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="H" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="8" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="H" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="8" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="8" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="8" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -822,7 +794,7 @@
                                 <Border Grid.Row="8" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="8" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="8" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="9" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="I" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="9" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="I" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="9" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="9" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="9" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -879,7 +851,7 @@
                                 <Border Grid.Row="9" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="9" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="9" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="10" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="J" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="10" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="J" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="10" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="10" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="10" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -936,7 +908,7 @@
                                 <Border Grid.Row="10" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="10" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="10" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="11" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="K" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="11" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="K" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="11" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="11" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="11" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -993,7 +965,7 @@
                                 <Border Grid.Row="11" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="11" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="11" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="12" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="L" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="12" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="L" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="12" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="12" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="12" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1050,7 +1022,7 @@
                                 <Border Grid.Row="12" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="12" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="12" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="13" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="M" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="13" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="M" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="13" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="13" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="13" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1107,7 +1079,7 @@
                                 <Border Grid.Row="13" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="13" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="13" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="14" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="N" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="14" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="N" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="14" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="14" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="14" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1164,7 +1136,7 @@
                                 <Border Grid.Row="14" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="14" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="14" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="15" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="O" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="15" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="O" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="15" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="15" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="15" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1221,7 +1193,7 @@
                                 <Border Grid.Row="15" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="15" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="15" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="16" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="P" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="16" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="P" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="16" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="16" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="16" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1278,7 +1250,7 @@
                                 <Border Grid.Row="16" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="16" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="16" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="17" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="Q" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="17" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="Q" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="17" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="17" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="17" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1335,7 +1307,7 @@
                                 <Border Grid.Row="17" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="17" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="17" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="18" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="R" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="18" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="R" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="18" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="18" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="18" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1392,7 +1364,7 @@
                                 <Border Grid.Row="18" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="18" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="18" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="19" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="S" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="19" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="S" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="19" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="19" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="19" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1449,7 +1421,7 @@
                                 <Border Grid.Row="19" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="19" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="19" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="20" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="T" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="20" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="T" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="20" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="20" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="20" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1506,7 +1478,7 @@
                                 <Border Grid.Row="20" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="20" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="20" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="21" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="U" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="21" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="U" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="21" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="21" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="21" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1563,7 +1535,7 @@
                                 <Border Grid.Row="21" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="21" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="21" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="22" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="V" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="22" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="V" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="22" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="22" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="22" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1620,7 +1592,7 @@
                                 <Border Grid.Row="22" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="22" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="22" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="23" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="W" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="23" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="W" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="23" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="23" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="23" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1677,7 +1649,7 @@
                                 <Border Grid.Row="23" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="23" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="23" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="24" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="X" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="24" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="X" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="24" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="24" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="24" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1734,7 +1706,7 @@
                                 <Border Grid.Row="24" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="24" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="24" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="25" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="Y" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="25" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="Y" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="25" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="25" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="25" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1791,7 +1763,7 @@
                                 <Border Grid.Row="25" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="25" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="25" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="26" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="Z" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="26" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="Z" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="26" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="26" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="26" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1848,7 +1820,7 @@
                                 <Border Grid.Row="26" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="26" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="26" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="27" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="AA" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="27" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="AA" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="27" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="27" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="27" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1905,7 +1877,7 @@
                                 <Border Grid.Row="27" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="27" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="27" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="28" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="BB" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="28" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="BB" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="28" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="28" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="28" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -1962,7 +1934,7 @@
                                 <Border Grid.Row="28" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="28" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="28" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="29" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="CC" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="29" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="CC" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="29" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="29" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="29" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -2019,7 +1991,7 @@
                                 <Border Grid.Row="29" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="29" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="29" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="30" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="DD" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="30" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="DD" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="30" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="30" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="30" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -2076,7 +2048,7 @@
                                 <Border Grid.Row="30" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="30" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="30" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="31" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="EE" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="31" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="EE" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="31" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="31" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="31" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -2133,7 +2105,7 @@
                                 <Border Grid.Row="31" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="31" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="31" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="32" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="FF" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="32" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="FF" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="32" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="32" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="32" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -2190,7 +2162,7 @@
                                 <Border Grid.Row="32" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="32" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="32" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="33" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="GG" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="33" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="GG" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="33" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="33" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="33" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -2247,7 +2219,7 @@
                                 <Border Grid.Row="33" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="33" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="33" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="34" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="HH" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="34" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="HH" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="34" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="34" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="34" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -2304,7 +2276,7 @@
                                 <Border Grid.Row="34" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="34" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="34" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="35" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="II" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="35" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="II" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="35" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="35" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="35" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -2361,7 +2333,7 @@
                                 <Border Grid.Row="35" Grid.Column="54" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="35" Grid.Column="55" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="35" Grid.Column="56" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
-                                <Border Grid.Row="36" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#111820"><TextBlock Text="JJ" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                <Border Grid.Row="36" Grid.Column="0" BorderBrush="#334155" BorderThickness="0,0,1,1" Background="#06172A"><TextBlock Text="JJ" Foreground="#93C5FD" FontSize="8" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                 <Border Grid.Row="36" Grid.Column="1" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="36" Grid.Column="2" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
                                 <Border Grid.Row="36" Grid.Column="3" BorderBrush="#334155" BorderThickness="0,0,0.45,0.45" Opacity="0.38"/>
@@ -2534,11 +2506,11 @@
                 </Border>
 
                     <Border VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,0"
-                             Padding="8,4"
+                             Padding="10,4"
                             CornerRadius="12"
-                            Background="Transparent"
-                             BorderBrush="Transparent"
-                             BorderThickness="0"
+                            Background="#111820"
+                            BorderBrush="#334155"
+                            BorderThickness="1"
                             Panel.ZIndex="10">
 
                         <StackPanel Orientation="Horizontal"
@@ -2567,7 +2539,7 @@
                                     Content="■  Stop"
                                     ToolTip="Stop preview"
                                     Background="#334155"
-                                    BorderBrush="#334155"/>
+                                    BorderBrush="#64748B"/>
 
                             <Button x:Name="RecordPreviewButton"
                                     Style="{StaticResource ViewportTransportButtonStyle}"
@@ -2582,9 +2554,9 @@
                 <!-- RIGHT PANEL -->
                 <Border Grid.Column="1"
                         CornerRadius="12"
-                        Background="Transparent"
-                             BorderBrush="Transparent"
-                             BorderThickness="0">
+                        Background="#111820"
+                        BorderBrush="#334155"
+                        BorderThickness="1">
 
                     <Grid Margin="18">
                         <Grid.RowDefinitions>
@@ -2670,25 +2642,30 @@
                                       SelectionChanged="CameraSelector_SelectionChanged"
                                       ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
                                       Height="38"
-                                      MaxDropDownHeight="185"
+                                      MaxDropDownHeight="190"
                                       Margin="0,0,0,0"
-                                      Background="#171D24"
-                                      Foreground="#111827"
+                                      Background="White"
+                                      Foreground="Black"
                                       BorderBrush="#334155"
                                       FontSize="13"
                                       Padding="10"/>
 
                             <Button x:Name="SetDefaultCameraButton" Style="{StaticResource PillActionButtonStyle}"
                                     Click="SetDefaultCameraButton_Click"
-                                    Content="★  Set Default"
+                                    Content="Set Default"
                                     ToolTip="Set selected camera as default source"
-                                    Height="28"
+                                    Height="36"
                                     Margin="0,0,0,0"
                                     Background="#171D24"
-                                Foreground="#D3D3D3"
-                                BorderBrush="#334155"
-                                    FontSize="12"
+                                    Foreground="White"
+                                    BorderBrush="#334155"
+                                    FontSize="14"
                                     FontWeight="SemiBold"/>
+<TextBlock x:Name="PreviewStatusText"
+                                       Text="Preview Idle"
+                                       FontSize="12"
+                                       Foreground="#94A3B8"
+                                       Margin="0,0,0,0"/>
 
                             <TextBlock Text="Notes"
                                        FontSize="13"
@@ -2711,33 +2688,34 @@
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal"
                                                         Margin="0,0,0,4">
-                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="↶" Width="24" Margin="0,0,4,0" ToolTip="Undo" Click="NotesUndoButton_Click"/>
-                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="↷" Width="24" Margin="0,0,8,0" ToolTip="Redo" Click="NotesRedoButton_Click"/>
+                                                <Button Foreground="Black" Content="↶" Width="24" Margin="0,0,4,0" ToolTip="Undo" Click="NotesUndoButton_Click"/>
+                                                <Button Foreground="Black" Content="↷" Width="24" Margin="0,0,8,0" ToolTip="Redo" Click="NotesRedoButton_Click"/>
 
-                                                <ComboBox x:Name="NotesFontSelector" SelectionChanged="NotesFontSelector_SelectionChanged"
-                                                          Foreground="#111827" Background="#171D24" BorderBrush="#334155" ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
+                                                <ComboBox x:Name="NotesFontSelector"
+                                                          SelectionChanged="NotesFontSelector_SelectionChanged"
+                                                          Foreground="Black"
                                                           Width="110"
                                                           Height="28"
                                                           SelectedIndex="0"
                                                           Margin="0,0,8,0">
-                                                    <ComboBoxItem Content="Segoe UI" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Calibri" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Arial" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Verdana" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Tahoma" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Georgia" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Times New Roman" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Cambria" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Book Antiqua" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Garamond" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Consolas" Foreground="#E5E7EB" Background="#171D24"/>
-                                                    <ComboBoxItem Content="Courier New" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Segoe UI" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Calibri" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Arial" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Verdana" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Tahoma" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Georgia" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Times New Roman" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Cambria" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Book Antiqua" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Garamond" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Consolas" Foreground="Black"/>
+                                                    <ComboBoxItem Content="Courier New" Foreground="Black"/>
                                                 </ComboBox>
 
-                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold" Click="NotesBoldButton_Click"/>
-                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="I" Width="28" Margin="0,0,4,0" FontStyle="Italic" Click="NotesItalicButton_Click"/>
-                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="U" Width="28" Margin="0,0,4,0" Click="NotesUnderlineButton_Click"/>
-                                                <Button x:Name="NotesColorButton" Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="A" Width="28" ToolTip="Choose text color" Click="NotesColorButton_Click">
+                                                <Button Foreground="Black" Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold" Click="NotesBoldButton_Click"/>
+                                                <Button Foreground="Black" Content="I" Width="28" Margin="0,0,4,0" FontStyle="Italic" Click="NotesItalicButton_Click"/>
+                                                <Button Foreground="Black" Content="U" Width="28" Margin="0,0,4,0" Click="NotesUnderlineButton_Click"/>
+                                                <Button x:Name="NotesColorButton" Foreground="Black" Content="A" Width="28" ToolTip="Choose text color" Click="NotesColorButton_Click">
                                                     <Button.ContextMenu>
                                                         <ContextMenu>
                                                             <MenuItem Header="White" Tag="White" Click="NotesTextColorMenuItem_Click"/>
@@ -2758,16 +2736,16 @@
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="Bullet" Width="48" Margin="0,0,4,0" ToolTip="Bulleted list" Click="NotesBulletButton_Click"/>
-                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="Align" Width="48" Margin="0,0,4,0" ToolTip="Cycle paragraph alignment" Click="NotesAlignButton_Click"/>
-                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="Outline" Width="58" Margin="0,0,4,0" ToolTip="Numbered outline" Click="NotesOutlineButton_Click"/>
-                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="Indent" Width="48" ToolTip="Increase indent" Click="NotesIndentButton_Click"/>
+                                                <Button Foreground="Black" Content="Bullet" Width="48" Margin="0,0,4,0" ToolTip="Bulleted list" Click="NotesBulletButton_Click"/>
+                                                <Button Foreground="Black" Content="Align" Width="48" Margin="0,0,4,0" ToolTip="Cycle paragraph alignment" Click="NotesAlignButton_Click"/>
+                                                <Button Foreground="Black" Content="Outline" Width="58" Margin="0,0,4,0" ToolTip="Numbered outline" Click="NotesOutlineButton_Click"/>
+                                                <Button Foreground="Black" Content="Indent" Width="48" ToolTip="Increase indent" Click="NotesIndentButton_Click"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
 
                                     <RichTextBox x:Name="NotesEditor"
-                                                 Height="185"
+                                                 Height="190"
                                                  Background="#0B0F12"
                                                  Foreground="#E5E7EB"
                                                  CaretBrush="#E5E7EB"
@@ -2783,13 +2761,13 @@
 
                         <Button Grid.Row="2"
                                 Click="CaptureScreenshotButton_Click"
-                                Content="📷  Capture"
+                                Content="Capture"
                                 ToolTip="Capture screenshot"
-                                Height="32"
-                                FontSize="13"
+                                Height="40"
+                                FontSize="15"
                                 FontWeight="Bold"
                                 Background="#171D24"
-                                Foreground="#E5E7EB"
+                                Foreground="White"
                                 BorderBrush="#334155"/>
                     </Grid>
                 </Border>
@@ -2814,17 +2792,17 @@
                                    Margin="0,0,10,0"/>
 
                         <TextBlock Text="Ready"
-                                   FontSize="12"
+                                   FontSize="14"
                                    Margin="0,0,24,0"/>
 
                         <TextBlock x:Name="CameraStatusText"
                                    Text="&#x1F4F7;  No Source Connected"
-                                   FontSize="12"
+                                   FontSize="14"
                                    Foreground="#CBD5E1"
                                    Margin="0,0,24,0"/>
 
                         <TextBlock Text="&#x1F4C1;  No Project Loaded"
-                                   FontSize="12"
+                                   FontSize="14"
                                    Foreground="#CBD5E1"/>
                     </StackPanel>
 
@@ -2846,19 +2824,6 @@
         </Grid>
     </Border>
 </Window>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

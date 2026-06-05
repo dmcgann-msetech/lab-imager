@@ -62,7 +62,7 @@ namespace LabImager
                 SetDefaultCameraButton.IsEnabled = false;
                 StartPreviewButton.IsEnabled = false;
                 StopPreviewButton.IsEnabled = false;
-                PreviewStatusText.Text = "Preview Unavailable";
+                CameraStatusText.Text = "Source: Preview Unavailable";
 
                 CameraStatusText.Text = "Source: No Source Connected";
                 Title = "Lab Imager";
@@ -113,7 +113,7 @@ namespace LabImager
             FreezePreviewButton.IsEnabled = false;
             FreezePreviewButton.Content = "❄";
             StopPreviewButton.IsEnabled = false;
-            PreviewStatusText.Text = "Preview Idle";
+            CameraStatusText.Text = "Source: Preview Idle";
 
             UpdateSelectedCameraState();
         }
@@ -126,7 +126,7 @@ namespace LabImager
                 PreviewHost.Visibility = Visibility.Collapsed;
                 ViewportPlaceholder.Visibility = Visibility.Visible;
 
-                PreviewStatusText.Text = "Preview Stopped - Source Changed";
+                CameraStatusText.Text = "Source: Preview Stopped - Source Changed";
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
                 FreezePreviewButton.Content = "❄";
@@ -189,7 +189,7 @@ namespace LabImager
             if (string.IsNullOrWhiteSpace(sourceName) ||
                 sourceName == "No Cameras Detected")
             {
-                PreviewStatusText.Text = "Preview Unavailable";
+                CameraStatusText.Text = "Source: Preview Unavailable";
                 return;
             }
 
@@ -211,7 +211,7 @@ namespace LabImager
                     PreviewPanel.ClientSize.Width,
                     PreviewPanel.ClientSize.Height);
 
-                PreviewStatusText.Text = $"Preview Running: {sourceName}";
+                CameraStatusText.Text = $"Source: Preview Running: {sourceName}";
                 CameraStatusText.Text = $"Source: Preview Started: {sourceName}";
 
                 StartPreviewButton.IsEnabled = false;
@@ -226,7 +226,7 @@ namespace LabImager
                 PreviewHost.Visibility = Visibility.Collapsed;
                 ViewportPlaceholder.Visibility = Visibility.Visible;
 
-                PreviewStatusText.Text = "Preview Failed";
+                CameraStatusText.Text = "Source: Preview Failed";
                 CameraStatusText.Text = $"Source: Preview Failed: {ex.Message}";
 
                 StartPreviewButton.IsEnabled = true;
@@ -248,7 +248,7 @@ namespace LabImager
                 _cameraPreviewService.ResumePreview();
 
                 FreezePreviewButton.Content = "❄";
-                PreviewStatusText.Text = "Preview Running";
+                CameraStatusText.Text = "Source: Preview Running";
                 CameraStatusText.Text = "Source: Preview Running";
             }
             else
@@ -256,7 +256,7 @@ namespace LabImager
                 _cameraPreviewService.FreezePreview();
 
                 FreezePreviewButton.Content = "▶";
-                PreviewStatusText.Text = "Preview Frozen";
+                CameraStatusText.Text = "Source: Preview Frozen";
                 CameraStatusText.Text = "Source: Preview Frozen";
             }
         }
@@ -267,7 +267,7 @@ namespace LabImager
             PreviewHost.Visibility = Visibility.Collapsed;
             ViewportPlaceholder.Visibility = Visibility.Visible;
 
-            PreviewStatusText.Text = "Preview Stopped";
+            CameraStatusText.Text = "Source: Preview Stopped";
             CameraStatusText.Text = "Source: Preview Stopped";
 
             StartPreviewButton.IsEnabled = true;
@@ -306,7 +306,7 @@ namespace LabImager
                 SetDefaultCameraButton.IsEnabled = false;
                 StartPreviewButton.IsEnabled = false;
                 StopPreviewButton.IsEnabled = false;
-                PreviewStatusText.Text = "Preview Unavailable";
+                CameraStatusText.Text = "Source: Preview Unavailable";
 
                 return;
             }
@@ -507,6 +507,7 @@ namespace LabImager
         }
     }
 }
+
 
 
 
