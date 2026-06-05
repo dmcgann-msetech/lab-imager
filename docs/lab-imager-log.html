@@ -84,7 +84,7 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Sections 1-5</td><td>Project vision, repository identity, technology stack, hardware pipeline, and first milestone.</td></tr>
 <tr><td>Sections 6-10</td><td>Application layout, annotation model, file naming, project storage, and theme doctrine.</td></tr>
 <tr><td>Sections 11-15</td><td>Repository structure, Git workflow, icon/logo direction, future feature roadmap, and initial build constraints.</td></tr>
-<tr><td>Sections 16-32</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, freeze/resume preview validation, and responsive UI transport-control redesign.</td></tr>
+<tr><td>Sections 16-34</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, freeze/resume preview validation, responsive UI transport-control redesign, UI stabilization rollback, and M1-I recording timer header integration.</td></tr>
 <tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
 </table>
 
@@ -240,15 +240,19 @@ Screenshot / annotation / saved record</pre>
 <h4>Pipeline Requirements</h4>
 <table>
 <tr><th>Requirement</th><th>Status</th><th>Notes</th></tr>
-<tr><td>Detect capture device</td><td><span class="status pending">Pending</span></td><td>Must enumerate available video input devices.</td></tr>
-<tr><td>Render live feed</td><td><span class="status pending">Pending</span></td><td>Must be low-latency enough for practical bench use.</td></tr>
-<tr><td>Freeze frame</td><td><span class="status pending">Pending</span></td><td>Needed before annotation workflow.</td></tr>
-<tr><td>Capture still frame</td><td><span class="status pending">Pending</span></td><td>PNG export required for milestone 1.</td></tr>
-<tr><td>Zoom/pan viewport</td><td><span class="status pending">Pending</span></td><td>View transform should not destroy the original captured image.</td></tr>
+<tr><td>Detect capture device</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. DirectShow device enumeration and source selector population are implemented and validated; see Sections 18, 20, 30, and 35.</td></tr>
+<tr><td>Render live feed</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Live DirectShow preview renders in the application viewport; see Sections 22, 30, and 35.</td></tr>
+<tr><td>Freeze frame</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Freeze and Resume preview controls were implemented and runtime validated; see Sections 31 and 35.</td></tr>
+<tr><td>Capture still frame</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. PNG screenshot export is implemented through the viewport capture service; see Sections 19, 30, and 35.</td></tr>
+<tr><td>Zoom/pan viewport</td><td><span class="status pending">Pending</span></td><td>Still open. View transform must preserve the original captured image and avoid destructive editing.</td></tr>
 </table>
 
+<div class="note ok">
+<strong>Reconciliation note 2026-06-05:</strong> This section began as an initial planning table. The current authoritative status has been reconciled in Section 35. Device detection, live feed, freeze frame, and still capture are no longer pending; only zoom/pan remains open from this original hardware-pipeline list.
+</div>
+
 <div class="note warn">
-<strong>Risk:</strong> HDMI capture devices can expose inconsistent names, formats, frame rates, and resolutions. Device enumeration and format negotiation must be treated as a first-class milestone, not an afterthought.
+<strong>Risk:</strong> HDMI capture devices can expose inconsistent names, formats, frame rates, and resolutions. Device enumeration and format negotiation must continue to be treated as a first-class engineering concern even though baseline enumeration is now complete.
 </div>
 <div class="page-num">4</div>
 </section>
@@ -263,15 +267,19 @@ Screenshot / annotation / saved record</pre>
 
 <h4>M1 Deliverables</h4>
 <table>
-<tr><th>Deliverable</th><th>Status</th></tr>
-<tr><td>Launch WPF application shell</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Detect available capture devices</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Select microscope capture device</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Render live microscope preview</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Capture PNG screenshot</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Apply timestamped default filename</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Provide basic zoom control</td><td><span class="status pending">Pending</span></td></tr>
+<tr><th>Deliverable</th><th>Status</th><th>Completion / Reconciliation Reference</th></tr>
+<tr><td>Launch WPF application shell</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Shell, titlebar, theme, viewport, and status bar are implemented; see Sections 17, 18, 30, and 35.</td></tr>
+<tr><td>Detect available capture devices</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. DirectShow enumeration and source selector population are complete; see Sections 18, 20, 30, and 35.</td></tr>
+<tr><td>Select microscope capture device</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Source selector and default-source workflow are complete; see Sections 18, 20, 30, and 35.</td></tr>
+<tr><td>Render live microscope preview</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Live DirectShow preview is operational; see Sections 22, 30, and 35.</td></tr>
+<tr><td>Capture PNG screenshot</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. PNG viewport capture is implemented; see Sections 19, 30, and 35.</td></tr>
+<tr><td>Apply timestamped default filename</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Screenshot output uses timestamped PNG filenames; see Sections 19, 30, and 35.</td></tr>
+<tr><td>Provide basic zoom control</td><td><span class="status pending">Pending</span></td><td>Still open. Zoom/pan viewport work remains a future viewport-usability milestone.</td></tr>
 </table>
+
+<div class="note ok">
+<strong>Milestone reconciliation 2026-06-05:</strong> The original M1 planning table was created before implementation began. Subsequent development completed the WPF application shell, capture-device enumeration, source selection, default-source persistence, DirectShow preview rendering, freeze/resume controls, PNG screenshot export, timestamped filenames, and recording-state foundation. Only zoom/pan remains open from the original M1 deliverables. See Section 35 for the consolidated reconciliation record.
+</div>
 
 <h4>Explicitly Out of Scope for M1</h4>
 <ul>
@@ -548,6 +556,9 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Future</td><td>Advanced imaging</td><td>Video recording, calibration, measurement tools, comparison mode.</td></tr>
 </table>
 
+<div class="note watch">
+<strong>Reconciliation note 2026-06-05:</strong> This roadmap is retained as the original phase plan. Phase 1 live capture and major portions of Phase 2 are now complete or partially complete. Recording-state foundation has started under Section 34, but actual video encoding remains future work. See Section 35 for current reconciled status.
+</div>
 <div class="page-num">14</div>
 </section>
 
@@ -580,7 +591,7 @@ Screenshot / annotation / saved record</pre>
 </ul>
 
 <div class="note ok">
-<strong>Current next engineering move:</strong> create the repository, add the planned folder structure, commit this log, then build the first WPF application shell.
+<strong>Reconciliation note 2026-06-05:</strong> This section is preserved as the initial safe-start doctrine. The repository, WPF shell, capture-device enumeration, live preview, screenshot export, freeze/resume, Notes tooling, responsive transport strip, and recording-state foundation have since been implemented. Use Section 35 for current status instead of this original startup checklist.
 </div>
 <div class="page-num">15</div>
 </section>
@@ -793,6 +804,10 @@ git push origin main</pre>
 <section class="page">
 <h3>18. Phase 2 UI Density, Camera Selector, Notes Toolbar, and Enumeration Foundation</h3>
 <p class="sub">Audit record for the Lab Imager Phase 2 interface refinement cycle, camera-selection workflow correction, DirectShow enumeration foundation, and pre-save-point stabilization.</p>
+
+<div class="note watch">
+<strong>Historical reconciliation note 2026-06-05:</strong> This section is retained as a point-in-time engineering record. Later completed work may supersede some pending or partial statuses here; see Section 35 for the current consolidated status.
+</div>
 
 <div class="note ok">
 <strong>Final status:</strong> The Lab Imager interface was refined from the oversized first-generation workstation shell into the approved compact widescreen engineering layout. The viewport remains dominant, the right-side Lab Session panel now includes camera-selection controls, the Notes area now has a two-row rich-text toolbar scaffold, and the top/bottom chrome has been reduced to a more professional software-instrument density.
@@ -1012,6 +1027,10 @@ git push origin main</pre>
 <section class="page">
 <h3>21. Preview State Management Framework</h3>
 <p class="sub">Preview lifecycle-control milestone establishing start/stop state handling before DirectShow live rendering integration.</p>
+
+<div class="note watch">
+<strong>Historical reconciliation note 2026-06-05:</strong> This section is retained as a point-in-time engineering record. Later completed work may supersede some pending or partial statuses here; see Section 35 for the current consolidated status.
+</div>
 <div class="note ok"><strong>Final status:</strong> Preview lifecycle controls are complete and synchronized to <code>main</code> under commit <code>7645ecd</code> with message <code>Add preview state controls and workflow</code>.</div>
 <h4>Purpose of This Log Entry</h4>
 <p>This entry records the creation of the first preview lifecycle management framework in Lab Imager. The milestone deliberately did not attempt live video rendering. Instead, it established the UI controls, state transitions, selected-source awareness, and preview service boundary needed before DirectShow graph work is connected to the viewport.</p>
@@ -1052,6 +1071,10 @@ git push origin main</pre>
 <section class="page">
 <h3>23. Approved Backlog and Forward Engineering Notes</h3>
 <p class="sub">Backlog items and future design decisions captured immediately after the M2-A live preview milestone.</p>
+
+<div class="note watch">
+<strong>Historical reconciliation note 2026-06-05:</strong> This section is retained as a point-in-time engineering record. Later completed work may supersede some pending or partial statuses here; see Section 35 for the current consolidated status.
+</div>
 <h4>Approved Backlog Items</h4>
 <table>
 <tr><th>ID</th><th>Item</th><th>Priority</th><th>Status</th></tr>
@@ -1237,6 +1260,10 @@ Frame pipeline:
 <p class="sub">Approved backlog item for resolution-aware scaling, adaptive right-panel behavior, and preservation of operator usability at smaller application sizes.</p>
 
 <div class="note watch">
+<strong>Historical reconciliation note 2026-06-05:</strong> This section is retained as a point-in-time engineering record. Later completed work may supersede some pending or partial statuses here; see Section 35 for the current consolidated status.
+</div>
+
+<div class="note watch">
 <strong>Planned item:</strong> The current Lab Imager shell is optimized for a large workstation window. When the application is reduced substantially, the right-side Lab Session panel becomes vertically constrained and the Notes area crowds the available space. This is approved future work and is intentionally deferred until the current functional pass is complete.
 </div>
 
@@ -1277,7 +1304,7 @@ Frame pipeline:
 <p class="sub">Authoritative checklist reconciliation performed against the actual runtime application state, build results, screenshots, feature-branch commit history, and verified operator workflow.</p>
 
 <div class="note ok">
-<strong>Final status:</strong> Lab Imager has moved beyond the original static-audit condition. The application now has a working WPF shell, source enumeration, source selection, default source persistence, live DirectShow preview, screenshot capture, timestamped PNG output, operational Notes formatting, and validated Freeze / Resume preview controls. This section supersedes older “Pending” assumptions in the original M1 planning tables.
+<strong>Final status:</strong> Lab Imager has moved beyond the original static-audit condition. The application now has a working WPF shell, source enumeration, source selection, default source persistence, live DirectShow preview, screenshot capture, timestamped PNG output, operational Notes formatting, validated Freeze / Resume preview controls, and M1-I recording-state foundation with a top-header REC timer. This section is supplemented by Section 35, which reconciles older planning sections against the latest committed state.
 </div>
 
 <h4>Purpose of This Reconciliation</h4>
@@ -1364,6 +1391,20 @@ This entry converts the master checklist into the project log so the ledger refl
 <tr><td>GitHub synchronization</td><td><span class="status done">Complete</span></td><td>Feature branch synchronized to <code>origin/feature/wpf-frame-pipeline</code>.</td></tr>
 </table>
 
+
+<h4>Verified Complete — Recording State Foundation</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Recording service folder</td><td><span class="status done">Complete</span></td><td><code>Services/Recording</code> added as the recording subsystem boundary.</td></tr>
+<tr><td>Recording state model</td><td><span class="status done">Complete</span></td><td><code>RecordingState</code> defines <code>Idle</code>, <code>Recording</code>, <code>Paused</code>, and <code>Stopped</code>.</td></tr>
+<tr><td>Recording service contract</td><td><span class="status done">Complete</span></td><td><code>IRecordingService</code> defines recording state, elapsed time, state events, and lifecycle commands.</td></tr>
+<tr><td>Recording service implementation</td><td><span class="status done">Complete</span></td><td><code>RecordingService</code> tracks elapsed recording time with a Dispatcher timer.</td></tr>
+<tr><td>Record button activation</td><td><span class="status done">Complete</span></td><td>The former Record placeholder now starts and stops recording-state tracking.</td></tr>
+<tr><td>Footer recording status</td><td><span class="status done">Complete</span></td><td>Footer displays recording state and elapsed time.</td></tr>
+<tr><td>Top-header REC timer</td><td><span class="status done">Complete</span></td><td>REC timer appears above the viewport coordinate ruler, outside the image area, and was position-refined in commit <code>7c6c5bc</code>.</td></tr>
+<tr><td>Actual video encoding</td><td><span class="status pending">Deferred</span></td><td>No MP4/AVI/frame-sequence output is implemented yet. This remains a future recording pipeline milestone.</td></tr>
+</table>
+
 <h4>Current Open Work — Ordered Execution Backlog</h4>
 <table>
 <tr><th>Order</th><th>Workstream</th><th>Status</th><th>Required Work</th></tr>
@@ -1375,7 +1416,7 @@ This entry converts the master checklist into the project log so the ledger refl
 <tr><td>6</td><td>Notes Toolbar Completion</td><td><span class="status pending">Pending</span></td><td>Repair Indent functionality; validate multi-line indentation, selected-block indentation, and full-document indentation.</td></tr>
 <tr><td>7</td><td>Annotation Foundation</td><td><span class="status pending">Pending</span></td><td>Define annotation canvas architecture, overlay rendering strategy, arrow, rectangle, circle, text label, freehand marker, clear annotations, undo/redo, and annotation persistence strategy.</td></tr>
 <tr><td>8</td><td>Project Records</td><td><span class="status pending">Pending</span></td><td>Metadata sidecar generation, JSON export, project folder structure, session save workflow, capture history, and notes/project metadata persistence.</td></tr>
-<tr><td>9</td><td>Advanced Imaging</td><td><span class="status pending">Pending</span></td><td>Measurement framework, calibration framework, scale overlay, comparison mode, video recording, and advanced frame-pipeline reconciliation.</td></tr>
+<tr><td>9</td><td>Advanced Imaging</td><td><span class="status pending">Pending</span></td><td>Measurement framework, calibration framework, scale overlay, comparison mode, video encoding/output, playback, and advanced frame-pipeline reconciliation. Recording state/timer foundation is complete; actual encoded output remains pending.</td></tr>
 <tr><td>10</td><td>Project Library</td><td><span class="status pending">Pending</span></td><td>Project/session browser, SQLite schema, capture indexing, search by project, board, technician, date, and export project packet.</td></tr>
 </table>
 
@@ -1500,7 +1541,7 @@ git ls-remote origin refs/heads/feature/wpf-frame-pipeline
 <p class="sub">Lunch-break checkpoint record for the 1024x768 responsive-layout investigation, preserved scrollable-panel fallback branch, live default-source refresh correction, right-panel simplification, and viewport transport-control redesign.</p>
 
 <div class="note ok">
-<strong>Checkpoint status:</strong> The current working branch remains <code>feature/wpf-frame-pipeline</code>. The application builds successfully after the UI transport-control relocation and default-source refresh fix. The right-side panel still requires cleanup before responsive layout can be considered complete.
+<strong>Checkpoint status:</strong> This section began as the responsive-layout and transport-control redesign checkpoint. It has now been reconciled with the later M1-I recording work: the viewport transport strip remains the accepted operating model, the Record placeholder has been promoted into an active recording-state control, and the recording timer now uses a top-center header indicator rather than a viewport overlay. The current active branch remains <code>feature/wpf-frame-pipeline</code>.
 </div>
 
 <h4>Purpose of This Log Entry</h4>
@@ -1556,7 +1597,7 @@ The work confirmed that the right-side Lab Session panel should function primari
 <tr><td>Start Preview</td><td><code>▶</code></td><td>Start live camera preview.</td><td><span class="status done">Moved</span></td></tr>
 <tr><td>Freeze / Resume</td><td><code>❄</code> / <code>▶</code></td><td>Freeze current live preview and resume motion.</td><td><span class="status done">Moved</span></td></tr>
 <tr><td>Stop Preview</td><td><code>■</code></td><td>Stop live preview.</td><td><span class="status done">Moved</span></td></tr>
-<tr><td>Record placeholder</td><td><code>⏺</code></td><td>Reserved disabled control for future recording milestone.</td><td><span class="status partial">Placeholder</span></td></tr>
+<tr><td>Record control</td><td><code>Record</code></td><td>Starts and stops recording-state tracking through the new recording-service foundation.</td><td><span class="status done">Activated in M1-I</span></td></tr>
 <tr><td>Rewind / playback</td><td><code>⏮</code></td><td>Requested for future playback workflow once recording exists.</td><td><span class="status pending">Future</span></td></tr>
 </table>
 
@@ -1593,7 +1634,7 @@ The work confirmed that the right-side Lab Session panel should function primari
 <tr><td>Remove or relocate Preview Idle / Preview Running text.</td><td>Status should live in the bottom status bar unless a local indicator is intentionally designed.</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Validate 1024x768 behavior on the actual lab display.</td><td>This resolution is a likely real deployment constraint.</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Add rewind/playback UI intentionally.</td><td>Playback controls should not imply functionality until recording/playback pipeline exists.</td><td><span class="status pending">Future</span></td></tr>
-<tr><td>Implement recording pipeline.</td><td>Future milestone; requires file format, encoder, save path, session controls, and UI state management.</td><td><span class="status pending">Future</span></td></tr>
+<tr><td>Implement recording pipeline.</td><td>Recording state, timer, Record button wiring, footer state, and header indicator are now implemented. Actual video encoding remains deferred.</td><td><span class="status partial">Foundation complete</span></td></tr>
 <tr><td>Implement rewind/playback pipeline.</td><td>Depends on recording/session playback architecture.</td><td><span class="status pending">Future</span></td></tr>
 </table>
 
@@ -1613,11 +1654,24 @@ The work confirmed that the right-side Lab Session panel should function primari
 <li>Polish <code>Set Default</code> and <code>Capture</code> as proper pill buttons.</li>
 <li>Refactor Notes toolbar density so it fits the right panel cleanly.</li>
 <li>Re-evaluate whether <code>⏮</code> belongs as a visible disabled future placeholder now, or should wait until recording/playback architecture begins.</li>
-<li>Define recording and playback milestones separately from M1 completion.</li>
+<li>Continue recording architecture from the completed M1-I state/timer foundation into future MP4/AVI/frame-sequence encoding work.</li>
 </ol>
 
 <div class="note ok">
 <strong>Checkpoint decision:</strong> The current UI direction is approved enough to save. The transport controls are no longer the priority blocker; the right-side panel cleanup is now the main UI debt before continuing functional recording/playback planning.
+</div>
+
+<h4>Section 32 Reconciliation Addendum — Recording Work Now Completed</h4>
+<table>
+<tr><th>Original Section 32 Assumption</th><th>Updated State</th><th>Status</th></tr>
+<tr><td>Record was a disabled future placeholder.</td><td>Record is now wired into a recording-service foundation and toggles recording state.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td>Recording pipeline was future-only.</td><td>Recording state, elapsed-time tracking, footer integration, and header timer display are complete; actual video encoding remains deferred.</td><td><span class="status partial">Foundation complete</span></td></tr>
+<tr><td>Transport strip was only preview-oriented.</td><td>The transport strip now supports Start, Freeze, Stop, and Record state workflow.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td>Right panel remained the configuration/documentation zone.</td><td>This decision remains valid; recording feedback was placed outside the right panel and outside the camera image area.</td><td><span class="status done">Confirmed</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Updated Section 32 decision:</strong> The viewport-mounted transport-control direction remains correct. The Record control is no longer merely decorative, and recording feedback should remain in the top header band rather than inside the live-image viewport or the Lab Session panel.
 </div>
 
 <div class="page-num">32</div>
@@ -1685,8 +1739,216 @@ git push origin feature/wpf-frame-pipeline</pre>
 <li>Prepare future playback workflow requirements.</li>
 </ol>
 
+
+<h4>Later Same-Day Recording Checkpoints</h4>
+<table>
+<tr><th>Commit</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>4c3604b</code></td><td>Recording timer header and recording UI integration.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>7c6c5bc</code></td><td>Final REC header positioning refinement.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+<div class="note watch">
+<strong>Supersession note:</strong> Section 33 remains the correct hover-layout rollback record. The later recording-specific state is recorded in Section 34 and supersedes the Section 33 <code>9e01c37</code> HEAD note for current branch position.
+</div>
 <div class="page-num">33</div>
 </section>
+
+<section class="page">
+<h3>34. M1-I Recording Service Foundation and Header Timer Integration</h3>
+<p class="sub">Recording-state service milestone, Record-button activation, footer status integration, top-header recording timer placement, validation record, and rollback checkpoints.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> M1-I Recording System Foundation is implemented, build-validated, runtime-reviewed, committed, and pushed to <code>origin/feature/wpf-frame-pipeline</code>. The latest confirmed rollback point is <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code> with message <code>Refine recording header positioning</code>.
+</div>
+
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the work completed after the UI stabilization checkpoint. The objective was to activate the previously disabled Record placeholder without adding actual video encoding yet. The implementation establishes the recording state model, elapsed-time tracking, Record button state workflow, footer recording indicators, and a visible top-center REC timer that does not obstruct the camera image or coordinate grid.
+</p>
+<p>
+The work also records the correction path for the timer display. Several layout attempts placed the timer too low, too high, inside the viewport, or directly on a separator line. The accepted direction is a small red text indicator centered horizontally in the title/header band, vertically balanced above the viewport coordinate ruler and outside the image area.
+</p>
+
+<h4>Implemented Recording Service Foundation</h4>
+<table>
+<tr><th>Component</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>Services/Recording/RecordingState.cs</code></td><td>Defines recording lifecycle states: <code>Idle</code>, <code>Recording</code>, <code>Paused</code>, and <code>Stopped</code>.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>Services/Recording/IRecordingService.cs</code></td><td>Provides the recording-service contract for state, elapsed time, state-change events, elapsed-time events, start, pause, resume, stop, and reset.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>Services/Recording/RecordingService.cs</code></td><td>Implements timer-backed elapsed-time tracking using a dispatcher timer and exposes state-change notifications for the UI.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>MainWindow.xaml.cs</code></td><td>Wires the recording service into the main window, handles Record button clicks, updates footer text, and manages the header REC timer.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>MainWindow.xaml</code></td><td>Record button enabled and footer recording text fields integrated with the existing status area.</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<h4>Recording State Workflow</h4>
+<table>
+<tr><th>Operator Action</th><th>Application Behavior</th><th>Status</th></tr>
+<tr><td>Click Record while idle/stopped.</td><td>Recording service enters <code>Recording</code> state and elapsed timer starts.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Elapsed timer tick.</td><td>UI refreshes the footer time and top header timer.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Click Record while recording.</td><td>Recording service stops and final elapsed time is preserved in state output.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Footer status update.</td><td>Footer shows <code>Recording: Recording</code> and elapsed time such as <code>00:00:07</code>.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Header REC display.</td><td>Header shows <code>REC 00:00:xx</code> in red while recording is active.</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Explicit Encoding Boundary</h4>
+<div class="note watch">
+<strong>Boundary:</strong> This milestone does not encode video and does not create MP4, AVI, or frame-sequence output. It intentionally implements state, UI, elapsed-time, and service architecture only. Video output remains a future recording pipeline milestone.
+</div>
+<table>
+<tr><th>Future Output Path</th><th>Status</th><th>Notes</th></tr>
+<tr><td>MP4 output</td><td><span class="status pending">Deferred</span></td><td>Requires encoder selection and frame pipeline integration.</td></tr>
+<tr><td>AVI output</td><td><span class="status pending">Deferred</span></td><td>Useful fallback if MP4 encoder path is not immediately practical.</td></tr>
+<tr><td>Frame sequence output</td><td><span class="status pending">Deferred</span></td><td>Potential diagnostic/export option for inspection workflows.</td></tr>
+</table>
+
+<h4>REC Header Placement Correction Record</h4>
+<table>
+<tr><th>Attempt</th><th>Issue</th><th>Resolution</th></tr>
+<tr><td>Viewport overlay placement</td><td>The REC timer appeared over or near the coordinate grid/image area and conflicted with the intended clean viewport.</td><td>Rejected; recording indicator must live outside the camera image area.</td></tr>
+<tr><td>XAML header injection</td><td>The named <code>RecordingHeaderText</code> element was not created in the expected name scope and caused <code>CS0103</code> build errors.</td><td>Removed broken XAML header attempt.</td></tr>
+<tr><td>Dynamic TextBlock creation</td><td>Initial dynamic insertion compiled after WPF namespace qualification but required placement tuning.</td><td>Accepted approach after namespace fixes.</td></tr>
+<tr><td>Special REC glyph / bullet</td><td>The intended bullet indicator rendered as a bad <code>?</code> character in the title/header area.</td><td>Removed special character and standardized to plain <code>REC 00:00:xx</code>.</td></tr>
+<tr><td>Font size / visual weight</td><td>Initial counter was too visually tall and distracting.</td><td>Reduced to smaller text and lighter weight.</td></tr>
+<tr><td>Vertical placement</td><td>Timer was too high, then too close to the line; final adjustment moved it slightly lower into the header band.</td><td>Final refined placement committed under <code>7c6c5bc</code>.</td></tr>
+</table>
+
+<h4>Build Errors Encountered and Resolved</h4>
+<table>
+<tr><th>Error</th><th>Cause</th><th>Fix</th></tr>
+<tr><td><code>CS0103: The name 'RecordingHeaderText' does not exist in the current context</code></td><td>XAML header element was not present or not generated into the expected code-behind name scope.</td><td>Removed dependency on the XAML-named element and created the header <code>TextBlock</code> dynamically.</td></tr>
+<tr><td><code>CS0176: Member 'HorizontalAlignment.Center' cannot be accessed with an instance reference</code></td><td>Name ambiguity caused the compiler to resolve alignment access incorrectly.</td><td>Qualified alignment values with <code>System.Windows.HorizontalAlignment.Center</code> and <code>System.Windows.VerticalAlignment.Top</code>.</td></tr>
+<tr><td><code>CS0104: 'Panel' is an ambiguous reference between System.Windows.Controls.Panel and System.Windows.Forms.Panel</code></td><td>Project uses both WPF and WinForms hosting namespaces.</td><td>Qualified panel references as <code>System.Windows.Controls.Panel</code>.</td></tr>
+</table>
+
+<h4>Validation Results</h4>
+<table>
+<tr><th>Validation Item</th><th>Result</th><th>Notes</th></tr>
+<tr><td><code>dotnet build src\LabImager\LabImager.csproj</code></td><td><span class="status done">Succeeded</span></td><td>Build passed with <code>0</code> errors.</td></tr>
+<tr><td>Warnings</td><td><span class="status watching">Existing non-blocking</span></td><td>Four existing <code>DirectShowFramePreviewService.cs</code> warnings remain: duplicate using directives and unused/assigned preview fields.</td></tr>
+<tr><td><code>dotnet run --project src\LabImager\LabImager.csproj</code></td><td><span class="status done">Succeeded</span></td><td>Application launched for visual validation.</td></tr>
+<tr><td>Record button</td><td><span class="status done">Operational</span></td><td>Record button starts recording-state timer.</td></tr>
+<tr><td>Footer status</td><td><span class="status done">Operational</span></td><td>Footer reports recording state and elapsed time.</td></tr>
+<tr><td>Header timer</td><td><span class="status done">Accepted</span></td><td>Small red <code>REC 00:00:xx</code> display is visible in the upper header band.</td></tr>
+</table>
+
+<h4>Repository Checkpoints</h4>
+<table>
+<tr><th>Commit</th><th>Message</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>4c3604b1fac5533e4ad0558353eec1282614da0b</code></td><td><code>Add recording timer header and recording UI integration</code></td><td>Saved the working recording integration and first functional header-timer state as a rollback point before further visual adjustment.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code></td><td><code>Refine recording header positioning</code></td><td>Preserved the refined header-timer vertical placement after final visual tuning.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<h4>Committed Backup Files Warning</h4>
+<div class="note warn">
+<strong>Repository hygiene issue:</strong> Commit <code>4c3604b</code> included temporary backup files <code>MainWindow.xaml.20260605-173207.fixrec.bak</code> and <code>MainWindow.xaml.cs.20260605-173207.fixrec.bak</code>. They were intentionally left in place during the safety checkpoint. They should be removed in a later cleanup commit once the current working UI is fully accepted.
+</div>
+
+<h4>Command Record</h4>
+<pre>dotnet build src\LabImager\LabImager.csproj
+
+dotnet run --project src\LabImager\LabImager.csproj
+
+git add .
+
+git commit -m "Add recording timer header and recording UI integration"
+
+git push origin feature/wpf-frame-pipeline
+
+git rev-parse HEAD
+# 4c3604b1fac5533e4ad0558353eec1282614da0b
+
+git commit -m "Refine recording header positioning"
+
+git push origin feature/wpf-frame-pipeline
+
+git rev-parse HEAD
+# 7c6c5bc1783d2f2f859bc36bd824423f7080e502</pre>
+
+<h4>Current State After M1-I</h4>
+<table>
+<tr><th>Area</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Recording state model</td><td><span class="status done">Complete</span></td><td>Idle, Recording, Paused, and Stopped states defined.</td></tr>
+<tr><td>Recording service foundation</td><td><span class="status done">Complete</span></td><td>Elapsed-time tracking and event-driven UI refresh implemented.</td></tr>
+<tr><td>Record button wiring</td><td><span class="status done">Complete</span></td><td>Record starts/stops recording-state workflow.</td></tr>
+<tr><td>Footer integration</td><td><span class="status done">Complete</span></td><td>Recording state and time appear in footer.</td></tr>
+<tr><td>Header REC timer</td><td><span class="status done">Accepted</span></td><td>Visible in top header band; not inside live camera feed.</td></tr>
+<tr><td>Actual video recording</td><td><span class="status pending">Deferred</span></td><td>No encoder/output file implementation yet.</td></tr>
+<tr><td>Branch synchronization</td><td><span class="status done">Complete</span></td><td>Latest pushed branch head is <code>7c6c5bc</code>.</td></tr>
+</table>
+
+<h4>Next Safe Work Order</h4>
+<ol>
+<li>Run <code>git status</code> and confirm the working tree is clean.</li>
+<li>Remove committed <code>.bak</code> files in a deliberate cleanup commit when ready.</li>
+<li>Update this log in the repository and commit it separately.</li>
+<li>Continue future recording work only after defining encoder/output strategy.</li>
+<li>Do not resume cosmetic hover or toolbar experiments unless directly required by functionality.</li>
+</ol>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> M1-I is complete as a recording-state and UI-feedback foundation. The accepted rollback target for the current working UI is <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code>.
+</div>
+
+<div class="page-num">34</div>
+</section>
+
+
+<section class="page">
+<h3>35. Historical Planning Reconciliation — Current Status Corrections</h3>
+<p class="sub">Clean reconciliation record for early planning sections whose original pending statuses were superseded by later implementation, validation, and repository checkpoints.</p>
+
+<div class="note ok">
+<strong>Reconciliation date:</strong> 2026-06-05. This section exists to prevent stale early-planning entries from contradicting the current engineering state. Older sections are retained for historical context, but the status table below is the consolidated current-status correction for the affected planning records.
+</div>
+
+<h4>Sections Reconciled</h4>
+<table>
+<tr><th>Section</th><th>Original Issue</th><th>Current Handling</th></tr>
+<tr><td>Section 4 — Hardware Capture Pipeline</td><td>Several pipeline requirements still showed <span class="status pending">Pending</span> even though device detection, live feed, freeze frame, and still capture were completed later.</td><td>Updated in place and cross-referenced to this reconciliation section.</td></tr>
+<tr><td>Section 5 — First Milestone: M1 Live Capture Window</td><td>The original M1 deliverables table still showed the entire first milestone as pending.</td><td>Updated in place with completion references and dated reconciliation notes.</td></tr>
+<tr><td>Section 14 — Future Feature Roadmap</td><td>The roadmap remained structurally useful but did not state that Phase 1 and part of Phase 2 had already been completed.</td><td>Historical note added; roadmap remains a phase-plan artifact.</td></tr>
+<tr><td>Section 15 — Initial Build Constraints and Safe Start Rules</td><td>The “current next engineering move” was obsolete after repository creation, WPF shell completion, capture work, preview work, and recording foundation.</td><td>Replaced with dated reconciliation note preserving the original safe-start doctrine.</td></tr>
+<tr><td>Sections 18, 21, 23, and 29</td><td>Point-in-time entries include pending/partial language that was correct when written but may now be superseded.</td><td>Historical reconciliation notes added so readers know to use this section for current status.</td></tr>
+<tr><td>Section 30 — M1 Requirements Reconciliation</td><td>Originally authoritative for the freeze/resume checkpoint, but did not yet include recording-state foundation.</td><td>Supplemented with a recording-state foundation table.</td></tr>
+<tr><td>Section 32 — Responsive UI / Transport Controls</td><td>Originally recorded Record as a placeholder control.</td><td>Already updated to reflect that Record has been promoted into the active recording-state workflow.</td></tr>
+<tr><td>Section 34 — M1-I Recording Service Foundation</td><td>New current recording checkpoint.</td><td>Accepted as the latest specific recording-system record.</td></tr>
+</table>
+
+<h4>Current M1 / M1-I Status Snapshot</h4>
+<table>
+<tr><th>Capability</th><th>Current Status</th><th>Primary Evidence</th></tr>
+<tr><td>WPF application shell</td><td><span class="status done">Complete</span></td><td>Sections 17, 18, and 30.</td></tr>
+<tr><td>Device enumeration</td><td><span class="status done">Complete</span></td><td>Sections 18, 20, and 30.</td></tr>
+<tr><td>Source selection</td><td><span class="status done">Complete</span></td><td>Sections 18, 20, 30, and 32.</td></tr>
+<tr><td>Default source persistence</td><td><span class="status done">Complete</span></td><td>Sections 20, 30, and 32.</td></tr>
+<tr><td>Live DirectShow preview</td><td><span class="status done">Complete</span></td><td>Sections 22 and 30.</td></tr>
+<tr><td>Start / Stop preview</td><td><span class="status done">Complete</span></td><td>Sections 21, 22, 30, and 32.</td></tr>
+<tr><td>Freeze / Resume preview</td><td><span class="status done">Complete</span></td><td>Sections 31 and 30.</td></tr>
+<tr><td>PNG screenshot export</td><td><span class="status done">Complete</span></td><td>Sections 19 and 30.</td></tr>
+<tr><td>Timestamped screenshot filename</td><td><span class="status done">Complete</span></td><td>Sections 19 and 30.</td></tr>
+<tr><td>Notes editor and formatting toolbar</td><td><span class="status done">Operational</span></td><td>Sections 28 and 30.</td></tr>
+<tr><td>Viewport transport-control model</td><td><span class="status done">Complete</span></td><td>Sections 32 and 33.</td></tr>
+<tr><td>Recording state foundation</td><td><span class="status done">Complete</span></td><td>Section 34 and commit <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code>.</td></tr>
+<tr><td>Top-header REC timer</td><td><span class="status done">Complete</span></td><td>Section 34 and commit <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code>.</td></tr>
+<tr><td>Actual video encoding / output</td><td><span class="status pending">Deferred</span></td><td>Recording service is state/timer only; MP4/AVI/frame-sequence output remains future work.</td></tr>
+<tr><td>Zoom / pan viewport</td><td><span class="status pending">Pending</span></td><td>Still open from original M1 list.</td></tr>
+<tr><td>Metadata sidecar export</td><td><span class="status pending">Deferred</span></td><td>PNG output exists; JSON sidecar generation remains a later documentation workflow milestone.</td></tr>
+<tr><td>Annotation canvas / measurement tools</td><td><span class="status pending">Future</span></td><td>Still intentionally deferred until viewport and capture workflows are stable.</td></tr>
+</table>
+
+<h4>Repository Checkpoints Referenced by Reconciliation</h4>
+<table>
+<tr><th>Commit</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>9e01c37</code></td><td>Pre-recording stable UI baseline after hover-layout rollback and M1 UI polish.</td><td><span class="status done">Superseded baseline</span></td></tr>
+<tr><td><code>4c3604b1fac5533e4ad0558353eec1282614da0b</code></td><td>Recording timer header and recording UI integration checkpoint.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code></td><td>Refined recording header positioning; latest confirmed rollback point.</td><td><span class="status done">Current recording checkpoint</span></td></tr>
+</table>
+
+<div class="note watch">
+<strong>Reader guidance:</strong> When older sections show a pending or partial status that conflicts with later work, use this Section 35 snapshot and the later milestone sections as the current source of truth. The older sections remain valuable because they explain why the architecture evolved the way it did.
+</div>
+
+<div class="page-num">35</div>
+</section>
+
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
@@ -1757,7 +2019,7 @@ PY</pre>
 
 <h4>Standing Ledger Rule</h4>
 <div class="note ok">
-Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not regenerate older sections unless explicitly required. Preserve chronological section order and keep the filename stable.
+Insert future numbered sections immediately before the <code>Resources</code> section. Do not regenerate older sections unless explicitly required. Preserve chronological section order and keep the filename stable.
 </div>
 
 <div class="page-num">Resources</div>
