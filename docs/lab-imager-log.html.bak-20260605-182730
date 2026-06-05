@@ -2025,53 +2025,6 @@ Insert future numbered sections immediately before the <code>Resources</code> se
 <div class="page-num">Resources</div>
 </section>
 
-
-<section class="page">
-<h3>35. Project Log Reconciliation and M1-J Export Roadmap</h3>
-<p class="sub">Status reconciliation after recording foundation completion and approved REC header positioning.</p>
-
-<div class="note ok">
-<strong>Current stable rollback:</strong> <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code><br>
-<strong>Branch:</strong> <code>feature/wpf-frame-pipeline</code><br>
-<strong>Status:</strong> Build passing, runtime passing, UI stable, remote synchronized.
-</div>
-
-<h4>Reconciled Backlog Status</h4>
-<table>
-<tr><th>Item</th><th>Updated Status</th><th>Notes</th></tr>
-<tr><td>Indent functionality</td><td><span class="status removed">Removed from active scope</span></td><td>Engineering effort exceeds value. No longer active deliverable.</td></tr>
-<tr><td>Responsive UI Scaling</td><td><span class="status review">Mostly Complete / Monitoring</span></td><td>Responsive layout is functioning adequately. Continue validation only.</td></tr>
-<tr><td>Notes Toolbar Completion</td><td><span class="status review">Verification Required</span></td><td>Implementation appears complete. Validate multi-line, selected-block, and full-document behavior if retained.</td></tr>
-<tr><td>Transport Controls</td><td><span class="status done">Complete except Rewind / Playback</span></td><td>Start, Freeze, Resume, Stop, Record, Recording Timer, and Recording Status are complete.</td></tr>
-<tr><td>Rewind / Playback</td><td><span class="status future">Future</span></td><td>Deferred until recording pipeline exists beyond foundation scaffold.</td></tr>
-<tr><td>Zoom / Pan Viewport</td><td><span class="status scoped">Narrowed Scope</span></td><td>Active scope is mouse-wheel zoom, reset zoom, and preserving source image integrity. Pan and advanced transforms deferred.</td></tr>
-<tr><td>M1-J Annotated Capture Export</td><td><span class="status pending">High Priority / Pending</span></td><td>Capture workflow must save original PNG and generate PDF report with image, notes, timestamp, source device, and session metadata.</td></tr>
-</table>
-
-<h4>M1-J Annotated Capture Export Roadmap</h4>
-<pre><code>Live Image
-    ↓
-Freeze
-    ↓
-Annotate
-    ↓
-Capture
-    ↓
-Save PNG + Generate PDF</code></pre>
-
-<h4>Required Outputs</h4>
-<table>
-<tr><th>Output</th><th>Purpose</th><th>Example</th></tr>
-<tr><td>PNG</td><td>Original untouched evidence/archive image</td><td><code>Captures\2026-06-05_181455.png</code></td></tr>
-<tr><td>PDF</td><td>Lab report/documentation record with image, notes, timestamp, source device, and metadata</td><td><code>Reports\2026-06-05_181455.pdf</code></td></tr>
-</table>
-
-<div class="note warn">
-<strong>Deferred:</strong> Hover effects, theme refinements, ComboBox styling, toolbar cosmetics, viewport decorations, advanced panning, and playback system.
-</div>
-</section>
-
 </body>
 </html>
-
 
