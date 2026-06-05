@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using LabImager.Services.Camera;
 using LabImager.Services.Capture;
 using LabImager.Services.Preview;
-using LabImager.Services.Recording;
 using LabImager.Services.Settings;
 
 namespace LabImager
@@ -18,7 +17,6 @@ namespace LabImager
         private readonly IAppSettingsService _appSettingsService;
         private readonly IViewportCaptureService _viewportCaptureService;
         private readonly ICameraPreviewService _cameraPreviewService;
-        private readonly IRecordingService _recordingService;
 
         public MainWindow()
         {
@@ -28,10 +26,6 @@ namespace LabImager
             _appSettingsService = new JsonAppSettingsService();
             _viewportCaptureService = new ViewportCaptureService();
             _cameraPreviewService = new DirectShowCameraPreviewService();
-            _recordingService = new RecordingService();
-
-            _recordingService.StateChanged += (_, _) => UpdateRecordingUi();
-            _recordingService.ElapsedChanged += (_, _) => UpdateRecordingUi();
 
             PreviewPanel.Resize += (_, _) =>
             {
@@ -282,32 +276,6 @@ namespace LabImager
             StopPreviewButton.IsEnabled = false;
         }
 
-        private void RecordPreviewButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (_recordingService.State == RecordingState.Recording)
-            {
-                _recordingService.Stop();
-            }
-            else
-            {
-                _recordingService.Start();
-            }
-        }
-
-        private void UpdateRecordingUi()
-        {
-            var elapsed = _recordingService.Elapsed.ToString(@"hh\:mm\:ss");
-
-            RecordingStateText.Text = $"Recording: {_recordingService.State}";
-            RecordingTimeText.Text = elapsed;
-            RecordingOverlayText.Text = $"● REC`n{elapsed}";
-
-            RecordingOverlayText.Visibility =
-                _recordingService.State == RecordingState.Recording
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
-        }
-
         private void CaptureScreenshotButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -539,7 +507,6 @@ namespace LabImager
         }
     }
 }
-
 
 
 

@@ -240,20 +240,6 @@
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Stretch"/>
                         </Border>
-
-                        <!-- RECORDING OVERLAY -->
-                        <TextBlock x:Name="RecordingOverlayText"
-                                   Panel.ZIndex="9"
-                                   HorizontalAlignment="Right"
-                                   VerticalAlignment="Top"
-                                   Margin="0,18,24,0"
-                                   Text="● REC&#x0a;00:00:00"
-                                   FontSize="14"
-                                   FontWeight="Bold"
-                                   Foreground="#EF4444"
-                                   Visibility="Collapsed"
-                                   IsHitTestVisible="False"/>
-
                         <!-- VIEWPORT COORDINATE OVERLAY -->
                         <Grid x:Name="ViewportCoordinateOverlay"
                               IsHitTestVisible="False"
@@ -2609,7 +2595,8 @@
                                     Content="❄  Freeze"
                                     ToolTip="Freeze / resume preview"
                                     Background="#92400E"
-                                    BorderBrush="#F59E0B"/>
+                                    BorderBrush="#F59E0B"
+                                    IsEnabled="False"/>
 
                             <Button x:Name="StopPreviewButton"
                                     Style="{StaticResource ViewportTransportButtonStyle}"
@@ -2621,11 +2608,11 @@
 
                             <Button x:Name="RecordPreviewButton"
                                     Style="{StaticResource ViewportTransportButtonStyle}"
-                                    Click="RecordPreviewButton_Click"
                                     Content="⏺  Record"
-                                    ToolTip="Start / Stop Recording"
+                                    ToolTip="Recording planned for future milestone"
                                     Background="#450A0A"
-                                    BorderBrush="#EF4444"/>
+                                    BorderBrush="#EF4444"
+                                    IsEnabled="False"/>
                         </StackPanel>
                     </Border>
 
@@ -2872,18 +2859,6 @@
                                    Foreground="#CBD5E1"
                                    Margin="0,0,24,0"/>
 
-                        <TextBlock x:Name="RecordingStateText"
-                                   Text="Recording: Idle"
-                                   FontSize="12"
-                                   Foreground="#CBD5E1"
-                                   Margin="0,0,24,0"/>
-
-                        <TextBlock x:Name="RecordingTimeText"
-                                   Text="00:00:00"
-                                   FontSize="12"
-                                   Foreground="#CBD5E1"
-                                   Margin="0,0,24,0"/>
-
                         <TextBlock Text="&#x1F4C1;  No Project Loaded"
                                    FontSize="12"
                                    Foreground="#CBD5E1"/>
@@ -2907,7 +2882,6 @@
         </Grid>
     </Border>
 </Window>
-
 
 
 
