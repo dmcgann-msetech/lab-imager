@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1626,6 +1626,67 @@ The work confirmed that the right-side Lab Session panel should function primari
 
 
 
+
+<section class="page">
+<h3>33. UI Stabilization and Hover-Layout Rollback Checkpoint</h3>
+<p class="sub">Repository stabilization record following hover-layout experimentation, UI rollback validation, and branch synchronization review.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Experimental hover-layout modifications were abandoned and the approved UI baseline was restored. The application builds successfully, launches successfully, and matches the approved responsive-layout transport-control design currently stored in the feature branch.
+</div>
+
+<h4>Repository State</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Branch</td><td><span class="status done">Active</span></td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Remote synchronization</td><td><span class="status done">Verified</span></td><td>Local branch matches origin.</td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td><td>No tracked modifications remain.</td></tr>
+<tr><td>UI baseline</td><td><span class="status done">Restored</span></td><td>Approved transport-control layout preserved.</td></tr>
+</table>
+
+<h4>Rollback Summary</h4>
+<table>
+<tr><th>Action</th><th>Result</th></tr>
+<tr><td>Experimental hover-state changes</td><td>Abandoned.</td></tr>
+<tr><td>Working-tree restoration</td><td>Completed using Git restore workflow.</td></tr>
+<tr><td>UI validation</td><td>Confirmed application returned to approved appearance.</td></tr>
+<tr><td>Build integrity</td><td>Preserved.</td></tr>
+<tr><td>Runtime validation</td><td>Successful.</td></tr>
+</table>
+
+<h4>Git Validation</h4>
+<pre>git restore .
+git status
+git log --oneline -20
+git push origin feature/wpf-frame-pipeline</pre>
+
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td>Branch synchronization</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Push status</td><td><span class="status done">Everything up-to-date</span></td></tr>
+<tr><td>Current HEAD</td><td><code>9e01c37</code></td></tr>
+</table>
+
+<h4>Workspace Cleanup</h4>
+<table>
+<tr><th>Item</th><th>Status</th></tr>
+<tr><td><code>MainWindow.xaml.bak-final-hover-layout-fix</code></td><td><span class="status watching">Optional cleanup</span></td></tr>
+</table>
+
+<div class="note watch">
+<strong>Decision:</strong> UI experimentation should occur on isolated checkpoints and must be validated visually before being accepted into the active baseline. The current interface is considered the approved working state.
+</div>
+
+<h4>Next Development Target</h4>
+<ol>
+<li>Finalize right-panel cleanup.</li>
+<li>Continue viewport usability improvements.</li>
+<li>Begin recording-system architecture planning.</li>
+<li>Prepare future playback workflow requirements.</li>
+</ol>
+
+<div class="page-num">33</div>
+</section>
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
@@ -1704,3 +1765,4 @@ Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not reg
 
 </body>
 </html>
+
