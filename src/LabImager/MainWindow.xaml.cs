@@ -111,7 +111,7 @@ namespace LabImager
             SetDefaultCameraButton.IsEnabled = true;
             StartPreviewButton.IsEnabled = true;
             FreezePreviewButton.IsEnabled = false;
-            FreezePreviewButton.Content = "Freeze";
+            FreezePreviewButton.Content = "❄";
             StopPreviewButton.IsEnabled = false;
             PreviewStatusText.Text = "Preview Idle";
 
@@ -129,7 +129,7 @@ namespace LabImager
                 PreviewStatusText.Text = "Preview Stopped - Source Changed";
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
-                FreezePreviewButton.Content = "Freeze";
+                FreezePreviewButton.Content = "❄";
                 StopPreviewButton.IsEnabled = false;
             }
 
@@ -152,15 +152,28 @@ namespace LabImager
                 return;
             }
 
+            var cleanCameraName = cameraName.Replace("★ ", string.Empty).Replace(" (Default)", string.Empty);
+
             _appSettingsService.Save(
                 new Models.Settings.AppSettings
                 {
-                    DefaultCameraName = cameraName,
+                    DefaultCameraName = cleanCameraName,
                     DefaultCameraDevicePath = cameraDevicePath
                 });
 
-            CameraStatusText.Text = $"Source: Default Source Set: {cameraName}";
-            Title = $"Lab Imager - Default Source: {cameraName}";
+            LoadCameraDevices();
+
+            foreach (var item in CameraSelector.Items.OfType<ComboBoxItem>())
+            {
+                if (string.Equals(item.Tag?.ToString(), cameraDevicePath, StringComparison.OrdinalIgnoreCase))
+                {
+                    CameraSelector.SelectedItem = item;
+                    break;
+                }
+            }
+
+            CameraStatusText.Text = $"Source: Default Source Set: {cleanCameraName}";
+            Title = $"Lab Imager - Default Source: {cleanCameraName}";
         }
 
         private void StartPreviewButton_Click(object sender, RoutedEventArgs e)
@@ -203,7 +216,7 @@ namespace LabImager
 
                 StartPreviewButton.IsEnabled = false;
                 FreezePreviewButton.IsEnabled = true;
-                FreezePreviewButton.Content = "Freeze";
+                FreezePreviewButton.Content = "❄";
                 StopPreviewButton.IsEnabled = true;
             }
             catch (Exception ex)
@@ -218,7 +231,7 @@ namespace LabImager
 
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
-                FreezePreviewButton.Content = "Freeze";
+                FreezePreviewButton.Content = "❄";
                 StopPreviewButton.IsEnabled = false;
             }
         }
@@ -234,7 +247,7 @@ namespace LabImager
             {
                 _cameraPreviewService.ResumePreview();
 
-                FreezePreviewButton.Content = "Freeze";
+                FreezePreviewButton.Content = "❄";
                 PreviewStatusText.Text = "Preview Running";
                 CameraStatusText.Text = "Source: Preview Running";
             }
@@ -242,7 +255,7 @@ namespace LabImager
             {
                 _cameraPreviewService.FreezePreview();
 
-                FreezePreviewButton.Content = "Resume";
+                FreezePreviewButton.Content = "▶";
                 PreviewStatusText.Text = "Preview Frozen";
                 CameraStatusText.Text = "Source: Preview Frozen";
             }
@@ -259,7 +272,7 @@ namespace LabImager
 
             StartPreviewButton.IsEnabled = true;
             FreezePreviewButton.IsEnabled = false;
-            FreezePreviewButton.Content = "Freeze";
+            FreezePreviewButton.Content = "❄";
             StopPreviewButton.IsEnabled = false;
         }
 
@@ -306,7 +319,7 @@ namespace LabImager
             {
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
-                FreezePreviewButton.Content = "Freeze";
+                FreezePreviewButton.Content = "❄";
                 StopPreviewButton.IsEnabled = false;
             }
         }
@@ -494,6 +507,9 @@ namespace LabImager
         }
     }
 }
+
+
+
 
 
 

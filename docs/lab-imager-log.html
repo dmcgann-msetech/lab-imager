@@ -84,7 +84,7 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Sections 1-5</td><td>Project vision, repository identity, technology stack, hardware pipeline, and first milestone.</td></tr>
 <tr><td>Sections 6-10</td><td>Application layout, annotation model, file naming, project storage, and theme doctrine.</td></tr>
 <tr><td>Sections 11-15</td><td>Repository structure, Git workflow, icon/logo direction, future feature roadmap, and initial build constraints.</td></tr>
-<tr><td>Sections 16-31</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, and freeze/resume preview validation.</td></tr>
+<tr><td>Sections 16-32</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, freeze/resume preview validation, and responsive UI transport-control redesign.</td></tr>
 <tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
 </table>
 
@@ -1450,7 +1450,7 @@ This entry records the work completed after the M1 runtime reconciliation review
 
 <h4>Validation Screenshot</h4>
 <div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
-<img src="assets/ui/lab_design_4.png" alt="Lab Imager freeze preview validation screenshot" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<img src="assets/ui/lab_design_5.png" alt="Lab Imager freeze preview validation screenshot" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
 <p class="sub" style="text-align:center;margin-top:8px">Operational validation screenshot showing active camera preview in frozen state, <code>Preview Frozen</code> status text, and the Resume control visible in the preview-control row.</p>
 </div>
 
@@ -1496,12 +1496,162 @@ git ls-remote origin refs/heads/feature/wpf-frame-pipeline
 </section>
 
 <section class="page">
+<h3>32. Responsive UI Experiment, Default Source Live Refresh, and Minimalist Transport Controls</h3>
+<p class="sub">Lunch-break checkpoint record for the 1024x768 responsive-layout investigation, preserved scrollable-panel fallback branch, live default-source refresh correction, right-panel simplification, and viewport transport-control redesign.</p>
+
+<div class="note ok">
+<strong>Checkpoint status:</strong> The current working branch remains <code>feature/wpf-frame-pipeline</code>. The application builds successfully after the UI transport-control relocation and default-source refresh fix. The right-side panel still requires cleanup before responsive layout can be considered complete.
+</div>
+
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the active UI architecture work performed after the Freeze / Resume milestone. The session focused on making Lab Imager usable at smaller lab workstation resolutions, especially the expected <code>1024x768</code> environment, while preserving the approved dark instrumentation design.
+</p>
+<p>
+The work confirmed that the right-side Lab Session panel should function primarily as a configuration and documentation panel, while live camera operation belongs with the viewport as a compact transport-control strip.
+</p>
+
+<h4>Responsive Layout Investigation Summary</h4>
+<table>
+<tr><th>Attempt / Finding</th><th>Result</th><th>Decision</th></tr>
+<tr><td>Scrollable right panel prototype</td><td>Validated that a ScrollViewer-based Lab Session panel can preserve access to controls when vertical space is limited.</td><td><span class="status done">Preserved as fallback</span></td></tr>
+<tr><td>Dedicated experiment branch</td><td>Created <code>experiment/scrollable-panel</code> and pushed commit <code>7e597e3</code> with message <code>Add scrollable lab session panel prototype</code>.</td><td><span class="status done">Saved</span></td></tr>
+<tr><td>Full-panel shrink / Viewbox experiments</td><td>Proved that scaling the panel internals without correcting parent column behavior produced unacceptable sizing and clipping.</td><td><span class="status watching">Rejected as primary approach</span></td></tr>
+<tr><td>Parent-column ratio correction</td><td>Identified that the previous right column remained fixed at <code>430</code>, preventing the intended proportional layout from applying.</td><td><span class="status done">Corrected</span></td></tr>
+<tr><td>3:1 layout test</td><td>Made the right panel too narrow for existing fixed-size controls.</td><td><span class="status watching">Not viable alone</span></td></tr>
+<tr><td>2:1 layout test</td><td>Provided a more realistic balance between viewport and Lab Session panel at small resolutions.</td><td><span class="status active">Current direction</span></td></tr>
+<tr><td>Thin vertical scrollbar</td><td>Reintroduced a thinner scroll fallback for constrained panel content.</td><td><span class="status active">Retained for review</span></td></tr>
+</table>
+
+<h4>Default Source Live Refresh Fix</h4>
+<div class="note ok">
+<strong>Resolved:</strong> The Set Default workflow now refreshes the camera selector immediately after saving, so the star marker and <code>(Default)</code> label move live without requiring an application restart.
+</div>
+<table>
+<tr><th>Issue</th><th>Fix</th><th>Status</th></tr>
+<tr><td>Default source saved but selector did not visually update.</td><td>Updated <code>SetDefaultCameraButton_Click</code> to clean the camera name, save the selected device path, reload camera devices, reselect the chosen item, and update status/title text.</td><td><span class="status done">Fixed</span></td></tr>
+<tr><td>Operator uncertainty after clicking Set Default.</td><td>The selected default camera now shows the star marker immediately, preventing second-guessing.</td><td><span class="status done">Fixed</span></td></tr>
+<tr><td>Settings persistence</td><td>Confirmed the Logitech camera persisted to <code>%APPDATA%\Lab Imager\appsettings.json</code> as the default source.</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<h4>Right Panel Minimalist Direction</h4>
+<table>
+<tr><th>Right Panel Item</th><th>Current / Intended Direction</th><th>Status</th></tr>
+<tr><td>Project Name</td><td>Remain in Lab Session panel as metadata.</td><td><span class="status active">Keep</span></td></tr>
+<tr><td>Board / Device</td><td>Remain in Lab Session panel as metadata.</td><td><span class="status active">Keep</span></td></tr>
+<tr><td>Technician</td><td>Remain in Lab Session panel as metadata.</td><td><span class="status active">Keep</span></td></tr>
+<tr><td>Source selector</td><td>Remain in Lab Session panel as configuration.</td><td><span class="status active">Keep</span></td></tr>
+<tr><td>Set Selected Source as Default</td><td>Shortened to <code>Set Default</code>; planned final styling as a pill button.</td><td><span class="status active">In progress</span></td></tr>
+<tr><td>Start / Freeze / Stop preview controls</td><td>Removed from right panel and relocated to the viewport transport strip.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Capture Screenshot</td><td>Shortened to <code>Capture</code>; planned final styling as a pill button.</td><td><span class="status active">In progress</span></td></tr>
+<tr><td>Preview Idle / Preview Running text</td><td>Currently still visible in the right panel; should be removed or moved exclusively to the status bar.</td><td><span class="status pending">Chore list</span></td></tr>
+</table>
+
+<h4>Viewport Transport-Control Redesign</h4>
+<div class="note ok">
+<strong>Design decision:</strong> Operational camera controls belong with the viewport, not inside the Lab Session panel. The transport strip now uses compact media-style controls near the bottom of the viewport.
+</div>
+<table>
+<tr><th>Control</th><th>Current Label</th><th>Purpose</th><th>Status</th></tr>
+<tr><td>Start Preview</td><td><code>▶</code></td><td>Start live camera preview.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Freeze / Resume</td><td><code>❄</code> / <code>▶</code></td><td>Freeze current live preview and resume motion.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Stop Preview</td><td><code>■</code></td><td>Stop live preview.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Record placeholder</td><td><code>⏺</code></td><td>Reserved disabled control for future recording milestone.</td><td><span class="status partial">Placeholder</span></td></tr>
+<tr><td>Rewind / playback</td><td><code>⏮</code></td><td>Requested for future playback workflow once recording exists.</td><td><span class="status pending">Future</span></td></tr>
+</table>
+
+<h4>DirectShow Airspace Constraint Reconfirmed</h4>
+<div class="note warn">
+<strong>Important finding:</strong> The live preview surface still behaves as a native WindowsFormsHost / DirectShow surface. Any WPF overlay placed above the live video can be obscured or clipped by the video renderer. The compact transport strip was therefore reduced and positioned to minimize visual interference rather than relying on a heavy overlay architecture.
+</div>
+
+<h4>Current UI State After Transport Pass</h4>
+<table>
+<tr><th>Area</th><th>Current State</th><th>Status</th></tr>
+<tr><td>Viewport</td><td>Dominant inspection area remains active with grid, reticle, and placeholder design.</td><td><span class="status done">Good</span></td></tr>
+<tr><td>Transport controls</td><td>Compact controls are docked near the bottom line of the viewport and no longer dominate the right panel.</td><td><span class="status done">Good enough for checkpoint</span></td></tr>
+<tr><td>Right panel</td><td>Cleaner than before, but still has right-edge clipping, toolbar crowding, and redundant preview status text.</td><td><span class="status watching">Needs cleanup</span></td></tr>
+<tr><td>Set Default / Capture</td><td>Labels shortened; final pill-button polish still pending.</td><td><span class="status partial">Partial</span></td></tr>
+<tr><td>Notes toolbar</td><td>Functional but visually too wide for the constrained right panel.</td><td><span class="status pending">Chore list</span></td></tr>
+</table>
+
+<h4>Build Validation</h4>
+<pre>dotnet build D:\Lab-Imager\src\LabImager\LabImager.csproj</pre>
+<table>
+<tr><th>Build Item</th><th>Result</th></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Warnings</td><td><code>4</code> existing non-blocking warnings in <code>DirectShowFramePreviewService.cs</code>.</td></tr>
+<tr><td>Build result</td><td><span class="status done">Succeeded</span></td></tr>
+</table>
+
+<h4>Known Open UI Chores</h4>
+<table>
+<tr><th>Chore</th><th>Reason</th><th>Status</th></tr>
+<tr><td>Fix right-panel clipping / cut-off on the right edge.</td><td>Controls and scrollbar are visually crowding the panel boundary.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Clean up Notes toolbar overflow.</td><td>Toolbar still consumes too much horizontal space at small widths.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Finalize pill-button styling for Set Default and Capture.</td><td>Current buttons are shortened but still rectangular and visually unfinished.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Remove or relocate Preview Idle / Preview Running text.</td><td>Status should live in the bottom status bar unless a local indicator is intentionally designed.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate 1024x768 behavior on the actual lab display.</td><td>This resolution is a likely real deployment constraint.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Add rewind/playback UI intentionally.</td><td>Playback controls should not imply functionality until recording/playback pipeline exists.</td><td><span class="status pending">Future</span></td></tr>
+<tr><td>Implement recording pipeline.</td><td>Future milestone; requires file format, encoder, save path, session controls, and UI state management.</td><td><span class="status pending">Future</span></td></tr>
+<tr><td>Implement rewind/playback pipeline.</td><td>Depends on recording/session playback architecture.</td><td><span class="status pending">Future</span></td></tr>
+</table>
+
+<h4>Repository / Branch Notes</h4>
+<table>
+<tr><th>Branch / Commit</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>feature/wpf-frame-pipeline</code></td><td>Current active working branch for responsive UI and frame-pipeline work.</td><td><span class="status active">Active</span></td></tr>
+<tr><td><code>experiment/scrollable-panel</code></td><td>Preserved fallback implementation for scrollable Lab Session behavior.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>7e597e3</code></td><td><code>Add scrollable lab session panel prototype</code>.</td><td><span class="status done">Saved fallback</span></td></tr>
+</table>
+
+<h4>Next Safe Work Order After Lunch</h4>
+<ol>
+<li>Commit and push this log + current UI checkpoint.</li>
+<li>Fix the right-panel clipping and scrollbar crowding.</li>
+<li>Remove redundant <code>Preview Idle</code> text from the right panel or move all preview state to the status bar.</li>
+<li>Polish <code>Set Default</code> and <code>Capture</code> as proper pill buttons.</li>
+<li>Refactor Notes toolbar density so it fits the right panel cleanly.</li>
+<li>Re-evaluate whether <code>⏮</code> belongs as a visible disabled future placeholder now, or should wait until recording/playback architecture begins.</li>
+<li>Define recording and playback milestones separately from M1 completion.</li>
+</ol>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> The current UI direction is approved enough to save. The transport controls are no longer the priority blocker; the right-side panel cleanup is now the main UI debt before continuing functional recording/playback planning.
+</div>
+
+<div class="page-num">32</div>
+</section>
+
+
+
+
+<section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
 
 <div class="note watch">
 These commands are starting points. Paths should be adjusted once the GitHub repository is cloned locally.
 </div>
+
+
+<h4>Approved UI Screenshots</h4>
+<ul>
+<li>
+<strong>Lab Design 5 (Responsive UI Baseline)</strong><br>
+<img src="assets/ui/lab_design_5.png"
+     alt="Lab Design 5"
+     style="max-width:100%;border:1px solid #cbd5e1" />
+<br>
+Current approved UI showing:
+viewport-mounted transport controls,
+source selector workflow,
+Set Default button,
+Notes toolbar integration,
+responsive-layout refinements,
+and compact control density.
+</li>
+</ul>
 
 <h4>Create Initial .NET WPF Project</h4>
 <pre>dotnet new sln -n LabImager
