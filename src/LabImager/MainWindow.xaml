@@ -116,7 +116,7 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="430"/>
+                    <ColumnDefinition Width="380" MinWidth="320" MaxWidth="430"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- VIEWPORT -->
@@ -2493,7 +2493,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="72"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0">
@@ -2517,7 +2517,11 @@
                                     Margin="0,0,0,18"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="1">
+                        <ScrollViewer Grid.Row="1"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      CanContentScroll="False">
+                            <StackPanel>
                             <TextBlock Text="Project Name"
                                        FontSize="13"
                                        FontWeight="SemiBold"
@@ -2712,7 +2716,8 @@
                                     </Border>
 
                                     <RichTextBox x:Name="NotesEditor"
-                                                 Height="260"
+                                                 Height="220"
+                                                 MinHeight="120"
                                                  Background="#020B18"
                                                  Foreground="#E5E7EB"
                                                  CaretBrush="#E5E7EB"
@@ -2723,6 +2728,8 @@
                                 </DockPanel>
                             </Border>
                         </StackPanel>
+
+                        </ScrollViewer>
 
                         <Button Grid.Row="2"
                                 Click="CaptureScreenshotButton_Click"
@@ -2788,6 +2795,10 @@
         </Grid>
     </Border>
 </Window>
+
+
+
+
 
 
 
