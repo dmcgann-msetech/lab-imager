@@ -93,43 +93,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="DarkHoverButtonStyle" TargetType="Button">
-            <Setter Property="Foreground" Value="#E5E7EB"/>
-            <Setter Property="Background" Value="#171D24"/>
-            <Setter Property="BorderBrush" Value="#334155"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Padding" Value="8,3"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="ButtonShell"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter x:Name="ButtonContent"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
-                                              TextElement.Foreground="{TemplateBinding Foreground}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="ButtonShell" Property="Background" Value="#DCE7F3"/>
-                                <Setter TargetName="ButtonShell" Property="BorderBrush" Value="#B6C6D8"/>
-                                <Setter Property="Foreground" Value="#111827"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="ButtonShell" Property="Background" Value="#C7D7EA"/>
-                                <Setter Property="Foreground" Value="#111827"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="ButtonShell" Property="Opacity" Value="0.55"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 </Window.Resources>
 
     <Border BorderBrush="#2A3440"
@@ -2715,7 +2678,7 @@
                                       FontSize="13"
                                       Padding="10"/>
 
-                            <Button x:Name="SetDefaultCameraButton" Style="{StaticResource DarkHoverButtonStyle}"
+                            <Button x:Name="SetDefaultCameraButton" Style="{StaticResource PillActionButtonStyle}"
                                     Click="SetDefaultCameraButton_Click"
                                     Content="★  Set Default"
                                     ToolTip="Set selected camera as default source"
@@ -2748,8 +2711,8 @@
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal"
                                                         Margin="0,0,0,4">
-                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="↶" Width="24" Margin="0,0,4,0" ToolTip="Undo" Click="NotesUndoButton_Click"/>
-                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="↷" Width="24" Margin="0,0,8,0" ToolTip="Redo" Click="NotesRedoButton_Click"/>
+                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="↶" Width="24" Margin="0,0,4,0" ToolTip="Undo" Click="NotesUndoButton_Click"/>
+                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="↷" Width="24" Margin="0,0,8,0" ToolTip="Redo" Click="NotesRedoButton_Click"/>
 
                                                 <ComboBox x:Name="NotesFontSelector" SelectionChanged="NotesFontSelector_SelectionChanged"
                                                           Foreground="#111827" Background="#171D24" BorderBrush="#334155" ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
@@ -2771,10 +2734,10 @@
                                                     <ComboBoxItem Content="Courier New" Foreground="#E5E7EB" Background="#171D24"/>
                                                 </ComboBox>
 
-                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold" Click="NotesBoldButton_Click"/>
-                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="I" Width="28" Margin="0,0,4,0" FontStyle="Italic" Click="NotesItalicButton_Click"/>
-                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="U" Width="28" Margin="0,0,4,0" Click="NotesUnderlineButton_Click"/>
-                                                <Button x:Name="NotesColorButton" Style="{StaticResource DarkHoverButtonStyle}" Content="A" Width="28" ToolTip="Choose text color" Click="NotesColorButton_Click">
+                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold" Click="NotesBoldButton_Click"/>
+                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="I" Width="28" Margin="0,0,4,0" FontStyle="Italic" Click="NotesItalicButton_Click"/>
+                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="U" Width="28" Margin="0,0,4,0" Click="NotesUnderlineButton_Click"/>
+                                                <Button x:Name="NotesColorButton" Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="A" Width="28" ToolTip="Choose text color" Click="NotesColorButton_Click">
                                                     <Button.ContextMenu>
                                                         <ContextMenu>
                                                             <MenuItem Header="White" Tag="White" Click="NotesTextColorMenuItem_Click"/>
@@ -2795,9 +2758,10 @@
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Bullet" Width="48" Margin="0,0,4,0" ToolTip="Bulleted list" Click="NotesBulletButton_Click"/>
-                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Align" Width="48" Margin="0,0,4,0" ToolTip="Cycle paragraph alignment" Click="NotesAlignButton_Click"/>
-                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Outline" Width="58" Margin="0,0,4,0" ToolTip="Numbered outline" Click="NotesOutlineButton_Click"/>
+                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="Bullet" Width="48" Margin="0,0,4,0" ToolTip="Bulleted list" Click="NotesBulletButton_Click"/>
+                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="Align" Width="48" Margin="0,0,4,0" ToolTip="Cycle paragraph alignment" Click="NotesAlignButton_Click"/>
+                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="Outline" Width="58" Margin="0,0,4,0" ToolTip="Numbered outline" Click="NotesOutlineButton_Click"/>
+                                                <Button Foreground="#E5E7EB" Background="#171D24" BorderBrush="#334155" Content="Indent" Width="48" ToolTip="Increase indent" Click="NotesIndentButton_Click"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
@@ -2882,7 +2846,6 @@
         </Grid>
     </Border>
 </Window>
-
 
 
 
