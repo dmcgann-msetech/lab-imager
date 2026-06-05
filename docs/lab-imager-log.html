@@ -84,7 +84,7 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Sections 1-5</td><td>Project vision, repository identity, technology stack, hardware pipeline, and first milestone.</td></tr>
 <tr><td>Sections 6-10</td><td>Application layout, annotation model, file naming, project storage, and theme doctrine.</td></tr>
 <tr><td>Sections 11-15</td><td>Repository structure, Git workflow, icon/logo direction, future feature roadmap, and initial build constraints.</td></tr>
-<tr><td>Sections 16-29</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, and planned responsive-layout hardening.</td></tr>
+<tr><td>Sections 16-31</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, and freeze/resume preview validation.</td></tr>
 <tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
 </table>
 
@@ -1271,63 +1271,228 @@ Frame pipeline:
 <div class="page-num">29</div>
 </section>
 
+
 <section class="page">
-<h3>30. M1 Requirements Reconciliation and Runtime Validation Review</h3>
-<p class="sub">Runtime validation review performed against the actual application rather than historical milestone assumptions.</p>
+<h3>30. M1 Requirements Reconciliation and Master Development Checklist</h3>
+<p class="sub">Authoritative checklist reconciliation performed against the actual runtime application state, build results, screenshots, feature-branch commit history, and verified operator workflow.</p>
 
 <div class="note ok">
-<strong>Final status:</strong> Runtime validation confirmed that device enumeration, source selection, default source restoration, live preview rendering, preview lifecycle controls, screenshot capture, and Notes functionality are operational. Several items previously marked as pending were reclassified based on observed behavior.
+<strong>Final status:</strong> Lab Imager has moved beyond the original static-audit condition. The application now has a working WPF shell, source enumeration, source selection, default source persistence, live DirectShow preview, screenshot capture, timestamped PNG output, operational Notes formatting, and validated Freeze / Resume preview controls. This section supersedes older “Pending” assumptions in the original M1 planning tables.
 </div>
 
-<h4>Runtime Validation Results</h4>
+<h4>Purpose of This Reconciliation</h4>
+<p>
+This entry converts the master checklist into the project log so the ledger reflects what is actually complete, what was verified but intentionally deferred, and what remains open. The checklist below is not a generic roadmap; it is the current operational development state as of the frozen-preview validation checkpoint.
+</p>
+
+<h4>Verified Complete — Application Shell and Core UI</h4>
 <table>
-<tr><th>Requirement</th><th>Status</th><th>Notes</th></tr>
-<tr><td>Detect capture device</td><td><span class="status done">Complete</span></td><td>Multiple capture devices successfully enumerated.</td></tr>
-<tr><td>Source selection</td><td><span class="status done">Complete</span></td><td>Operator can select between detected devices.</td></tr>
-<tr><td>Default source persistence</td><td><span class="status done">Complete</span></td><td>Previously selected source restored correctly.</td></tr>
-<tr><td>Render live feed</td><td><span class="status done">Complete</span></td><td>Live camera image successfully displayed in viewport.</td></tr>
-<tr><td>Preview lifecycle controls</td><td><span class="status done">Complete</span></td><td>Start/Stop Preview workflow operational.</td></tr>
-<tr><td>Capture still frame</td><td><span class="status done">Complete</span></td><td>Screenshot subsystem available and previously validated.</td></tr>
-<tr><td>Notes subsystem</td><td><span class="status done">Complete</span></td><td>Formatting toolbar and editor operational.</td></tr>
-<tr><td>Freeze frame</td><td><span class="status pending">Pending</span></td><td>No verified freeze-frame workflow observed.</td></tr>
-<tr><td>Zoom / Pan viewport</td><td><span class="status pending">Pending</span></td><td>No viewport transform controls observed.</td></tr>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>WPF application shell</td><td><span class="status done">Complete</span></td><td>Application builds and launches under <code>net8.0-windows</code>.</td></tr>
+<tr><td>Custom title bar</td><td><span class="status done">Complete</span></td><td>Custom chrome remains active with window controls preserved.</td></tr>
+<tr><td>Dark theme implementation</td><td><span class="status done">Complete</span></td><td>Runtime UI uses the approved dark Lab Imager workstation theme.</td></tr>
+<tr><td>Main microscope viewport</td><td><span class="status done">Complete</span></td><td>Viewport is present and hosts the live preview surface.</td></tr>
+<tr><td>Right-side Lab Session panel</td><td><span class="status done">Complete</span></td><td>Project, board/device, technician, source, preview controls, Notes, and capture controls are visible.</td></tr>
+<tr><td>Status bar</td><td><span class="status done">Complete</span></td><td>Application state and preview status messages are displayed.</td></tr>
+<tr><td>Current operational baseline screenshot</td><td><span class="status done">Complete</span></td><td><code>docs/assets/ui/lab_design_4.png</code> archived as the current runtime baseline.</td></tr>
 </table>
 
-<h4>Outstanding Development Backlog</h4>
+<h4>Verified Complete — Capture Device and Preview Workflow</h4>
 <table>
-<tr><th>ID</th><th>Item</th><th>Status</th><th>Notes</th></tr>
-<tr>
-<td>M1-FF</td>
-<td>Freeze Frame</td>
-<td><span class="status pending">Pending</span></td>
-<td>Required workflow: Live Preview → Freeze Frame → Static View → Notes / Screenshot / Future Annotation → Resume Preview.</td>
-</tr>
-<tr>
-<td>M1-ZP</td>
-<td>Zoom / Pan Viewport</td>
-<td><span class="status pending">Pending</span></td>
-<td>Implementation should use viewport transforms only and must not modify the original source frame.</td>
-</tr>
-<tr>
-<td>UI-007</td>
-<td>Responsive UI Scaling</td>
-<td><span class="status pending">Pending</span></td>
-<td>Small-window behavior remains unresolved. Right-side panel, Notes editor, and Capture controls require adaptive sizing.</td>
-</tr>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Capture device enumeration</td><td><span class="status done">Complete</span></td><td>Multiple video input devices are detected and listed.</td></tr>
+<tr><td>Multiple camera detection</td><td><span class="status done">Complete</span></td><td>Runtime screenshot confirmed multiple available sources.</td></tr>
+<tr><td>Camera source selector</td><td><span class="status done">Complete</span></td><td>Source selector is populated and usable.</td></tr>
+<tr><td>Default camera selection</td><td><span class="status done">Complete</span></td><td>Default source can be set from the selected camera.</td></tr>
+<tr><td>Default camera persistence</td><td><span class="status done">Complete</span></td><td>Preferred source persists through JSON-backed settings.</td></tr>
+<tr><td>Default camera restoration on startup</td><td><span class="status done">Complete</span></td><td>Previously selected default source restores on launch.</td></tr>
+<tr><td>DirectShow integration</td><td><span class="status done">Complete</span></td><td>DirectShow service path is used for device enumeration and preview.</td></tr>
+<tr><td>WindowsFormsHost live rendering</td><td><span class="status done">Complete</span></td><td>Live camera feed renders inside the WPF viewport through the native preview host.</td></tr>
+<tr><td>Live camera preview</td><td><span class="status done">Complete</span></td><td>Preview has been runtime-validated with a real camera feed.</td></tr>
+<tr><td>Start Preview workflow</td><td><span class="status done">Complete</span></td><td>Start Preview begins the active live feed.</td></tr>
+<tr><td>Stop Preview workflow</td><td><span class="status done">Complete</span></td><td>Stop Preview terminates the live preview session.</td></tr>
+<tr><td>Preview status reporting</td><td><span class="status done">Complete</span></td><td>Status text updates for running, stopped, and frozen preview states.</td></tr>
+<tr><td>Freeze Frame button</td><td><span class="status done">Complete</span></td><td>Freeze control added between Start Preview and Stop Preview.</td></tr>
+<tr><td>Freeze Frame workflow</td><td><span class="status done">Complete</span></td><td>Live feed freezes during runtime validation.</td></tr>
+<tr><td>Resume Preview workflow</td><td><span class="status done">Complete</span></td><td>Freeze button toggles to Resume and live motion resumes after activation.</td></tr>
+<tr><td>Repeated freeze/resume baseline</td><td><span class="status done">Complete</span></td><td>Freeze/Resume behavior validated enough to close the M1 freeze requirement.</td></tr>
 </table>
+
+<h4>Verified Complete — Screenshot Capture</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Screenshot capture service</td><td><span class="status done">Complete</span></td><td><code>ViewportCaptureService</code> provides WPF visual capture and PNG encoding.</td></tr>
+<tr><td>PNG screenshot export</td><td><span class="status done">Complete</span></td><td>PNG output successfully generated.</td></tr>
+<tr><td>Screenshot storage path</td><td><span class="status done">Complete</span></td><td>Captures write to <code>%USERPROFILE%\Pictures\Lab Imager\Captures</code>.</td></tr>
+<tr><td>Capture Screenshot UI workflow</td><td><span class="status done">Complete</span></td><td>Capture Screenshot button remains available in the Lab Session panel.</td></tr>
+<tr><td>Timestamped screenshot filename</td><td><span class="status done">Complete</span></td><td>Runtime filename verified as <code>lab-imager-capture-yyyyMMdd-HHmmss.png</code>.</td></tr>
+<tr><td>Screenshot filename format verification</td><td><span class="status done">Complete</span></td><td>Observed example followed the implemented timestamped filename pattern.</td></tr>
+<tr><td>Screenshot metadata behavior verification</td><td><span class="status done">Verified</span></td><td>Capture folder inspection confirmed current behavior: PNG files are created, but JSON sidecars are not yet generated.</td></tr>
+<tr><td>Metadata sidecar export</td><td><span class="status pending">Deferred</span></td><td>No <code>.json</code>, <code>.xml</code>, or <code>.txt</code> sidecar artifacts were found; implementation deferred to documentation workflow tier.</td></tr>
+<tr><td>Screenshot export while preview is active</td><td><span class="status watching">Needs final pass</span></td><td>Screenshot system is complete, but final regression validation should be repeated after Freeze/Resume changes.</td></tr>
+</table>
+
+<h4>Verified Complete — Notes and Session Fields</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Notes editor</td><td><span class="status done">Complete</span></td><td>RichTextBox-based Notes editor is active.</td></tr>
+<tr><td>Undo</td><td><span class="status done">Complete</span></td><td>Notes toolbar command validated.</td></tr>
+<tr><td>Redo</td><td><span class="status done">Complete</span></td><td>Notes toolbar command validated.</td></tr>
+<tr><td>Font selection</td><td><span class="status done">Complete</span></td><td>Professional font selector operational.</td></tr>
+<tr><td>Bold</td><td><span class="status done">Complete</span></td><td>Text formatting command validated.</td></tr>
+<tr><td>Italic</td><td><span class="status done">Complete</span></td><td>Text formatting command validated.</td></tr>
+<tr><td>Underline</td><td><span class="status done">Complete</span></td><td>Text formatting command validated.</td></tr>
+<tr><td>Bullet lists</td><td><span class="status done">Complete</span></td><td>Bullet command validated.</td></tr>
+<tr><td>Numbered outlines</td><td><span class="status done">Complete</span></td><td>Outline / numbering command validated.</td></tr>
+<tr><td>Text alignment</td><td><span class="status done">Complete</span></td><td>Alignment workflow validated.</td></tr>
+<tr><td>Text color selection</td><td><span class="status done">Complete</span></td><td>Color selection workflow validated.</td></tr>
+<tr><td>Project Name field</td><td><span class="status done">Complete</span></td><td>Field is present and editable in Lab Session panel.</td></tr>
+<tr><td>Board / Device field</td><td><span class="status done">Complete</span></td><td>Field is present and editable in Lab Session panel.</td></tr>
+<tr><td>Technician field</td><td><span class="status done">Complete</span></td><td>Field is present and editable in Lab Session panel.</td></tr>
+<tr><td>Indent functionality</td><td><span class="status pending">Pending</span></td><td>Word-style selected-block indentation remains open.</td></tr>
+</table>
+
+<h4>Verified Complete — Service Architecture and Build Control</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Camera preview service architecture</td><td><span class="status done">Complete</span></td><td><code>ICameraPreviewService</code> defines preview lifecycle boundaries.</td></tr>
+<tr><td>Settings service architecture</td><td><span class="status done">Complete</span></td><td>JSON-backed app settings service is implemented.</td></tr>
+<tr><td>Screenshot service architecture</td><td><span class="status done">Complete</span></td><td>Screenshot capture is isolated behind a capture service.</td></tr>
+<tr><td>Capture-device service architecture</td><td><span class="status done">Complete</span></td><td>Device enumeration is isolated behind a camera-device service.</td></tr>
+<tr><td>DirectShow frame pipeline foundation</td><td><span class="status partial">Partial / Foundation</span></td><td>Frame-pipeline scaffold exists and builds, but full decode/stride/final WPF rendering remains incomplete.</td></tr>
+<tr><td>Build stability</td><td><span class="status done">Complete</span></td><td>Latest build passed with zero errors.</td></tr>
+<tr><td>GitHub synchronization</td><td><span class="status done">Complete</span></td><td>Feature branch synchronized to <code>origin/feature/wpf-frame-pipeline</code>.</td></tr>
+</table>
+
+<h4>Current Open Work — Ordered Execution Backlog</h4>
+<table>
+<tr><th>Order</th><th>Workstream</th><th>Status</th><th>Required Work</th></tr>
+<tr><td>1</td><td>Final screenshot regression pass</td><td><span class="status watching">Verify</span></td><td>Confirm PNG export still works while preview is actively running and after Freeze/Resume changes.</td></tr>
+<tr><td>2</td><td>Zoom / Pan Viewport</td><td><span class="status pending">Pending</span></td><td>Define viewport transform architecture; add zoom controls; add mouse-wheel zoom; add pan controls; add click-drag panning; preserve original frame integrity; define screenshot behavior during zoom; validate with live and frozen preview.</td></tr>
+<tr><td>3</td><td>Responsive UI Scaling</td><td><span class="status pending">Pending</span></td><td>Define minimum supported window size; add adaptive viewport sizing; add adaptive Notes sizing; add adaptive right-panel sizing; add scrolling where required; prevent right-side control clipping; validate at 1080p, 1440p, and larger workstation resolutions.</td></tr>
+<tr><td>4</td><td>Disabled Control Styling</td><td><span class="status pending">Pending</span></td><td>Disabled buttons must remain readable; disabled text styling is visually inconsistent and should be corrected globally.</td></tr>
+<tr><td>5</td><td>Application Icon / Branding</td><td><span class="status pending">Pending</span></td><td>Add proper application icon for title bar, taskbar, executable, Alt+Tab, Start Menu, and future installer identity.</td></tr>
+<tr><td>6</td><td>Notes Toolbar Completion</td><td><span class="status pending">Pending</span></td><td>Repair Indent functionality; validate multi-line indentation, selected-block indentation, and full-document indentation.</td></tr>
+<tr><td>7</td><td>Annotation Foundation</td><td><span class="status pending">Pending</span></td><td>Define annotation canvas architecture, overlay rendering strategy, arrow, rectangle, circle, text label, freehand marker, clear annotations, undo/redo, and annotation persistence strategy.</td></tr>
+<tr><td>8</td><td>Project Records</td><td><span class="status pending">Pending</span></td><td>Metadata sidecar generation, JSON export, project folder structure, session save workflow, capture history, and notes/project metadata persistence.</td></tr>
+<tr><td>9</td><td>Advanced Imaging</td><td><span class="status pending">Pending</span></td><td>Measurement framework, calibration framework, scale overlay, comparison mode, video recording, and advanced frame-pipeline reconciliation.</td></tr>
+<tr><td>10</td><td>Project Library</td><td><span class="status pending">Pending</span></td><td>Project/session browser, SQLite schema, capture indexing, search by project, board, technician, date, and export project packet.</td></tr>
+</table>
+
+<h4>Master Development Checklist Snapshot</h4>
+<div class="note ok">
+<strong>Completed baseline:</strong> WPF shell, titlebar, dark theme, viewport, right panel, status bar, device enumeration, multi-camera detection, source selector, default source persistence/restoration, DirectShow integration, live preview, Start/Stop Preview, Freeze/Resume Preview, screenshot service, PNG export, timestamped filename, capture path, Notes editor, major Notes toolbar commands, session fields, service architecture, build stability, and GitHub synchronization.
+</div>
 
 <div class="note watch">
-<strong>Next Development Priority:</strong>
-<ol>
-<li>Freeze Frame</li>
-<li>Zoom / Pan Viewport</li>
-<li>Responsive UI Scaling</li>
-<li>Reconcile native DirectShow preview path versus WPF frame pipeline</li>
-<li>Resume advanced frame-pipeline work after M1 completion</li>
-</ol>
+<strong>Current recommended order:</strong> final screenshot regression pass → Zoom / Pan Viewport → Responsive UI Scaling → Disabled Control Styling → Application Icon → Indent repair → Annotation foundation → Project records and metadata → Advanced imaging → Project library/database.
 </div>
 
 <div class="page-num">30</div>
+</section>
+
+
+<section class="page">
+<h3>31. Freeze Preview and Resume Preview Validation</h3>
+<p class="sub">Operational freeze-frame milestone, preview-state control expansion, runtime validation, and feature-branch synchronization record.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Freeze Preview and Resume Preview are implemented, build-validated, runtime-validated, committed, and pushed to <code>origin/feature/wpf-frame-pipeline</code> under commit <code>1b274d7</code> with message <code>Add freeze and resume preview controls</code>.
+</div>
+
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the work completed after the M1 runtime reconciliation review. The objective was to close the remaining freeze-frame requirement by adding an operator-visible Freeze control, supporting Resume behavior, extending the preview service contract, and validating the workflow against an active DirectShow live preview session.
+</p>
+
+<h4>Implementation Summary</h4>
+<table>
+<tr><th>Area</th><th>Change</th><th>Status</th></tr>
+<tr><td>Preview service contract</td><td>Extended <code>ICameraPreviewService</code> with <code>IsPreviewFrozen</code>, <code>FreezePreview()</code>, and <code>ResumePreview()</code>.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>DirectShow preview service</td><td>Added freeze-state tracking and pause/resume behavior to the DirectShow preview implementation.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Stub preview service</td><td>Updated the stub implementation so it satisfies the expanded preview-service interface.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Main window UI</td><td>Added <code>FreezePreviewButton</code> between <code>Start Preview</code> and <code>Stop Preview</code>.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Code-behind workflow</td><td>Added <code>FreezePreviewButton_Click</code> to toggle between Freeze and Resume behavior.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Button-state logic</td><td>Corrected runtime enabling/disabling so the Freeze control becomes available during active preview.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Status messaging</td><td>Added visible state feedback for <code>Preview Frozen</code> and resumed preview state.</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Files Modified</h4>
+<table>
+<tr><th>File</th><th>Purpose</th></tr>
+<tr><td><code>src/LabImager/MainWindow.xaml</code></td><td>Added the Freeze button to the preview-control row and adjusted the preview-control grid columns.</td></tr>
+<tr><td><code>src/LabImager/MainWindow.xaml.cs</code></td><td>Added freeze/resume event handling and corrected preview button-state transitions.</td></tr>
+<tr><td><code>src/LabImager/Services/Preview/ICameraPreviewService.cs</code></td><td>Expanded preview-service contract for frozen-state awareness and freeze/resume commands.</td></tr>
+<tr><td><code>src/LabImager/Services/Preview/DirectShowCameraPreviewService.cs</code></td><td>Implemented DirectShow preview pause/resume state handling.</td></tr>
+<tr><td><code>src/LabImager/Services/Preview/StubCameraPreviewService.cs</code></td><td>Updated stub behavior to match the expanded preview-service interface.</td></tr>
+<tr><td><code>docs/assets/ui/lab_design_4.png</code></td><td>Archived current operational UI screenshot for the frozen-preview validation state.</td></tr>
+</table>
+
+<h4>Runtime Validation Results</h4>
+<table>
+<tr><th>Validation Item</th><th>Result</th><th>Notes</th></tr>
+<tr><td>Application build</td><td><span class="status done">Passed</span></td><td><code>dotnet build</code> completed with zero errors.</td></tr>
+<tr><td>Start Preview</td><td><span class="status done">Passed</span></td><td>Live preview started successfully.</td></tr>
+<tr><td>Freeze Preview</td><td><span class="status done">Passed</span></td><td>Live feed froze and status changed to <code>Preview Frozen</code>.</td></tr>
+<tr><td>Resume Preview</td><td><span class="status done">Passed</span></td><td>Freeze button changed to Resume and live motion resumed after toggle.</td></tr>
+<tr><td>Stop Preview</td><td><span class="status done">Passed</span></td><td>Existing Stop Preview workflow remained operational.</td></tr>
+<tr><td>Screenshot capture</td><td><span class="status done">Preserved</span></td><td>Existing PNG screenshot workflow remained available.</td></tr>
+</table>
+
+<h4>Build Validation</h4>
+<pre>dotnet build R:\Lab-Imager\src\LabImager\LabImager.csproj</pre>
+<table>
+<tr><th>Build Item</th><th>Result</th></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Warnings</td><td><code>4</code> existing non-blocking warnings in <code>DirectShowFramePreviewService.cs</code>.</td></tr>
+<tr><td>Build result</td><td><span class="status done">Succeeded</span></td></tr>
+</table>
+
+<h4>Validation Screenshot</h4>
+<div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
+<img src="assets/ui/lab_design_4.png" alt="Lab Imager freeze preview validation screenshot" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<p class="sub" style="text-align:center;margin-top:8px">Operational validation screenshot showing active camera preview in frozen state, <code>Preview Frozen</code> status text, and the Resume control visible in the preview-control row.</p>
+</div>
+
+<h4>Repository Validation</h4>
+<table>
+<tr><th>Repository Item</th><th>Result</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Commit</td><td><code>1b274d758026007064f3f6bb78bd4c88733b888d</code></td></tr>
+<tr><td>Commit message</td><td><code>Add freeze and resume preview controls</code></td></tr>
+<tr><td>Push target</td><td><code>origin/feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td></tr>
+<tr><td>Local / remote parity</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<h4>Command Record</h4>
+<pre>git status
+# On branch feature/wpf-frame-pipeline
+# Your branch is up to date with 'origin/feature/wpf-frame-pipeline'.
+# nothing to commit, working tree clean
+
+git rev-parse HEAD
+# 1b274d758026007064f3f6bb78bd4c88733b888d
+
+git ls-remote origin refs/heads/feature/wpf-frame-pipeline
+# 1b274d758026007064f3f6bb78bd4c88733b888d refs/heads/feature/wpf-frame-pipeline</pre>
+
+<h4>Next Work Order</h4>
+<ol>
+<li>Merge or reconcile <code>feature/wpf-frame-pipeline</code> to <code>main</code> when rested.</li>
+<li>Run the final screenshot regression pass against active preview and frozen preview.</li>
+<li>Implement Zoom / Pan Viewport.</li>
+<li>Implement Responsive UI Scaling so right-side controls do not clip at smaller window sizes.</li>
+<li>Fix Disabled Control Styling so disabled buttons remain readable and visually intentional.</li>
+<li>Add Application Icon / Branding for window, taskbar, executable, and future installer identity.</li>
+<li>Resume metadata sidecar generation after inspection workflow features are stable.</li>
+</ol>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Freeze Preview is now closed as a functional milestone. The project can proceed to viewport usability work: zoom, pan, responsive scaling, and final UI polish.
+</div>
+
+<div class="page-num">31</div>
 </section>
 
 <section class="page">
