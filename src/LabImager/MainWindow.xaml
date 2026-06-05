@@ -2589,6 +2589,8 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="10"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <Button x:Name="StartPreviewButton" Style="{StaticResource ReadableDisabledButtonStyle}"
@@ -2602,8 +2604,20 @@
                                         FontSize="13"
                                         FontWeight="SemiBold"/>
 
-                                <Button x:Name="StopPreviewButton" Style="{StaticResource ReadableDisabledButtonStyle}"
+                                <Button x:Name="FreezePreviewButton" Style="{StaticResource ReadableDisabledButtonStyle}"
                                         Grid.Column="2"
+                                        Click="FreezePreviewButton_Click"
+                                        Content="Freeze"
+                                        Height="34"
+                                        Background="#92400E"
+                                        Foreground="White"
+                                        BorderBrush="#F59E0B"
+                                        FontSize="13"
+                                        FontWeight="SemiBold"
+                                        IsEnabled="False"/>
+
+                                <Button x:Name="StopPreviewButton" Style="{StaticResource ReadableDisabledButtonStyle}"
+                                        Grid.Column="4"
                                         Click="StopPreviewButton_Click"
                                         Content="Stop Preview"
                                         Height="34"

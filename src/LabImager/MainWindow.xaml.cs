@@ -110,6 +110,8 @@ namespace LabImager
 
             SetDefaultCameraButton.IsEnabled = true;
             StartPreviewButton.IsEnabled = true;
+            FreezePreviewButton.IsEnabled = false;
+            FreezePreviewButton.Content = "Freeze";
             StopPreviewButton.IsEnabled = false;
             PreviewStatusText.Text = "Preview Idle";
 
@@ -126,6 +128,8 @@ namespace LabImager
 
                 PreviewStatusText.Text = "Preview Stopped - Source Changed";
                 StartPreviewButton.IsEnabled = true;
+                FreezePreviewButton.IsEnabled = false;
+                FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
             }
 
@@ -198,6 +202,8 @@ namespace LabImager
                 CameraStatusText.Text = $"Source: Preview Started: {sourceName}";
 
                 StartPreviewButton.IsEnabled = false;
+                FreezePreviewButton.IsEnabled = true;
+                FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = true;
             }
             catch (Exception ex)
@@ -211,10 +217,36 @@ namespace LabImager
                 CameraStatusText.Text = $"Source: Preview Failed: {ex.Message}";
 
                 StartPreviewButton.IsEnabled = true;
+                FreezePreviewButton.IsEnabled = false;
+                FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
             }
         }
 
+        private void FreezePreviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_cameraPreviewService.IsPreviewRunning)
+            {
+                return;
+            }
+
+            if (_cameraPreviewService.IsPreviewFrozen)
+            {
+                _cameraPreviewService.ResumePreview();
+
+                FreezePreviewButton.Content = "Freeze";
+                PreviewStatusText.Text = "Preview Running";
+                CameraStatusText.Text = "Source: Preview Running";
+            }
+            else
+            {
+                _cameraPreviewService.FreezePreview();
+
+                FreezePreviewButton.Content = "Resume";
+                PreviewStatusText.Text = "Preview Frozen";
+                CameraStatusText.Text = "Source: Preview Frozen";
+            }
+        }
         private void StopPreviewButton_Click(object sender, RoutedEventArgs e)
         {
             _cameraPreviewService.StopPreview();
@@ -226,6 +258,8 @@ namespace LabImager
             CameraStatusText.Text = "Source: Preview Stopped";
 
             StartPreviewButton.IsEnabled = true;
+            FreezePreviewButton.IsEnabled = false;
+            FreezePreviewButton.Content = "Freeze";
             StopPreviewButton.IsEnabled = false;
         }
 
@@ -271,6 +305,8 @@ namespace LabImager
             if (!_cameraPreviewService.IsPreviewRunning)
             {
                 StartPreviewButton.IsEnabled = true;
+                FreezePreviewButton.IsEnabled = false;
+                FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
             }
         }
@@ -458,6 +494,11 @@ namespace LabImager
         }
     }
 }
+
+
+
+
+
 
 
 

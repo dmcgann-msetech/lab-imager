@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using DirectShowLib;
@@ -20,6 +20,8 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
 
     public bool IsPreviewRunning { get; private set; }
 
+    public bool IsPreviewFrozen { get; private set; }
+    
     public void StartPreview(CameraDeviceInfo source, IntPtr previewHandle, int width, int height)
     {
         if (string.IsNullOrWhiteSpace(source.DevicePath) && string.IsNullOrWhiteSpace(source.Name))
@@ -46,6 +48,9 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         var hr = _captureGraphBuilder.SetFiltergraph(_graphBuilder);
         DsError.ThrowExceptionForHR(hr);
 
+        IsPreviewRunning = true;
+        IsPreviewFrozen = false;
+        IsPreviewFrozen = false;
         object sourceObject;
         var filterGuid = typeof(IBaseFilter).GUID;
 
@@ -88,6 +93,7 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         DsError.ThrowExceptionForHR(hr);
 
         IsPreviewRunning = true;
+        IsPreviewFrozen = false;
     }
 
     public void ResizePreview(int width, int height)
@@ -99,6 +105,32 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
 
         var hr = _videoWindow.SetWindowPosition(0, 0, width, height);
         DsError.ThrowExceptionForHR(hr);
+    }
+
+    public void FreezePreview()
+    {
+        if (_mediaControl == null || !IsPreviewRunning || IsPreviewFrozen)
+        {
+            return;
+        }
+
+        var hr = _mediaControl.Pause();
+        DsError.ThrowExceptionForHR(hr);
+
+        IsPreviewFrozen = true;
+    }
+
+    public void ResumePreview()
+    {
+        if (_mediaControl == null || !IsPreviewRunning || !IsPreviewFrozen)
+        {
+            return;
+        }
+
+        var hr = _mediaControl.Run();
+        DsError.ThrowExceptionForHR(hr);
+
+        IsPreviewFrozen = false;
     }
 
     public void StopPreview()
@@ -141,6 +173,7 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         _graphBuilder = null;
 
         IsPreviewRunning = false;
+        IsPreviewFrozen = false;
     }
 
     private static void ReleaseComObject(object? comObject)
@@ -156,4 +189,5 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         }
     }
 }
+
 
