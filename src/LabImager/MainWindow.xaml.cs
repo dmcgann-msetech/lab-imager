@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -84,7 +84,7 @@ namespace LabImager
                     device.DevicePath == settings.DefaultCameraDevicePath;
 
                 var displayName = isDefault
-                    ? "? " + device.Name + " (Default)"
+                    ? device.Name + " (Default)"
                     : device.Name;
 
                 CameraSelector.Items.Add(
@@ -118,7 +118,7 @@ namespace LabImager
             SetDefaultCameraButton.IsEnabled = true;
             StartPreviewButton.IsEnabled = true;
             FreezePreviewButton.IsEnabled = false;
-            FreezePreviewButton.Content = "?";
+            FreezePreviewButton.Content = "Freeze";
             StopPreviewButton.IsEnabled = false;
             CameraStatusText.Text = "Source: Preview Idle";
 
@@ -136,7 +136,7 @@ namespace LabImager
                 CameraStatusText.Text = "Source: Preview Stopped - Source Changed";
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
             }
 
@@ -159,7 +159,7 @@ namespace LabImager
                 return;
             }
 
-            var cleanCameraName = cameraName.Replace("? ", string.Empty).Replace(" (Default)", string.Empty);
+            var cleanCameraName = cameraName.Replace(" (Default)", string.Empty);
 
             _appSettingsService.Save(
                 new Models.Settings.AppSettings
@@ -223,7 +223,7 @@ namespace LabImager
 
                 StartPreviewButton.IsEnabled = false;
                 FreezePreviewButton.IsEnabled = true;
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = true;
             }
             catch (Exception ex)
@@ -238,7 +238,7 @@ namespace LabImager
 
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
             }
         }
@@ -254,7 +254,7 @@ namespace LabImager
             {
                 _cameraPreviewService.ResumePreview();
 
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "Freeze";
                 CameraStatusText.Text = "Source: Preview Running";
                 CameraStatusText.Text = "Source: Preview Running";
             }
@@ -262,7 +262,7 @@ namespace LabImager
             {
                 _cameraPreviewService.FreezePreview();
 
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "Freeze";
                 CameraStatusText.Text = "Source: Preview Frozen";
                 CameraStatusText.Text = "Source: Preview Frozen";
             }
@@ -279,7 +279,7 @@ namespace LabImager
 
             StartPreviewButton.IsEnabled = true;
             FreezePreviewButton.IsEnabled = false;
-            FreezePreviewButton.Content = "?";
+            FreezePreviewButton.Content = "Freeze";
             StopPreviewButton.IsEnabled = false;
         }
 
@@ -383,7 +383,7 @@ namespace LabImager
             {
                 StartPreviewButton.IsEnabled = true;
                 FreezePreviewButton.IsEnabled = false;
-                FreezePreviewButton.Content = "?";
+                FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
             }
         }

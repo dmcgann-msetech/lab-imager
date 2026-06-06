@@ -2797,7 +2797,7 @@
                                                 </Button>
                                             </StackPanel>
 
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                                 <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Bullet" Width="48" Margin="0,0,4,0" ToolTip="Bulleted list" Click="NotesBulletButton_Click"/>
                                                 <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Align" Width="48" Margin="0,0,4,0" ToolTip="Cycle paragraph alignment" Click="NotesAlignButton_Click"/>
                                                 <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Outline" Width="58" Margin="0,0,4,0" ToolTip="Numbered outline" Click="NotesOutlineButton_Click"/>
@@ -2888,7 +2888,7 @@
                                    Foreground="#0EA5E9"
                                    Margin="0,0,28,0"/>
 
-                        <TextBlock Text="?"
+                        <TextBlock Text="Help"
                                    FontSize="18"
                                    Foreground="#0EA5E9"/>
                     </StackPanel>
