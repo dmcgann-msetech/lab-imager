@@ -188,23 +188,40 @@ public sealed class DirectShowCameraDeviceService : ICameraDeviceService
 
     private static string GetSubtypeName(Guid subtype)
     {
-        if (subtype == MediaSubType.MJPG)
+        var subtypeMap = new Dictionary<Guid, string>
         {
-            return "MJPG";
-        }
+            [MediaSubType.MJPG] = "MJPG",
+            [MediaSubType.YUY2] = "YUY2",
+            [MediaSubType.NV12] = "NV12",
+            [FourCcToGuid("H264")] = "H264",
+            [FourCcToGuid("H265")] = "H265",
+            [FourCcToGuid("HEVC")] = "HEVC",
+            [FourCcToGuid("I420")] = "I420",
+            [FourCcToGuid("YV12")] = "YV12"
+        };
 
-        if (subtype == MediaSubType.YUY2)
-        {
-            return "YUY2";
-        }
+        return subtypeMap.TryGetValue(subtype, out var name)
+            ? name
+            : subtype.ToString();
+    }
 
+    private static Guid FourCcToGuid(string fourCc)
+    {
+        var bytes = System.Text.Encoding.ASCII.GetBytes(fourCc);
+        var value = BitConverter.ToUInt32(bytes, 0);
 
-        if (subtype == MediaSubType.NV12)
-        {
-            return "NV12";
-        }
-
-        return subtype.ToString();
+        return new Guid(
+            (int)value,
+            0x0000,
+            0x0010,
+            0x80,
+            0x00,
+            0x00,
+            0xaa,
+            0x00,
+            0x38,
+            0x9b,
+            0x71);
     }
 
     private static void ReleaseComObject(object? comObject)
@@ -215,4 +232,5 @@ public sealed class DirectShowCameraDeviceService : ICameraDeviceService
         }
     }
 }
+
 

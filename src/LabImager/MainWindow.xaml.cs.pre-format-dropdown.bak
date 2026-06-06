@@ -124,7 +124,6 @@ namespace LabImager
             CameraStatusText.Text = "Source: Preview Idle";
 
             UpdateSelectedCameraState();
-            PopulateCaptureFormatsForSelectedCamera();
         }
 
         private void CameraSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -143,7 +142,6 @@ namespace LabImager
             }
 
             UpdateSelectedCameraState();
-            PopulateCaptureFormatsForSelectedCamera();
         }
 
         private void SetDefaultCameraButton_Click(object sender, RoutedEventArgs e)
@@ -418,51 +416,6 @@ namespace LabImager
 
             return filePath;
         }
-        private void PopulateCaptureFormatsForSelectedCamera()
-        {
-            CaptureFormatSelector.Items.Clear();
-
-            if (CameraSelector.SelectedItem is not ComboBoxItem selectedItem)
-            {
-                CaptureFormatSelector.IsEnabled = false;
-                return;
-            }
-
-            var cameraName = selectedItem.Content?.ToString()?.Replace(" (Default)", string.Empty) ?? string.Empty;
-            var cameraDevicePath = selectedItem.Tag?.ToString() ?? string.Empty;
-
-            if (string.IsNullOrWhiteSpace(cameraName) ||
-                cameraName == "No Cameras Detected")
-            {
-                CaptureFormatSelector.IsEnabled = false;
-                return;
-            }
-
-            var device = new Models.Camera.CameraDeviceInfo
-            {
-                Name = cameraName,
-                DevicePath = cameraDevicePath
-            };
-
-            var formats = _cameraDeviceService.GetAvailableFormats(device);
-
-            foreach (var format in formats)
-            {
-                CaptureFormatSelector.Items.Add(new ComboBoxItem
-                {
-                    Content = format.DisplayName,
-                    Tag = format,
-                    IsEnabled = format.IsAvailable
-                });
-            }
-
-            CaptureFormatSelector.IsEnabled = CaptureFormatSelector.Items.Count > 0;
-
-            if (CaptureFormatSelector.Items.Count > 0)
-            {
-                CaptureFormatSelector.SelectedIndex = 0;
-            }
-        }
         private void UpdateSelectedCameraState()
         {
             if (CameraSelector.SelectedItem is not ComboBoxItem selectedItem)
@@ -681,8 +634,6 @@ namespace LabImager
         }
     }
 }
-
-
 
 
 

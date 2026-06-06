@@ -2718,22 +2718,6 @@
                                       FontSize="13"
                                       Padding="10"/>
 
-                            <TextBlock Text="Capture Format"
-                                       FontSize="13"
-                                       FontWeight="SemiBold"
-                                       Margin="0,8,0,0"/>
-
-                            <ComboBox x:Name="CaptureFormatSelector"
-                                      Style="{StaticResource ReadableDisabledComboBoxStyle}"
-                                      ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
-                                      Height="38"
-                                      MaxDropDownHeight="185"
-                                      Margin="0,0,0,0"
-                                      Background="#171D24"
-                                      Foreground="#111827"
-                                      BorderBrush="#334155"
-                                      FontSize="13"
-                                      Padding="10"/>
                             <Button x:Name="SetDefaultCameraButton" Style="{StaticResource DarkHoverButtonStyle}"
                                     Click="SetDefaultCameraButton_Click"
                                     Content="★  Set Default"
@@ -2913,7 +2897,6 @@
         </Grid>
     </Border>
 </Window>
-
 
 
 
