@@ -85,7 +85,7 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Sections 1-5</td><td>Project vision, repository identity, technology stack, hardware pipeline, and first milestone.</td></tr>
 <tr><td>Sections 6-10</td><td>Application layout, annotation model, file naming, project storage, and theme doctrine.</td></tr>
 <tr><td>Sections 11-15</td><td>Repository structure, Git workflow, icon/logo direction, future feature roadmap, and initial build constraints.</td></tr>
-<tr><td>Sections 16-36</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, freeze/resume preview validation, responsive UI transport-control redesign, UI stabilization rollback, M1-I recording timer header integration, historical reconciliation, M1-J roadmap, and hard stable UI rollback checkpoint.</td></tr>
+<tr><td>Sections 16-35</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, freeze/resume preview validation, responsive UI transport-control redesign, UI stabilization rollback, M1-I recording timer header integration, and M1-J export roadmap reconciliation.</td></tr>
 <tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
 </table>
 
@@ -1950,81 +1950,51 @@ git rev-parse HEAD
 <div class="page-num">35</div>
 </section>
 
-
 <section class="page">
-<h3>36. Hard Stable UI Rollback Checkpoint and Glyph Cleanup</h3>
-<p class="sub">Final approved UI recovery checkpoint after source-marker cleanup, question-mark remediation, Notes alignment correction, viewport restoration, and stable rollback tagging.</p>
+<h3>35. Project Log Reconciliation and M1-J Export Roadmap</h3>
+<p class="sub">Status reconciliation after recording foundation completion and approved REC header positioning.</p>
 
 <div class="note ok">
-<strong>Hard stable rollback established:</strong><br>
-Commit: <code>3424529</code><br>
-Tag: <code>stable-ui-rollback-2026-06-05</code><br>
-Branch: <code>feature/wpf-frame-pipeline</code><br>
-Remote: <code>origin/feature/wpf-frame-pipeline</code><br>
-Status: build passing, runtime reviewed, pushed, tagged, and working tree clean.
+<strong>Current stable rollback:</strong> <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code><br>
+<strong>Branch:</strong> <code>feature/wpf-frame-pipeline</code><br>
+<strong>Status:</strong> Build passing, runtime passing, UI stable, remote synchronized.
 </div>
 
-<h4>UI Corrections Completed</h4>
+<h4>Reconciled Backlog Status</h4>
 <table>
-<tr><th>Area</th><th>Correction</th><th>Status</th></tr>
-<tr><td>Default source display</td><td>Removed broken question-mark source marker. Default camera now displays as <code>HD Pro Webcam C920 (Default)</code>.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Set Default button</td><td>Removed fragile star glyph from the button label to avoid encoding/glyph instability.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Freeze transport control</td><td>Replaced bad <code>?</code> glyph output with readable <code>Freeze</code> text.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Help marker</td><td>Replaced bad <code>?</code> marker with readable <code>Help</code> text.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Notes toolbar</td><td>Left-aligned and visually accepted in the right-side panel.</td><td><span class="status done">Approved</span></td></tr>
-<tr><td>Viewport placeholder</td><td>Viewport placeholder alignment restored after accidental broad-alignment fallout.</td><td><span class="status done">Restored</span></td></tr>
+<tr><th>Item</th><th>Updated Status</th><th>Notes</th></tr>
+<tr><td>Indent functionality</td><td><span class="status removed">Removed from active scope</span></td><td>Engineering effort exceeds value. No longer active deliverable.</td></tr>
+<tr><td>Responsive UI Scaling</td><td><span class="status review">Mostly Complete / Monitoring</span></td><td>Responsive layout is functioning adequately. Continue validation only.</td></tr>
+<tr><td>Notes Toolbar Completion</td><td><span class="status review">Verification Required</span></td><td>Implementation appears complete. Validate multi-line, selected-block, and full-document behavior if retained.</td></tr>
+<tr><td>Transport Controls</td><td><span class="status done">Complete except Rewind / Playback</span></td><td>Start, Freeze, Resume, Stop, Record, Recording Timer, and Recording Status are complete.</td></tr>
+<tr><td>Rewind / Playback</td><td><span class="status future">Future</span></td><td>Deferred until recording pipeline exists beyond foundation scaffold.</td></tr>
+<tr><td>Zoom / Pan Viewport</td><td><span class="status scoped">Narrowed Scope</span></td><td>Active scope is mouse-wheel zoom, reset zoom, and preserving source image integrity. Pan and advanced transforms deferred.</td></tr>
+<tr><td>M1-J Annotated Capture Export</td><td><span class="status pending">High Priority / Pending</span></td><td>Capture workflow must save original PNG and generate PDF report with image, notes, timestamp, source device, and session metadata.</td></tr>
 </table>
 
-<h4>Validation Record</h4>
-<pre>dotnet build src\LabImager\LabImager.csproj
-dotnet run --project src\LabImager\LabImager.csproj
-git status</pre>
+<h4>M1-J Annotated Capture Export Roadmap</h4>
+<pre><code>Live Image
+    â†“
+Freeze
+    â†“
+Annotate
+    â†“
+Capture
+    â†“
+Save PNG + Generate PDF</code></pre>
 
+<h4>Required Outputs</h4>
 <table>
-<tr><th>Validation</th><th>Result</th></tr>
-<tr><td>Build</td><td><span class="status done">Passed</span></td></tr>
-<tr><td>Errors</td><td><code>0</code></td></tr>
-<tr><td>Warnings</td><td><code>0</code></td></tr>
-<tr><td>Runtime launch</td><td><span class="status done">Passed</span></td></tr>
-<tr><td>Remote push</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Rollback tag push</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Working tree</td><td><span class="status done">Clean</span></td></tr>
+<tr><th>Output</th><th>Purpose</th><th>Example</th></tr>
+<tr><td>PNG</td><td>Original untouched evidence/archive image</td><td><code>Captures\2026-06-05_181455.png</code></td></tr>
+<tr><td>PDF</td><td>Lab report/documentation record with image, notes, timestamp, source device, and metadata</td><td><code>Reports\2026-06-05_181455.pdf</code></td></tr>
 </table>
 
-<h4>Repository Commands Executed</h4>
-<pre>git add src\LabImager\MainWindow.xaml src\LabImager\MainWindow.xaml.cs
-
-git commit -m "Create hard stable UI rollback checkpoint"
-
-git tag -a stable-ui-rollback-2026-06-05 -m "Hard stable UI rollback checkpoint after source glyph cleanup, notes alignment, and viewport restoration"
-
-git push origin feature/wpf-frame-pipeline
-
-git push origin stable-ui-rollback-2026-06-05</pre>
-
-<h4>Mandatory Rollback Command</h4>
 <div class="note warn">
-<strong>Use this if future UI/code changes destabilize the application:</strong>
+<strong>Deferred:</strong> Hover effects, theme refinements, ComboBox styling, toolbar cosmetics, viewport decorations, advanced panning, and playback system.
 </div>
-
-<pre>git reset --hard stable-ui-rollback-2026-06-05
-git clean -fd</pre>
-
-<h4>Engineering Lessons Reaffirmed</h4>
-<ul>
-<li>Do not use broad PowerShell replacements across XAML or C# files.</li>
-<li>Do not replace every <code>?</code>; C# nullable syntax, null-conditionals, null-coalescing, and ternaries must be preserved.</li>
-<li>Do not globally replace <code>HorizontalAlignment</code>; target only the exact container being changed.</li>
-<li>Preserve XAML encoding when writing files from PowerShell.</li>
-<li>Commit and tag immediately after approved UI recovery points.</li>
-</ul>
-
-<div class="note ok">
-<strong>Checkpoint decision:</strong> Commit <code>3424529</code> and tag <code>stable-ui-rollback-2026-06-05</code> are now the hard stable UI recovery point.
-</div>
-
-<div class="page-num">36</div>
 </section>
+
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
@@ -2099,7 +2069,12 @@ Insert future numbered sections immediately before the <code>Resources</code> se
 </div>
 
 <div class="page-num">Resources</div>
-</section></body>
+</section>
+
+
+
+
+</body>
 </html>
 
 
