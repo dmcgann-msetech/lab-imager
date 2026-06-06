@@ -347,7 +347,7 @@ namespace LabImager
             {
                 var metadata = BuildCurrentSessionMetadata();
 
-                var originalPath = CapturePreviewPanelToPng();
+                var originalPath = _viewportCaptureService.CaptureElementToPng(ViewportSurface);
                 var evidencePath = _viewportCaptureService.CreateEvidencePng(originalPath, metadata);
 
                 CameraStatusText.Text = $"Source: Evidence Capture Saved: {evidencePath}";
@@ -379,43 +379,6 @@ namespace LabImager
             return range.Text.Trim();
         }
 
-        private string CapturePreviewPanelToPng()
-        {
-            if (PreviewPanel.ClientSize.Width <= 0 || PreviewPanel.ClientSize.Height <= 0)
-            {
-                throw new InvalidOperationException("Preview panel has no rendered size to capture.");
-            }
-
-            var capturesDirectory = System.IO.Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-                "Lab Imager",
-                "Captures");
-
-            System.IO.Directory.CreateDirectory(capturesDirectory);
-
-            var fileName = $"lab-imager-capture-{DateTime.Now:yyyyMMdd-HHmmss}-original.png";
-            var filePath = System.IO.Path.Combine(capturesDirectory, fileName);
-
-            var screenPoint = PreviewPanel.PointToScreen(System.Drawing.Point.Empty);
-
-            using var bitmap = new System.Drawing.Bitmap(
-                PreviewPanel.ClientSize.Width,
-                PreviewPanel.ClientSize.Height);
-
-            using (var graphics = System.Drawing.Graphics.FromImage(bitmap))
-            {
-                graphics.CopyFromScreen(
-                    screenPoint.X,
-                    screenPoint.Y,
-                    0,
-                    0,
-                    PreviewPanel.ClientSize);
-            }
-
-            bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-
-            return filePath;
-        }
         private void UpdateSelectedCameraState()
         {
             if (CameraSelector.SelectedItem is not ComboBoxItem selectedItem)
@@ -634,8 +597,6 @@ namespace LabImager
         }
     }
 }
-
-
 
 
 
