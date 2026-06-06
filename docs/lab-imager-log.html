@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -52,9 +53,9 @@ tbody tr:nth-child(even){background:#fafcff}
 
 <section class="page cover">
 <div>
-<div class="eyebrow">LAB IMAGER · INTERNAL ENGINEERING RECORD</div>
+<div class="eyebrow">LAB IMAGER Â· INTERNAL ENGINEERING RECORD</div>
 <div class="rule"></div>
-<div class="icon-mark">🔬</div>
+<div class="icon-mark">ðŸ”¬</div>
 <h1>Lab Imager Project Log</h1>
 <h2>HDMI Microscope Capture, Annotation, Screenshot, and Bench Documentation Workstation</h2>
 <div class="summary">
@@ -84,7 +85,7 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Sections 1-5</td><td>Project vision, repository identity, technology stack, hardware pipeline, and first milestone.</td></tr>
 <tr><td>Sections 6-10</td><td>Application layout, annotation model, file naming, project storage, and theme doctrine.</td></tr>
 <tr><td>Sections 11-15</td><td>Repository structure, Git workflow, icon/logo direction, future feature roadmap, and initial build constraints.</td></tr>
-<tr><td>Sections 16-34</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, freeze/resume preview validation, responsive UI transport-control redesign, UI stabilization rollback, and M1-I recording timer header integration.</td></tr>
+<tr><td>Sections 16-36</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, freeze/resume preview validation, responsive UI transport-control redesign, UI stabilization rollback, M1-I recording timer header integration, historical reconciliation, M1-J roadmap, and hard stable UI rollback checkpoint.</td></tr>
 <tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
 </table>
 
@@ -226,15 +227,15 @@ tbody tr:nth-child(even){background:#fafcff}
 
 <h4>Baseline Pipeline</h4>
 <pre>HDMI microscope camera
-        ↓
+        â†“
 HDMI capture device
-        ↓
+        â†“
 Bench computer USB/PCIe input
-        ↓
+        â†“
 Windows camera/capture subsystem
-        ↓
+        â†“
 Lab Imager live preview
-        ↓
+        â†“
 Screenshot / annotation / saved record</pre>
 
 <h4>Pipeline Requirements</h4>
@@ -439,32 +440,32 @@ Screenshot / annotation / saved record</pre>
 
 <h4>Recommended Repository Structure</h4>
 <pre>lab-imager/
-├── src/
-│   └── LabImager/
-│       ├── App.xaml
-│       ├── MainWindow.xaml
-│       ├── Core/
-│       ├── Capture/
-│       ├── Annotation/
-│       ├── Imaging/
-│       ├── Storage/
-│       ├── Settings/
-│       ├── Themes/
-│       └── UI/
-├── assets/
-│   ├── icons/
-│   ├── logo/
-│   └── themes/
-├── docs/
-│   ├── architecture/
-│   ├── captures/
-│   ├── roadmap/
-│   └── lab-imager-log.html
-├── tests/
-├── builds/
-├── README.md
-├── LICENSE
-└── .gitignore</pre>
+â”œâ”€â”€ src/
+â”‚   â””â”€â”€ LabImager/
+â”‚       â”œâ”€â”€ App.xaml
+â”‚       â”œâ”€â”€ MainWindow.xaml
+â”‚       â”œâ”€â”€ Core/
+â”‚       â”œâ”€â”€ Capture/
+â”‚       â”œâ”€â”€ Annotation/
+â”‚       â”œâ”€â”€ Imaging/
+â”‚       â”œâ”€â”€ Storage/
+â”‚       â”œâ”€â”€ Settings/
+â”‚       â”œâ”€â”€ Themes/
+â”‚       â””â”€â”€ UI/
+â”œâ”€â”€ assets/
+â”‚   â”œâ”€â”€ icons/
+â”‚   â”œâ”€â”€ logo/
+â”‚   â””â”€â”€ themes/
+â”œâ”€â”€ docs/
+â”‚   â”œâ”€â”€ architecture/
+â”‚   â”œâ”€â”€ captures/
+â”‚   â”œâ”€â”€ roadmap/
+â”‚   â””â”€â”€ lab-imager-log.html
+â”œâ”€â”€ tests/
+â”œâ”€â”€ builds/
+â”œâ”€â”€ README.md
+â”œâ”€â”€ LICENSE
+â””â”€â”€ .gitignore</pre>
 
 <h4>Folder Purpose</h4>
 <table>
@@ -599,7 +600,7 @@ Screenshot / annotation / saved record</pre>
 
 
 <section class="page">
-<h3>16. M1-A UI Design Approval — Final Approved Concept</h3>
+<h3>16. M1-A UI Design Approval â€” Final Approved Concept</h3>
 <p class="sub">Canonical Lab Imager interface direction approved for first-generation UI development.</p>
 
 <div class="note ok">
@@ -775,7 +776,7 @@ git push origin main</pre>
 
 <h4>Engineering Lessons Carried Forward</h4>
 <ul>
-<li>For XAML UI work, provide full-file replacements rather than small “find this line” edits.</li>
+<li>For XAML UI work, provide full-file replacements rather than small â€œfind this lineâ€ edits.</li>
 <li>Avoid regex surgery for layout architecture unless the scope is very small and the target is verified.</li>
 <li>Use VS Code/direct file replacement for large XAML payloads instead of terminal here-string paste walls.</li>
 <li>Always validate with <code>dotnet build</code> immediately after file replacement.</li>
@@ -1087,7 +1088,7 @@ git push origin main</pre>
 <div class="page-num">23</div>
 </section>
 <section class="page">
-<h3>24. M2-B Overlay Engine Phase 1 — Viewport Coordinate Overlay Foundation</h3>
+<h3>24. M2-B Overlay Engine Phase 1 â€” Viewport Coordinate Overlay Foundation</h3>
 <p class="sub">Initial overlay-system milestone for adding perimeter coordinate references around the live imaging viewport.</p>
 <div class="note ok"><strong>Final status:</strong> M2-B Phase 1 is complete. Lab Imager now includes a viewport coordinate overlay foundation with top-edge numeric labels and left-edge alphabetic labels for board inspection reference work.</div>
 <h4>Milestone Summary</h4>
@@ -1101,7 +1102,7 @@ git push origin main</pre>
 <div class="page-num">24</div>
 </section>
 <section class="page">
-<h3>25. M2-B Overlay Engine Investigation — Native Preview Overlay Blocker</h3>
+<h3>25. M2-B Overlay Engine Investigation â€” Native Preview Overlay Blocker</h3>
 <p class="sub">Engineering investigation record for the failed attempt to draw a true grid overlay above the active DirectShow preview surface.</p>
 <div class="note warn"><strong>Final status:</strong> True grid overlay over the current DirectShow <code>IVideoWindow</code> / <code>WindowsFormsHost</code> preview path is blocked by native rendering behavior. The current preview method remains valid for live video, but it is not the final architecture for overlay-heavy inspection workflows.</div>
 <h4>Root Cause</h4>
@@ -1117,7 +1118,7 @@ git push origin main</pre>
 </section>
 <section class="page">
 <h3>26. M6 Frame Pipeline Stabilization</h3>
-<p class="sub">DirectShow → SampleGrabber → WPF frame pipeline stabilization and inspection overlay readiness.</p>
+<p class="sub">DirectShow â†’ SampleGrabber â†’ WPF frame pipeline stabilization and inspection overlay readiness.</p>
 <div class="note ok"><strong>Status:</strong> Frame pipeline is stable at managed-buffer stage with Dispatcher-safe WPF rendering.</div>
 <h4>PowerShell Execution Timeline</h4>
 <pre>cd R:\Lab-Imager
@@ -1312,7 +1313,7 @@ Frame pipeline:
 This entry converts the master checklist into the project log so the ledger reflects what is actually complete, what was verified but intentionally deferred, and what remains open. The checklist below is not a generic roadmap; it is the current operational development state as of the frozen-preview validation checkpoint.
 </p>
 
-<h4>Verified Complete — Application Shell and Core UI</h4>
+<h4>Verified Complete â€” Application Shell and Core UI</h4>
 <table>
 <tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
 <tr><td>WPF application shell</td><td><span class="status done">Complete</span></td><td>Application builds and launches under <code>net8.0-windows</code>.</td></tr>
@@ -1324,7 +1325,7 @@ This entry converts the master checklist into the project log so the ledger refl
 <tr><td>Current operational baseline screenshot</td><td><span class="status done">Complete</span></td><td><code>docs/assets/ui/lab_design_4.png</code> archived as the current runtime baseline.</td></tr>
 </table>
 
-<h4>Verified Complete — Capture Device and Preview Workflow</h4>
+<h4>Verified Complete â€” Capture Device and Preview Workflow</h4>
 <table>
 <tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
 <tr><td>Capture device enumeration</td><td><span class="status done">Complete</span></td><td>Multiple video input devices are detected and listed.</td></tr>
@@ -1345,7 +1346,7 @@ This entry converts the master checklist into the project log so the ledger refl
 <tr><td>Repeated freeze/resume baseline</td><td><span class="status done">Complete</span></td><td>Freeze/Resume behavior validated enough to close the M1 freeze requirement.</td></tr>
 </table>
 
-<h4>Verified Complete — Screenshot Capture</h4>
+<h4>Verified Complete â€” Screenshot Capture</h4>
 <table>
 <tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
 <tr><td>Screenshot capture service</td><td><span class="status done">Complete</span></td><td><code>ViewportCaptureService</code> provides WPF visual capture and PNG encoding.</td></tr>
@@ -1359,7 +1360,7 @@ This entry converts the master checklist into the project log so the ledger refl
 <tr><td>Screenshot export while preview is active</td><td><span class="status watching">Needs final pass</span></td><td>Screenshot system is complete, but final regression validation should be repeated after Freeze/Resume changes.</td></tr>
 </table>
 
-<h4>Verified Complete — Notes and Session Fields</h4>
+<h4>Verified Complete â€” Notes and Session Fields</h4>
 <table>
 <tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
 <tr><td>Notes editor</td><td><span class="status done">Complete</span></td><td>RichTextBox-based Notes editor is active.</td></tr>
@@ -1379,7 +1380,7 @@ This entry converts the master checklist into the project log so the ledger refl
 <tr><td>Indent functionality</td><td><span class="status pending">Pending</span></td><td>Word-style selected-block indentation remains open.</td></tr>
 </table>
 
-<h4>Verified Complete — Service Architecture and Build Control</h4>
+<h4>Verified Complete â€” Service Architecture and Build Control</h4>
 <table>
 <tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
 <tr><td>Camera preview service architecture</td><td><span class="status done">Complete</span></td><td><code>ICameraPreviewService</code> defines preview lifecycle boundaries.</td></tr>
@@ -1392,7 +1393,7 @@ This entry converts the master checklist into the project log so the ledger refl
 </table>
 
 
-<h4>Verified Complete — Recording State Foundation</h4>
+<h4>Verified Complete â€” Recording State Foundation</h4>
 <table>
 <tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
 <tr><td>Recording service folder</td><td><span class="status done">Complete</span></td><td><code>Services/Recording</code> added as the recording subsystem boundary.</td></tr>
@@ -1405,7 +1406,7 @@ This entry converts the master checklist into the project log so the ledger refl
 <tr><td>Actual video encoding</td><td><span class="status pending">Deferred</span></td><td>No MP4/AVI/frame-sequence output is implemented yet. This remains a future recording pipeline milestone.</td></tr>
 </table>
 
-<h4>Current Open Work — Ordered Execution Backlog</h4>
+<h4>Current Open Work â€” Ordered Execution Backlog</h4>
 <table>
 <tr><th>Order</th><th>Workstream</th><th>Status</th><th>Required Work</th></tr>
 <tr><td>1</td><td>Final screenshot regression pass</td><td><span class="status watching">Verify</span></td><td>Confirm PNG export still works while preview is actively running and after Freeze/Resume changes.</td></tr>
@@ -1426,7 +1427,7 @@ This entry converts the master checklist into the project log so the ledger refl
 </div>
 
 <div class="note watch">
-<strong>Current recommended order:</strong> final screenshot regression pass → Zoom / Pan Viewport → Responsive UI Scaling → Disabled Control Styling → Application Icon → Indent repair → Annotation foundation → Project records and metadata → Advanced imaging → Project library/database.
+<strong>Current recommended order:</strong> final screenshot regression pass â†’ Zoom / Pan Viewport â†’ Responsive UI Scaling â†’ Disabled Control Styling â†’ Application Icon â†’ Indent repair â†’ Annotation foundation â†’ Project records and metadata â†’ Advanced imaging â†’ Project library/database.
 </div>
 
 <div class="page-num">30</div>
@@ -1594,11 +1595,11 @@ The work confirmed that the right-side Lab Session panel should function primari
 </div>
 <table>
 <tr><th>Control</th><th>Current Label</th><th>Purpose</th><th>Status</th></tr>
-<tr><td>Start Preview</td><td><code>▶</code></td><td>Start live camera preview.</td><td><span class="status done">Moved</span></td></tr>
-<tr><td>Freeze / Resume</td><td><code>❄</code> / <code>▶</code></td><td>Freeze current live preview and resume motion.</td><td><span class="status done">Moved</span></td></tr>
-<tr><td>Stop Preview</td><td><code>■</code></td><td>Stop live preview.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Start Preview</td><td><code>â–¶</code></td><td>Start live camera preview.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Freeze / Resume</td><td><code>â„</code> / <code>â–¶</code></td><td>Freeze current live preview and resume motion.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Stop Preview</td><td><code>â– </code></td><td>Stop live preview.</td><td><span class="status done">Moved</span></td></tr>
 <tr><td>Record control</td><td><code>Record</code></td><td>Starts and stops recording-state tracking through the new recording-service foundation.</td><td><span class="status done">Activated in M1-I</span></td></tr>
-<tr><td>Rewind / playback</td><td><code>⏮</code></td><td>Requested for future playback workflow once recording exists.</td><td><span class="status pending">Future</span></td></tr>
+<tr><td>Rewind / playback</td><td><code>â®</code></td><td>Requested for future playback workflow once recording exists.</td><td><span class="status pending">Future</span></td></tr>
 </table>
 
 <h4>DirectShow Airspace Constraint Reconfirmed</h4>
@@ -1653,7 +1654,7 @@ The work confirmed that the right-side Lab Session panel should function primari
 <li>Remove redundant <code>Preview Idle</code> text from the right panel or move all preview state to the status bar.</li>
 <li>Polish <code>Set Default</code> and <code>Capture</code> as proper pill buttons.</li>
 <li>Refactor Notes toolbar density so it fits the right panel cleanly.</li>
-<li>Re-evaluate whether <code>⏮</code> belongs as a visible disabled future placeholder now, or should wait until recording/playback architecture begins.</li>
+<li>Re-evaluate whether <code>â®</code> belongs as a visible disabled future placeholder now, or should wait until recording/playback architecture begins.</li>
 <li>Continue recording architecture from the completed M1-I state/timer foundation into future MP4/AVI/frame-sequence encoding work.</li>
 </ol>
 
@@ -1661,7 +1662,7 @@ The work confirmed that the right-side Lab Session panel should function primari
 <strong>Checkpoint decision:</strong> The current UI direction is approved enough to save. The transport controls are no longer the priority blocker; the right-side panel cleanup is now the main UI debt before continuing functional recording/playback planning.
 </div>
 
-<h4>Section 32 Reconciliation Addendum — Recording Work Now Completed</h4>
+<h4>Section 32 Reconciliation Addendum â€” Recording Work Now Completed</h4>
 <table>
 <tr><th>Original Section 32 Assumption</th><th>Updated State</th><th>Status</th></tr>
 <tr><td>Record was a disabled future placeholder.</td><td>Record is now wired into a recording-service foundation and toggles recording state.</td><td><span class="status done">Updated</span></td></tr>
@@ -1892,7 +1893,7 @@ git rev-parse HEAD
 
 
 <section class="page">
-<h3>35. Historical Planning Reconciliation — Current Status Corrections</h3>
+<h3>35. Historical Planning Reconciliation â€” Current Status Corrections</h3>
 <p class="sub">Clean reconciliation record for early planning sections whose original pending statuses were superseded by later implementation, validation, and repository checkpoints.</p>
 
 <div class="note ok">
@@ -1902,14 +1903,14 @@ git rev-parse HEAD
 <h4>Sections Reconciled</h4>
 <table>
 <tr><th>Section</th><th>Original Issue</th><th>Current Handling</th></tr>
-<tr><td>Section 4 — Hardware Capture Pipeline</td><td>Several pipeline requirements still showed <span class="status pending">Pending</span> even though device detection, live feed, freeze frame, and still capture were completed later.</td><td>Updated in place and cross-referenced to this reconciliation section.</td></tr>
-<tr><td>Section 5 — First Milestone: M1 Live Capture Window</td><td>The original M1 deliverables table still showed the entire first milestone as pending.</td><td>Updated in place with completion references and dated reconciliation notes.</td></tr>
-<tr><td>Section 14 — Future Feature Roadmap</td><td>The roadmap remained structurally useful but did not state that Phase 1 and part of Phase 2 had already been completed.</td><td>Historical note added; roadmap remains a phase-plan artifact.</td></tr>
-<tr><td>Section 15 — Initial Build Constraints and Safe Start Rules</td><td>The “current next engineering move” was obsolete after repository creation, WPF shell completion, capture work, preview work, and recording foundation.</td><td>Replaced with dated reconciliation note preserving the original safe-start doctrine.</td></tr>
+<tr><td>Section 4 â€” Hardware Capture Pipeline</td><td>Several pipeline requirements still showed <span class="status pending">Pending</span> even though device detection, live feed, freeze frame, and still capture were completed later.</td><td>Updated in place and cross-referenced to this reconciliation section.</td></tr>
+<tr><td>Section 5 â€” First Milestone: M1 Live Capture Window</td><td>The original M1 deliverables table still showed the entire first milestone as pending.</td><td>Updated in place with completion references and dated reconciliation notes.</td></tr>
+<tr><td>Section 14 â€” Future Feature Roadmap</td><td>The roadmap remained structurally useful but did not state that Phase 1 and part of Phase 2 had already been completed.</td><td>Historical note added; roadmap remains a phase-plan artifact.</td></tr>
+<tr><td>Section 15 â€” Initial Build Constraints and Safe Start Rules</td><td>The â€œcurrent next engineering moveâ€ was obsolete after repository creation, WPF shell completion, capture work, preview work, and recording foundation.</td><td>Replaced with dated reconciliation note preserving the original safe-start doctrine.</td></tr>
 <tr><td>Sections 18, 21, 23, and 29</td><td>Point-in-time entries include pending/partial language that was correct when written but may now be superseded.</td><td>Historical reconciliation notes added so readers know to use this section for current status.</td></tr>
-<tr><td>Section 30 — M1 Requirements Reconciliation</td><td>Originally authoritative for the freeze/resume checkpoint, but did not yet include recording-state foundation.</td><td>Supplemented with a recording-state foundation table.</td></tr>
-<tr><td>Section 32 — Responsive UI / Transport Controls</td><td>Originally recorded Record as a placeholder control.</td><td>Already updated to reflect that Record has been promoted into the active recording-state workflow.</td></tr>
-<tr><td>Section 34 — M1-I Recording Service Foundation</td><td>New current recording checkpoint.</td><td>Accepted as the latest specific recording-system record.</td></tr>
+<tr><td>Section 30 â€” M1 Requirements Reconciliation</td><td>Originally authoritative for the freeze/resume checkpoint, but did not yet include recording-state foundation.</td><td>Supplemented with a recording-state foundation table.</td></tr>
+<tr><td>Section 32 â€” Responsive UI / Transport Controls</td><td>Originally recorded Record as a placeholder control.</td><td>Already updated to reflect that Record has been promoted into the active recording-state workflow.</td></tr>
+<tr><td>Section 34 â€” M1-I Recording Service Foundation</td><td>New current recording checkpoint.</td><td>Accepted as the latest specific recording-system record.</td></tr>
 </table>
 
 <h4>Current M1 / M1-I Status Snapshot</h4>
@@ -1949,6 +1950,81 @@ git rev-parse HEAD
 <div class="page-num">35</div>
 </section>
 
+
+<section class="page">
+<h3>36. Hard Stable UI Rollback Checkpoint and Glyph Cleanup</h3>
+<p class="sub">Final approved UI recovery checkpoint after source-marker cleanup, question-mark remediation, Notes alignment correction, viewport restoration, and stable rollback tagging.</p>
+
+<div class="note ok">
+<strong>Hard stable rollback established:</strong><br>
+Commit: <code>3424529</code><br>
+Tag: <code>stable-ui-rollback-2026-06-05</code><br>
+Branch: <code>feature/wpf-frame-pipeline</code><br>
+Remote: <code>origin/feature/wpf-frame-pipeline</code><br>
+Status: build passing, runtime reviewed, pushed, tagged, and working tree clean.
+</div>
+
+<h4>UI Corrections Completed</h4>
+<table>
+<tr><th>Area</th><th>Correction</th><th>Status</th></tr>
+<tr><td>Default source display</td><td>Removed broken question-mark source marker. Default camera now displays as <code>HD Pro Webcam C920 (Default)</code>.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Set Default button</td><td>Removed fragile star glyph from the button label to avoid encoding/glyph instability.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Freeze transport control</td><td>Replaced bad <code>?</code> glyph output with readable <code>Freeze</code> text.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Help marker</td><td>Replaced bad <code>?</code> marker with readable <code>Help</code> text.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Notes toolbar</td><td>Left-aligned and visually accepted in the right-side panel.</td><td><span class="status done">Approved</span></td></tr>
+<tr><td>Viewport placeholder</td><td>Viewport placeholder alignment restored after accidental broad-alignment fallout.</td><td><span class="status done">Restored</span></td></tr>
+</table>
+
+<h4>Validation Record</h4>
+<pre>dotnet build src\LabImager\LabImager.csproj
+dotnet run --project src\LabImager\LabImager.csproj
+git status</pre>
+
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td>Build</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Warnings</td><td><code>0</code></td></tr>
+<tr><td>Runtime launch</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Remote push</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Rollback tag push</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td></tr>
+</table>
+
+<h4>Repository Commands Executed</h4>
+<pre>git add src\LabImager\MainWindow.xaml src\LabImager\MainWindow.xaml.cs
+
+git commit -m "Create hard stable UI rollback checkpoint"
+
+git tag -a stable-ui-rollback-2026-06-05 -m "Hard stable UI rollback checkpoint after source glyph cleanup, notes alignment, and viewport restoration"
+
+git push origin feature/wpf-frame-pipeline
+
+git push origin stable-ui-rollback-2026-06-05</pre>
+
+<h4>Mandatory Rollback Command</h4>
+<div class="note warn">
+<strong>Use this if future UI/code changes destabilize the application:</strong>
+</div>
+
+<pre>git reset --hard stable-ui-rollback-2026-06-05
+git clean -fd</pre>
+
+<h4>Engineering Lessons Reaffirmed</h4>
+<ul>
+<li>Do not use broad PowerShell replacements across XAML or C# files.</li>
+<li>Do not replace every <code>?</code>; C# nullable syntax, null-conditionals, null-coalescing, and ternaries must be preserved.</li>
+<li>Do not globally replace <code>HorizontalAlignment</code>; target only the exact container being changed.</li>
+<li>Preserve XAML encoding when writing files from PowerShell.</li>
+<li>Commit and tag immediately after approved UI recovery points.</li>
+</ul>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Commit <code>3424529</code> and tag <code>stable-ui-rollback-2026-06-05</code> are now the hard stable UI recovery point.
+</div>
+
+<div class="page-num">36</div>
+</section>
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
 <p class="sub">Reusable command blocks for repository setup, .NET solution creation, and ledger maintenance.</p>
@@ -2023,55 +2099,7 @@ Insert future numbered sections immediately before the <code>Resources</code> se
 </div>
 
 <div class="page-num">Resources</div>
-</section>
-
-
-<section class="page">
-<h3>35. Project Log Reconciliation and M1-J Export Roadmap</h3>
-<p class="sub">Status reconciliation after recording foundation completion and approved REC header positioning.</p>
-
-<div class="note ok">
-<strong>Current stable rollback:</strong> <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code><br>
-<strong>Branch:</strong> <code>feature/wpf-frame-pipeline</code><br>
-<strong>Status:</strong> Build passing, runtime passing, UI stable, remote synchronized.
-</div>
-
-<h4>Reconciled Backlog Status</h4>
-<table>
-<tr><th>Item</th><th>Updated Status</th><th>Notes</th></tr>
-<tr><td>Indent functionality</td><td><span class="status removed">Removed from active scope</span></td><td>Engineering effort exceeds value. No longer active deliverable.</td></tr>
-<tr><td>Responsive UI Scaling</td><td><span class="status review">Mostly Complete / Monitoring</span></td><td>Responsive layout is functioning adequately. Continue validation only.</td></tr>
-<tr><td>Notes Toolbar Completion</td><td><span class="status review">Verification Required</span></td><td>Implementation appears complete. Validate multi-line, selected-block, and full-document behavior if retained.</td></tr>
-<tr><td>Transport Controls</td><td><span class="status done">Complete except Rewind / Playback</span></td><td>Start, Freeze, Resume, Stop, Record, Recording Timer, and Recording Status are complete.</td></tr>
-<tr><td>Rewind / Playback</td><td><span class="status future">Future</span></td><td>Deferred until recording pipeline exists beyond foundation scaffold.</td></tr>
-<tr><td>Zoom / Pan Viewport</td><td><span class="status scoped">Narrowed Scope</span></td><td>Active scope is mouse-wheel zoom, reset zoom, and preserving source image integrity. Pan and advanced transforms deferred.</td></tr>
-<tr><td>M1-J Annotated Capture Export</td><td><span class="status pending">High Priority / Pending</span></td><td>Capture workflow must save original PNG and generate PDF report with image, notes, timestamp, source device, and session metadata.</td></tr>
-</table>
-
-<h4>M1-J Annotated Capture Export Roadmap</h4>
-<pre><code>Live Image
-    ↓
-Freeze
-    ↓
-Annotate
-    ↓
-Capture
-    ↓
-Save PNG + Generate PDF</code></pre>
-
-<h4>Required Outputs</h4>
-<table>
-<tr><th>Output</th><th>Purpose</th><th>Example</th></tr>
-<tr><td>PNG</td><td>Original untouched evidence/archive image</td><td><code>Captures\2026-06-05_181455.png</code></td></tr>
-<tr><td>PDF</td><td>Lab report/documentation record with image, notes, timestamp, source device, and metadata</td><td><code>Reports\2026-06-05_181455.pdf</code></td></tr>
-</table>
-
-<div class="note warn">
-<strong>Deferred:</strong> Hover effects, theme refinements, ComboBox styling, toolbar cosmetics, viewport decorations, advanced panning, and playback system.
-</div>
-</section>
-
-</body>
+</section></body>
 </html>
 
 
