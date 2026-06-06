@@ -345,38 +345,13 @@ namespace LabImager
         {
             try
             {
-                var metadata = BuildCurrentSessionMetadata();
-
-                var originalPath = _viewportCaptureService.CaptureElementToPng(ViewportSurface);
-                var evidencePath = _viewportCaptureService.CreateEvidencePng(originalPath, metadata);
-
-                CameraStatusText.Text = $"Source: Evidence Capture Saved: {evidencePath}";
+                var savedPath = _viewportCaptureService.CaptureElementToPng(ViewportSurface);
+                CameraStatusText.Text = $"Source: Screenshot Saved: {savedPath}";
             }
             catch (Exception ex)
             {
                 CameraStatusText.Text = $"Source: Screenshot Failed: {ex.Message}";
             }
-        }
-
-        private SessionMetadata BuildCurrentSessionMetadata()
-        {
-            var selectedCamera = CameraSelector.SelectedItem as ComboBoxItem;
-
-            return new SessionMetadata
-            {
-                ProjectName = ProjectNameTextBox.Text?.Trim() ?? string.Empty,
-                BoardOrDevice = BoardDeviceTextBox.Text?.Trim() ?? string.Empty,
-                Technician = TechnicianTextBox.Text?.Trim() ?? string.Empty,
-                SourceName = selectedCamera?.Content?.ToString()?.Trim() ?? string.Empty,
-                SourceDevicePath = selectedCamera?.Tag?.ToString()?.Trim() ?? string.Empty,
-                NotesText = GetNotesPlainText()
-            };
-        }
-
-        private string GetNotesPlainText()
-        {
-            var range = new TextRange(NotesEditor.Document.ContentStart, NotesEditor.Document.ContentEnd);
-            return range.Text.Trim();
         }
 
         private void UpdateSelectedCameraState()
@@ -597,8 +572,6 @@ namespace LabImager
         }
     }
 }
-
-
 
 
 
