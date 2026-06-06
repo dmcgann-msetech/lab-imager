@@ -2667,7 +2667,7 @@
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,0"/>
 
-                            <TextBox Height="44"
+                            <TextBox x:Name="ProjectNameTextBox" Height="44"
                                      Margin="0,0,0,0"
                                      Background="#0B0F12"
                                      Foreground="#E5E7EB"
@@ -2680,7 +2680,7 @@
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,0"/>
 
-                            <TextBox Height="44"
+                            <TextBox x:Name="BoardDeviceTextBox" Height="44"
                                      Margin="0,0,0,0"
                                      Background="#0B0F12"
                                      Foreground="#E5E7EB"
@@ -2693,7 +2693,7 @@
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,0"/>
 
-                            <TextBox Height="44"
+                            <TextBox x:Name="TechnicianTextBox" Height="44"
                                      Margin="0,0,0,0"
                                      Background="#0B0F12"
                                      Foreground="#E5E7EB"
@@ -2897,6 +2897,7 @@
         </Grid>
     </Border>
 </Window>
+
 
 
 
