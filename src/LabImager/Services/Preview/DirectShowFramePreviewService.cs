@@ -1,9 +1,7 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System;
+﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using DirectShowLib;
 using LabImager.Models.Camera;
@@ -27,7 +25,7 @@ public sealed class DirectShowFramePreviewService : IWpfFramePreviewService, ISa
     private System.Windows.Media.Imaging.BitmapSource? _latestFrame;
 
     private int _frameCount = 0;
-private DateTime _lastLogTime = DateTime.Now;
+    private DateTime _lastLogTime = DateTime.Now;
 
     public void StartPreview(CameraDeviceInfo source)
     {
@@ -206,9 +204,4 @@ private void FrameHeartbeat()
         }
     }
 }
-
-
-
-
-
 
