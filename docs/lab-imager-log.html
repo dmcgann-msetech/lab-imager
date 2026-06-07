@@ -2027,6 +2027,538 @@ git clean -fd</pre>
 </section>
 ```
 
+Insert these immediately before the **Resources** section in `lab-imager-log.html`. This continues after Section 36 in the uploaded log. 
+
+```html
+<section class="page">
+<h3>37. Stable Evidence Capture Workflow and Rollback Checkpoint</h3>
+<p class="sub">Live camera capture, original PNG preservation, Polaroid-style evidence image generation, metadata embedding, validation matrix, and hard rollback tag.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Evidence capture is stable, validated, committed, pushed, and tagged as <code>stable-evidence-capture-2026-06-06</code>. The accepted rollback commit is <code>eb2acdd9e2151f6c8a15481c5e41567cbd803ae5</code>.
+</div>
+
+<h4>Implemented Evidence Capture Workflow</h4>
+<table>
+<tr><th>Capability</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Live camera preview capture</td><td><span class="status done">Complete</span></td><td>Capture now grabs the actual preview panel image instead of only the WPF placeholder surface.</td></tr>
+<tr><td>Original image export</td><td><span class="status done">Complete</span></td><td>Original camera frame is saved as a standalone PNG using <code>-original.png</code> suffix.</td></tr>
+<tr><td>Evidence image export</td><td><span class="status done">Complete</span></td><td>Evidence PNG combines the camera image with a white metadata section underneath, similar to a Polaroid layout.</td></tr>
+<tr><td>Session metadata model</td><td><span class="status done">Complete</span></td><td><code>SessionMetadata</code> stores project, board/device, technician, source, captured timestamp, and notes.</td></tr>
+<tr><td>Capture record model</td><td><span class="status done">Foundation</span></td><td><code>CaptureRecord</code> introduced as the future audit/log record structure.</td></tr>
+<tr><td>Notes metadata</td><td><span class="status done">Complete</span></td><td>Plain-text Notes content is embedded into the evidence image metadata section.</td></tr>
+</table>
+
+<h4>Core Code Structures Added</h4>
+<pre><code>public sealed class SessionMetadata
+{
+    public string ProjectName { get; init; } = string.Empty;
+    public string BoardOrDevice { get; init; } = string.Empty;
+    public string Technician { get; init; } = string.Empty;
+    public string SourceName { get; init; } = string.Empty;
+    public string SourceDevicePath { get; init; } = string.Empty;
+    public string NotesText { get; init; } = string.Empty;
+    public DateTime CapturedAt { get; init; } = DateTime.Now;
+}</code></pre>
+
+<pre><code>private SessionMetadata BuildCurrentSessionMetadata()
+{
+    var selectedCamera = CameraSelector.SelectedItem as ComboBoxItem;
+
+    return new SessionMetadata
+    {
+        ProjectName = ProjectNameTextBox.Text?.Trim() ?? string.Empty,
+        BoardOrDevice = BoardDeviceTextBox.Text?.Trim() ?? string.Empty,
+        Technician = TechnicianTextBox.Text?.Trim() ?? string.Empty,
+        SourceName = selectedCamera?.Content?.ToString()?.Trim() ?? string.Empty,
+        SourceDevicePath = selectedCamera?.Tag?.ToString()?.Trim() ?? string.Empty,
+        NotesText = GetNotesPlainText()
+    };
+}
+
+private string GetNotesPlainText()
+{
+    var range = new TextRange(
+        NotesEditor.Document.ContentStart,
+        NotesEditor.Document.ContentEnd);
+
+    return range.Text.Trim();
+}</code></pre>
+
+<pre><code>private void CaptureScreenshotButton_Click(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        var metadata = BuildCurrentSessionMetadata();
+
+        var originalPath = CapturePreviewPanelToPng();
+        var evidencePath = _viewportCaptureService.CreateEvidencePng(
+            originalPath,
+            metadata);
+
+        CameraStatusText.Text = $"Source: Evidence Capture Saved: {evidencePath}";
+    }
+    catch (Exception ex)
+    {
+        CameraStatusText.Text = $"Source: Screenshot Failed: {ex.Message}";
+    }
+}</code></pre>
+
+<h4>Validation Matrix</h4>
+<table>
+<tr><th>Validation Item</th><th>Status</th></tr>
+<tr><td>Project field populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Board / Device field populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Technician field populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Multi-line Notes populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Long Notes populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Empty fields handled correctly</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Multiple captures in same session</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture while preview running</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture after Freeze</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture after Resume</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture after camera reselection</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Repository Checkpoint</h4>
+<table>
+<tr><th>Commit / Tag</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>21f9a33</code></td><td>Add session metadata and evidence capture foundation.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>3c98f7e</code></td><td>Wire session metadata into evidence capture workflow.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>ae6f5d9</code></td><td>Clean preview service imports and formatting.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>eb2acdd</code></td><td>Capture live camera image into evidence workflow.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>stable-evidence-capture-2026-06-06</code></td><td>Hard stable evidence-capture rollback tag.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<h4>Rollback Command</h4>
+<pre>git fetch --tags
+git reset --hard stable-evidence-capture-2026-06-06
+git clean -fd</pre>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Evidence capture is now milestone-complete. Future work should build capture logging, PDF evidence packages, and session persistence on top of this stable foundation without destabilizing the camera capture path.
+</div>
+
+<div class="page-num">37</div>
+</section>
+
+<section class="page">
+<h3>38. Standalone Source Recording Probe and Format Enumeration Research</h3>
+<p class="sub">Isolated DirectShow recording test harness, source-recording proof, AVI validation, camera quality investigation, and format-enumeration checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> A standalone recording probe was created under <code>tools/RecordingProbe</code>. Source recording was proven independently of the Lab Imager UI, and the probe was later expanded to enumerate camera capture formats.
+</div>
+
+<h4>Reason for Isolated Probe</h4>
+<div class="note warn">
+<strong>Engineering boundary:</strong> Recording work previously interfered with the live preview graph and could wedge the camera device. The recording probe was intentionally kept outside <code>MainWindow</code> until source recording could be proven independently.
+</div>
+
+<h4>Probe Scope</h4>
+<table>
+<tr><th>Component</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>tools/RecordingProbe/RecordingProbe.csproj</code></td><td>Standalone .NET console project for DirectShow recording tests.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>tools/RecordingProbe/Program.cs</code></td><td>Enumerates video devices, prompts for source index, records to AVI, and stops on Enter.</td><td><span class="status done">Added</span></td></tr>
+<tr><td>AVI output</td><td>Writes test recordings to <code>%USERPROFILE%\Videos\Lab Imager\Recording Probe</code>.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Format enumeration</td><td>Lists supported camera resolutions, frame rates, and media subtypes.</td><td><span class="status done">Added</span></td></tr>
+</table>
+
+<h4>Standalone Recording Probe Core</h4>
+<pre><code>var devices = DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice);
+
+for (var i = 0; i &lt; devices.Length; i++)
+{
+    Console.WriteLine($"{i}: {devices[i].Name}");
+}
+
+Console.Write("Select device index: ");
+var input = Console.ReadLine();</code></pre>
+
+<pre><code>captureBuilder.SetOutputFileName(
+    MediaSubType.Avi,
+    outputPath,
+    out muxFilter,
+    out sinkFilter);
+
+captureBuilder.RenderStream(
+    PinCategory.Capture,
+    MediaType.Video,
+    sourceFilter,
+    null,
+    muxFilter);
+
+mediaControl = (IMediaControl)graphBuilder;
+mediaControl.Run();
+
+Console.ReadLine();
+
+mediaControl.Stop();</code></pre>
+
+<h4>Key Findings</h4>
+<table>
+<tr><th>Finding</th><th>Result</th><th>Impact</th></tr>
+<tr><td>Camera can record through DirectShow.</td><td><span class="status done">Confirmed</span></td><td>Recording failure was not caused by total camera incompatibility.</td></tr>
+<tr><td>Default DirectShow recording quality was poor.</td><td><span class="status watching">Observed</span></td><td>Default graph selected low-quality output rather than an intended high-resolution mode.</td></tr>
+<tr><td>Razer Kiyo exposed multiple 60 FPS modes.</td><td><span class="status done">Confirmed</span></td><td>Supported modes included <code>640x360</code>, <code>640x480</code>, <code>1280x720</code>, and <code>1920x1080</code>.</td></tr>
+<tr><td>Media subtype translation was required.</td><td><span class="status done">Identified</span></td><td>Raw subtype GUIDs needed decoding into labels such as <code>H264</code>, <code>MJPG</code>, <code>YUY2</code>, and <code>NV12</code>.</td></tr>
+</table>
+
+<h4>Repository Checkpoints</h4>
+<table>
+<tr><th>Commit / Tag</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>9ada636</code></td><td>Add standalone source recording probe.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>recording-probe-working-2026-06-06</code></td><td>Tag preserving the first working standalone source-recording probe.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>c9815c6</code></td><td>Add capture format enumeration to recording probe.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<div class="note watch">
+<strong>Decision:</strong> Do not wire recording back into Lab Imager until selected capture format negotiation is implemented and validated. The app must not rely on hidden DirectShow defaults.
+</div>
+
+<div class="page-num">38</div>
+</section>
+
+<section class="page">
+<h3>39. Camera Capture Format Enumeration Foundation</h3>
+<p class="sub">Backend capture-format model, camera-service contract expansion, DirectShow format discovery, and service-level format ranking foundation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Backend capture-format enumeration was added to the Lab Imager camera service layer and committed under <code>1a5453a</code>.
+</div>
+
+<h4>Purpose</h4>
+<p>
+This milestone moved capture quality selection from hidden DirectShow default behavior toward explicit application-level format discovery. Lab Imager can now ask a selected camera what capture formats it supports before preview or recording format negotiation is implemented.
+</p>
+
+<h4>Implemented Backend Work</h4>
+<table>
+<tr><th>File / Component</th><th>Change</th><th>Status</th></tr>
+<tr><td><code>Models/Camera/CameraCaptureFormat.cs</code></td><td>Added model for display name, width, height, FPS, subtype, and availability.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>ICameraDeviceService</code></td><td>Expanded service contract with <code>GetAvailableFormats(CameraDeviceInfo device)</code>.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td><code>DirectShowCameraDeviceService</code></td><td>Added DirectShow capture-pin format enumeration using <code>IAMStreamConfig</code>.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>StubCameraDeviceService</code></td><td>Updated stub to satisfy expanded camera-device service contract.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td>Format ranking</td><td>Initial scoring prioritizes high-value formats before lower-resolution fallbacks.</td><td><span class="status partial">Foundation</span></td></tr>
+</table>
+
+<h4>Capture Format Model</h4>
+<pre><code>public sealed class CameraCaptureFormat
+{
+    public string DisplayName { get; init; } = string.Empty;
+    public int Width { get; init; }
+    public int Height { get; init; }
+    public double FramesPerSecond { get; init; }
+    public string SubType { get; init; } = string.Empty;
+    public bool IsAvailable { get; init; }
+
+    public override string ToString()
+    {
+        return DisplayName;
+    }
+}</code></pre>
+
+<h4>Camera Service Contract Expansion</h4>
+<pre><code>public interface ICameraDeviceService
+{
+    IReadOnlyList&lt;CameraDeviceInfo&gt; GetAvailableDevices();
+
+    IReadOnlyList&lt;CameraCaptureFormat&gt; GetAvailableFormats(
+        CameraDeviceInfo device);
+}</code></pre>
+
+<h4>Capture Format Dropdown XAML</h4>
+<pre><code>&lt;TextBlock Text="Capture Format"
+           FontSize="13"
+           FontWeight="SemiBold"
+           Margin="0,8,0,0"/&gt;
+
+&lt;ComboBox x:Name="CaptureFormatSelector"
+          Style="{StaticResource ReadableDisabledComboBoxStyle}"
+          ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
+          Height="38"
+          MaxDropDownHeight="185"
+          Background="#171D24"
+          Foreground="#111827"
+          BorderBrush="#334155"
+          FontSize="13"
+          Padding="10"/&gt;</code></pre>
+
+<h4>Dropdown Population Logic</h4>
+<pre><code>private void PopulateCaptureFormatsForSelectedCamera()
+{
+    CaptureFormatSelector.Items.Clear();
+
+    if (CameraSelector.SelectedItem is not ComboBoxItem selectedItem)
+    {
+        CaptureFormatSelector.IsEnabled = false;
+        return;
+    }
+
+    var cameraName =
+        selectedItem.Content?.ToString()?.Replace(" (Default)", string.Empty)
+        ?? string.Empty;
+
+    var cameraDevicePath = selectedItem.Tag?.ToString() ?? string.Empty;
+
+    if (string.IsNullOrWhiteSpace(cameraName) ||
+        cameraName == "No Cameras Detected")
+    {
+        CaptureFormatSelector.IsEnabled = false;
+        return;
+    }
+
+    var device = new Models.Camera.CameraDeviceInfo
+    {
+        Name = cameraName,
+        DevicePath = cameraDevicePath
+    };
+
+    var formats = _cameraDeviceService.GetAvailableFormats(device);
+
+    foreach (var format in formats)
+    {
+        CaptureFormatSelector.Items.Add(new ComboBoxItem
+        {
+            Content = format.DisplayName,
+            Tag = format,
+            IsEnabled = format.IsAvailable
+        });
+    }
+
+    CaptureFormatSelector.IsEnabled = CaptureFormatSelector.Items.Count &gt; 0;
+
+    if (CaptureFormatSelector.Items.Count &gt; 0)
+    {
+        CaptureFormatSelector.SelectedIndex = 0;
+    }
+}</code></pre>
+
+<h4>Build Validation</h4>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td><code>dotnet build src\LabImager\LabImager.csproj</code></td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Warnings</td><td>Existing non-blocking warnings only.</td></tr>
+</table>
+
+<h4>Repository Record</h4>
+<table>
+<tr><th>Commit</th><th>Message</th><th>Status</th></tr>
+<tr><td><code>1a5453a</code></td><td><code>Add camera capture format enumeration foundation</code></td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<div class="note watch">
+<strong>Boundary:</strong> This milestone discovers available formats but does not yet apply the selected format to preview or recording graphs.
+</div>
+
+<div class="page-num">39</div>
+</section>
+
+<section class="page">
+<h3>40. Capture Format Selection UI and Subtype Label Cleanup</h3>
+<p class="sub">Right-panel Capture Format dropdown, camera-format population workflow, FOURCC translation matrix, UI validation, and temporary-backup cleanup checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Capture Format selection is visible in the Lab Session panel, populated from the selected camera, and displays usable codec labels including <code>H264</code>, <code>MJPG</code>, <code>YUY2</code>, and <code>NV12</code>. Temporary format-dropdown backup files were removed in commit <code>76ff806</code>.
+</div>
+
+<h4>Implemented UI Work</h4>
+<table>
+<tr><th>Area</th><th>Change</th><th>Status</th></tr>
+<tr><td>Right-side panel</td><td>Added <code>Capture Format</code> label beneath Source selector.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Format selector</td><td>Added <code>CaptureFormatSelector</code> ComboBox using existing dark selector styling.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Initial population</td><td>Format dropdown populates during initial camera-state setup.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Camera-change population</td><td>Format dropdown repopulates when the selected source changes.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Subtype labeling</td><td>Added FOURCC translation matrix so raw GUIDs display as readable labels.</td><td><span class="status done">Complete</span></td></tr>
+</table>
+
+<h4>Observed UI Result</h4>
+<table>
+<tr><th>Example Display</th><th>Status</th></tr>
+<tr><td><code>1920x1080 @ 60 FPS — YUY2</code></td><td><span class="status done">Displayed</span></td></tr>
+<tr><td><code>1920x1080 @ 60 FPS — H264</code></td><td><span class="status done">Displayed</span></td></tr>
+<tr><td><code>1920x1080 @ 60 FPS — NV12</code></td><td><span class="status done">Displayed</span></td></tr>
+<tr><td><code>640x480 @ 60 FPS — MJPG</code></td><td><span class="status done">Displayed</span></td></tr>
+<tr><td>Raw GUID display</td><td><span class="status done">Resolved for H264</span></td></tr>
+</table>
+
+<h4>Subtype Translation Matrix</h4>
+<pre><code>private static string GetSubtypeName(Guid subtype)
+{
+    var subtypeMap = new Dictionary&lt;Guid, string&gt;
+    {
+        [MediaSubType.MJPG] = "MJPG",
+        [MediaSubType.YUY2] = "YUY2",
+        [MediaSubType.NV12] = "NV12",
+        [FourCcToGuid("H264")] = "H264",
+        [FourCcToGuid("H265")] = "H265",
+        [FourCcToGuid("HEVC")] = "HEVC",
+        [FourCcToGuid("I420")] = "I420",
+        [FourCcToGuid("YV12")] = "YV12"
+    };
+
+    return subtypeMap.TryGetValue(subtype, out var name)
+        ? name
+        : subtype.ToString();
+}
+
+private static Guid FourCcToGuid(string fourCc)
+{
+    var bytes = System.Text.Encoding.ASCII.GetBytes(fourCc);
+    var value = BitConverter.ToUInt32(bytes, 0);
+
+    return new Guid(
+        (int)value,
+        0x0000,
+        0x0010,
+        0x80,
+        0x00,
+        0x00,
+        0xaa,
+        0x00,
+        0x38,
+        0x9b,
+        0x71);
+}</code></pre>
+
+<h4>Validation Result</h4>
+<table>
+<tr><th>Validation Item</th><th>Status</th></tr>
+<tr><td>App launches</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Source dropdown works</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture Format dropdown appears</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture Format dropdown populates</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Codec labels are readable</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Preview remains operational</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Evidence capture remains operational</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Repository Checkpoints</h4>
+<table>
+<tr><th>Commit</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>32348fd</code></td><td>Capture format dropdown and subtype-label work checkpoint.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>76ff806</code></td><td>Remove temporary format dropdown backups.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<h4>Current Branch State After Section 40</h4>
+<table>
+<tr><th>Item</th><th>State</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>HEAD</td><td><code>76ff806</code></td></tr>
+<tr><td>Remote synchronization</td><td><span class="status done">Up to date with origin</span></td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td></tr>
+</table>
+
+<h4>Next Engineering Target</h4>
+<ol>
+<li>Apply selected <code>CaptureFormatSelector</code> format to the DirectShow preview graph.</li>
+<li>Validate whether selecting <code>1920x1080 @ 60 FPS</code> or <code>1280x720 @ 60 FPS</code> improves live preview quality.</li>
+<li>Apply the same selected format to the recording graph after preview format negotiation is stable.</li>
+<li>Return to recording output after selected-format behavior is proven.</li>
+<li>Perform repository cleanup before packaging: remove tracked legacy backup artifacts, probe scaffolds that are no longer required, bin/obj output, and crash logs.</li>
+</ol>
+
+<div class="note watch">
+<strong>Boundary:</strong> The dropdown currently displays and stores the selected format only. It does not yet force the preview or recording graph to use that selected format.
+</div>
+
+<div class="page-num">40</div>
+</section>
+```
+
+<section class="page">
+
+<h3>41. Repository Administration, Ownership Review, and Dependency Audit</h3>
+
+<p class="sub">
+Repository governance checkpoint established following implementation of the public-facing project README, ownership review, licensing assessment, and third-party dependency audit.
+</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Repository administration baseline established. Public GitHub presentation improved through creation of a project README, ownership declarations were documented, and dependency licensing was reviewed to confirm that current project components do not impose open-source disclosure requirements.
+</div>
+
+<h4>Repository Administration</h4>
+
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>README.md</td><td><span class="status done">Completed</span></td><td>Initial repository documentation created.</td></tr>
+<tr><td>Project Overview</td><td><span class="status done">Completed</span></td><td>Application purpose, scope, and current capabilities documented.</td></tr>
+<tr><td>Feature Summary</td><td><span class="status done">Completed</span></td><td>Camera, preview, evidence capture, metadata, and validation status documented.</td></tr>
+<tr><td>Build Instructions</td><td><span class="status done">Completed</span></td><td>Repository build and launch workflow documented.</td></tr>
+<tr><td>Repository Structure</td><td><span class="status done">Completed</span></td><td>High-level project layout documented.</td></tr>
+</table>
+
+<h4>Ownership Review</h4>
+
+<table>
+<tr><th>Category</th><th>Value</th></tr>
+<tr><td>Repository Visibility</td><td>Public</td></tr>
+<tr><td>Open Source License</td><td>None Selected</td></tr>
+<tr><td>Ownership</td><td>MSE McGann Systems Engineering</td></tr>
+<tr><td>Copyright</td><td>&copy; 2026 MSE McGann Systems Engineering</td></tr>
+<tr><td>Distribution Model</td><td>Public Visibility with Proprietary Ownership</td></tr>
+</table>
+
+<p>
+Repository visibility was reviewed to ensure that public availability of source code was not being incorrectly interpreted as open-source distribution. Ownership language was added to the README to clearly identify project ownership and preserve proprietary rights.
+</p>
+
+<h4>Third-Party Dependency Audit</h4>
+
+<table>
+<tr><th>Project</th><th>Package</th><th>Version</th><th>Status</th></tr>
+<tr><td>LabImager</td><td>DirectShowLib.Net</td><td>3.0.0</td><td><span class="status done">Reviewed</span></td></tr>
+<tr><td>RecordingProbe</td><td>DirectShowLib.Net</td><td>3.0.0</td><td><span class="status done">Reviewed</span></td></tr>
+</table>
+
+<h4>Dependency Audit Commands</h4>
+
+<pre><code>dotnet list src\LabImager\LabImager.csproj package
+
+dotnet list tools\RecordingProbe\RecordingProbe.csproj package</code></pre>
+
+<h4>Audit Results</h4>
+
+<table>
+<tr><th>Review Item</th><th>Result</th></tr>
+<tr><td>GPL Dependencies</td><td>None Identified</td></tr>
+<tr><td>AGPL Dependencies</td><td>None Identified</td></tr>
+<tr><td>LGPL Dependencies</td><td>None Identified</td></tr>
+<tr><td>Copyleft Obligations</td><td>None Identified</td></tr>
+<tr><td>Proprietary Distribution Impact</td><td>None Identified</td></tr>
+</table>
+
+<p>
+Dependency review determined that current package inventory consists solely of DirectShowLib.Net 3.0.0 in addition to standard Microsoft .NET platform components. No third-party packages requiring source disclosure, derivative work publication, or mandatory open-source distribution were identified during review.
+</p>
+
+<h4>Repository State</h4>
+
+<table>
+<tr><th>Item</th><th>Value</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Working Tree</td><td>Clean</td></tr>
+<tr><td>Repository Status</td><td>Synchronized with Origin</td></tr>
+<tr><td>Administrative Review</td><td>Completed</td></tr>
+</table>
+
+<h4>Future Administrative Work</h4>
+
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>LICENSE.md</td><td><span class="status pending">Pending</span></td><td>Formal proprietary license file recommended.</td></tr>
+<tr><td>GitHub Releases</td><td><span class="status pending">Pending</span></td><td>Create release records for major project milestones.</td></tr>
+<tr><td>Repository Topics</td><td><span class="status pending">Pending</span></td><td>Add discovery metadata to GitHub repository.</td></tr>
+<tr><td>Release Packaging</td><td><span class="status pending">Pending</span></td><td>Administrative work required prior to production release.</td></tr>
+</table>
+
+<div class="note">
+<strong>Checkpoint significance:</strong> This section marks the transition from feature-only development to formal repository administration and governance activities. Ownership, licensing posture, dependency review, and project presentation standards have now been documented and reviewed.
+</div>
+
+</section>
 
 <section class="page">
 <h3>Resources. Lab Imager Command Library</h3>
