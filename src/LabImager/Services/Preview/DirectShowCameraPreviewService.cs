@@ -22,7 +22,12 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
 
     public bool IsPreviewFrozen { get; private set; }
     
-    public void StartPreview(CameraDeviceInfo source, IntPtr previewHandle, int width, int height)
+    public void StartPreview(
+        CameraDeviceInfo source,
+        CameraCaptureFormat? selectedFormat,
+        IntPtr previewHandle,
+        int width,
+        int height)
     {
         if (string.IsNullOrWhiteSpace(source.DevicePath) && string.IsNullOrWhiteSpace(source.Name))
         {
@@ -60,6 +65,11 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
 
         hr = _graphBuilder.AddFilter(_sourceFilter, source.Name);
         DsError.ThrowExceptionForHR(hr);
+
+        ApplySelectedFormat(
+            _captureGraphBuilder,
+            _sourceFilter,
+            selectedFormat);
 
         hr = _captureGraphBuilder.RenderStream(
             PinCategory.Preview,
@@ -176,6 +186,160 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         IsPreviewFrozen = false;
     }
 
+    private static void ApplySelectedFormat(
+        ICaptureGraphBuilder2 captureGraphBuilder,
+        IBaseFilter sourceFilter,
+        CameraCaptureFormat? selectedFormat)
+    {
+        if (selectedFormat == null || !selectedFormat.IsAvailable)
+        {
+            return;
+        }
+
+        var streamConfigGuid = typeof(IAMStreamConfig).GUID;
+
+        var hr = captureGraphBuilder.FindInterface(
+            PinCategory.Capture,
+            MediaType.Video,
+            sourceFilter,
+            streamConfigGuid,
+            out var configObject);
+
+        if (hr < 0)
+        {
+            hr = captureGraphBuilder.FindInterface(
+                PinCategory.Preview,
+                MediaType.Video,
+                sourceFilter,
+                streamConfigGuid,
+                out configObject);
+        }
+
+        DsError.ThrowExceptionForHR(hr);
+
+        var streamConfig = (IAMStreamConfig)configObject;
+        IntPtr capsPointer = IntPtr.Zero;
+
+        try
+        {
+            DsError.ThrowExceptionForHR(
+                streamConfig.GetNumberOfCapabilities(
+                    out var count,
+                    out var size));
+
+            capsPointer = Marshal.AllocHGlobal(size);
+
+            for (var i = 0; i < count; i++)
+            {
+                AMMediaType? mediaType = null;
+
+                try
+                {
+                    DsError.ThrowExceptionForHR(
+                        streamConfig.GetStreamCaps(
+                            i,
+                            out mediaType,
+                            capsPointer));
+
+                    if (mediaType == null ||
+                        mediaType.formatPtr == IntPtr.Zero ||
+                        mediaType.formatType != FormatType.VideoInfo)
+                    {
+                        continue;
+                    }
+
+                    var info = Marshal.PtrToStructure<VideoInfoHeader>(
+                        mediaType.formatPtr);
+
+                    var width = info.BmiHeader.Width;
+                    var height = Math.Abs(info.BmiHeader.Height);
+                    var fps = info.AvgTimePerFrame > 0
+                        ? Math.Round(10000000.0 / info.AvgTimePerFrame, 2)
+                        : 0;
+
+                    var subtypeName = GetSubtypeName(mediaType.subType);
+
+                    if (!FormatMatches(selectedFormat, width, height, fps, subtypeName))
+                    {
+                        continue;
+                    }
+
+                    DsError.ThrowExceptionForHR(
+                        streamConfig.SetFormat(mediaType));
+
+                    return;
+                }
+                finally
+                {
+                    if (mediaType != null)
+                    {
+                        DsUtils.FreeAMMediaType(mediaType);
+                    }
+                }
+            }
+        }
+        finally
+        {
+            if (capsPointer != IntPtr.Zero)
+            {
+                Marshal.FreeHGlobal(capsPointer);
+            }
+
+            ReleaseComObject(streamConfig);
+        }
+    }
+
+    private static bool FormatMatches(
+        CameraCaptureFormat selectedFormat,
+        int width,
+        int height,
+        double fps,
+        string subtypeName)
+    {
+        return selectedFormat.Width == width &&
+               selectedFormat.Height == height &&
+               Math.Abs(selectedFormat.FramesPerSecond - fps) < 0.5 &&
+               string.Equals(selectedFormat.SubType, subtypeName, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string GetSubtypeName(Guid subtype)
+    {
+        var subtypeMap = new Dictionary<Guid, string>
+        {
+            [MediaSubType.MJPG] = "MJPG",
+            [MediaSubType.YUY2] = "YUY2",
+            [MediaSubType.NV12] = "NV12",
+            [FourCcToGuid("H264")] = "H264",
+            [FourCcToGuid("H265")] = "H265",
+            [FourCcToGuid("HEVC")] = "HEVC",
+            [FourCcToGuid("I420")] = "I420",
+            [FourCcToGuid("YV12")] = "YV12"
+        };
+
+        return subtypeMap.TryGetValue(subtype, out var name)
+            ? name
+            : subtype.ToString();
+    }
+
+    private static Guid FourCcToGuid(string fourCc)
+    {
+        var bytes = System.Text.Encoding.ASCII.GetBytes(fourCc);
+        var value = BitConverter.ToUInt32(bytes, 0);
+
+        return new Guid(
+            (int)value,
+            0x0000,
+            0x0010,
+            0x80,
+            0x00,
+            0x00,
+            0xaa,
+            0x00,
+            0x38,
+            0x9b,
+            0x71);
+    }
+
     private static void ReleaseComObject(object? comObject)
     {
         if (comObject == null)
@@ -189,5 +353,3 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         }
     }
 }
-
-

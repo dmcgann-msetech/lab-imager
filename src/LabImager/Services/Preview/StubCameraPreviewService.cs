@@ -9,7 +9,12 @@ public sealed class StubCameraPreviewService : ICameraPreviewService
 
     public bool IsPreviewFrozen { get; private set; }
 
-    public void StartPreview(CameraDeviceInfo source, IntPtr previewHandle, int width, int height)
+    public void StartPreview(
+        CameraDeviceInfo source,
+        CameraCaptureFormat? selectedFormat,
+        IntPtr previewHandle,
+        int width,
+        int height)
     {
         IsPreviewRunning = true;
         IsPreviewFrozen = false;

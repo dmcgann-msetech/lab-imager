@@ -9,7 +9,12 @@ public interface ICameraPreviewService
 
     bool IsPreviewFrozen { get; }
 
-    void StartPreview(CameraDeviceInfo source, IntPtr previewHandle, int width, int height);
+    void StartPreview(
+        CameraDeviceInfo source,
+        CameraCaptureFormat? selectedFormat,
+        IntPtr previewHandle,
+        int width,
+        int height);
 
     void ResizePreview(int width, int height);
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using LabImager.Services.Camera;
 using LabImager.Services.Capture;
 using LabImager.Models.Session;
+using LabImager.Models.Camera;
 using LabImager.Services.Preview;
 using LabImager.Services.Recording;
 using LabImager.Services.Settings;
@@ -215,8 +216,15 @@ namespace LabImager
                 ViewportPlaceholder.Visibility = Visibility.Collapsed;
                 PreviewHost.UpdateLayout();
 
+                var selectedFormat =
+                    CaptureFormatSelector.SelectedItem is ComboBoxItem selectedFormatItem &&
+                    selectedFormatItem.Tag is CameraCaptureFormat cameraCaptureFormat
+                        ? cameraCaptureFormat
+                        : null;
+
                 _cameraPreviewService.StartPreview(
                     source,
+                    selectedFormat,
                     PreviewPanel.Handle,
                     PreviewPanel.ClientSize.Width,
                     PreviewPanel.ClientSize.Height);
@@ -681,39 +689,3 @@ namespace LabImager
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
