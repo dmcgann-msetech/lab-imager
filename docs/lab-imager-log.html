@@ -2614,6 +2614,102 @@ Engineering review confirmed that current repository dependencies consist solely
 <div class="page-num">41</div>
 </section>
 
+<section class="page">
+<h3>42. Selected Capture Format Preview Graph Application</h3>
+<p class="sub">DirectShow capture-format negotiation milestone, UI-to-preview format handoff, runtime validation, and recording-path discovery.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Selected capture format application is implemented, build-validated, runtime-reviewed, committed, pushed, and synchronized to <code>origin/feature/wpf-frame-pipeline</code> under commit <code>167b18f</code> with message <code>Apply selected capture format to preview graph</code>.
+</div>
+
+<h4>Purpose</h4>
+<p>
+This section records the completion of the capture-format handoff between the Lab Session <code>Capture Format</code> dropdown and the active DirectShow preview graph. Previously, Lab Imager could enumerate and display camera formats, but the selected dropdown value was not applied to preview startup.
+</p>
+
+<h4>Implementation Summary</h4>
+<table>
+<tr><th>File / Component</th><th>Change</th><th>Status</th></tr>
+<tr><td><code>MainWindow.xaml.cs</code></td><td>Reads <code>CaptureFormatSelector.SelectedItem</code>, extracts <code>CameraCaptureFormat</code> from <code>ComboBoxItem.Tag</code>, and passes it into preview startup.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>ICameraPreviewService.cs</code></td><td>Expanded <code>StartPreview</code> to accept <code>CameraCaptureFormat? selectedFormat</code>.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td><code>DirectShowCameraPreviewService.cs</code></td><td>Added <code>IAMStreamConfig</code> format negotiation before <code>RenderStream()</code>.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>StubCameraPreviewService.cs</code></td><td>Updated stub implementation to match the expanded preview-service contract.</td><td><span class="status done">Updated</span></td></tr>
+</table>
+
+<h4>Selected Format Handoff</h4>
+<pre><code>var selectedFormat =
+    CaptureFormatSelector.SelectedItem is ComboBoxItem selectedFormatItem &&
+    selectedFormatItem.Tag is CameraCaptureFormat cameraCaptureFormat
+        ? cameraCaptureFormat
+        : null;
+
+_cameraPreviewService.StartPreview(
+    source,
+    selectedFormat,
+    PreviewPanel.Handle,
+    PreviewPanel.ClientSize.Width,
+    PreviewPanel.ClientSize.Height);</code></pre>
+
+<h4>Preview Graph Format Application</h4>
+<table>
+<tr><th>Step</th><th>Behavior</th></tr>
+<tr><td>1</td><td>Preview graph is created and the selected source filter is added.</td></tr>
+<tr><td>2</td><td><code>ApplySelectedFormat()</code> attempts to locate <code>IAMStreamConfig</code>.</td></tr>
+<tr><td>3</td><td>Stream capabilities are enumerated through <code>GetStreamCaps()</code>.</td></tr>
+<tr><td>4</td><td>Capabilities are matched against selected width, height, FPS, and subtype.</td></tr>
+<tr><td>5</td><td>The matching <code>AMMediaType</code> is applied using <code>SetFormat()</code>.</td></tr>
+<tr><td>6</td><td><code>RenderStream()</code> runs after selected-format application.</td></tr>
+</table>
+
+<h4>Runtime Validation</h4>
+<table>
+<tr><th>Validation Item</th><th>Result</th><th>Notes</th></tr>
+<tr><td>Build</td><td><span class="status done">Passed</span></td><td><code>dotnet build src\LabImager\LabImager.csproj</code> completed with zero errors.</td></tr>
+<tr><td>Application launch</td><td><span class="status done">Passed</span></td><td><code>dotnet run --project src\LabImager\LabImager.csproj</code> launched successfully.</td></tr>
+<tr><td>Selected format application</td><td><span class="status done">Validated</span></td><td>Preview quality visibly changed when different capture formats were selected.</td></tr>
+<tr><td><code>1920x1080 @ 60 FPS — MJPG</code></td><td><span class="status done">Best observed</span></td><td>Produced the cleanest observed preview with reduced jagged-edge behavior.</td></tr>
+</table>
+
+<h4>Repository Record</h4>
+<table>
+<tr><th>Item</th><th>Value</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Commit</td><td><code>167b18f</code></td></tr>
+<tr><td>Commit message</td><td><code>Apply selected capture format to preview graph</code></td></tr>
+<tr><td>Push target</td><td><code>origin/feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Working tree after cleanup</td><td><span class="status done">Clean</span></td></tr>
+</table>
+
+<h4>Recording Integration Discovery</h4>
+<div class="note warn">
+<strong>Important finding:</strong> The MainWindow Record button is not currently connected to the working DirectShow recording implementation. It drives the <code>RecordingService</code> timer/state workflow only.
+</div>
+
+<table>
+<tr><th>Recording Area</th><th>Current State</th><th>Status</th></tr>
+<tr><td>MainWindow Record button</td><td>Calls <code>_recordingService.Start()</code> and <code>_recordingService.Stop()</code>.</td><td><span class="status done">UI state only</span></td></tr>
+<tr><td><code>RecordingService</code></td><td>Tracks elapsed time and recording state using a dispatcher timer.</td><td><span class="status done">State foundation</span></td></tr>
+<tr><td>Encoded video output from MainWindow</td><td>No file writer, muxer, encoder, or output path is wired into the MainWindow recording path.</td><td><span class="status pending">Not implemented</span></td></tr>
+<tr><td>Working source recorder</td><td>Standalone DirectShow implementation exists under <code>tools/RecordingProbe</code>.</td><td><span class="status done">Proven separately</span></td></tr>
+</table>
+
+<h4>Remaining Validation / Follow-Up</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Freeze after selected format</td><td><span class="status pending">Pending final pass</span></td><td>Validate Freeze against selected high-quality format.</td></tr>
+<tr><td>Resume after selected format</td><td><span class="status pending">Pending final pass</span></td><td>Validate Resume after selected-format preview startup.</td></tr>
+<tr><td>Stop after selected format</td><td><span class="status pending">Pending final pass</span></td><td>Validate Stop does not wedge the camera.</td></tr>
+<tr><td>Camera reselection after selected format</td><td><span class="status pending">Pending final pass</span></td><td>Confirm camera reselection stops preview, repopulates formats, and starts preview again.</td></tr>
+<tr><td>Recording integration</td><td><span class="status pending">Future task</span></td><td>Wire the proven <code>RecordingProbe</code> recorder into MainWindow after preview format negotiation remains stable.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Capture format selection is no longer display-only. The selected format now flows into the DirectShow preview graph and produces observable preview-quality differences. Future recording integration must reuse this selected-format behavior rather than relying on DirectShow default negotiation.
+</div>
+
+<div class="page-num">42</div>
+</section>
+
 </section>
 
 <section class="page">
