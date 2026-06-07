@@ -2534,6 +2534,62 @@ dotnet list tools\RecordingProbe\RecordingProbe.csproj package</code></pre>
 Dependency review determined that current package inventory consists solely of DirectShowLib.Net 3.0.0 in addition to standard Microsoft .NET platform components. No third-party packages requiring source disclosure, derivative work publication, or mandatory open-source distribution were identified during review.
 </p>
 
+<h4>Repository Governance Expansion</h4>
+
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr>
+<td>README Review</td>
+<td><span class="status done">Completed</span></td>
+<td>Repository documentation reviewed and expanded to include project overview, feature summary, build instructions, repository structure, ownership statements, and development status.</td>
+</tr>
+<tr>
+<td>License Strategy Review</td>
+<td><span class="status done">Completed</span></td>
+<td>Open-source licensing requirements reviewed against current project dependencies and ownership goals.</td>
+</tr>
+<tr>
+<td>Dependency License Audit</td>
+<td><span class="status done">Completed</span></td>
+<td>All active project package references reviewed to identify potential GPL, AGPL, LGPL, SSPL, or other copyleft obligations.</td>
+</tr>
+<tr>
+<td>Proprietary Distribution Model</td>
+<td><span class="status done">Confirmed</span></td>
+<td>Project confirmed to remain publicly visible while retaining proprietary ownership under MSE McGann Systems Engineering.</td>
+</tr>
+<tr>
+<td>LICENSE.md Planning</td>
+<td><span class="status done">Completed</span></td>
+<td>Proprietary software license drafted for future repository inclusion.</td>
+</tr>
+</table>
+
+<h4>Dependency Verification Evidence</h4>
+
+<pre><code>dotnet list src\LabImager\LabImager.csproj package
+
+Project 'LabImager' has the following package references
+
+Top-level Package
+DirectShowLib.Net 3.0.0
+
+dotnet list tools\RecordingProbe\RecordingProbe.csproj package
+
+Project 'RecordingProbe' has the following package references
+
+Top-level Package
+DirectShowLib.Net 3.0.0
+</code></pre>
+
+<p>
+Engineering review confirmed that current repository dependencies consist solely of DirectShowLib.Net 3.0.0 in addition to standard Microsoft .NET platform components. No GPL, AGPL, LGPL, SSPL, or other copyleft licensing obligations were identified. Current repository ownership and future commercial distribution plans remain unaffected by third-party dependency licensing.
+</p>
+
+<div class="note ok">
+<strong>Governance checkpoint:</strong> Repository administration, ownership declarations, dependency review, and licensing posture have now been formally documented. This establishes the initial governance baseline required before future release packaging, installer creation, public distribution, or commercial deployment activities.
+</div>
+
 <h4>Repository State</h4>
 
 <table>
