@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lab Imager Project Log - HDMI Microscope Capture and Annotation Workstation</title>
+<style>
+:root{--bg:#eef2f6;--paper:#fff;--ink:#1f2937;--muted:#6b7280;--line:#d6d3d1;--accent:#075985;--soft:#f8fbff;--code:#f3f4f6;--green:#166534;--blue:#075985;--red:#991b1b;--steel:#334155}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+.page{width:8.5in;min-height:11in;margin:24px auto;background:var(--paper);box-shadow:0 10px 30px rgba(0,0,0,.08);padding:.62in .72in .65in;position:relative}
+.cover{padding:1in .9in;display:flex;flex-direction:column;justify-content:space-between}
+.eyebrow{font:700 12px Arial,Helvetica,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.rule{height:2px;background:linear-gradient(90deg,var(--accent),transparent);margin:18px 0 28px}
+h1{font-size:38px;line-height:1.05;margin:.15in 0 0;color:#111827}
+h2{font:600 17px Arial,Helvetica,sans-serif;color:var(--muted);margin:12px 0 0}
+h3{font-size:25px;margin:0 0 8px;color:#111827}
+h4{margin:20px 0 8px;font:700 14px Arial,Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.05em}
+p{line-height:1.58;margin:0 0 10px}
+ul,ol{line-height:1.55;margin:8px 0 14px;padding-left:22px}
+li{margin:4px 0}
+.sub{font:14px Arial,Helvetica,sans-serif;color:var(--muted);margin:0 0 16px}
+.summary,.note{border:1px solid var(--line);border-left:6px solid var(--accent);background:var(--soft);padding:16px 18px;margin:14px 0;font:14px/1.55 Arial,Helvetica,sans-serif}
+.ok{border-left-color:var(--green);background:#f6fff8}
+.warn{border-left-color:var(--red);background:#fff8f8}
+.watch{border-left-color:var(--blue);background:#f0f9ff}
+.steel{border-left-color:var(--steel);background:#f8fafc}
+table{width:100%;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:11.5px;border:1px solid var(--line);background:#fff;margin:10px 0 16px}
+th{background:#eef6fb;padding:9px 8px;text-align:left;text-transform:uppercase;font-size:10px;letter-spacing:.06em}
+td{padding:8px;border-bottom:1px solid #e8edf2;vertical-align:top}
+code,pre{font-family:Consolas,Menlo,monospace;background:var(--code);border:1px solid #e5e7eb;border-radius:4px;color:#111827}
+code{padding:1px 4px;font-size:11px}
+pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;font-size:11px;line-height:1.4;margin:8px 0 14px}
+.status{display:inline-block;border-radius:999px;padding:3px 8px;font:700 10px Arial,Helvetica,sans-serif;text-transform:uppercase}
+.done{background:#dcfce7;color:#166534}.active{background:#e0f2fe;color:#075985}.pending{background:#fef3c7;color:#92400e}.blocked{background:#fee2e2;color:#991b1b}.recovered{background:#dcfce7;color:#166534}.partial{background:#fef3c7;color:#92400e}.watching{background:#e0f2fe;color:#075985}
+.prio{display:inline-block;border-radius:999px;padding:3px 8px;font:700 10px Arial,Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.critical{background:#fee2e2;color:#991b1b}.high{background:#ffedd5;color:#9a3412}.medium{background:#fef3c7;color:#92400e}.low{background:#e0f2fe;color:#075985}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0 20px}
+.card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:13px 14px;font-family:Arial,Helvetica,sans-serif}
+.card strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#111827;margin-bottom:6px}
+.card span{font-size:13px;line-height:1.45;color:#4b5563}
+.section-label{font:700 11px/1 Arial,Helvetica,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-top:20px}
+.toc td:first-child{width:22%;font-weight:700;color:#075985}
+tbody tr:nth-child(even){background:#fafcff}
+.page-num{position:absolute;right:.55in;bottom:.32in;font:11px Arial,Helvetica,sans-serif;color:var(--muted)}
+.icon-mark{font:52px/1 Arial,Helvetica,sans-serif;color:#075985;margin:0 0 18px}
+@page{size:letter;margin:.4in}
+@media print{body{background:#fff}.page{margin:0 auto;box-shadow:none;page-break-after:always}.page:last-child{page-break-after:auto}}
+</style>
+</head>
+<body>
+
+<section class="page cover">
+<div>
+<div class="eyebrow">LAB IMAGER · INTERNAL ENGINEERING ROADMAP</div>
+<div class="rule"></div>
+<div class="icon-mark">🔬</div>
+<h1>Lab Imager Roadmap Log</h1>
+<h2>HDMI Microscope Capture, Annotation, Screenshot, and Bench Documentation Workstation</h2>
+<div class="summary">
+<p>Current functional backlog, validation checklist, and merge-to-main readiness tracker.</p>
+<p>This file is the canonical editable project ledger and is intentionally built as printable HTML so it can be updated directly in PowerShell, VS Code, Git, or future automation workflows.</p>
+</div>
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>Project</td><td><code>Lab Imager</code></td></tr>
+<tr><td>Repository description</td><td>Windows-native HDMI microscope capture and annotation workstation for soldering, PCB inspection, timestamped screenshots, and lab documentation.</td></tr>
+<tr><td>Primary platform</td><td><code>Windows Desktop</code></td></tr>
+<tr><td>Primary stack</td><td><code>C# / .NET / WPF</code></td></tr>
+<tr><td>Hardware input</td><td>HDMI microscope camera through HDMI capture device</td></tr>
+<tr><td>Default appearance</td><td>Dark mode with user-selectable Light and System Default options</td></tr>
+<tr><td>Initialized</td><td><code>2026-06-03 11:24:56</code></td></tr>
+</table>
+</div>
+<div class="sub">Printable roadmap ledger.</div>
+<div class="page-num">Cover</div>
+</section>
