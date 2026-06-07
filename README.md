@@ -160,3 +160,14 @@ Engineering history, validation records, architecture notes, and milestone track
 ```text
 docs/lab-imager-log.html
 ```
+
+
+## Ownership and Copyright
+
+Lab Imager is developed and maintained by MSE McGann Systems Engineering.
+
+Copyright © 2026 MSE McGann Systems Engineering.
+
+All rights reserved.
+
+This repository is publicly visible for development transparency and project demonstration purposes. No license is granted for copying, modification, redistribution, commercial use, or derivative works without prior written permission from MSE McGann Systems Engineering.
