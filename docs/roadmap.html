@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lab Imager Roadmap - M1 Remaining Work</title>
+<style>
+:root{--bg:#eef2f6;--paper:#fff;--ink:#1f2937;--muted:#6b7280;--line:#d6d3d1;--accent:#075985;--soft:#f8fbff;--code:#f3f4f6;--green:#166534;--blue:#075985;--red:#991b1b;--steel:#334155}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+.page{width:8.5in;min-height:11in;margin:24px auto;background:var(--paper);box-shadow:0 10px 30px rgba(0,0,0,.08);padding:.62in .72in .65in;position:relative}
+.eyebrow{font:700 12px Arial,Helvetica,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.rule{height:2px;background:linear-gradient(90deg,var(--accent),transparent);margin:18px 0 28px}
+h1{font-size:34px;line-height:1.05;margin:0;color:#111827}
+h2{font:600 17px Arial,Helvetica,sans-serif;color:var(--muted);margin:10px 0 0}
+h3{font-size:25px;margin:0 0 8px;color:#111827}
+h4{margin:20px 0 8px;font:700 14px Arial,Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.05em}
+p{line-height:1.58;margin:0 0 10px}
+ul,ol{line-height:1.55;margin:8px 0 14px;padding-left:22px}
+li{margin:4px 0}
+.sub{font:14px Arial,Helvetica,sans-serif;color:var(--muted);margin:0 0 16px}
+.summary,.note{border:1px solid var(--line);border-left:6px solid var(--accent);background:var(--soft);padding:16px 18px;margin:14px 0;font:14px/1.55 Arial,Helvetica,sans-serif}
+.ok{border-left-color:var(--green);background:#f6fff8}
+.warn{border-left-color:var(--red);background:#fff8f8}
+.watch{border-left-color:var(--blue);background:#f0f9ff}
+.steel{border-left-color:var(--steel);background:#f8fafc}
+table{width:100%;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:11.5px;border:1px solid var(--line);background:#fff;margin:10px 0 16px}
+th{background:#eef6fb;padding:9px 8px;text-align:left;text-transform:uppercase;font-size:10px;letter-spacing:.06em}
+td{padding:8px;border-bottom:1px solid #e8edf2;vertical-align:top}
+code,pre{font-family:Consolas,Menlo,monospace;background:var(--code);border:1px solid #e5e7eb;border-radius:4px;color:#111827}
+code{padding:1px 4px;font-size:11px}
+pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;font-size:11px;line-height:1.4;margin:8px 0 14px}
+.status{display:inline-block;border-radius:999px;padding:3px 8px;font:700 10px Arial,Helvetica,sans-serif;text-transform:uppercase}
+.done{background:#dcfce7;color:#166534}.active{background:#e0f2fe;color:#075985}.pending{background:#fef3c7;color:#92400e}.blocked{background:#fee2e2;color:#991b1b}.watching{background:#e0f2fe;color:#075985}
+.page-num{position:absolute;right:.55in;bottom:.32in;font:11px Arial,Helvetica,sans-serif;color:var(--muted)}
+@page{size:letter;margin:.4in}
+@media print{body{background:#fff}.page{margin:0 auto;box-shadow:none;page-break-after:always}.page:last-child{page-break-after:auto}}
+</style>
+</head>
+<body>
+
+<section class="page">
+<div class="eyebrow">LAB IMAGER · M1 ROADMAP</div>
+<div class="rule"></div>
+<h1>M1 Remaining Work</h1>
+<h2>Current functional backlog, validation checklist, and merge-to-main readiness tracker.</h2>
+
+<div class="note ok">
+<strong>Current top priority:</strong> Capture Format Application is implemented and validated. The next major engineering target is Integrated Recording Architecture.
+</div>
+
+<h4>Priority 1 — Capture Format Application</h4>
+<div class="note ok"><strong>Status:</strong> Implemented and Validated</div>
+
+<pre>Camera → Enumerate Formats
+       → Select Format
+       → Apply Format (IAMStreamConfig)
+       → Preview</pre>
+
+<table>
+<tr><th>Task</th><th>Status</th></tr>
+<tr><td>Pass selected <code>CameraCaptureFormat</code> from UI into preview service.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Implement <code>IAMStreamConfig</code>.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Match Width / Height / FPS / Subtype.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Call <code>SetFormat()</code>.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate MJPG.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate YUY2.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate H264.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate 720p.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate 1080p.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate Freeze.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate Capture.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate Stop.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate Camera Reselection.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate Format Reselection While Preview Stopped.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate Format Reselection After Restart.</td><td><span class="status done">Complete</span></td></tr>
+</table>
+
+<div class="note watch">
+<strong>Notes:</strong> MJPG 720p60 and 1080p60 successfully applied to the active preview graph. Additional validation for YUY2/H264 remains dependent on camera support.
+</div>
+
+<div class="page-num">1</div>
+</section>
+
+<section class="page">
+<h3>Priority 2 — Integrated Recording Architecture</h3>
+<p class="sub">Single-graph recording redesign required for real bench use.</p>
+
+<div class="note warn"><strong>Status:</strong> Pending Redesign</div>
+
+<h4>Current State</h4>
+<pre>Recording proof-of-concept successfully produced AVI files.
+
+Architecture rejected because recording required stopping
+the live preview graph.</pre>
+
+<h4>Required Final Behavior</h4>
+<pre>Live Preview
+      +
+Recording
+      +
+Selected Capture Format</pre>
+
+<table>
+<tr><th>Task</th><th>Status</th></tr>
+<tr><td>Design single-graph preview + recording architecture.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Keep preview visible while recording.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Record from active preview graph.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Preserve selected capture format.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate MJPG recording.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate YUY2 recording.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate H264 recording.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate recording start/stop.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate preview recovery after recording.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate long-duration recording.</td><td><span class="status pending">Pending</span></td></tr>
+</table>
+
+<h4>Recording Naming Requirements</h4>
+<table>
+<tr><th>Requirement</th><th>Status</th></tr>
+<tr><td>Implement session-based filename generation.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Filename format: <code>yyyyMMdd-HHmmss_Project_Board_Technician.avi</code></td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Automatically skip blank metadata fields.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Sanitize invalid filename characters.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Fallback when all metadata fields are blank: <code>yyyyMMdd-HHmmss_lab-imager-recording.avi</code></td><td><span class="status pending">Pending</span></td></tr>
+</table>
+
+<div class="page-num">2</div>
+</section>
+
+<section class="page">
+<h3>Priority 3 — Evidence Workflow Validation</h3>
+<p class="sub">Capture, export, annotation, and metadata verification.</p>
+
+<div class="note watch"><strong>Status:</strong> Mostly Complete</div>
+
+<table>
+<tr><th>Validation Item</th><th>Status</th></tr>
+<tr><td>Capture while live.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Capture while frozen.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Capture after resume.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Capture after source change.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>PDF export.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>PNG export.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Annotation preservation.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Metadata preservation.</td><td><span class="status done">Complete</span></td></tr>
+</table>
+
+<h4>Priority 4 — UI Cleanup Pass</h4>
+<div class="note watch"><strong>Status:</strong> Pending</div>
+
+<table>
+<tr><th>Item</th><th>Status</th></tr>
+<tr><td>Control spacing.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Alignment consistency.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Right-panel cleanup.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Transport control cleanup.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Button sizing review.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Font consistency.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Final responsive-layout review.</td><td><span class="status pending">Pending</span></td></tr>
+</table>
+
+<div class="page-num">3</div>
+</section>
+
+<section class="page">
+<h3>Priority 5 — Technical Debt Cleanup</h3>
+<p class="sub">Known warnings, dead fields, nullable cleanup, and obsolete scaffolding removal.</p>
+
+<div class="note watch"><strong>Status:</strong> Pending</div>
+
+<h4>Known Warnings</h4>
+<pre>DirectShowCameraDeviceService.cs
+CS8602 possible null dereference
+
+DirectShowCameraPreviewService.cs
+CS8602 possible null dereference
+
+DirectShowFramePreviewService.cs
+_latestFrame never used
+
+DirectShowFramePreviewService.cs
+_frameCount never used</pre>
+
+<table>
+<tr><th>Task</th><th>Status</th></tr>
+<tr><td>Remove dead fields.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Fix nullable warnings.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Remove obsolete scaffolding.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Remove obsolete probe code no longer required.</td><td><span class="status pending">Pending</span></td></tr>
+</table>
+
+<h4>Priority 6 — Release Preparation</h4>
+<div class="note watch"><strong>Status:</strong> Pending</div>
+
+<table>
+<tr><th>Administrative Item</th><th>Status</th></tr>
+<tr><td>README</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>LICENSE</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Dependency Audit</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Repository Governance</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Release notes.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Version number strategy.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Release tag.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Packaging strategy.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Installer decision.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Release candidate validation.</td><td><span class="status pending">Pending</span></td></tr>
+</table>
+
+<div class="page-num">4</div>
+</section>
+
+<section class="page">
+<h3>Merge-To-Main Checklist</h3>
+<p class="sub">Required gates before merging <code>feature/wpf-frame-pipeline</code> into <code>main</code>.</p>
+
+<table>
+<tr><th>Requirement</th><th>Status</th></tr>
+<tr><td>Capture format application complete.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Integrated recording complete.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Evidence workflow validated.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>UI cleanup pass complete.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Technical debt cleanup complete.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Build clean.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>No regression failures.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>M1 review completed.</td><td><span class="status pending">Pending</span></td></tr>
+</table>
+
+<h4>Merge Procedure</h4>
+<pre>git checkout main
+git pull
+
+git merge feature/wpf-frame-pipeline
+
+git push origin main
+
+git tag m1-release-candidate
+git push origin m1-release-candidate</pre>
+
+<h4>What To Work On Next</h4>
+<pre>1. Integrated Recording Architecture
+2. Evidence Workflow Validation
+3. UI Cleanup
+4. Technical Debt Cleanup
+5. M1 Review
+6. Merge to Main</pre>
+
+<div class="note ok">
+<strong>Roadmap decision:</strong> Integrated Recording Architecture is the next major functional workstream. Recording must preserve live preview, selected capture format, and evidence-friendly session-based file naming.
+</div>
+
+<div class="page-num">5</div>
+</section>
+
+</body>
+</html>
