@@ -430,7 +430,7 @@ namespace LabImager
                 var metadata = BuildCurrentSessionMetadata();
 
                 var originalPath = CapturePreviewPanelToPng();
-                var evidencePath = _viewportCaptureService.CreateEvidencePng(originalPath, metadata);
+                var evidencePath = _viewportCaptureService.CreateEvidencePng(originalPath, metadata, NotesEditor.Document);
 
                 CameraStatusText.Text = $"Source: Evidence Capture Saved: {evidencePath}";
             }
@@ -761,6 +761,9 @@ namespace LabImager
         }
     }
 }
+
+
+
 
 
 

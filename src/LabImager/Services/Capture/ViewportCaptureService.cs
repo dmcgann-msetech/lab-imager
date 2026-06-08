@@ -1,10 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Xml;
 using LabImager.Models.Session;
 
 namespace LabImager.Services.Capture;
@@ -38,6 +42,17 @@ public sealed class ViewportCaptureService : IViewportCaptureService
 
     public string CreateEvidencePng(string originalImagePath, SessionMetadata metadata)
     {
+        var fallbackDocument = new FlowDocument();
+        fallbackDocument.Blocks.Add(new Paragraph(new Run(metadata.NotesText ?? string.Empty)));
+
+        return CreateEvidencePng(originalImagePath, metadata, fallbackDocument);
+    }
+
+    public string CreateEvidencePng(
+        string originalImagePath,
+        SessionMetadata metadata,
+        FlowDocument notesDocument)
+    {
         if (!File.Exists(originalImagePath))
             throw new FileNotFoundException("Original capture image was not found.", originalImagePath);
 
@@ -46,7 +61,9 @@ public sealed class ViewportCaptureService : IViewportCaptureService
         var imageHeight = source.PixelHeight;
 
         var metadataLines = BuildMetadataLines(metadata);
-        var panelHeight = Math.Max(260, 34 + metadataLines.Count * 24);
+        var notesBitmap = RenderNotesDocument(notesDocument, width - 48);
+
+        var panelHeight = Math.Max(260, 120 + metadataLines.Count * 24 + notesBitmap.PixelHeight);
 
         var visual = new DrawingVisual();
 
@@ -74,6 +91,12 @@ public sealed class ViewportCaptureService : IViewportCaptureService
                 context.DrawText(text, new System.Windows.Point(24, y));
                 y += 24;
             }
+
+            y += 10;
+
+            context.DrawImage(
+                notesBitmap,
+                new Rect(24, y, width - 48, notesBitmap.PixelHeight));
         }
 
         var output = new RenderTargetBitmap(width, imageHeight + panelHeight, 96, 96, PixelFormats.Pbgra32);
@@ -85,6 +108,49 @@ public sealed class ViewportCaptureService : IViewportCaptureService
 
         SaveBitmap(output, evidencePath);
         return evidencePath;
+    }
+
+    private static BitmapSource RenderNotesDocument(FlowDocument sourceDocument, double width)
+    {
+        var xaml = XamlWriter.Save(sourceDocument);
+
+        using var stringReader = new StringReader(xaml);
+        using var xmlReader = XmlReader.Create(stringReader);
+
+        var clonedDocument = (FlowDocument)XamlReader.Load(xmlReader);
+
+        clonedDocument.Background = System.Windows.Media.Brushes.White;
+        clonedDocument.PagePadding = new Thickness(0);
+        clonedDocument.ColumnWidth = width;
+
+        var viewer = new System.Windows.Controls.RichTextBox
+        {
+            Document = clonedDocument,
+            Width = width,
+            Height = 260,
+            Background = System.Windows.Media.Brushes.White,
+            BorderThickness = new Thickness(0),
+            Padding = new Thickness(0),
+            IsReadOnly = true,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
+        };
+
+        viewer.Measure(new System.Windows.Size(width, 260));
+        viewer.Arrange(new Rect(0, 0, width, 260));
+        viewer.UpdateLayout();
+
+        var renderTarget = new RenderTargetBitmap(
+            (int)Math.Ceiling(width),
+            260,
+            96,
+            96,
+            PixelFormats.Pbgra32);
+
+        renderTarget.Render(viewer);
+        renderTarget.Freeze();
+
+        return renderTarget;
     }
 
     private static BitmapImage LoadBitmap(string path)
@@ -109,7 +175,7 @@ public sealed class ViewportCaptureService : IViewportCaptureService
 
     private static List<string> BuildMetadataLines(SessionMetadata metadata)
     {
-        var lines = new List<string>
+        return new List<string>
         {
             $"Project: {metadata.ProjectName}",
             $"Board / Device: {metadata.BoardOrDevice}",
@@ -118,36 +184,6 @@ public sealed class ViewportCaptureService : IViewportCaptureService
             $"Captured: {DateTime.Now:yyyy-MM-dd HH:mm:ss}",
             "Notes:"
         };
-
-        var notes = string.IsNullOrWhiteSpace(metadata.NotesText)
-            ? "(none)"
-            : metadata.NotesText.Trim();
-
-        foreach (var line in Wrap(notes, 96))
-            lines.Add($"  {line}");
-
-        return lines;
-    }
-
-    private static IEnumerable<string> Wrap(string text, int maxLength)
-    {
-        foreach (var rawLine in text.Replace("\r", "").Split('\n'))
-        {
-            var line = rawLine.Trim();
-
-            while (line.Length > maxLength)
-            {
-                var breakAt = line.LastIndexOf(' ', maxLength);
-                if (breakAt <= 0)
-                    breakAt = maxLength;
-
-                yield return line[..breakAt].Trim();
-                line = line[breakAt..].Trim();
-            }
-
-            if (line.Length > 0)
-                yield return line;
-        }
     }
 }
 
