@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -676,7 +676,7 @@ namespace LabImager
                 return;
             }
 
-            var sizeText = selectedItem.Content?.ToString();
+            var sizeText = selectedItem.Tag?.ToString() ?? selectedItem.Content?.ToString()?.Replace("pt", string.Empty).Trim();
 
             if (!double.TryParse(sizeText, out var fontSize))
             {
@@ -788,6 +788,182 @@ namespace LabImager
             NotesEditor.Focus();
         }
 
+        private void NotesDropdownButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is not System.Windows.Controls.Button button || button.ContextMenu is null)
+            {
+                return;
+            }
+
+            button.ContextMenu.PlacementTarget = button;
+            button.ContextMenu.IsOpen = true;
+        }
+
+        private void NotesFormattingContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (sender is not ContextMenu menu)
+            {
+                return;
+            }
+
+            var selection = GetActiveNotesSelection();
+
+            foreach (var item in menu.Items.OfType<MenuItem>())
+            {
+                if (item.Tag is not string tag)
+                {
+                    continue;
+                }
+
+                object value = tag switch
+                {
+                    "Bold" => selection.GetPropertyValue(TextElement.FontWeightProperty),
+                    "Italic" => selection.GetPropertyValue(TextElement.FontStyleProperty),
+                    "Underline" => selection.GetPropertyValue(Inline.TextDecorationsProperty),
+                    _ => DependencyProperty.UnsetValue
+                };
+
+                item.IsChecked = tag switch
+                {
+                    "Bold" => value is FontWeight weight && weight == FontWeights.Bold,
+                    "Italic" => value is System.Windows.FontStyle style && style == FontStyles.Italic,
+                    "Underline" => value == TextDecorations.Underline,
+                    _ => false
+                };
+            }
+        }
+
+        private void NotesListsContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (sender is not ContextMenu menu)
+            {
+                return;
+            }
+
+            var paragraph = NotesEditor.CaretPosition.Paragraph;
+            var markerStyle = TextMarkerStyle.None;
+
+            if (paragraph?.Parent is ListItem listItem &&
+                listItem.Parent is List list)
+            {
+                markerStyle = list.MarkerStyle;
+            }
+
+            foreach (var item in menu.Items.OfType<MenuItem>())
+            {
+                item.IsChecked = item.Tag switch
+                {
+                    "Bullet" => markerStyle == TextMarkerStyle.Disc ||
+                                markerStyle == TextMarkerStyle.Circle ||
+                                markerStyle == TextMarkerStyle.Square ||
+                                markerStyle == TextMarkerStyle.Box,
+                    "Numbered" => markerStyle == TextMarkerStyle.Decimal ||
+                                  markerStyle == TextMarkerStyle.LowerRoman ||
+                                  markerStyle == TextMarkerStyle.UpperRoman ||
+                                  markerStyle == TextMarkerStyle.LowerLatin ||
+                                  markerStyle == TextMarkerStyle.UpperLatin,
+                    _ => false
+                };
+            }
+        }
+
+        private void NotesAlignmentContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (sender is not ContextMenu menu)
+            {
+                return;
+            }
+
+            var selection = GetActiveNotesSelection();
+            var value = selection.GetPropertyValue(Block.TextAlignmentProperty);
+
+            var currentAlignment =
+                value is TextAlignment alignment
+                    ? alignment
+                    : TextAlignment.Left;
+
+            foreach (var item in menu.Items.OfType<MenuItem>())
+            {
+                item.IsChecked = item.Tag switch
+                {
+                    "Left" => currentAlignment == TextAlignment.Left,
+                    "Center" => currentAlignment == TextAlignment.Center,
+                    "Right" => currentAlignment == TextAlignment.Right,
+                    "Justify" => currentAlignment == TextAlignment.Justify,
+                    _ => false
+                };
+            }
+        }
+
+        private void NotesAlignmentMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is not MenuItem menuItem ||
+                menuItem.Tag is not string alignmentName)
+            {
+                return;
+            }
+
+            var selection = GetActiveNotesSelection();
+
+            var alignment = alignmentName switch
+            {
+                "Center" => TextAlignment.Center,
+                "Right" => TextAlignment.Right,
+                "Justify" => TextAlignment.Justify,
+                _ => TextAlignment.Left
+            };
+
+            selection.ApplyPropertyValue(
+                Block.TextAlignmentProperty,
+                alignment
+            );
+
+            NotesEditor.Focus();
+        }
+
+        private void NotesClearFormattingMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var selection = GetActiveNotesSelection();
+
+            if (selection is null || selection.IsEmpty)
+            {
+                NotesEditor.Focus();
+                return;
+            }
+
+            selection.ClearAllProperties();
+            NotesEditor.Focus();
+        }
+
+        private void NotesColorContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (sender is not ContextMenu menu)
+            {
+                return;
+            }
+
+            var selection = GetActiveNotesSelection();
+            var value = selection.GetPropertyValue(TextElement.ForegroundProperty);
+            var activeColor = "Default";
+
+            if (value is System.Windows.Media.SolidColorBrush brush)
+            {
+                activeColor = brush.Color.ToString();
+            }
+
+            foreach (var item in menu.Items.OfType<MenuItem>())
+            {
+                if (item.Tag is not string tag)
+                {
+                    continue;
+                }
+
+                item.IsChecked =
+                    tag == "Default"
+                        ? activeColor == "Default"
+                        : activeColor.Equals(((System.Windows.Media.SolidColorBrush)new System.Windows.Media.BrushConverter().ConvertFromString(tag)!).Color.ToString(), StringComparison.OrdinalIgnoreCase);
+            }
+        }
         private void NotesColorButton_Click(object sender, RoutedEventArgs e)
         {
             if (NotesColorButton.ContextMenu is null)
@@ -831,6 +1007,7 @@ namespace LabImager
         }
     }
 }
+
 
 
 
