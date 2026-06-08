@@ -676,27 +676,29 @@ namespace LabImager
                 return;
             }
 
-            var sizeText = NotesFontSizeSelector.Text;
+            var sizeText = selectedItem.Content?.ToString();
 
             if (!double.TryParse(sizeText, out var fontSize))
             {
                 return;
             }
 
-            if (!NotesEditor.Selection.IsEmpty)
+            var selection = GetActiveNotesSelection();
+
+            if (selection is null || selection.IsEmpty)
             {
-                NotesEditor.Selection.ApplyPropertyValue(
-                    TextElement.FontSizeProperty,
-                    fontSize
-                );
+                NotesEditor.Focus();
+                return;
             }
-            else
-            {
-                NotesEditor.FontSize = fontSize;
-            }
+
+            selection.ApplyPropertyValue(
+                TextElement.FontSizeProperty,
+                fontSize
+            );
 
             NotesEditor.Focus();
         }
+
         private void NotesBoldButton_Click(object sender, RoutedEventArgs e)
         {
             EditingCommands.ToggleBold.Execute(null, NotesEditor);
@@ -755,14 +757,22 @@ namespace LabImager
 
         private void NotesAlignButton_Click(object sender, RoutedEventArgs e)
         {
-            var paragraph = NotesEditor.CaretPosition.Paragraph;
+            var selection = GetActiveNotesSelection();
 
-            if (paragraph is null)
+            if (selection is null)
             {
+                NotesEditor.Focus();
                 return;
             }
 
-            var nextAlignment = paragraph.TextAlignment switch
+            var currentValue = selection.GetPropertyValue(Block.TextAlignmentProperty);
+
+            var currentAlignment =
+                currentValue is TextAlignment alignment
+                    ? alignment
+                    : TextAlignment.Left;
+
+            var nextAlignment = currentAlignment switch
             {
                 TextAlignment.Left => TextAlignment.Center,
                 TextAlignment.Center => TextAlignment.Right,
@@ -770,12 +780,11 @@ namespace LabImager
                 _ => TextAlignment.Left
             };
 
-            NotesEditor.Selection.ApplyPropertyValue(
+            selection.ApplyPropertyValue(
                 Block.TextAlignmentProperty,
                 nextAlignment
             );
 
-            paragraph.TextAlignment = nextAlignment;
             NotesEditor.Focus();
         }
 

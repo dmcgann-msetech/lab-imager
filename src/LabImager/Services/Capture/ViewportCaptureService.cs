@@ -127,7 +127,6 @@ public sealed class ViewportCaptureService : IViewportCaptureService
         {
             Document = clonedDocument,
             Width = width,
-            Height = 260,
             Background = System.Windows.Media.Brushes.White,
             BorderThickness = new Thickness(0),
             Padding = new Thickness(0),
@@ -136,13 +135,20 @@ public sealed class ViewportCaptureService : IViewportCaptureService
             HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
         };
 
-        viewer.Measure(new System.Windows.Size(width, 260));
-        viewer.Arrange(new Rect(0, 0, width, 260));
+        viewer.Measure(new System.Windows.Size(width, double.PositiveInfinity));
+        viewer.Arrange(new Rect(0, 0, width, viewer.DesiredSize.Height));
+        viewer.UpdateLayout();
+
+        var renderHeight = Math.Max(260, (int)Math.Ceiling(viewer.DesiredSize.Height));
+
+        viewer.Height = renderHeight;
+        viewer.Measure(new System.Windows.Size(width, renderHeight));
+        viewer.Arrange(new Rect(0, 0, width, renderHeight));
         viewer.UpdateLayout();
 
         var renderTarget = new RenderTargetBitmap(
             (int)Math.Ceiling(width),
-            260,
+            renderHeight,
             96,
             96,
             PixelFormats.Pbgra32);
