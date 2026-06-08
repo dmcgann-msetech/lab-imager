@@ -2823,7 +2823,7 @@
 
             <Button x:Name="NotesColorButton"
                     Style="{StaticResource DarkHoverButtonStyle}"
-                    Content="Color â–¾"
+                    Content="Color ▼"
                     Width="90"
                     Height="30"
                     ToolTip="Text color"
@@ -2856,7 +2856,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Formatting â–¾" Width="116" Height="30" Margin="0,0,8,0" Click="NotesDropdownButton_Click">
+            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Formatting ▼" Width="116" Height="30" Margin="0,0,8,0" Click="NotesDropdownButton_Click">
                 <Button.ContextMenu>
                     <ContextMenu Opened="NotesFormattingContextMenu_Opened">
                         <MenuItem Header="Bold" Tag="Bold" IsCheckable="True" Click="NotesBoldButton_Click"/>
@@ -2868,7 +2868,7 @@
                 </Button.ContextMenu>
             </Button>
 
-            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Lists â–¾" Width="82" Height="30" Margin="0,0,8,0" Click="NotesDropdownButton_Click">
+            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Lists ▼" Width="82" Height="30" Margin="0,0,8,0" Click="NotesDropdownButton_Click">
                 <Button.ContextMenu>
                     <ContextMenu Opened="NotesListsContextMenu_Opened">
                         <MenuItem Header="Bulleted List" Tag="Bullet" IsCheckable="True" Click="NotesBulletButton_Click"/>
@@ -2877,7 +2877,7 @@
                 </Button.ContextMenu>
             </Button>
 
-            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Alignment â–¾" Width="104" Height="30" Click="NotesDropdownButton_Click">
+            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Alignment ▼" Width="104" Height="30" Click="NotesDropdownButton_Click">
                 <Button.ContextMenu>
                     <ContextMenu Opened="NotesAlignmentContextMenu_Opened">
                         <MenuItem Header="Align Left" Tag="Left" IsCheckable="True" Click="NotesAlignmentMenuItem_Click"/>
@@ -2981,6 +2981,7 @@
         </Grid>
     </Border>
 </Window>
+
 
 
 
