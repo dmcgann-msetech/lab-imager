@@ -644,7 +644,7 @@ namespace LabImager
                 return;
             }
 
-            var sizeText = selectedItem.Content?.ToString();
+            var sizeText = NotesFontSizeSelector.Text;
 
             if (!double.TryParse(sizeText, out var fontSize))
             {

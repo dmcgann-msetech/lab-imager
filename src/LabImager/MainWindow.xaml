@@ -2604,7 +2604,7 @@
                             <Button x:Name="StopPreviewButton"
                                     Style="{StaticResource ViewportTransportButtonStyle}"
                                     Click="StopPreviewButton_Click"
-                                    Content="Ãƒâ€šÃ‚Â¦  Stop"
+                                    Content="ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¦  Stop"
                                     ToolTip="Stop preview"
                                     Background="#334155"
                                     BorderBrush="#334155"/>
@@ -2886,7 +2886,7 @@
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center">
 
-                        <TextBlock Text="Ãƒâ€šÃ‚Â"
+                        <TextBlock Text="ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â"
                                    Foreground="#22C55E"
                                    FontSize="18"
                                    Margin="0,0,10,0"/>
