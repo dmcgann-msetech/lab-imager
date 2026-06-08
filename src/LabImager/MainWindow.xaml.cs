@@ -599,6 +599,38 @@ namespace LabImager
             ToggleMaximizeRestore();
         }
 
+        private System.Windows.Documents.TextPointer? _savedNotesSelectionStart;
+        private System.Windows.Documents.TextPointer? _savedNotesSelectionEnd;
+
+        private void NotesEditor_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (NotesEditor is null)
+            {
+                return;
+            }
+
+            _savedNotesSelectionStart = NotesEditor.Selection.Start;
+            _savedNotesSelectionEnd = NotesEditor.Selection.End;
+        }
+
+        private TextRange GetActiveNotesSelection()
+        {
+            if (!NotesEditor.Selection.IsEmpty)
+            {
+                return NotesEditor.Selection;
+            }
+
+            if (_savedNotesSelectionStart is not null &&
+                _savedNotesSelectionEnd is not null &&
+                _savedNotesSelectionStart.CompareTo(_savedNotesSelectionEnd) != 0)
+            {
+                NotesEditor.Selection.Select(
+                    _savedNotesSelectionStart,
+                    _savedNotesSelectionEnd);
+            }
+
+            return NotesEditor.Selection;
+        }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();

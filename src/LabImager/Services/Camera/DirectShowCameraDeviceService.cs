@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using DirectShowLib;
 using LabImager.Models.Camera;
 
@@ -101,14 +101,14 @@ public sealed class DirectShowCameraDeviceService : ICameraDeviceService
                             capsPointer));
 
                     if (mediaType == null ||
-                        mediaType.formatPtr == IntPtr.Zero ||
-                        mediaType.formatType != FormatType.VideoInfo)
+                        mediaType!.formatPtr == IntPtr.Zero ||
+                        mediaType!.formatType != FormatType.VideoInfo)
                     {
                         continue;
                     }
 
                     var info = Marshal.PtrToStructure<VideoInfoHeader>(
-                        mediaType.formatPtr);
+                        mediaType!.formatPtr);
 
                     var width = info.BmiHeader.Width;
                     var height = Math.Abs(info.BmiHeader.Height);
@@ -116,7 +116,7 @@ public sealed class DirectShowCameraDeviceService : ICameraDeviceService
                         ? 10000000.0 / info.AvgTimePerFrame
                         : 0;
 
-                    var subtypeName = GetSubtypeName(mediaType.subType);
+                    var subtypeName = GetSubtypeName(mediaType!.subType);
 
                     formats.Add(new CameraCaptureFormat
                     {
@@ -125,7 +125,7 @@ public sealed class DirectShowCameraDeviceService : ICameraDeviceService
                         FramesPerSecond = Math.Round(fps, 2),
                         SubType = subtypeName,
                         IsAvailable = true,
-                        DisplayName = $"{width}x{height} @ {fps:0.##} FPS — {subtypeName}"
+                        DisplayName = $"{width}x{height} @ {fps:0.##} FPS - {subtypeName}"
                     });
                 }
                 finally
