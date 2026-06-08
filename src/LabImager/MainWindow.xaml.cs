@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -7,6 +7,8 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using LabImager.Services.Camera;
 using LabImager.Services.Capture;
+using LabImager.Models.Capture;
+using LabImager.Services.Reporting;
 using LabImager.Models.Session;
 using LabImager.Models.Camera;
 using LabImager.Services.Preview;
@@ -759,5 +761,6 @@ namespace LabImager
         }
     }
 }
+
 
 
