@@ -45,7 +45,7 @@ pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;font-size:11px;
 <h2>Current functional backlog, validation checklist, and merge-to-main readiness tracker.</h2>
 
 <div class="note ok">
-<strong>Current top priority:</strong> Capture Format Application is implemented and validated. The next major engineering target is Integrated Recording Architecture.
+<strong>Current top priority:</strong> Capture Format Application and Integrated Recording Architecture are implemented and validated. The next major engineering targets are Evidence Workflow Validation, UI Cleanup, Technical Debt Cleanup, and M1 Review.
 </div>
 
 <h4>Priority 1 — Capture Format Application</h4>
@@ -84,46 +84,60 @@ pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;font-size:11px;
 
 <section class="page">
 <h3>Priority 2 — Integrated Recording Architecture</h3>
-<p class="sub">Single-graph recording redesign required for real bench use.</p>
+<p class="sub">Application-level DirectShow AVI recording, preview/record graph rebuild strategy, and output validation.</p>
 
-<div class="note warn"><strong>Status:</strong> Pending Redesign</div>
+<div class="note ok"><strong>Status:</strong> Implemented and Validated</div>
 
 <h4>Current State</h4>
-<pre>Recording proof-of-concept successfully produced AVI files.
+<pre>Integrated recording successfully produced AVI files from inside Lab Imager.
 
-Architecture rejected because recording required stopping
-the live preview graph.</pre>
+Recording is no longer probe-only and is no longer limited to timer/state tracking.</pre>
 
-<h4>Required Final Behavior</h4>
-<pre>Live Preview
+<h4>Accepted Recording Behavior</h4>
+<pre>Selected Camera Source
       +
-Recording
+Selected Capture Format
       +
-Selected Capture Format</pre>
+Preview Graph Rebuild
+      +
+AVI Recording Output</pre>
 
 <table>
 <tr><th>Task</th><th>Status</th></tr>
-<tr><td>Design single-graph preview + recording architecture.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Keep preview visible while recording.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Record from active preview graph.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Preserve selected capture format.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Validate MJPG recording.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Validate YUY2 recording.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Validate H264 recording.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Validate recording start/stop.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Validate preview recovery after recording.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Design preview + recording architecture.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Avoid live graph mutation while preview is already running.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Rebuild graph with recording branch before graph execution.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Record from selected camera source.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Preserve selected capture format during recording graph construction.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate MJPG recording.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate YUY2 recording.</td><td><span class="status watching">Observed / Limited</span></td></tr>
+<tr><td>Validate H264 recording.</td><td><span class="status watching">Not viable in current preview path</span></td></tr>
+<tr><td>Validate recording start/stop.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Validate preview recovery after recording.</td><td><span class="status done">Complete</span></td></tr>
 <tr><td>Validate long-duration recording.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate repeated recording cycles in one app session.</td><td><span class="status pending">Pending</span></td></tr>
 </table>
 
 <h4>Recording Naming Requirements</h4>
 <table>
 <tr><th>Requirement</th><th>Status</th></tr>
+<tr><td>Implement timestamped recording filename generation.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Fallback filename format: <code>yyyyMMdd-HHmmss_lab-imager-recording.avi</code></td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Write recordings to <code>%USERPROFILE%\Videos\Lab Imager\Recordings</code>.</td><td><span class="status done">Complete</span></td></tr>
 <tr><td>Implement session-based filename generation.</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Filename format: <code>yyyyMMdd-HHmmss_Project_Board_Technician.avi</code></td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Automatically skip blank metadata fields.</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Sanitize invalid filename characters.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Fallback when all metadata fields are blank: <code>yyyyMMdd-HHmmss_lab-imager-recording.avi</code></td><td><span class="status pending">Pending</span></td></tr>
 </table>
+
+<h4>Validated Recording Output</h4>
+<pre>20260607-200821_lab-imager-recording.avi
+Size: 67,405,312 bytes
+Location: %USERPROFILE%\Videos\Lab Imager\Recordings</pre>
+
+<div class="note ok">
+<strong>Recording decision:</strong> Integrated AVI recording is now considered functionally implemented. Remaining recording work is validation hardening, quality review, session-based naming polish, and future playback.
+</div>
 
 <div class="page-num">2</div>
 </section>
@@ -217,11 +231,11 @@ _frameCount never used</pre>
 <table>
 <tr><th>Requirement</th><th>Status</th></tr>
 <tr><td>Capture format application complete.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Integrated recording complete.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Evidence workflow validated.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Integrated recording complete.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Evidence workflow validated.</td><td><span class="status pending">Pending final pass</span></td></tr>
 <tr><td>UI cleanup pass complete.</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Technical debt cleanup complete.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Build clean.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Build clean.</td><td><span class="status watching">Warnings remain</span></td></tr>
 <tr><td>No regression failures.</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>M1 review completed.</td><td><span class="status pending">Pending</span></td></tr>
 </table>
@@ -238,15 +252,15 @@ git tag m1-release-candidate
 git push origin m1-release-candidate</pre>
 
 <h4>What To Work On Next</h4>
-<pre>1. Integrated Recording Architecture
-2. Evidence Workflow Validation
-3. UI Cleanup
-4. Technical Debt Cleanup
+<pre>1. Evidence Workflow Validation
+2. UI Cleanup
+3. Technical Debt Cleanup
+4. Recording Hardening Pass
 5. M1 Review
 6. Merge to Main</pre>
 
 <div class="note ok">
-<strong>Roadmap decision:</strong> Integrated Recording Architecture is the next major functional workstream. Recording must preserve live preview, selected capture format, and evidence-friendly session-based file naming.
+<strong>Roadmap decision:</strong> Integrated Recording Architecture is complete enough to move out of the top priority slot. Recording hardening remains open for repeated cycles, long-duration recording, quality review, and future playback workflow planning.
 </div>
 
 <div class="page-num">5</div>

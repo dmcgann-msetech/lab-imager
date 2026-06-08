@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -296,13 +297,34 @@ namespace LabImager
 
         private void RecordPreviewButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_recordingService.State == RecordingState.Recording)
+            try
             {
-                _recordingService.Stop();
-            }
-            else
-            {
+                if (_cameraPreviewService.IsRecording)
+                {
+                    _cameraPreviewService.StopRecording();
+                    _recordingService.Stop();
+
+                    CameraStatusText.Text = "Source: Recording Stopped";
+                    return;
+                }
+
+                if (!_cameraPreviewService.IsPreviewRunning)
+                {
+                    CameraStatusText.Text = "Source: Start Preview Before Recording";
+                    return;
+                }
+
+                var metadata = BuildCurrentSessionMetadata();
+                var outputPath = BuildRecordingOutputPath(metadata);
+
+                _cameraPreviewService.StartRecording(outputPath);
                 _recordingService.Start();
+
+                CameraStatusText.Text = $"Source: Recording Started: {outputPath}";
+            }
+            catch (Exception ex)
+            {
+                CameraStatusText.Text = $"Source: Recording Failed: {ex.Message}";
             }
         }
 
@@ -351,6 +373,54 @@ namespace LabImager
                     : Visibility.Collapsed;
         }
 
+        private static string BuildRecordingOutputPath(SessionMetadata metadata)
+        {
+            var outputDir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyVideos),
+                "Lab Imager",
+                "Recordings");
+
+            Directory.CreateDirectory(outputDir);
+
+            var timestamp = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+
+            var parts = new[]
+                {
+                    SanitizeFileNamePart(metadata.ProjectName),
+                    SanitizeFileNamePart(metadata.BoardOrDevice),
+                    SanitizeFileNamePart(metadata.Technician)
+                }
+                .Where(part => !string.IsNullOrWhiteSpace(part))
+                .ToList();
+
+            var baseName = parts.Count > 0
+                ? timestamp + "_" + string.Join("_", parts)
+                : timestamp + "_lab-imager-recording";
+
+            return Path.Combine(outputDir, baseName + ".avi");
+        }
+
+        private static string SanitizeFileNamePart(string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return string.Empty;
+            }
+
+            var invalidChars = Path.GetInvalidFileNameChars();
+            var cleaned = new string(
+                value
+                    .Trim()
+                    .Select(ch => invalidChars.Contains(ch) ? '_' : ch)
+                    .ToArray());
+
+            while (cleaned.Contains("__", StringComparison.Ordinal))
+            {
+                cleaned = cleaned.Replace("__", "_");
+            }
+
+            return cleaned.Trim('_', ' ');
+        }
         private void CaptureScreenshotButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -689,3 +759,5 @@ namespace LabImager
         }
     }
 }
+
+

@@ -2710,6 +2710,105 @@ _cameraPreviewService.StartPreview(
 <div class="page-num">42</div>
 </section>
 
+<section class="page">
+<h3>43. Integrated DirectShow AVI Recording Pipeline</h3>
+<p class="sub">Application-level recording integration, DirectShow graph rebuild strategy, AVI output validation, and recording milestone reconciliation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Integrated AVI recording is now operational inside Lab Imager. The Record control is no longer limited to timer/state tracking; it now starts and stops an application-level DirectShow recording workflow that produces validated AVI output.
+</div>
+
+<h4>Purpose</h4>
+<p>
+This section records the completion of the first functional video-recording implementation inside the Lab Imager application. Earlier work proved recording through the standalone <code>tools/RecordingProbe</code> project, but the MainWindow recording path still only controlled the recording timer and UI state. This milestone connects the application Record workflow to actual DirectShow AVI output.
+</p>
+
+<h4>Implementation Summary</h4>
+<table>
+<tr><th>File / Component</th><th>Change</th><th>Status</th></tr>
+<tr><td><code>MainWindow.xaml.cs</code></td><td>Updated the Record button workflow to build a timestamped AVI output path, call the preview service recording path, and then start or stop the recording timer state.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>ICameraPreviewService.cs</code></td><td>Expanded the preview service contract with <code>IsRecording</code>, <code>StartRecording(string outputPath)</code>, and <code>StopRecording()</code>.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td><code>DirectShowCameraPreviewService.cs</code></td><td>Added DirectShow AVI mux / file sink recording support, recording graph state tracking, output directory creation, and recording cleanup behavior.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>StubCameraPreviewService.cs</code></td><td>Updated the stub implementation to satisfy the expanded recording-capable preview-service interface.</td><td><span class="status done">Updated</span></td></tr>
+</table>
+
+<h4>Recording Graph Strategy</h4>
+<table>
+<tr><th>Step</th><th>Behavior</th></tr>
+<tr><td>1</td><td>The active camera source, selected capture format, preview handle, and preview dimensions are retained as current preview context.</td></tr>
+<tr><td>2</td><td>When recording starts, the application avoids dynamically attaching a recording branch to an already-running graph.</td></tr>
+<tr><td>3</td><td>The preview graph is rebuilt with the selected source, selected capture format, preview branch, AVI mux, and file sink prepared before graph execution.</td></tr>
+<tr><td>4</td><td>The graph is then run with both preview and recording output available from startup.</td></tr>
+<tr><td>5</td><td>When recording stops, the recording path is torn down and preview-only operation is restored.</td></tr>
+</table>
+
+<h4>DirectShow Failure Investigation</h4>
+<div class="note warn">
+<strong>Important finding:</strong> Attempting to bolt a recording branch onto an already-running preview graph caused repeated DirectShow failures and could destabilize the camera device. The observed failures included generic <code>0x80004005</code> errors and <code>0x80040217</code> connection failures.
+</div>
+
+<table>
+<tr><th>Attempt</th><th>Result</th><th>Decision</th></tr>
+<tr><td>Attach recording branch after preview was already running.</td><td><span class="status blocked">Failed</span></td><td>Rejected because DirectShow refused the runtime graph mutation.</td></tr>
+<tr><td>Route recording through Smart Tee during live graph mutation.</td><td><span class="status blocked">Failed</span></td><td>Rejected after repeated <code>RenderStream</code> failures.</td></tr>
+<tr><td>Route recording directly from source filter after preview was already running.</td><td><span class="status blocked">Failed</span></td><td>Rejected after <code>0x80040217</code> connection failure and camera instability.</td></tr>
+<tr><td>Rebuild graph with recording branch prepared before graph execution.</td><td><span class="status done">Succeeded</span></td><td>Accepted as the first working integrated AVI recording strategy.</td></tr>
+</table>
+
+<h4>Output Standard</h4>
+<table>
+<tr><th>Output Item</th><th>Standard</th><th>Purpose</th></tr>
+<tr><td>Default folder</td><td><code>%USERPROFILE%\Videos\Lab Imager\Recordings</code></td><td>Keeps video recordings in the Windows Videos library under the Lab Imager project folder.</td></tr>
+<tr><td>File format</td><td><code>.avi</code></td><td>Uses the DirectShow AVI mux path proven by the standalone recording probe.</td></tr>
+<tr><td>Filename pattern</td><td><code>yyyyMMdd-HHmmss_lab-imager-recording.avi</code></td><td>Preserves chronological recording order and prevents overwrite collisions.</td></tr>
+</table>
+
+<h4>Validation Results</h4>
+<table>
+<tr><th>Validation Item</th><th>Result</th><th>Notes</th></tr>
+<tr><td>Build</td><td><span class="status done">Passed</span></td><td><code>dotnet build src\LabImager\LabImager.csproj</code> completed with zero errors.</td></tr>
+<tr><td>Application launch</td><td><span class="status done">Passed</span></td><td><code>dotnet run --project src\LabImager\LabImager.csproj</code> launched successfully.</td></tr>
+<tr><td>Preview before recording</td><td><span class="status done">Validated</span></td><td>Camera preview started successfully before recording activation.</td></tr>
+<tr><td>Recording start</td><td><span class="status done">Validated</span></td><td>Record control entered active recording state and displayed the top-header <code>REC</code> timer.</td></tr>
+<tr><td>Recording output</td><td><span class="status done">Validated</span></td><td>AVI file was created in the configured recording folder.</td></tr>
+<tr><td>Recording file size</td><td><span class="status done">Validated</span></td><td>Output file was non-zero and measured <code>67,405,312</code> bytes.</td></tr>
+</table>
+
+<h4>Validated Recording Artifact</h4>
+<pre><code>Get-ChildItem "$env:USERPROFILE\Videos\Lab Imager\Recordings" -File |
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 10 Name, Length, LastWriteTime
+
+Name                                       Length LastWriteTime
+----                                       ------ -------------
+20260607-200821_lab-imager-recording.avi 67405312 6/7/2026 8:08:35 PM</code></pre>
+
+<h4>Requirement Reconciliation</h4>
+<table>
+<tr><th>Requirement</th><th>Previous Status</th><th>Current Status</th></tr>
+<tr><td>MainWindow recording path</td><td><span class="status pending">Not implemented</span></td><td><span class="status done">Implemented</span></td></tr>
+<tr><td>Encoded video output</td><td><span class="status pending">Deferred</span></td><td><span class="status done">Validated AVI output</span></td></tr>
+<tr><td>Standalone RecordingProbe dependency</td><td><span class="status partial">Required for proof</span></td><td><span class="status done">No longer required for normal recording workflow</span></td></tr>
+<tr><td>Record button</td><td><span class="status done">Timer/state only</span></td><td><span class="status done">Timer/state plus AVI output</span></td></tr>
+</table>
+
+<h4>Remaining Validation / Follow-Up</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Repeated start / stop recording cycles</td><td><span class="status pending">Pending final pass</span></td><td>Validate multiple recording sessions in one application run.</td></tr>
+<tr><td>Recording after Freeze / Resume</td><td><span class="status pending">Pending final pass</span></td><td>Confirm recording behavior after frozen-preview and resumed-preview states.</td></tr>
+<tr><td>Capture screenshot while recording</td><td><span class="status pending">Pending final pass</span></td><td>Validate evidence capture while recording is active.</td></tr>
+<tr><td>Recording quality review</td><td><span class="status watching">Monitor</span></td><td>AVI output works; future quality tuning may require format-specific recording validation.</td></tr>
+<tr><td>Playback workflow</td><td><span class="status pending">Future task</span></td><td>Rewind/playback remains a separate future workflow after recording stabilization.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Lab Imager now has a functional integrated AVI recording pipeline. Future work should treat basic recording as implemented and focus on repeatability validation, quality tuning, playback, evidence-package integration, and annotation/export workflows.
+</div>
+
+<div class="page-num">43</div>
+</section>
+
 </section>
 
 <section class="page">

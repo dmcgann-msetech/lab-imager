@@ -22,13 +22,6 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
     private IBaseFilter? _recordingMuxFilter;
     private IFileSinkFilter? _recordingSinkFilter;
 
-    private CameraDeviceInfo? _currentSource;
-    private CameraCaptureFormat? _currentSelectedFormat;
-    private IntPtr _currentPreviewHandle;
-    private int _currentPreviewWidth;
-    private int _currentPreviewHeight;
-    private string? _pendingRecordingOutputPath;
-
     public bool IsPreviewRunning { get; private set; }
 
     public bool IsPreviewFrozen { get; private set; }
@@ -46,12 +39,6 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         {
             throw new ArgumentException("Cannot start preview without a valid source.", nameof(source));
         }
-
-        _currentSource = source;
-        _currentSelectedFormat = selectedFormat;
-        _currentPreviewHandle = previewHandle;
-        _currentPreviewWidth = width;
-        _currentPreviewHeight = height;
 
         StopPreview();
 
@@ -102,40 +89,6 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
             null);
 
         DsError.ThrowExceptionForHR(hr);
-
-        if (!string.IsNullOrWhiteSpace(_pendingRecordingOutputPath))
-        {
-            var outputDirectory = Path.GetDirectoryName(_pendingRecordingOutputPath);
-
-            if (!string.IsNullOrWhiteSpace(outputDirectory))
-            {
-                Directory.CreateDirectory(outputDirectory);
-            }
-
-            hr = _captureGraphBuilder.SetOutputFileName(
-                MediaSubType.Avi,
-                _pendingRecordingOutputPath,
-                out _recordingMuxFilter,
-                out _recordingSinkFilter);
-
-            if (hr < 0)
-            {
-                throw new InvalidOperationException($"SetOutputFileName failed. HRESULT: 0x{hr:X8}");
-            }
-
-            // Build recording branch before graph run.
-            hr = _captureGraphBuilder.RenderStream(
-                PinCategory.Capture,
-                MediaType.Video,
-                _sourceFilter,
-                null,
-                _recordingMuxFilter);
-
-            if (hr < 0)
-            {
-                throw new InvalidOperationException($"RenderStream capture-to-AVI failed. HRESULT: 0x{hr:X8}");
-            }
-        }
 
         _videoWindow = _graphBuilder as IVideoWindow;
         _mediaControl = _graphBuilder as IMediaControl;
@@ -251,10 +204,10 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         }
 
         if (!IsPreviewRunning ||
-            _currentSource == null ||
-            _currentPreviewHandle == IntPtr.Zero ||
-            _currentPreviewWidth <= 0 ||
-            _currentPreviewHeight <= 0)
+            _graphBuilder == null ||
+            _captureGraphBuilder == null ||
+            _sourceFilter == null ||
+            _mediaControl == null)
         {
             throw new InvalidOperationException("Preview must be running before recording can start.");
         }
@@ -264,48 +217,44 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
             throw new ArgumentException("Recording output path is required.", nameof(outputPath));
         }
 
-        _pendingRecordingOutputPath = outputPath;
+        var outputDirectory = Path.GetDirectoryName(outputPath);
 
-        try
+        if (!string.IsNullOrWhiteSpace(outputDirectory))
         {
-            StartPreview(
-                _currentSource,
-                _currentSelectedFormat,
-                _currentPreviewHandle,
-                _currentPreviewWidth,
-                _currentPreviewHeight);
-
-            if (!File.Exists(outputPath))
-            {
-                throw new InvalidOperationException($"Recording graph started, but output file was not created: {outputPath}");
-            }
-
-            IsRecording = true;
+            Directory.CreateDirectory(outputDirectory);
         }
-        catch
+
+        var hr = _captureGraphBuilder.SetOutputFileName(
+            MediaSubType.Avi,
+            outputPath,
+            out _recordingMuxFilter,
+            out _recordingSinkFilter);
+
+        if (hr < 0)
         {
-            _pendingRecordingOutputPath = null;
-            IsRecording = false;
-
-            if (_currentSource != null && _currentPreviewHandle != IntPtr.Zero)
-            {
-                try
-                {
-                    StartPreview(
-                        _currentSource,
-                        _currentSelectedFormat,
-                        _currentPreviewHandle,
-                        _currentPreviewWidth,
-                        _currentPreviewHeight);
-                }
-                catch
-                {
-                    // Ignore preview restore failure so original recording error is preserved.
-                }
-            }
-
-            throw;
+            throw new InvalidOperationException($"SetOutputFileName failed. HRESULT: 0x{hr:X8}");
         }
+
+        hr = _captureGraphBuilder.RenderStream(
+            PinCategory.Capture,
+            MediaType.Video,
+            _sourceFilter,
+            _smartTeeFilter,
+            _recordingMuxFilter);
+
+        if (hr < 0)
+        {
+            throw new InvalidOperationException($"RenderStream capture-to-AVI failed. HRESULT: 0x{hr:X8}");
+        }
+
+        hr = _mediaControl.Run();
+
+        if (hr < 0)
+        {
+            throw new InvalidOperationException($"MediaControl.Run failed. HRESULT: 0x{hr:X8}");
+        }
+
+        IsRecording = true;
     }
 
     public void StopRecording()
@@ -315,23 +264,49 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
             return;
         }
 
-        _pendingRecordingOutputPath = null;
-        IsRecording = false;
-
-        if (_currentSource == null || _currentPreviewHandle == IntPtr.Zero)
+        if (_mediaControl != null)
         {
-            StopPreview();
-            return;
+            try
+            {
+                _mediaControl.Stop();
+            }
+            catch
+            {
+                // Ignore stop failures during recording teardown.
+            }
         }
 
-        StartPreview(
-            _currentSource,
-            _currentSelectedFormat,
-            _currentPreviewHandle,
-            _currentPreviewWidth,
-            _currentPreviewHeight);
-    }
+        if (_graphBuilder != null && _recordingMuxFilter != null)
+        {
+            try
+            {
+                _graphBuilder.RemoveFilter(_recordingMuxFilter);
+            }
+            catch
+            {
+                // Ignore filter removal failures during recording teardown.
+            }
+        }
 
+        ReleaseComObject(_recordingSinkFilter);
+        ReleaseComObject(_recordingMuxFilter);
+
+        _recordingSinkFilter = null;
+        _recordingMuxFilter = null;
+        IsRecording = false;
+
+        if (_mediaControl != null && IsPreviewRunning)
+        {
+            try
+            {
+                DsError.ThrowExceptionForHR(_mediaControl.Run());
+            }
+            catch
+            {
+                // Leave preview state unchanged if restart fails.
+            }
+        }
+    }
     private static void ApplySelectedFormat(
         ICaptureGraphBuilder2 captureGraphBuilder,
         IBaseFilter sourceFilter,
@@ -499,9 +474,6 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         }
     }
 }
-
-
-
 
 
 

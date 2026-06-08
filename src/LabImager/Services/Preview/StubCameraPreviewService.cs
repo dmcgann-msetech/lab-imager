@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using LabImager.Models.Camera;
 
 namespace LabImager.Services.Preview;
@@ -8,6 +8,8 @@ public sealed class StubCameraPreviewService : ICameraPreviewService
     public bool IsPreviewRunning { get; private set; }
 
     public bool IsPreviewFrozen { get; private set; }
+
+    public bool IsRecording { get; private set; }
 
     public void StartPreview(
         CameraDeviceInfo source,
@@ -48,5 +50,16 @@ public sealed class StubCameraPreviewService : ICameraPreviewService
     {
         IsPreviewRunning = false;
         IsPreviewFrozen = false;
+        IsRecording = false;
+    }
+
+    public void StartRecording(string outputPath)
+    {
+        IsRecording = true;
+    }
+
+    public void StopRecording()
+    {
+        IsRecording = false;
     }
 }

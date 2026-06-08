@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using LabImager.Models.Camera;
 
 namespace LabImager.Services.Preview;
@@ -8,6 +8,8 @@ public interface ICameraPreviewService
     bool IsPreviewRunning { get; }
 
     bool IsPreviewFrozen { get; }
+
+    bool IsRecording { get; }
 
     void StartPreview(
         CameraDeviceInfo source,
@@ -23,4 +25,8 @@ public interface ICameraPreviewService
     void ResumePreview();
 
     void StopPreview();
+
+    void StartRecording(string outputPath);
+
+    void StopRecording();
 }
