@@ -2809,6 +2809,662 @@ Name                                       Length LastWriteTime
 <div class="page-num">43</div>
 </section>
 
+<section class="page">
+<h3>44. Rich Notes Evidence Rendering and Font-Size Fidelity Stabilization</h3>
+<p class="sub">Formatted Notes rendering, WPF point-size correction, long-note clipping remediation, evidence PNG validation, and capture-output fidelity checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Rich Notes evidence rendering is operational and validated. Evidence PNG output now preserves formatted Notes content including bold, italic, underline, color, alignment, bullets, numbered lists, mixed formatting, multiple font sizes, and long Notes without clipping.
+</div>
+
+<h4>Problem Summary</h4>
+<table>
+<tr><th>Issue</th><th>Observed Behavior</th><th>Resolution</th></tr>
+<tr><td>Plain-text Notes export</td><td>Formatted Notes were reduced to unformatted text.</td><td>Evidence rendering now uses the formatted Notes document path.</td></tr>
+<tr><td>Long Notes clipping</td><td>Rendered Notes could be cut off when content exceeded the fixed render area.</td><td>Notes render height now expands dynamically.</td></tr>
+<tr><td>Font-size mismatch</td><td>Point sizes such as 8, 9, 10, 11, and 12 did not visually scale as expected.</td><td>Point values are converted to WPF device-independent pixels.</td></tr>
+</table>
+
+<h4>Font-Size Conversion Fix</h4>
+<pre><code>var wpfFontSize = pointSize * 96.0 / 72.0;</code></pre>
+
+<h4>Evidence Notes Rendering Pattern</h4>
+<pre><code>viewer.Measure(new System.Windows.Size(width, double.PositiveInfinity));
+viewer.Arrange(new Rect(0, 0, width, viewer.DesiredSize.Height));
+viewer.UpdateLayout();
+
+var height = Math.Max(1, (int)Math.Ceiling(viewer.DesiredSize.Height));</code></pre>
+
+<h4>Validation Matrix</h4>
+<table>
+<tr><th>Feature</th><th>Status</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Text color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Font size</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bullets</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Numbered lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Mixed formatting</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Long Notes</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<p class="sub">Formatted Notes rendering, WPF point-size correction, long-note clipping remediation, evidence PNG validation, and capture-output fidelity checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Rich Notes evidence rendering is operational and validated. Evidence PNG output now preserves formatted Notes content including bold, italic, underline, color, alignment, bullets, numbered lists, mixed formatting, multiple font sizes, and long Notes without clipping.
+</div>
+
+<h4>Purpose</h4>
+<p>
+This section records the stabilization work performed after evidence output testing showed that Notes content could not remain a plain-text export path. The Notes editor needed to preserve rich formatting into evidence output while keeping the generated evidence image clean, readable, and report-oriented.
+</p>
+
+<h4>Problem Summary</h4>
+<table>
+<tr><th>Issue</th><th>Observed Behavior</th><th>Resolution</th></tr>
+<tr><td>Plain-text Notes export</td><td>Formatted Notes were reduced to unformatted text.</td><td>Evidence rendering now uses the formatted Notes document path.</td></tr>
+<tr><td>Long Notes clipping</td><td>Rendered Notes could be cut off when content exceeded the fixed render area.</td><td>Notes render height now expands dynamically.</td></tr>
+<tr><td>Dark editor capture risk</td><td>Capturing the editor surface directly produced dark UI output instead of a clean evidence surface.</td><td>Formatted Notes are rendered onto a white report surface.</td></tr>
+<tr><td>Font-size mismatch</td><td>Point sizes such as 8, 9, 10, 11, and 12 did not visually scale as expected.</td><td>Point values are converted to WPF device-independent pixels.</td></tr>
+</table>
+
+<h4>Font-Size Conversion Fix</h4>
+<div class="note watch">
+<strong>Technical finding:</strong> WPF <code>FontSize</code> uses device-independent pixels, not typographic points. Dropdown point sizes must be converted before being applied to selected Notes text.
+</div>
+
+<pre><code>var wpfFontSize = pointSize * 96.0 / 72.0;</code></pre>
+
+<h4>Evidence Notes Rendering Pattern</h4>
+<pre><code>private static RenderTargetBitmap RenderNotesDocument(
+    FlowDocument sourceDocument,
+    double width)
+{
+    var xaml = XamlWriter.Save(sourceDocument);
+
+    using var stringReader = new StringReader(xaml);
+    using var xmlReader = XmlReader.Create(stringReader);
+
+    var clonedDocument = (FlowDocument)XamlReader.Load(xmlReader);
+
+    clonedDocument.Background = System.Windows.Media.Brushes.White;
+    clonedDocument.PagePadding = new Thickness(0);
+    clonedDocument.ColumnWidth = width;
+
+    var viewer = new System.Windows.Controls.RichTextBox
+    {
+        Document = clonedDocument,
+        Width = width,
+        Background = System.Windows.Media.Brushes.White,
+        BorderThickness = new Thickness(0),
+        Padding = new Thickness(0),
+        IsReadOnly = true,
+        VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
+        HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
+    };
+
+    viewer.Measure(new System.Windows.Size(width, double.PositiveInfinity));
+    viewer.Arrange(new Rect(0, 0, width, viewer.DesiredSize.Height));
+    viewer.UpdateLayout();
+
+    var height = Math.Max(1, (int)Math.Ceiling(viewer.DesiredSize.Height));
+
+    var renderTarget = new RenderTargetBitmap(
+        (int)Math.Ceiling(width),
+        height,
+        96,
+        96,
+        PixelFormats.Pbgra32);
+
+    renderTarget.Render(viewer);
+    renderTarget.Freeze();
+
+    return renderTarget;
+}</code></pre>
+
+<h4>Validation Matrix</h4>
+<table>
+<tr><th>Feature</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td><td>Preserved in evidence PNG output.</td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td><td>Preserved in evidence PNG output.</td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td><td>Preserved in evidence PNG output.</td></tr>
+<tr><td>Text color</td><td><span class="status done">Verified</span></td><td>Multiple colors render correctly.</td></tr>
+<tr><td>Font size</td><td><span class="status done">Verified</span></td><td>8 pt, 9 pt, 10 pt, 11 pt, 12 pt, and larger sizes scale correctly.</td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td><td>Alignment survives evidence rendering.</td></tr>
+<tr><td>Bullets</td><td><span class="status done">Verified</span></td><td>Bullet list structure is preserved.</td></tr>
+<tr><td>Numbered lists</td><td><span class="status done">Verified</span></td><td>Numbered list structure is preserved.</td></tr>
+<tr><td>Mixed formatting</td><td><span class="status done">Verified</span></td><td>Combined styles render correctly.</td></tr>
+<tr><td>Long Notes</td><td><span class="status done">Verified</span></td><td>Evidence output expands instead of clipping.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Evidence PNG rendering is now stable for formatted Notes. Future PDF packaging should build from this rendering path rather than replacing it.
+</div>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Evidence PNG rendering is now stable for formatted Notes. Future PDF packaging should build from this rendering path rather than replacing it.
+</div>
+
+<div class="page-num">44</div>
+</section>
+
+<section class="page">
+<h3>45. Notes Formatting Engine Selection Preservation and Handler Repair</h3>
+<p class="sub">Selection-preservation recovery, font-size handler repair, alignment handler repair, clear-formatting workflow, color-default behavior, and formatting validation checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Notes formatting behavior is repaired and validated. Toolbar and dropdown commands now apply to the intended selected text by recovering the active Notes selection when toolbar controls take focus.
+</div>
+
+<h4>Selection Preservation Root Cause</h4>
+<div class="note warn">
+<strong>Root cause:</strong> Toolbar controls can steal focus from <code>NotesEditor</code>. Without saved selection recovery, formatting commands can apply to nothing, apply at the caret, or fail inconsistently.
+</div>
+
+<h4>Selection Preservation Pattern</h4>
+<pre><code>private TextPointer? _notesSelectionStart;
+private TextPointer? _notesSelectionEnd;
+
+private TextRange? GetActiveNotesSelection()
+{
+    if (NotesEditor.Selection is not null &&
+        !NotesEditor.Selection.IsEmpty)
+    {
+        return NotesEditor.Selection;
+    }
+
+    if (_notesSelectionStart is null || _notesSelectionEnd is null)
+    {
+        return null;
+    }
+
+    return new TextRange(_notesSelectionStart, _notesSelectionEnd);
+}</code></pre>
+
+<h4>Font Size Handler Repair</h4>
+<pre><code>var sizeText =
+    selectedItem.Tag?.ToString()
+    ?? selectedItem.Content?.ToString()?.Replace(" pt", string.Empty);
+
+var wpfFontSize = pointSize * 96.0 / 72.0;
+
+selection.ApplyPropertyValue(
+    TextElement.FontSizeProperty,
+    wpfFontSize);</code></pre>
+
+<h4>Alignment Handler Repair</h4>
+<pre><code>selection.ApplyPropertyValue(
+    Block.TextAlignmentProperty,
+    alignment);</code></pre>
+
+<h4>Clear Formatting Handler</h4>
+<pre><code>selection.ClearAllProperties();
+NotesEditor.Focus();</code></pre>
+
+<h4>Formatting Validation</h4>
+<table>
+<tr><th>Feature</th><th>Status</th></tr>
+<tr><td>Font family selection</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Font size selection</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Text color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bulleted lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Numbered lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Clear formatting</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Notes formatting is now stable enough to be considered complete for the current milestone.
+</div>
+
+<div class="page-num">45</div>
+</section>
+
+<section class="page">
+<h3>46. Notes Toolbar Dropdown Redesign and Native Windows Rendering Stabilization</h3>
+<p class="sub">Two-row Notes toolbar redesign, dropdown consolidation, checkmark-capable menu controls, custom styling rollback, Source and Capture Format readability recovery, and final UI validation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Notes toolbar dropdown redesign is complete and validated. All Notes dropdowns are readable and operational. Source and Capture Format selectors are readable after disabled ComboBox styling correction. Native Windows dropdown rendering is the accepted stable direction.
+</div>
+
+<h4>Final Toolbar Layout</h4>
+<table>
+<tr><th>Toolbar Row</th><th>Controls</th></tr>
+<tr><td>Row 1</td><td>Undo, Redo, Font, Size, Color</td></tr>
+<tr><td>Row 2</td><td>Formatting, Lists, Alignment</td></tr>
+</table>
+
+<h4>Dropdown Model</h4>
+<table>
+<tr><th>Dropdown</th><th>Entries</th><th>Status</th></tr>
+<tr><td>Font</td><td>Segoe UI, Calibri, Arial, Verdana, Tahoma, Georgia, Times New Roman, Cambria, Book Antiqua, Garamond, Consolas, Courier New</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Size</td><td>8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, 72</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Color</td><td>Unedited Default, Black, Gray, Yellow, Orange, Red, Pink, Purple, Blue, Cyan, Green, Brown</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Formatting</td><td>Bold, Italic, Underline, Clear Formatting</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Lists</td><td>Bulleted List, Numbered List</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Alignment</td><td>Align Left, Align Center, Align Right, Justify</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Accepted Notes Toolbar XAML Pattern</h4>
+<pre><code>&lt;Border DockPanel.Dock="Top"
+        Height="88"
+        Background="#101820"
+        BorderBrush="#38BDF8"
+        BorderThickness="0,0,0,1"
+        Padding="7"&gt;
+
+    &lt;StackPanel&gt;
+        &lt;StackPanel Orientation="Horizontal" Margin="0,0,0,5"&gt;
+            &lt;Button Content="Undo" Width="54" Height="30" Click="NotesUndoButton_Click"/&gt;
+            &lt;Button Content="Redo" Width="54" Height="30" Click="NotesRedoButton_Click"/&gt;
+
+            &lt;ComboBox x:Name="NotesFontSelector"
+                      SelectionChanged="NotesFontSelector_SelectionChanged"
+                      Foreground="#111827"
+                      Background="White"
+                      Width="150"
+                      Height="30"/&gt;
+
+            &lt;ComboBox x:Name="NotesFontSizeSelector"
+                      SelectionChanged="NotesFontSizeSelector_SelectionChanged"
+                      Foreground="#111827"
+                      Background="White"
+                      Width="82"
+                      Height="30"/&gt;
+
+            &lt;Button x:Name="NotesColorButton"
+                    Content="Color ▼"
+                    Width="90"
+                    Height="30"
+                    Click="NotesColorButton_Click"/&gt;
+        &lt;/StackPanel&gt;
+
+        &lt;StackPanel Orientation="Horizontal"&gt;
+            &lt;Button Content="Formatting ▼" Width="116" Height="30" Click="NotesDropdownButton_Click"/&gt;
+            &lt;Button Content="Lists ▼" Width="82" Height="30" Click="NotesDropdownButton_Click"/&gt;
+            &lt;Button Content="Alignment ▼" Width="104" Height="30" Click="NotesDropdownButton_Click"/&gt;
+        &lt;/StackPanel&gt;
+    &lt;/StackPanel&gt;
+&lt;/Border&gt;</code></pre>
+
+<h4>Menu Button Open Handler</h4>
+<pre><code>private void NotesDropdownButton_Click(object sender, RoutedEventArgs e)
+{
+    if (sender is not System.Windows.Controls.Button button ||
+        button.ContextMenu is null)
+    {
+        return;
+    }
+
+    button.ContextMenu.PlacementTarget = button;
+    button.ContextMenu.IsOpen = true;
+}</code></pre>
+
+<h4>Custom Styling Failure and Final Decision</h4>
+<div class="note warn">
+<strong>Failure class:</strong> Custom dropdown styling repeatedly created readability regressions including bright selection colors, white-on-white text, dark-on-dark text, inconsistent selected-item rendering, and collateral damage to Source and Capture Format controls.
+</div>
+
+<table>
+<tr><th>Attempt</th><th>Outcome</th><th>Decision</th></tr>
+<tr><td>Dark custom ComboBoxItem styling</td><td>Selection text became unreadable.</td><td><span class="status blocked">Rejected</span></td></tr>
+<tr><td>Global MenuItem and ContextMenu styling</td><td>Created wider UI readability regressions.</td><td><span class="status blocked">Rejected</span></td></tr>
+<tr><td>Native Windows dropdown rendering</td><td>Readable, stable, predictable, and acceptable.</td><td><span class="status done">Accepted</span></td></tr>
+</table>
+
+<h4>Readable Disabled ComboBox Style Repair</h4>
+<pre><code>&lt;Style x:Key="ReadableDisabledComboBoxStyle" TargetType="ComboBox"&gt;
+    &lt;Setter Property="Foreground" Value="#111827"/&gt;
+    &lt;Setter Property="Background" Value="White"/&gt;
+    &lt;Setter Property="BorderBrush" Value="#334155"/&gt;
+    &lt;Setter Property="BorderThickness" Value="1"/&gt;
+    &lt;Setter Property="Padding" Value="10,0"/&gt;
+
+    &lt;Style.Triggers&gt;
+        &lt;Trigger Property="IsEnabled" Value="False"&gt;
+            &lt;Setter Property="Opacity" Value="1"/&gt;
+            &lt;Setter Property="Foreground" Value="#111827"/&gt;
+            &lt;Setter Property="Background" Value="White"/&gt;
+            &lt;Setter Property="BorderBrush" Value="#334155"/&gt;
+        &lt;/Trigger&gt;
+    &lt;/Style.Triggers&gt;
+&lt;/Style&gt;</code></pre>
+
+<h4>Final Validation Results</h4>
+<table>
+<tr><th>Validation Item</th><th>Status</th></tr>
+<tr><td>Font dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Size dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Color dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Formatting dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Lists dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Source selector readable</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Capture Format selector readable</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Two-row toolbar layout</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>No horizontal overflow</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Evidence PNG formatting preservation</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Build</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Repository state</td><td><span class="status done">Clean / synchronized</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Notes toolbar redesign is complete. Native Windows dropdown rendering is the approved stable direction.
+</div>
+
+<div class="page-num">46</div>
+</section>
+
+<section class="page">
+<h3>47. Rich Notes Evidence Rendering and Font-Size Fidelity Stabilization</h3>
+<p class="sub">Formatted Notes rendering, WPF point-size correction, long-note clipping remediation, evidence PNG validation, and capture-output fidelity checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Rich Notes evidence rendering is operational and validated. Evidence PNG output now preserves formatted Notes content including bold, italic, underline, color, alignment, bullets, numbered lists, mixed formatting, multiple font sizes, and long Notes without clipping.
+</div>
+
+<h4>Major Findings</h4>
+
+<table>
+<tr><th>Issue</th><th>Observed Behavior</th><th>Resolution</th></tr>
+<tr><td>Plain-text Notes export</td><td>Formatted Notes were reduced to unformatted text.</td><td>Evidence rendering now uses the formatted FlowDocument path.</td></tr>
+<tr><td>Long Notes clipping</td><td>Notes content exceeded fixed render height.</td><td>Render height now expands dynamically.</td></tr>
+<tr><td>Dark editor capture risk</td><td>Editor appearance polluted evidence output.</td><td>Notes are rendered onto a clean white report surface.</td></tr>
+<tr><td>Font-size mismatch</td><td>Point sizes rendered inconsistently.</td><td>Point values are converted to WPF device-independent pixels.</td></tr>
+</table>
+
+<h4>WPF Font-Size Conversion</h4>
+
+<pre><code>var wpfFontSize = pointSize * 96.0 / 72.0;</code></pre>
+
+<h4>Validation Results</h4>
+
+<table>
+<tr><th>Feature</th><th>Status</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bullets</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Numbered Lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Mixed Formatting</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Long Notes</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Rich Notes evidence rendering is now considered production-stable for Milestone 1 evidence capture workflows.
+</div>
+
+<div class="page-num">47</div>
+</section>
+
+<section class="page">
+<h3>48. Notes Formatting Engine Selection Preservation and Handler Repair</h3>
+<p class="sub">Selection-preservation recovery, formatting handler stabilization, font-size repair, alignment repair, and active-selection recovery architecture.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Notes formatting operations now reliably apply to user-selected text even after toolbar controls temporarily steal focus from the editor.
+</div>
+
+<h4>Root Cause Analysis</h4>
+
+<div class="note warn">
+<strong>Root cause:</strong> ComboBoxes and dropdown menus temporarily removed focus from the RichTextBox, causing formatting operations to lose the active selection.
+</div>
+
+<h4>Selection Preservation Architecture</h4>
+
+<pre><code>private TextPointer? _notesSelectionStart;
+private TextPointer? _notesSelectionEnd;
+
+private TextRange? GetActiveNotesSelection()
+{
+    ...
+}</code></pre>
+
+<h4>Repairs Completed</h4>
+
+<table>
+<tr><th>Component</th><th>Status</th></tr>
+<tr><td>Font Family Selection</td><td><span class="status done">Repaired</span></td></tr>
+<tr><td>Font Size Selection</td><td><span class="status done">Repaired</span></td></tr>
+<tr><td>Alignment Operations</td><td><span class="status done">Repaired</span></td></tr>
+<tr><td>Color Operations</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Bullet Lists</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Numbered Lists</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Clear Formatting</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<h4>Validation Results</h4>
+
+<table>
+<tr><th>Formatting Feature</th><th>Status</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Font Family</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Font Size</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> The Notes formatting engine is now stable enough to support long-term editor expansion without requiring further architectural changes.
+</div>
+
+<div class="page-num">48</div>
+</section>
+
+<section class="page">
+<h3>49. Notes Toolbar Dropdown Redesign</h3>
+<p class="sub">Two-row toolbar redesign, editor modernization, dropdown architecture conversion, menu consolidation, and formatting workflow simplification.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> The Notes toolbar was redesigned from a collection of standalone utility controls into a structured editor-style toolbar while preserving all underlying functionality.
+</div>
+
+<h4>Design Objective</h4>
+
+<p>
+Redesign the Notes toolbar to resemble a professional document editor while preserving all existing formatting, export, reporting, capture, preview, and recording functionality.
+</p>
+
+<h4>Final Toolbar Layout</h4>
+
+<table>
+<tr><th>Row</th><th>Controls</th></tr>
+<tr><td>Row 1</td><td>Undo | Redo | Font | Size | Color</td></tr>
+<tr><td>Row 2</td><td>Formatting | Lists | Alignment</td></tr>
+</table>
+
+<h4>Dropdown Conversions</h4>
+
+<table>
+<tr><th>Control</th><th>Status</th></tr>
+<tr><td>Font Selector</td><td><span class="status done">Converted</span></td></tr>
+<tr><td>Font Size Selector</td><td><span class="status done">Converted</span></td></tr>
+<tr><td>Color Selector</td><td><span class="status done">Converted</span></td></tr>
+<tr><td>Formatting Menu</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td>Lists Menu</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td>Alignment Menu</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<h4>Formatting Menu</h4>
+
+<ul>
+<li>Bold</li>
+<li>Italic</li>
+<li>Underline</li>
+<li>Clear Formatting</li>
+</ul>
+
+<h4>Lists Menu</h4>
+
+<ul>
+<li>Bulleted List</li>
+<li>Numbered List</li>
+</ul>
+
+<h4>Alignment Menu</h4>
+
+<ul>
+<li>Align Left</li>
+<li>Align Center</li>
+<li>Align Right</li>
+<li>Justify</li>
+</ul>
+
+<h4>Menu State Tracking</h4>
+
+<p>
+Dropdown menus now support active-state checkmark indicators to reflect the currently selected formatting mode and improve user awareness during editing operations.
+</p>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Toolbar modernization is complete and accepted as the new Notes editor baseline.
+</div>
+
+<div class="page-num">49</div>
+</section>
+
+<section class="page">
+<h3>50. Dropdown Readability Remediation and Native Windows Rendering Rollback</h3>
+<p class="sub">Dropdown readability failures, custom styling rollback, Source selector remediation, Capture Format remediation, and final UI stabilization.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Native Windows dropdown rendering was adopted as the approved solution after multiple custom styling attempts introduced readability regressions throughout the application.
+</div>
+
+<h4>Readability Failures Encountered</h4>
+
+<table>
+<tr><th>Failure</th><th>Impact</th></tr>
+<tr><td>White-on-white text</td><td>Unreadable selections.</td></tr>
+<tr><td>Dark-on-dark text</td><td>Unreadable selections.</td></tr>
+<tr><td>Overly bright highlight colors</td><td>Poor readability.</td></tr>
+<tr><td>Custom MenuItem styling</td><td>Inconsistent appearance.</td></tr>
+<tr><td>Disabled ComboBox styling</td><td>Source and Capture Format text became unreadable.</td></tr>
+</table>
+
+<h4>Rollback Decisions</h4>
+
+<table>
+<tr><th>Approach</th><th>Decision</th></tr>
+<tr><td>Custom ComboBox styling</td><td><span class="status blocked">Rejected</span></td></tr>
+<tr><td>Custom ContextMenu styling</td><td><span class="status blocked">Rejected</span></td></tr>
+<tr><td>Native Windows dropdown rendering</td><td><span class="status done">Accepted</span></td></tr>
+</table>
+
+<h4>Source and Capture Format Recovery</h4>
+
+<p>
+The Source selector and Capture Format selector were restored to readable operation after disabled-state styling changes introduced severe contrast issues.
+</p>
+
+<h4>Final Validation</h4>
+
+<table>
+<tr><th>Component</th><th>Status</th></tr>
+<tr><td>Font Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Size Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Color Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Formatting Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Lists Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Source Selector</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Capture Format Selector</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Build</td><td><span class="status done">Passed</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Native Windows rendering is now the approved dropdown strategy for Lab Imager. Future UI modernization efforts must prioritize readability and stability over aggressive custom styling.
+</div>
+
+<div class="page-num">50</div>
+</section>
+
+<section class="page">
+<h3>51. Notes Modernization Validation and Repository Stabilization Checkpoint</h3>
+<p class="sub">Final validation record for Notes toolbar modernization, evidence-format preservation, dropdown readability recovery, build verification, and repository synchronization.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Notes modernization sprint is complete, validated, and synchronized. All Notes dropdowns are operational, evidence PNG formatting preservation is verified, long Notes rendering is verified, Source and Capture Format selectors remain readable, and the repository is clean.
+</div>
+
+<h4>Validation Summary</h4>
+<table>
+<tr><th>Validation Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Notes toolbar redesign</td><td><span class="status done">Complete</span></td><td>Two-row toolbar accepted.</td></tr>
+<tr><td>Font dropdown</td><td><span class="status done">Verified</span></td><td>Readable and operational.</td></tr>
+<tr><td>Font size dropdown</td><td><span class="status done">Verified</span></td><td>Readable, operational, and point-size behavior validated.</td></tr>
+<tr><td>Color dropdown</td><td><span class="status done">Verified</span></td><td>Readable and operational.</td></tr>
+<tr><td>Formatting dropdown</td><td><span class="status done">Verified</span></td><td>Bold, italic, underline, and clear formatting available.</td></tr>
+<tr><td>Lists dropdown</td><td><span class="status done">Verified</span></td><td>Bulleted and numbered list workflows validated.</td></tr>
+<tr><td>Alignment dropdown</td><td><span class="status done">Verified</span></td><td>Left, center, right, and justify workflows validated.</td></tr>
+<tr><td>Source selector readability</td><td><span class="status done">Verified</span></td><td>Readable after disabled ComboBox style correction.</td></tr>
+<tr><td>Capture Format selector readability</td><td><span class="status done">Verified</span></td><td>Readable after disabled ComboBox style correction.</td></tr>
+<tr><td>Evidence PNG formatting preservation</td><td><span class="status done">Verified</span></td><td>Rich Notes formatting preserved in generated evidence output.</td></tr>
+<tr><td>Long Notes rendering</td><td><span class="status done">Verified</span></td><td>Evidence output expands instead of clipping.</td></tr>
+</table>
+
+<h4>Formatting Preservation Verified</h4>
+<table>
+<tr><th>Formatting Feature</th><th>Status</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Text Color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Multiple Font Sizes</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bullets</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Numbered Lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Mixed Formatting</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<h4>Build and Repository Verification</h4>
+<pre><code>dotnet build src\LabImager\LabImager.csproj
+# Build succeeded.
+# 0 Error(s)
+
+git add .
+git commit -m "Complete notes toolbar redesign and formatting validation"
+# nothing to commit, working tree clean
+
+git push origin feature/wpf-frame-pipeline
+# Everything up-to-date</code></pre>
+
+<table>
+<tr><th>Repository Item</th><th>Status</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td></tr>
+<tr><td>Remote synchronization</td><td><span class="status done">Up to date with origin</span></td></tr>
+<tr><td>Build state</td><td><span class="status done">Passing</span></td></tr>
+</table>
+
+<h4>Current Remaining Workflows</h4>
+<table>
+<tr><th>Workflow</th><th>Status</th><th>Next Action</th></tr>
+<tr><td>HTML evidence report validation</td><td><span class="status pending">Pending</span></td><td>Confirm rich Notes formatting carries into HTML report output.</td></tr>
+<tr><td>Evidence packaging workflow</td><td><span class="status pending">Pending</span></td><td>Save original PNG, annotated/evidence PNG, and generate PDF package.</td></tr>
+<tr><td>Annotation capture validation</td><td><span class="status pending">Pending</span></td><td>Confirm annotations render into saved evidence output while preserving original image.</td></tr>
+<tr><td>Recording playback workflow</td><td><span class="status pending">Future</span></td><td>Define rewind/playback and AVI review workflow.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Notes editor modernization is closed for this sprint. The next documentation task is roadmap reconciliation before any new code work begins.
+</div>
+
+<div class="page-num">51</div>
+</section>
+
 </section>
 
 <section class="page">

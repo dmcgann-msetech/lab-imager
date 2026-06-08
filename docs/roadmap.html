@@ -146,7 +146,7 @@ Location: %USERPROFILE%\Videos\Lab Imager\Recordings</pre>
 <h3>Priority 3 — Evidence Workflow Validation</h3>
 <p class="sub">Capture, export, annotation, and metadata verification.</p>
 
-<div class="note watch"><strong>Status:</strong> Mostly Complete</div>
+<div class="note ok"><strong>Status:</strong> Nearly Complete</div>
 
 <table>
 <tr><th>Validation Item</th><th>Status</th></tr>
@@ -158,20 +158,43 @@ Location: %USERPROFILE%\Videos\Lab Imager\Recordings</pre>
 <tr><td>PNG export.</td><td><span class="status done">Complete</span></td></tr>
 <tr><td>Annotation preservation.</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Metadata preservation.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Rich Notes formatting preservation.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Bold preservation.</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic preservation.</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline preservation.</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Color preservation.</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment preservation.</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bulleted list preservation.</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Numbered list preservation.</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Long Notes rendering.</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<h4>Evidence Packaging Workflow</h4>
+<table>
+<tr><th>Requirement</th><th>Status</th></tr>
+<tr><td>Save original captured PNG.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Save annotated evidence PNG.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Generate evidence PDF package.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Include Notes content in PDF package.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Include metadata in PDF package.</td><td><span class="status pending">Pending</span></td></tr>
 </table>
 
 <h4>Priority 4 — UI Cleanup Pass</h4>
-<div class="note watch"><strong>Status:</strong> Pending</div>
+<div class="note watch"><strong>Status:</strong> Mostly Complete</div>
 
 <table>
 <tr><th>Item</th><th>Status</th></tr>
-<tr><td>Control spacing.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Alignment consistency.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Right-panel cleanup.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Transport control cleanup.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Button sizing review.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Font consistency.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Control spacing.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Alignment consistency.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Right-panel cleanup.</td><td><span class="status active">In Review</span></td></tr>
+<tr><td>Transport control cleanup.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Button sizing review.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Font consistency.</td><td><span class="status active">In Review</span></td></tr>
 <tr><td>Final responsive-layout review.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Notes toolbar redesign.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Notes dropdown modernization.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Dropdown readability remediation.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Native Windows dropdown rollback.</td><td><span class="status done">Complete</span></td></tr>
 </table>
 
 <div class="page-num">3</div>
@@ -188,18 +211,12 @@ Location: %USERPROFILE%\Videos\Lab Imager\Recordings</pre>
 CS8602 possible null dereference
 
 DirectShowCameraPreviewService.cs
-CS8602 possible null dereference
-
-DirectShowFramePreviewService.cs
-_latestFrame never used
-
-DirectShowFramePreviewService.cs
-_frameCount never used</pre>
+CS8602 possible null dereference</pre>
 
 <table>
 <tr><th>Task</th><th>Status</th></tr>
-<tr><td>Remove dead fields.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Fix nullable warnings.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Remove dead fields.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Fix nullable warnings.</td><td><span class="status active">In Progress</span></td></tr>
 <tr><td>Remove obsolete scaffolding.</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Remove obsolete probe code no longer required.</td><td><span class="status pending">Pending</span></td></tr>
 </table>
@@ -232,8 +249,8 @@ _frameCount never used</pre>
 <tr><th>Requirement</th><th>Status</th></tr>
 <tr><td>Capture format application complete.</td><td><span class="status done">Complete</span></td></tr>
 <tr><td>Integrated recording complete.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Evidence workflow validated.</td><td><span class="status pending">Pending final pass</span></td></tr>
-<tr><td>UI cleanup pass complete.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Evidence workflow validated.</td><td><span class="status active">Near Complete</span></td></tr>
+<tr><td>UI cleanup pass complete.</td><td><span class="status active">Near Complete</span></td></tr>
 <tr><td>Technical debt cleanup complete.</td><td><span class="status pending">Pending</span></td></tr>
 <tr><td>Build clean.</td><td><span class="status watching">Warnings remain</span></td></tr>
 <tr><td>No regression failures.</td><td><span class="status pending">Pending</span></td></tr>
@@ -252,12 +269,13 @@ git tag m1-release-candidate
 git push origin m1-release-candidate</pre>
 
 <h4>What To Work On Next</h4>
-<pre>1. Evidence Workflow Validation
-2. UI Cleanup
+<pre>1. Annotation Preservation Validation
+2. PDF Evidence Package Workflow
 3. Technical Debt Cleanup
 4. Recording Hardening Pass
 5. M1 Review
-6. Merge to Main</pre>
+6. Merge to Main
+7. Playback / Review Workflow Planning</pre>
 
 <div class="note ok">
 <strong>Roadmap decision:</strong> Integrated Recording Architecture is complete enough to move out of the top priority slot. Recording hardening remains open for repeated cycles, long-duration recording, quality review, and future playback workflow planning.
