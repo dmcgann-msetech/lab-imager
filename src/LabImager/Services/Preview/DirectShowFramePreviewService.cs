@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
@@ -21,10 +21,6 @@ public sealed class DirectShowFramePreviewService : IWpfFramePreviewService, ISa
     public bool IsPreviewRunning { get; private set; }
 
     public event EventHandler<BitmapSource>? FrameReady;
-
-    private System.Windows.Media.Imaging.BitmapSource? _latestFrame;
-
-    private int _frameCount = 0;
     private DateTime _lastLogTime = DateTime.Now;
 
     public void StartPreview(CameraDeviceInfo source)
