@@ -636,6 +636,35 @@ namespace LabImager
             NotesEditor.Focus();
         }
 
+        private void NotesFontSizeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (NotesEditor is null ||
+                NotesFontSizeSelector.SelectedItem is not ComboBoxItem selectedItem)
+            {
+                return;
+            }
+
+            var sizeText = selectedItem.Content?.ToString();
+
+            if (!double.TryParse(sizeText, out var fontSize))
+            {
+                return;
+            }
+
+            if (!NotesEditor.Selection.IsEmpty)
+            {
+                NotesEditor.Selection.ApplyPropertyValue(
+                    TextElement.FontSizeProperty,
+                    fontSize
+                );
+            }
+            else
+            {
+                NotesEditor.FontSize = fontSize;
+            }
+
+            NotesEditor.Focus();
+        }
         private void NotesBoldButton_Click(object sender, RoutedEventArgs e)
         {
             EditingCommands.ToggleBold.Execute(null, NotesEditor);

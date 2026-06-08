@@ -2604,7 +2604,7 @@
                             <Button x:Name="StopPreviewButton"
                                     Style="{StaticResource ViewportTransportButtonStyle}"
                                     Click="StopPreviewButton_Click"
-                                    Content="Â¦  Stop"
+                                    Content="Ãƒâ€šÃ‚Â¦  Stop"
                                     ToolTip="Stop preview"
                                     Background="#334155"
                                     BorderBrush="#334155"/>
@@ -2790,6 +2790,29 @@
                                                     <ComboBoxItem Content="Courier New" Foreground="#E5E7EB" Background="#171D24"/>
                                                 </ComboBox>
 
+                                                <ComboBox x:Name="NotesFontSizeSelector" SelectionChanged="NotesFontSizeSelector_SelectionChanged"
+                                                          Foreground="#111827" Background="#171D24" BorderBrush="#334155" ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
+                                                          Width="70"
+                                                          Height="28"
+                                                          SelectedIndex="4"
+                                                          Margin="0,0,8,0">
+                                                    <ComboBoxItem Content="8" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="9" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="10" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="11" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="12" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="14" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="16" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="18" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="20" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="24" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="28" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="32" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="36" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="48" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="72" Foreground="#E5E7EB" Background="#171D24"/>
+                                                </ComboBox>
+
                                                 <Button Style="{StaticResource DarkHoverButtonStyle}" Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold" Click="NotesBoldButton_Click"/>
                                                 <Button Style="{StaticResource DarkHoverButtonStyle}" Content="I" Width="28" Margin="0,0,4,0" FontStyle="Italic" Click="NotesItalicButton_Click"/>
                                                 <Button Style="{StaticResource DarkHoverButtonStyle}" Content="U" Width="28" Margin="0,0,4,0" Click="NotesUnderlineButton_Click"/>
@@ -2863,7 +2886,7 @@
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center">
 
-                        <TextBlock Text="Â"
+                        <TextBlock Text="Ãƒâ€šÃ‚Â"
                                    Foreground="#22C55E"
                                    FontSize="18"
                                    Margin="0,0,10,0"/>
