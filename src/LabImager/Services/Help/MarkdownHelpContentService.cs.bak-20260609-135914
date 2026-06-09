@@ -1,0 +1,24 @@
+﻿using System;
+using System.IO;
+
+namespace LabImager.Services.Help
+{
+    public sealed class MarkdownHelpContentService : IHelpContentService
+    {
+        public string LoadHelpContent()
+        {
+            var helpPath = Path.Combine(
+                AppContext.BaseDirectory,
+                "docs",
+                "help",
+                "HELP.md");
+
+            if (!File.Exists(helpPath))
+            {
+                return "Lab Imager Help file was not found.`r`n`r`nExpected location:`r`n" + helpPath;
+            }
+
+            return File.ReadAllText(helpPath);
+        }
+    }
+}

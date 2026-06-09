@@ -3571,6 +3571,152 @@ git push origin feature/wpf-frame-pipeline
 <div class="page-num">52</div>
 </section>
 
+<section class="page">
+<h3>53. Roadmap Consolidation and M1 Closeout Planning</h3>
+<p class="sub">Roadmap modernization following completion of Evidence PDF Export and transition from feature-development phase into validation and release-preparation phase.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> The project roadmap was rewritten and simplified to reflect the actual state of the application. Completed feature-development milestones were removed from the active backlog and remaining work was reorganized into validation, hardening, cleanup, and merge-preparation phases.
+</div>
+
+<h4>Roadmap Review Findings</h4>
+<table>
+<tr><th>Area</th><th>Status</th><th>Result</th></tr>
+<tr><td>Camera Enumeration</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Capture Format Selection</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Live Preview</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Freeze / Resume</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Evidence PNG Export</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Integrated Recording</td><td><span class="status done">Complete</span></td><td>Moved to hardening phase.</td></tr>
+<tr><td>Evidence PDF Export</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+</table>
+
+<h4>Remaining Active Work</h4>
+<ol>
+<li>Annotation Preservation Validation</li>
+<li>Recording Hardening Pass</li>
+<li>M1 Final Validation Review</li>
+<li>Merge Preparation</li>
+</ol>
+
+<div class="note ok">
+<strong>Roadmap decision:</strong> Lab Imager has exited primary feature-development mode for Milestone 1. Remaining work is focused on validation, hardening, cleanup, documentation synchronization, and merge readiness.
+</div>
+
+<div class="page-num">53</div>
+</section>
+
+<section class="page">
+<h3>54. Technical Debt Cleanup Completion and Zero-Warning Build Validation</h3>
+<p class="sub">Repository cleanup, backup artifact removal, build verification, and final warning review following Evidence PDF Export implementation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Technical Debt Cleanup was completed successfully. Repository backup artifacts were removed, project structure was reviewed, and the solution was validated with a clean build containing zero warnings and zero errors.
+</div>
+
+<h4>Repository Cleanup</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Legacy UI backup artifacts</td><td><span class="status done">Removed</span></td><td>Historical .bak files deleted from repository.</td></tr>
+<tr><td>Experimental rollback artifacts</td><td><span class="status done">Removed</span></td><td>Obsolete development backups removed.</td></tr>
+<tr><td>Evidence PDF module backups</td><td><span class="status done">Removed</span></td><td>Temporary implementation backups removed.</td></tr>
+<tr><td>Repository organization</td><td><span class="status done">Validated</span></td><td>Reporting module integrated successfully.</td></tr>
+</table>
+
+<h4>Build Validation</h4>
+<pre>dotnet build src\LabImager\LabImager.csproj</pre>
+
+<table>
+<tr><th>Metric</th><th>Result</th></tr>
+<tr><td>Errors</td><td><span class="status done">0</span></td></tr>
+<tr><td>Warnings</td><td><span class="status done">0</span></td></tr>
+<tr><td>Build Status</td><td><span class="status done">PASSING</span></td></tr>
+</table>
+
+<h4>Current Repository State</h4>
+<table>
+<tr><th>Item</th><th>Value</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Latest Commit</td><td><code>a0e88fa</code></td></tr>
+<tr><td>Commit Message</td><td><code>Implement evidence PDF export and reporting module</code></td></tr>
+<tr><td>Working Tree</td><td><span class="status done">Clean</span></td></tr>
+<tr><td>Remote Status</td><td><span class="status done">Synchronized</span></td></tr>
+</table>
+
+<h4>Technical Debt Status</h4>
+<div class="note ok">
+<strong>Decision:</strong> Technical Debt Cleanup is considered complete for Milestone 1. No known build warnings remain and no active repository hygiene issues are currently open.
+</div>
+
+<h4>Remaining Milestone 1 Work</h4>
+<table>
+<tr><th>Task</th><th>Status</th></tr>
+<tr><td>Annotation Preservation Validation</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Recording Hardening Pass</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>M1 Final Validation Review</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Merge Preparation</td><td><span class="status pending">Pending</span></td></tr>
+</table>
+
+<div class="page-num">54</div>
+</section>
+
+<section class="page">
+<h3>55. Integrated Help Center Modernization and Documentation Framework</h3>
+
+<p class="sub">
+Migration from basic markdown help viewing to an integrated Windows-style Help Center.
+</p>
+
+<div class="note ok">
+<strong>Status:</strong> Completed and validated.
+</div>
+
+<h4>Implemented Components</h4>
+
+<ul>
+<li>Dedicated Help Center window</li>
+<li>Left-side navigation panel</li>
+<li>Multi-document help architecture</li>
+<li>Help Topics integration</li>
+<li>User Guide integration</li>
+<li>FAQ integration</li>
+<li>Keyboard Shortcuts integration</li>
+<li>Release Notes integration</li>
+<li>About Lab Imager integration</li>
+</ul>
+
+<h4>Help Center Improvements</h4>
+
+<ul>
+<li>Replaced raw markdown display architecture</li>
+<li>Introduced FlowDocument-based document rendering</li>
+<li>Added section-aware rendering pipeline</li>
+<li>Added heading hierarchy support</li>
+<li>Added bullet-list support</li>
+<li>Added numbered-list support</li>
+<li>Added table rendering support</li>
+<li>Added code-block rendering support</li>
+<li>Added document navigation workflow</li>
+</ul>
+
+<h4>Branding Integration</h4>
+
+<ul>
+<li>MSE branding assets integrated into About page</li>
+<li>Dedicated About Lab Imager experience created</li>
+<li>Application information centralized into Help Center</li>
+</ul>
+
+<h4>Result</h4>
+
+<p>
+Lab Imager now contains a self-contained desktop Help Center modeled after traditional Windows application documentation systems. Documentation is packaged with the application and accessible directly from the user interface without requiring external viewers.
+</p>
+
+<div class="page-num">55</div>
+</section>
+
+
 </section>
 
 <section class="page">

@@ -1,0 +1,23 @@
+﻿using System.Windows;
+using LabImager.Services.Help;
+
+namespace LabImager.Views
+{
+    public partial class HelpWindow : Window
+    {
+        private readonly IHelpContentService _helpContentService;
+
+        public HelpWindow()
+        {
+            InitializeComponent();
+
+            _helpContentService = new MarkdownHelpContentService();
+            HelpContentBox.Text = _helpContentService.LoadHelpContent();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+    }
+}

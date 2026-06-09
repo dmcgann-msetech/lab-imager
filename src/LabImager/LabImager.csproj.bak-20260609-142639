@@ -38,13 +38,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>docs\application\ABOUT.md</Link>
     </None>
-    <None Include="..\..\docs\assets\branding\mse_logo.png" Condition="Exists('..\..\docs\assets\branding\mse_logo.png')">
+    <None Include="..\..\docs\assets\branding\mse-logo-transparent.png" Condition="Exists('..\..\docs\assets\branding\mse-logo-transparent.png')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>docs\assets\branding\mse_logo.png</Link>
+      <Link>docs\assets\branding\mse-logo-transparent.png</Link>
     </None>
   </ItemGroup>
 </Project>
-
 
 
 

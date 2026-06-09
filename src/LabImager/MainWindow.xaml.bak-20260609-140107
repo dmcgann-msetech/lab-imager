@@ -2998,16 +2998,13 @@
 
                         <TextBlock Text="Help"
                                    FontSize="18"
-                                   Foreground="#0EA5E9"
-                                   Cursor="Hand"
-                                   MouseLeftButtonUp="HelpText_MouseLeftButtonUp"/>
+                                   Foreground="#0EA5E9"/>
                     </StackPanel>
                 </Grid>
             </Border>
         </Grid>
     </Border>
 </Window>
-
 
 
 

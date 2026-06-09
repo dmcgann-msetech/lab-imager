@@ -53,13 +53,12 @@ pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;font-size:11px;
 <tr><th>Mode</th><th>Status</th><th>Notes</th></tr>
 <tr><td>Feature Development</td><td><span class="status done">Complete</span></td><td>Major M1 user-facing features are implemented.</td></tr>
 <tr><td>Validation</td><td><span class="status active">Active</span></td><td>Remaining work is proving behavior and closing regressions.</td></tr>
-<tr><td>Technical Debt</td><td><span class="status active">Active</span></td><td>Known warnings and cleanup items remain.</td></tr>
+<tr><td>Technical Debt</td><td><span class="status done">Complete</span></td><td>Repository cleanup completed and build validated.</td></tr>
 <tr><td>Merge Preparation</td><td><span class="status pending">Pending</span></td><td>Blocked until validation and cleanup pass.</td></tr>
 </table>
 
 <h4>Current Top Priorities</h4>
 <ol>
-<li>Technical Debt Cleanup</li>
 <li>Annotation Preservation Validation</li>
 <li>Recording Hardening Pass</li>
 <li>M1 Final Validation Review</li>
@@ -154,25 +153,25 @@ pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;font-size:11px;
 <h3>Technical Debt Cleanup</h3>
 <p class="sub">Known warnings, repository hygiene, and cleanup tasks before M1 merge.</p>
 
-<div class="note watch">
-<strong>Status:</strong> Active. This is the current cleanup workstream.
+<div class="note ok">
+<strong>Status:</strong> Complete.
 </div>
 
-<h4>Known Build Warnings</h4>
-<pre>DirectShowCameraDeviceService.cs
-CS8602 possible null dereference
+<h4>Final Build Validation</h4>
+<pre>dotnet build src\LabImager\LabImager.csproj
 
-DirectShowCameraPreviewService.cs
-CS8602 possible null dereference</pre>
+Build succeeded.
+0 Warning(s)
+0 Error(s)</pre>
 
 <table>
 <tr><th>Cleanup Item</th><th>Status</th><th>Notes</th></tr>
-<tr><td>Fix DirectShow nullable warnings</td><td><span class="status active">Active</span></td><td>Expected to clear final CS8602 warnings.</td></tr>
-<tr><td>Remove obsolete backup files</td><td><span class="status pending">Pending</span></td><td>Remove tracked or accidental <code>.bak</code> artifacts if present.</td></tr>
+<tr><td>Fix DirectShow nullable warnings</td><td><span class="status done">Complete</span></td><td>Build validation confirmed no remaining warnings.</td></tr>
+<tr><td>Remove obsolete backup files</td><td><span class="status done">Complete</span></td><td>Legacy .bak artifacts removed from repository.</td></tr>
 <tr><td>Review obsolete scaffolding</td><td><span class="status pending">Pending</span></td><td>Remove unused stubs only if they are no longer referenced.</td></tr>
 <tr><td>Review RecordingProbe retention</td><td><span class="status watching">Review</span></td><td>Keep if still useful as diagnostic tool; remove only by deliberate decision.</td></tr>
-<tr><td>Confirm zero-error build</td><td><span class="status active">Active</span></td><td>Required before merge.</td></tr>
-<tr><td>Confirm zero-warning build</td><td><span class="status pending">Pending</span></td><td>Target outcome for cleanup pass.</td></tr>
+<tr><td>Confirm zero-error build</td><td><span class="status done">Complete</span></td><td>Validated.</td></tr>
+<tr><td>Confirm zero-warning build</td><td><span class="status done">Complete</span></td><td>Validated.</td></tr>
 </table>
 
 <h4>Cleanup Rules</h4>
@@ -185,7 +184,7 @@ CS8602 possible null dereference</pre>
 </ul>
 
 <div class="note ok">
-<strong>Architecture rule:</strong> New work should continue to be added as isolated modules unless modification of existing code is absolutely required.
+<strong>Result:</strong> Technical Debt Cleanup is complete for Milestone 1. No active build warnings or repository hygiene issues remain.
 </div>
 
 <div class="page-num">4</div>
@@ -203,8 +202,8 @@ CS8602 possible null dereference</pre>
 <tr><td>Evidence PDF export complete</td><td><span class="status done">Complete</span></td><td>PDF module validated.</td></tr>
 <tr><td>Annotation preservation validated</td><td><span class="status pending">Pending</span></td><td>Highest remaining validation unknown.</td></tr>
 <tr><td>Recording hardening complete</td><td><span class="status pending">Pending</span></td><td>Stress testing required.</td></tr>
-<tr><td>Technical debt cleanup complete</td><td><span class="status active">Active</span></td><td>Known CS8602 warnings remain.</td></tr>
-<tr><td>Build clean</td><td><span class="status watching">Warnings remain</span></td><td>Zero errors; warnings still targeted for cleanup.</td></tr>
+<tr><td>Technical debt cleanup complete</td><td><span class="status done">Complete</span></td><td>Cleanup completed and validated.</td></tr>
+<tr><td>Build clean</td><td><span class="status done">Complete</span></td><td>0 warnings and 0 errors.</td></tr>
 <tr><td>M1 review completed</td><td><span class="status pending">Pending</span></td><td>Final checklist pass required.</td></tr>
 <tr><td>Documentation updated</td><td><span class="status active">Active</span></td><td>Roadmap and project log being updated.</td></tr>
 </table>
@@ -221,13 +220,12 @@ git tag m1-release-candidate
 git push origin m1-release-candidate</pre>
 
 <h4>Next Work Order</h4>
-<pre>1. Complete Technical Debt Cleanup
-2. Validate Annotation Preservation
-3. Run Recording Hardening Pass
-4. Complete M1 Final Review
-5. Update log and release notes
-6. Commit and push
-7. Prepare merge-to-main</pre>
+<pre>1. Validate Annotation Preservation
+2. Run Recording Hardening Pass
+3. Complete M1 Final Review
+4. Update log and release notes
+5. Commit and push
+6. Prepare merge-to-main</pre>
 
 <div class="note ok">
 <strong>Roadmap decision:</strong> Lab Imager has exited core feature-build mode for M1. Remaining work is cleanup, validation, documentation synchronization, and merge readiness.

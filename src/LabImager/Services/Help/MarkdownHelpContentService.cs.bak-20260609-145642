@@ -1,0 +1,36 @@
+﻿using System;
+using System.IO;
+using System.Text.RegularExpressions;
+
+namespace LabImager.Services.Help
+{
+    public sealed class MarkdownHelpContentService : IHelpContentService
+    {
+        public string LoadHelpContent()
+        {
+            return LoadDocument("docs", "help", "HELP.md");
+        }
+
+        public string LoadDocument(params string[] pathParts)
+        {
+            var fullPath = Path.Combine(AppContext.BaseDirectory, Path.Combine(pathParts));
+
+            if (!File.Exists(fullPath))
+            {
+                return "Document not found.\r\n\r\nExpected location:\r\n" + fullPath;
+            }
+
+            var content = File.ReadAllText(fullPath);
+
+            content = Regex.Replace(content, @"^# (.+)$", "$1", RegexOptions.Multiline);
+            content = Regex.Replace(content, @"^## (.+)$", "\r\n$1", RegexOptions.Multiline);
+            content = Regex.Replace(content, @"^### (.+)$", "\r\n$1", RegexOptions.Multiline);
+            content = Regex.Replace(content, @"\*\*(.+?)\*\*", "$1");
+            content = Regex.Replace(content, @"^-{3,}$", "", RegexOptions.Multiline);
+            content = Regex.Replace(content, @"```text\s*", "", RegexOptions.Multiline);
+            content = Regex.Replace(content, @"```", "", RegexOptions.Multiline);
+
+            return content.Trim();
+        }
+    }
+}

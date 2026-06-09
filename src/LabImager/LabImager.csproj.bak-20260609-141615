@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DirectShowLib.Net" Version="3.0.0" />
+    <PackageReference Include="PdfSharp" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\docs\help\HELP.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>docs\help\HELP.md</Link>
+    </None>
+  </ItemGroup>
+</Project>
+
+
