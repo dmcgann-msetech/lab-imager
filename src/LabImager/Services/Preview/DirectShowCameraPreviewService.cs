@@ -388,14 +388,14 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
                             capsPointer));
 
                     if (mediaType == null ||
-                        mediaType!.formatPtr == IntPtr.Zero ||
-                        mediaType!.formatType != FormatType.VideoInfo)
+                        mediaType.formatPtr == IntPtr.Zero ||
+                        mediaType.formatType != FormatType.VideoInfo)
                     {
                         continue;
                     }
 
                     var info = Marshal.PtrToStructure<VideoInfoHeader>(
-                        mediaType!.formatPtr);
+                        mediaType.formatPtr);
 
                     var width = info.BmiHeader.Width;
                     var height = Math.Abs(info.BmiHeader.Height);
@@ -403,7 +403,7 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
                         ? Math.Round(10000000.0 / info.AvgTimePerFrame, 2)
                         : 0;
 
-                    var subtypeName = GetSubtypeName(mediaType!.subType);
+                    var subtypeName = GetSubtypeName(mediaType.subType);
 
                     if (!FormatMatches(selectedFormat, width, height, fps, subtypeName))
                     {
@@ -411,7 +411,7 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
                     }
 
                     DsError.ThrowExceptionForHR(
-                        streamConfig.SetFormat(mediaType!));
+                        streamConfig.SetFormat(mediaType));
 
                     return;
                 }
@@ -499,6 +499,7 @@ public sealed class DirectShowCameraPreviewService : ICameraPreviewService
         }
     }
 }
+
 
 
 

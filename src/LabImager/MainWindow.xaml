@@ -2904,17 +2904,42 @@
                         </StackPanel>
 
                         </ScrollViewer>
+                        
+                        <Grid Grid.Row="2"
+                              Grid.RowSpan="2"
+                              Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Button Grid.Row="2"
-                                Click="CaptureScreenshotButton_Click"
-                                Content="Capture"
-                                ToolTip="Capture screenshot"
-                                Height="32"
-                                FontSize="13"
-                                FontWeight="Bold"
-                                Background="#171D24"
-                                Foreground="#E5E7EB"
-                                BorderBrush="#334155"/>
+                            <Button Grid.Column="0"
+                                    Click="CaptureScreenshotButton_Click"
+                                    Content="Capture"
+                                    ToolTip="Capture screenshot"
+                                    Height="32"
+                                    FontSize="13"
+                                    FontWeight="Bold"
+                                    Background="#171D24"
+                                    Foreground="#E5E7EB"
+                                    BorderBrush="#334155"/>
+
+                            <Button Grid.Column="2"
+                                    x:Name="ExportPdfButton"
+                                    Content="Export PDF"
+                                    ToolTip="Export latest captured evidence to PDF"
+                                    Height="32"
+                                    FontSize="13"
+                                    FontWeight="Bold"
+                                    Background="#171D24"
+                                    Foreground="#E5E7EB"
+                                    BorderBrush="#334155"
+                                    Style="{StaticResource ReadableDisabledButtonStyle}"
+                                    IsEnabled="False"
+                                    Click="ExportPdfButton_Click"/>
+                        </Grid>
+
                     </Grid>
                 </Border>
             </Grid>
@@ -2981,6 +3006,14 @@
         </Grid>
     </Border>
 </Window>
+
+
+
+
+
+
+
+
 
 
 

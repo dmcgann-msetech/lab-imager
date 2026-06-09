@@ -3465,6 +3465,112 @@ git push origin feature/wpf-frame-pipeline
 <div class="page-num">51</div>
 </section>
 
+<section class="page">
+<h3>52. Evidence PDF Export Module Implementation and Validation</h3>
+<p class="sub">Modular PDF export workflow, original-image report generation, Windows font resolver implementation, metadata export, notes export, and final PDF layout validation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Evidence PDF export is implemented, build-validated, runtime-tested, and visually approved. The new workflow generates a clean Lab Imager evidence report PDF using the original captured image, session metadata, capture format, timestamp data, and Notes content without modifying the existing capture, notes, preview, annotation, or recording pipelines.
+</div>
+
+<h4>Implementation Principle</h4>
+<div class="note ok">
+<strong>Architecture rule applied:</strong> This feature was added as an isolated module. Existing working systems were preserved. Capture, evidence PNG generation, recording, Notes formatting, preview, and source-selection behavior were not refactored.
+</div>
+
+<h4>Module Components Added</h4>
+<table>
+<tr><th>Component</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>Models/Reporting/LatestEvidenceCapture.cs</code></td><td>Tracks the latest original PNG, evidence PNG, and capture timestamp after a successful Capture action.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Models/Reporting/EvidencePdfExportRequest.cs</code></td><td>Defines the PDF export request payload including image path, output path, metadata, notes, captured time, and exported time.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Services/Reporting/IEvidencePdfExportService.cs</code></td><td>Provides the interface boundary for PDF export behavior.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Services/Reporting/EvidencePdfExportService.cs</code></td><td>Generates the Lab Imager evidence report PDF.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Services/Reporting/WindowsFontResolver.cs</code></td><td>Provides PdfSharp with access to installed Windows fonts under .NET 8.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>PdfSharp</code></td><td>PDF generation dependency used by the isolated reporting module.</td><td><span class="status done">Added</span></td></tr>
+</table>
+
+<h4>UI Workflow Added</h4>
+<table>
+<tr><th>Control</th><th>Behavior</th><th>Status</th></tr>
+<tr><td><code>Capture</code></td><td>Existing capture behavior preserved. Creates original PNG and evidence PNG.</td><td><span class="status done">Unchanged</span></td></tr>
+<tr><td><code>Export PDF</code></td><td>New button added beside Capture in the Lab Session action area.</td><td><span class="status done">Added</span></td></tr>
+<tr><td>Export PDF default state</td><td>Disabled until a successful capture occurs.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td>Export PDF active state</td><td>Enabled after the latest evidence capture is recorded.</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Output Workflow</h4>
+<table>
+<tr><th>Output</th><th>Description</th><th>Status</th></tr>
+<tr><td><code>-original.png</code></td><td>Clean original camera capture.</td><td><span class="status done">Preserved</span></td></tr>
+<tr><td><code>-evidence.png</code></td><td>Evidence image containing the capture plus metadata/Notes layout.</td><td><span class="status done">Preserved</span></td></tr>
+<tr><td><code>-evidence.pdf</code></td><td>New formal PDF evidence report generated from the original image plus current metadata and Notes.</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<h4>PDF Report Layout</h4>
+<table>
+<tr><th>PDF Section</th><th>Content</th><th>Status</th></tr>
+<tr><td>Title</td><td><code>LAB IMAGER EVIDENCE REPORT</code></td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Metadata block</td><td>Project, Board / Device, Technician, Captured time, Exported time, Camera, and Capture Format.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Image block</td><td>Original captured camera image, centered horizontally and scaled for page fit.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Notes block</td><td>Plain-text Notes content from the current Lab Session Notes field.</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Key Design Correction</h4>
+<div class="note ok">
+<strong>Resolved duplication:</strong> Initial PDF testing embedded the evidence PNG, which caused metadata and Notes to appear twice. The final PDF workflow now embeds the original PNG instead, then lets the PDF module generate the report metadata and Notes sections directly.
+</div>
+
+<h4>Font Resolver Issue and Resolution</h4>
+<table>
+<tr><th>Issue</th><th>Cause</th><th>Resolution</th></tr>
+<tr><td>PDF export failed with <code>No appropriate font found for family name 'Arial'</code>.</td><td>PdfSharp under .NET 8 does not automatically resolve Windows fonts without an explicit font resolver.</td><td>Implemented <code>WindowsFontResolver</code> and assigned it through <code>GlobalFontSettings.FontResolver</code>.</td></tr>
+<tr><td>Report font consistency</td><td>PDF generation needed predictable Windows font access.</td><td>Registered common Windows fonts including Segoe UI, Calibri, Arial, Verdana, Tahoma, Georgia, Times New Roman, Cambria, Book Antiqua, Garamond, Consolas, and Courier New.</td></tr>
+</table>
+
+<h4>Validation Evidence</h4>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td><code>dotnet build src\LabImager\LabImager.csproj</code></td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Build errors</td><td><code>0</code></td></tr>
+<tr><td>Known warnings</td><td>Existing DirectShow nullable warnings only.</td></tr>
+<tr><td>Application launch</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Capture workflow</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Export PDF button enablement</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>PDF file creation</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>PDF opening / readability</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Metadata export</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Original image embedding</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Notes export</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Image centering</td><td><span class="status done">Passed</span></td></tr>
+</table>
+
+<h4>Validated Sample Output</h4>
+<table>
+<tr><th>Sample Field</th><th>Observed Value</th></tr>
+<tr><td>Project</td><td><code>Beta Test 1</code></td></tr>
+<tr><td>Board / Device</td><td><code>Test Board 6</code></td></tr>
+<tr><td>Technician</td><td><code>Brady Cabral</code></td></tr>
+<tr><td>Camera</td><td><code>HD Pro Webcam C920 (Default)</code></td></tr>
+<tr><td>Capture Format</td><td><code>2560x1472 @ 2 FPS - YUY2</code></td></tr>
+<tr><td>Notes</td><td><code>Metadata top</code></td></tr>
+</table>
+
+<h4>Known Follow-Up Item</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Status bar long-message handling</td><td><span class="status pending">Future polish</span></td><td>Long exception messages can overflow the footer status bar. Recommended future solution is a dedicated status/error message strip or controlled truncation with tooltip support.</td></tr>
+<tr><td>Rich Notes in PDF</td><td><span class="status pending">Future polish</span></td><td>PDF currently exports Notes as plain text. Rich Notes rendering remains preserved in evidence PNG output.</td></tr>
+<tr><td>PDF branding polish</td><td><span class="status pending">Optional</span></td><td>Future pass may add logo, page numbering, and refined report header styling.</td></tr>
+</table>
+
+<h4>Final Decision</h4>
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Evidence PDF Export is complete for Milestone 1. The application now supports original PNG output, evidence PNG output, and formal PDF evidence report generation. Future work should treat PDF export as a working reporting module and avoid modifying the stable capture pipeline unless absolutely necessary.
+</div>
+
+<div class="page-num">52</div>
+</section>
+
 </section>
 
 <section class="page">

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="DirectShowLib.Net" Version="3.0.0" />
+    <PackageReference Include="PdfSharp" Version="6.2.2" />
   </ItemGroup>
 
 </Project>

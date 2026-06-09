@@ -9,6 +9,7 @@ using LabImager.Services.Camera;
 using LabImager.Services.Capture;
 using LabImager.Models.Capture;
 using LabImager.Services.Reporting;
+using LabImager.Models.Reporting;
 using LabImager.Models.Session;
 using LabImager.Models.Camera;
 using LabImager.Services.Preview;
@@ -24,6 +25,8 @@ namespace LabImager
         private readonly IViewportCaptureService _viewportCaptureService;
         private readonly ICameraPreviewService _cameraPreviewService;
         private readonly IRecordingService _recordingService;
+        private readonly IEvidencePdfExportService _evidencePdfExportService;
+        private LatestEvidenceCapture? _latestEvidenceCapture;
         private TextBlock? _recordingHeaderText;
 
         public MainWindow()
@@ -35,6 +38,7 @@ namespace LabImager
             _viewportCaptureService = new ViewportCaptureService();
             _cameraPreviewService = new DirectShowCameraPreviewService();
             _recordingService = new RecordingService();
+            _evidencePdfExportService = new EvidencePdfExportService();
 
             _recordingService.StateChanged += (_, _) => UpdateRecordingUi();
             _recordingService.ElapsedChanged += (_, _) => UpdateRecordingUi();
@@ -50,6 +54,7 @@ namespace LabImager
             };
 
             StopPreviewButton.IsEnabled = false;
+            ExportPdfButton.IsEnabled = false;
 
             LoadCameraDevices();
         }
@@ -74,6 +79,7 @@ namespace LabImager
                 SetDefaultCameraButton.IsEnabled = false;
                 StartPreviewButton.IsEnabled = false;
                 StopPreviewButton.IsEnabled = false;
+            ExportPdfButton.IsEnabled = false;
                 CameraStatusText.Text = "Source: Preview Unavailable";
 
                 CameraStatusText.Text = "Source: No Source Connected";
@@ -125,6 +131,7 @@ namespace LabImager
             FreezePreviewButton.IsEnabled = false;
             FreezePreviewButton.Content = "Freeze";
             StopPreviewButton.IsEnabled = false;
+            ExportPdfButton.IsEnabled = false;
             CameraStatusText.Text = "Source: Preview Idle";
 
             UpdateSelectedCameraState();
@@ -144,6 +151,7 @@ namespace LabImager
                 FreezePreviewButton.IsEnabled = false;
                 FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
+            ExportPdfButton.IsEnabled = false;
             }
 
             UpdateSelectedCameraState();
@@ -254,6 +262,7 @@ namespace LabImager
                 FreezePreviewButton.IsEnabled = false;
                 FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
+            ExportPdfButton.IsEnabled = false;
             }
         }
 
@@ -295,6 +304,7 @@ namespace LabImager
             FreezePreviewButton.IsEnabled = false;
             FreezePreviewButton.Content = "Freeze";
             StopPreviewButton.IsEnabled = false;
+            ExportPdfButton.IsEnabled = false;
         }
 
         private void RecordPreviewButton_Click(object sender, RoutedEventArgs e)
@@ -432,6 +442,16 @@ namespace LabImager
                 var originalPath = CapturePreviewPanelToPng();
                 var evidencePath = _viewportCaptureService.CreateEvidencePng(originalPath, metadata, NotesEditor.Document);
 
+                
+                _latestEvidenceCapture = new LatestEvidenceCapture
+                {
+                    OriginalImagePath = originalPath,
+                    EvidenceImagePath = evidencePath,
+                    CapturedAt = DateTime.Now
+                };
+
+                ExportPdfButton.IsEnabled = true;
+
                 CameraStatusText.Text = $"Source: Evidence Capture Saved: {evidencePath}";
             }
             catch (Exception ex)
@@ -440,6 +460,53 @@ namespace LabImager
             }
         }
 
+
+        private void ExportPdfButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (_latestEvidenceCapture is null ||
+                    string.IsNullOrWhiteSpace(_latestEvidenceCapture.EvidenceImagePath) ||
+                    !File.Exists(_latestEvidenceCapture.EvidenceImagePath))
+                {
+                    CameraStatusText.Text = "Source: Export PDF Failed: Capture evidence first.";
+                    return;
+                }
+
+                var metadata = BuildCurrentSessionMetadata();
+                var outputPdfPath = Path.ChangeExtension(_latestEvidenceCapture.EvidenceImagePath, ".pdf");
+
+                var request = new EvidencePdfExportRequest
+                {
+                    EvidenceImagePath = _latestEvidenceCapture.OriginalImagePath,
+                    OutputPdfPath = outputPdfPath,
+                    ProjectName = metadata.ProjectName,
+                    BoardOrDevice = metadata.BoardOrDevice,
+                    Technician = metadata.Technician,
+                    SourceName = metadata.SourceName,
+                    SourceDevicePath = metadata.SourceDevicePath,
+                    CaptureFormat = GetSelectedCaptureFormatDisplayName(),
+                    NotesText = GetNotesPlainText(),
+                    CapturedAt = _latestEvidenceCapture.CapturedAt,
+                    ExportedAt = DateTime.Now
+                };
+
+                var savedPath = _evidencePdfExportService.Export(request);
+
+                CameraStatusText.Text = $"Source: Evidence PDF Exported: {savedPath}";
+            }
+            catch (Exception ex)
+            {
+                CameraStatusText.Text = $"Source: Export PDF Failed: {ex.Message}";
+            }
+        }
+
+        private string GetSelectedCaptureFormatDisplayName()
+        {
+            return CaptureFormatSelector.SelectedItem is ComboBoxItem selectedFormatItem
+                ? selectedFormatItem.Content?.ToString()?.Trim() ?? string.Empty
+                : string.Empty;
+        }
         private SessionMetadata BuildCurrentSessionMetadata()
         {
             var selectedCamera = CameraSelector.SelectedItem as ComboBoxItem;
@@ -560,6 +627,7 @@ namespace LabImager
                 SetDefaultCameraButton.IsEnabled = false;
                 StartPreviewButton.IsEnabled = false;
                 StopPreviewButton.IsEnabled = false;
+            ExportPdfButton.IsEnabled = false;
                 CameraStatusText.Text = "Source: Preview Unavailable";
 
                 return;
@@ -575,6 +643,7 @@ namespace LabImager
                 FreezePreviewButton.IsEnabled = false;
                 FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
+            ExportPdfButton.IsEnabled = false;
             }
         }
 
@@ -1007,6 +1076,10 @@ namespace LabImager
         }
     }
 }
+
+
+
+
 
 
 

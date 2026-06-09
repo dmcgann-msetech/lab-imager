@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Lab Imager Roadmap - M1 Remaining Work</title>
+<title>Lab Imager Roadmap - M1 Closeout</title>
 <style>
 :root{--bg:#eef2f6;--paper:#fff;--ink:#1f2937;--muted:#6b7280;--line:#d6d3d1;--accent:#075985;--soft:#f8fbff;--code:#f3f4f6;--green:#166534;--blue:#075985;--red:#991b1b;--steel:#334155}
 *{box-sizing:border-box}
@@ -41,172 +41,124 @@ pre{white-space:pre-wrap;word-break:break-word;padding:10px 12px;font-size:11px;
 <section class="page">
 <div class="eyebrow">LAB IMAGER · M1 ROADMAP</div>
 <div class="rule"></div>
-<h1>M1 Remaining Work</h1>
-<h2>Current functional backlog, validation checklist, and merge-to-main readiness tracker.</h2>
+<h1>M1 Closeout Roadmap</h1>
+<h2>Current validation, cleanup, and merge-readiness tracker.</h2>
 
 <div class="note ok">
-<strong>Current top priority:</strong> Capture Format Application and Integrated Recording Architecture are implemented and validated. The next major engineering targets are Evidence Workflow Validation, UI Cleanup, Technical Debt Cleanup, and M1 Review.
+<strong>Current state:</strong> Core Milestone 1 feature development is complete. Lab Imager now supports camera enumeration, selected capture formats, live preview, freeze/resume, still capture, evidence PNG output, rich Notes, integrated AVI recording, and evidence PDF export.
 </div>
 
-<h4>Priority 1 — Capture Format Application</h4>
-<div class="note ok"><strong>Status:</strong> Implemented and Validated</div>
-
-<pre>Camera → Enumerate Formats
-       → Select Format
-       → Apply Format (IAMStreamConfig)
-       → Preview</pre>
-
+<h4>Current Work Mode</h4>
 <table>
-<tr><th>Task</th><th>Status</th></tr>
-<tr><td>Pass selected <code>CameraCaptureFormat</code> from UI into preview service.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Implement <code>IAMStreamConfig</code>.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Match Width / Height / FPS / Subtype.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Call <code>SetFormat()</code>.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate MJPG.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate YUY2.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Validate H264.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Validate 720p.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate 1080p.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate Freeze.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate Capture.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate Stop.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate Camera Reselection.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate Format Reselection While Preview Stopped.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate Format Reselection After Restart.</td><td><span class="status done">Complete</span></td></tr>
+<tr><th>Mode</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Feature Development</td><td><span class="status done">Complete</span></td><td>Major M1 user-facing features are implemented.</td></tr>
+<tr><td>Validation</td><td><span class="status active">Active</span></td><td>Remaining work is proving behavior and closing regressions.</td></tr>
+<tr><td>Technical Debt</td><td><span class="status active">Active</span></td><td>Known warnings and cleanup items remain.</td></tr>
+<tr><td>Merge Preparation</td><td><span class="status pending">Pending</span></td><td>Blocked until validation and cleanup pass.</td></tr>
 </table>
 
-<div class="note watch">
-<strong>Notes:</strong> MJPG 720p60 and 1080p60 successfully applied to the active preview graph. Additional validation for YUY2/H264 remains dependent on camera support.
-</div>
+<h4>Current Top Priorities</h4>
+<ol>
+<li>Technical Debt Cleanup</li>
+<li>Annotation Preservation Validation</li>
+<li>Recording Hardening Pass</li>
+<li>M1 Final Validation Review</li>
+<li>Merge Preparation</li>
+</ol>
 
 <div class="page-num">1</div>
 </section>
 
 <section class="page">
-<h3>Priority 2 — Integrated Recording Architecture</h3>
-<p class="sub">Application-level DirectShow AVI recording, preview/record graph rebuild strategy, and output validation.</p>
-
-<div class="note ok"><strong>Status:</strong> Implemented and Validated</div>
-
-<h4>Current State</h4>
-<pre>Integrated recording successfully produced AVI files from inside Lab Imager.
-
-Recording is no longer probe-only and is no longer limited to timer/state tracking.</pre>
-
-<h4>Accepted Recording Behavior</h4>
-<pre>Selected Camera Source
-      +
-Selected Capture Format
-      +
-Preview Graph Rebuild
-      +
-AVI Recording Output</pre>
+<h3>Completed M1 Feature Set</h3>
+<p class="sub">Implemented and validated core capabilities.</p>
 
 <table>
-<tr><th>Task</th><th>Status</th></tr>
-<tr><td>Design preview + recording architecture.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Avoid live graph mutation while preview is already running.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Rebuild graph with recording branch before graph execution.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Record from selected camera source.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Preserve selected capture format during recording graph construction.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate MJPG recording.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate YUY2 recording.</td><td><span class="status watching">Observed / Limited</span></td></tr>
-<tr><td>Validate H264 recording.</td><td><span class="status watching">Not viable in current preview path</span></td></tr>
-<tr><td>Validate recording start/stop.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate preview recovery after recording.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Validate long-duration recording.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Validate repeated recording cycles in one app session.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><th>Capability</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Camera Enumeration</td><td><span class="status done">Complete</span></td><td>DirectShow camera discovery implemented.</td></tr>
+<tr><td>Camera Source Selection</td><td><span class="status done">Complete</span></td><td>Source selector operational.</td></tr>
+<tr><td>Default Camera Persistence</td><td><span class="status done">Complete</span></td><td>JSON-backed setting restores preferred source.</td></tr>
+<tr><td>Capture Format Enumeration</td><td><span class="status done">Complete</span></td><td>Resolution, FPS, and subtype discovery implemented.</td></tr>
+<tr><td>Selected Format Application</td><td><span class="status done">Complete</span></td><td>Selected format is applied to preview graph.</td></tr>
+<tr><td>Live Preview</td><td><span class="status done">Complete</span></td><td>DirectShow live preview operational.</td></tr>
+<tr><td>Freeze / Resume</td><td><span class="status done">Complete</span></td><td>Preview freeze and resume validated.</td></tr>
+<tr><td>Still Capture</td><td><span class="status done">Complete</span></td><td>Original PNG capture operational.</td></tr>
+<tr><td>Evidence PNG</td><td><span class="status done">Complete</span></td><td>Evidence PNG includes capture, metadata, and Notes.</td></tr>
+<tr><td>Rich Notes</td><td><span class="status done">Complete</span></td><td>Font, size, color, alignment, bullets, numbering, and formatting preservation implemented.</td></tr>
+<tr><td>Integrated AVI Recording</td><td><span class="status done">Complete</span></td><td>Application-level AVI recording implemented.</td></tr>
+<tr><td>Evidence PDF Export</td><td><span class="status done">Complete</span></td><td>PDF report generated from original image, metadata, capture format, timestamp, and Notes.</td></tr>
+<tr><td>Documentation Framework</td><td><span class="status done">Complete</span></td><td>Application, help, release, governance, and roadmap docs added.</td></tr>
 </table>
 
-<h4>Recording Naming Requirements</h4>
+<h4>Evidence Output Model</h4>
 <table>
-<tr><th>Requirement</th><th>Status</th></tr>
-<tr><td>Implement timestamped recording filename generation.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Fallback filename format: <code>yyyyMMdd-HHmmss_lab-imager-recording.avi</code></td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Write recordings to <code>%USERPROFILE%\Videos\Lab Imager\Recordings</code>.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Implement session-based filename generation.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Filename format: <code>yyyyMMdd-HHmmss_Project_Board_Technician.avi</code></td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Automatically skip blank metadata fields.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Sanitize invalid filename characters.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><th>Output</th><th>Status</th><th>Purpose</th></tr>
+<tr><td><code>-original.png</code></td><td><span class="status done">Complete</span></td><td>Clean original capture image.</td></tr>
+<tr><td><code>-evidence.png</code></td><td><span class="status done">Complete</span></td><td>Quick-review evidence image with metadata and Notes.</td></tr>
+<tr><td><code>-evidence.pdf</code></td><td><span class="status done">Complete</span></td><td>Formal printable evidence report.</td></tr>
 </table>
-
-<h4>Validated Recording Output</h4>
-<pre>20260607-200821_lab-imager-recording.avi
-Size: 67,405,312 bytes
-Location: %USERPROFILE%\Videos\Lab Imager\Recordings</pre>
 
 <div class="note ok">
-<strong>Recording decision:</strong> Integrated AVI recording is now considered functionally implemented. Remaining recording work is validation hardening, quality review, session-based naming polish, and future playback.
+<strong>Roadmap decision:</strong> PDF export and evidence packaging are no longer pending feature items. They are complete for M1 and should now be treated as working modules.
 </div>
 
 <div class="page-num">2</div>
 </section>
 
 <section class="page">
-<h3>Priority 3 — Evidence Workflow Validation</h3>
-<p class="sub">Capture, export, annotation, and metadata verification.</p>
+<h3>Remaining Validation Tasks</h3>
+<p class="sub">Remaining work required before declaring M1 merge-ready.</p>
 
-<div class="note ok"><strong>Status:</strong> Nearly Complete</div>
+<h4>Priority 1 — Annotation Preservation Validation</h4>
+<div class="note watch"><strong>Status:</strong> Pending validation</div>
+
+<table>
+<tr><th>Validation Item</th><th>Status</th><th>Expected Result</th></tr>
+<tr><td>Arrow annotation export</td><td><span class="status pending">Pending</span></td><td>Evidence output should preserve arrow annotation.</td></tr>
+<tr><td>Shape annotation export</td><td><span class="status pending">Pending</span></td><td>Evidence output should preserve rectangles, circles, or other shape overlays.</td></tr>
+<tr><td>Text annotation export</td><td><span class="status pending">Pending</span></td><td>Evidence output should preserve text overlays.</td></tr>
+<tr><td>Mixed annotation export</td><td><span class="status pending">Pending</span></td><td>Multiple annotation types should export together.</td></tr>
+<tr><td>Annotation position</td><td><span class="status pending">Pending</span></td><td>Saved annotation position should match viewport position.</td></tr>
+<tr><td>Annotation scale</td><td><span class="status pending">Pending</span></td><td>Saved annotation scale should match viewport scale.</td></tr>
+</table>
+
+<h4>Priority 2 — Recording Hardening Pass</h4>
+<div class="note watch"><strong>Status:</strong> Pending hardening</div>
 
 <table>
 <tr><th>Validation Item</th><th>Status</th></tr>
-<tr><td>Capture while live.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Capture while frozen.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Capture after resume.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Capture after source change.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>PDF export.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>PNG export.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Annotation preservation.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Metadata preservation.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Rich Notes formatting preservation.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Bold preservation.</td><td><span class="status done">Verified</span></td></tr>
-<tr><td>Italic preservation.</td><td><span class="status done">Verified</span></td></tr>
-<tr><td>Underline preservation.</td><td><span class="status done">Verified</span></td></tr>
-<tr><td>Color preservation.</td><td><span class="status done">Verified</span></td></tr>
-<tr><td>Alignment preservation.</td><td><span class="status done">Verified</span></td></tr>
-<tr><td>Bulleted list preservation.</td><td><span class="status done">Verified</span></td></tr>
-<tr><td>Numbered list preservation.</td><td><span class="status done">Verified</span></td></tr>
-<tr><td>Long Notes rendering.</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Long-duration recording</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Repeated start / stop cycles</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Recording after freeze / resume</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Recording after camera switch</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Back-to-back recording files</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>AVI playback validation</td><td><span class="status pending">Pending</span></td></tr>
 </table>
 
-<h4>Evidence Packaging Workflow</h4>
-<table>
-<tr><th>Requirement</th><th>Status</th></tr>
-<tr><td>Save original captured PNG.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Save annotated evidence PNG.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Generate evidence PDF package.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Include Notes content in PDF package.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Include metadata in PDF package.</td><td><span class="status pending">Pending</span></td></tr>
-</table>
-
-<h4>Priority 4 — UI Cleanup Pass</h4>
-<div class="note watch"><strong>Status:</strong> Mostly Complete</div>
+<h4>Priority 3 — Responsive UI Final Review</h4>
+<div class="note watch"><strong>Status:</strong> Mostly complete; validation only</div>
 
 <table>
-<tr><th>Item</th><th>Status</th></tr>
-<tr><td>Control spacing.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Alignment consistency.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Right-panel cleanup.</td><td><span class="status active">In Review</span></td></tr>
-<tr><td>Transport control cleanup.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Button sizing review.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Font consistency.</td><td><span class="status active">In Review</span></td></tr>
-<tr><td>Final responsive-layout review.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Notes toolbar redesign.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Notes dropdown modernization.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Dropdown readability remediation.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Native Windows dropdown rollback.</td><td><span class="status done">Complete</span></td></tr>
+<tr><th>Review Item</th><th>Status</th></tr>
+<tr><td>1080p display validation</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>1440p display validation</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Large workstation display validation</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Right panel clipping check</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Toolbar overflow check</td><td><span class="status pending">Pending</span></td></tr>
 </table>
 
 <div class="page-num">3</div>
 </section>
 
 <section class="page">
-<h3>Priority 5 — Technical Debt Cleanup</h3>
-<p class="sub">Known warnings, dead fields, nullable cleanup, and obsolete scaffolding removal.</p>
+<h3>Technical Debt Cleanup</h3>
+<p class="sub">Known warnings, repository hygiene, and cleanup tasks before M1 merge.</p>
 
-<div class="note watch"><strong>Status:</strong> Pending</div>
+<div class="note watch">
+<strong>Status:</strong> Active. This is the current cleanup workstream.
+</div>
 
-<h4>Known Warnings</h4>
+<h4>Known Build Warnings</h4>
 <pre>DirectShowCameraDeviceService.cs
 CS8602 possible null dereference
 
@@ -214,29 +166,27 @@ DirectShowCameraPreviewService.cs
 CS8602 possible null dereference</pre>
 
 <table>
-<tr><th>Task</th><th>Status</th></tr>
-<tr><td>Remove dead fields.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Fix nullable warnings.</td><td><span class="status active">In Progress</span></td></tr>
-<tr><td>Remove obsolete scaffolding.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Remove obsolete probe code no longer required.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><th>Cleanup Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Fix DirectShow nullable warnings</td><td><span class="status active">Active</span></td><td>Expected to clear final CS8602 warnings.</td></tr>
+<tr><td>Remove obsolete backup files</td><td><span class="status pending">Pending</span></td><td>Remove tracked or accidental <code>.bak</code> artifacts if present.</td></tr>
+<tr><td>Review obsolete scaffolding</td><td><span class="status pending">Pending</span></td><td>Remove unused stubs only if they are no longer referenced.</td></tr>
+<tr><td>Review RecordingProbe retention</td><td><span class="status watching">Review</span></td><td>Keep if still useful as diagnostic tool; remove only by deliberate decision.</td></tr>
+<tr><td>Confirm zero-error build</td><td><span class="status active">Active</span></td><td>Required before merge.</td></tr>
+<tr><td>Confirm zero-warning build</td><td><span class="status pending">Pending</span></td><td>Target outcome for cleanup pass.</td></tr>
 </table>
 
-<h4>Priority 6 — Release Preparation</h4>
-<div class="note watch"><strong>Status:</strong> Pending</div>
+<h4>Cleanup Rules</h4>
+<ul>
+<li>Do not refactor working capture, preview, recording, Notes, or PDF export systems unless required to resolve warnings.</li>
+<li>Prefer narrow warning fixes over broad code reshaping.</li>
+<li>Do not remove diagnostic tools unless their replacement is confirmed.</li>
+<li>Validate with <code>dotnet build</code> after every cleanup pass.</li>
+<li>Preserve modular architecture.</li>
+</ul>
 
-<table>
-<tr><th>Administrative Item</th><th>Status</th></tr>
-<tr><td>README</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>LICENSE</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Dependency Audit</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Repository Governance</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Release notes.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Version number strategy.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Release tag.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Packaging strategy.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Installer decision.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Release candidate validation.</td><td><span class="status pending">Pending</span></td></tr>
-</table>
+<div class="note ok">
+<strong>Architecture rule:</strong> New work should continue to be added as isolated modules unless modification of existing code is absolutely required.
+</div>
 
 <div class="page-num">4</div>
 </section>
@@ -246,15 +196,17 @@ CS8602 possible null dereference</pre>
 <p class="sub">Required gates before merging <code>feature/wpf-frame-pipeline</code> into <code>main</code>.</p>
 
 <table>
-<tr><th>Requirement</th><th>Status</th></tr>
-<tr><td>Capture format application complete.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Integrated recording complete.</td><td><span class="status done">Complete</span></td></tr>
-<tr><td>Evidence workflow validated.</td><td><span class="status active">Near Complete</span></td></tr>
-<tr><td>UI cleanup pass complete.</td><td><span class="status active">Near Complete</span></td></tr>
-<tr><td>Technical debt cleanup complete.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Build clean.</td><td><span class="status watching">Warnings remain</span></td></tr>
-<tr><td>No regression failures.</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>M1 review completed.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><th>Requirement</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Core capture workflow complete</td><td><span class="status done">Complete</span></td><td>Preview, freeze, capture, and evidence output implemented.</td></tr>
+<tr><td>Rich Notes workflow complete</td><td><span class="status done">Complete</span></td><td>Formatting and evidence rendering validated.</td></tr>
+<tr><td>Recording workflow implemented</td><td><span class="status done">Complete</span></td><td>AVI output implemented; hardening still pending.</td></tr>
+<tr><td>Evidence PDF export complete</td><td><span class="status done">Complete</span></td><td>PDF module validated.</td></tr>
+<tr><td>Annotation preservation validated</td><td><span class="status pending">Pending</span></td><td>Highest remaining validation unknown.</td></tr>
+<tr><td>Recording hardening complete</td><td><span class="status pending">Pending</span></td><td>Stress testing required.</td></tr>
+<tr><td>Technical debt cleanup complete</td><td><span class="status active">Active</span></td><td>Known CS8602 warnings remain.</td></tr>
+<tr><td>Build clean</td><td><span class="status watching">Warnings remain</span></td><td>Zero errors; warnings still targeted for cleanup.</td></tr>
+<tr><td>M1 review completed</td><td><span class="status pending">Pending</span></td><td>Final checklist pass required.</td></tr>
+<tr><td>Documentation updated</td><td><span class="status active">Active</span></td><td>Roadmap and project log being updated.</td></tr>
 </table>
 
 <h4>Merge Procedure</h4>
@@ -268,17 +220,17 @@ git push origin main
 git tag m1-release-candidate
 git push origin m1-release-candidate</pre>
 
-<h4>What To Work On Next</h4>
-<pre>1. Annotation Preservation Validation
-2. PDF Evidence Package Workflow
-3. Technical Debt Cleanup
-4. Recording Hardening Pass
-5. M1 Review
-6. Merge to Main
-7. Playback / Review Workflow Planning</pre>
+<h4>Next Work Order</h4>
+<pre>1. Complete Technical Debt Cleanup
+2. Validate Annotation Preservation
+3. Run Recording Hardening Pass
+4. Complete M1 Final Review
+5. Update log and release notes
+6. Commit and push
+7. Prepare merge-to-main</pre>
 
 <div class="note ok">
-<strong>Roadmap decision:</strong> Integrated Recording Architecture is complete enough to move out of the top priority slot. Recording hardening remains open for repeated cycles, long-duration recording, quality review, and future playback workflow planning.
+<strong>Roadmap decision:</strong> Lab Imager has exited core feature-build mode for M1. Remaining work is cleanup, validation, documentation synchronization, and merge readiness.
 </div>
 
 <div class="page-num">5</div>
