@@ -496,6 +496,7 @@ namespace LabImager.Views
         {
             DocumentPanel.Visibility = Visibility.Collapsed;
             AboutPanel.Visibility = Visibility.Visible;
+            AboutText.Text = _helpContentService.LoadDocument("docs", "application", "ABOUT.md");
         }
 
         private void LoadLogo()
@@ -551,7 +552,6 @@ namespace LabImager.Views
         }
     }
 }
-
 
 
 

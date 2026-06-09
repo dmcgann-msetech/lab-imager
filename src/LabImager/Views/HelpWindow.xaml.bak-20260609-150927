@@ -39,13 +39,12 @@
                              BorderThickness="0"
                              FontSize="14"
                              SelectionChanged="HelpNavigation_SelectionChanged">
-                        <ListBoxItem Content="About Lab Imager" Tag="ABOUT"/>
-
                         <ListBoxItem Content="Help Topics" Tag="HELP"/>
                         <ListBoxItem Content="User Guide" Tag="USERGUIDE"/>
                         <ListBoxItem Content="FAQ" Tag="FAQ"/>
                         <ListBoxItem Content="Keyboard Shortcuts" Tag="SHORTCUTS"/>
                         <ListBoxItem Content="Release Notes" Tag="RELEASE"/>
+                        <ListBoxItem Content="About Lab Imager" Tag="ABOUT"/>
                     </ListBox>
                 </Border>
 
@@ -117,50 +116,11 @@
                                         BorderThickness="1"
                                         Cursor="Hand"
                                         Click="ViewLicenseButton_Click"/>
-                                <Border BorderBrush="#334155"
-                                        BorderThickness="1"
-                                        Background="#101820"
-                                        Padding="18"
-                                        Margin="0,6,0,24"
-                                        Width="560">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="180"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
 
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Product Name" Foreground="#94A3B8" Margin="0,0,12,8"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Lab Imager" Foreground="#E5E7EB" Margin="0,0,0,8"/>
-
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Version" Foreground="#94A3B8" Margin="0,0,12,8"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Text="1.0 Release Candidate" Foreground="#E5E7EB" Margin="0,0,0,8"/>
-
-                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Platform" Foreground="#94A3B8" Margin="0,0,12,8"/>
-                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="Windows 10 / Windows 11" Foreground="#E5E7EB" Margin="0,0,0,8"/>
-
-                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Framework" Foreground="#94A3B8" Margin="0,0,12,8"/>
-                                        <TextBlock Grid.Row="3" Grid.Column="1" Text=".NET 8 Desktop / WPF" Foreground="#E5E7EB" Margin="0,0,0,8"/>
-
-                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Camera Framework" Foreground="#94A3B8" Margin="0,0,12,8"/>
-                                        <TextBlock Grid.Row="4" Grid.Column="1" Text="DirectShow" Foreground="#E5E7EB" Margin="0,0,0,8"/>
-
-                                        <TextBlock Grid.Row="5" Grid.Column="0" Text="License" Foreground="#94A3B8" Margin="0,0,12,8"/>
-                                        <TextBlock Grid.Row="5" Grid.Column="1" Text="Proprietary Software" Foreground="#E5E7EB" Margin="0,0,0,8"/>
-
-                                        <TextBlock Grid.Row="6" Grid.Column="0" Text="Company" Foreground="#94A3B8" Margin="0,0,12,0"/>
-                                        <TextBlock Grid.Row="6" Grid.Column="1" Text="MSE McGann Systems Engineering" Foreground="#E5E7EB"/>
-                                    </Grid>
-                                </Border>
+                                <TextBlock x:Name="AboutText"
+                                           FontSize="14"
+                                           TextWrapping="Wrap"
+                                           Foreground="#CBD5E1"/>
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
@@ -181,9 +141,6 @@
         </Grid>
     </Border>
 </Window>
-
-
-
 
 
 

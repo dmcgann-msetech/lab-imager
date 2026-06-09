@@ -496,6 +496,7 @@ namespace LabImager.Views
         {
             DocumentPanel.Visibility = Visibility.Collapsed;
             AboutPanel.Visibility = Visibility.Visible;
+            AboutText.Text = _helpContentService.LoadDocument("docs", "application", "ABOUT.md");
         }
 
         private void LoadLogo()
@@ -534,25 +535,12 @@ namespace LabImager.Views
                 }
             }), System.Windows.Threading.DispatcherPriority.Background);
         }
-
-        private void WebsiteLink_Click(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(
-                new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = "https://msetech.org",
-                    UseShellExecute = true
-                });
-        }
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
     }
 }
-
-
 
 
 

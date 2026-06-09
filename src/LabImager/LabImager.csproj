@@ -42,8 +42,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>docs\assets\branding\mse_logo.png</Link>
     </None>
+      <None Include="..\..\LICENSE.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>LICENSE.md</Link>
+    </None>
   </ItemGroup>
 </Project>
+
 
 
 

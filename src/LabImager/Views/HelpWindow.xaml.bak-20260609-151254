@@ -39,13 +39,12 @@
                              BorderThickness="0"
                              FontSize="14"
                              SelectionChanged="HelpNavigation_SelectionChanged">
-                        <ListBoxItem Content="About Lab Imager" Tag="ABOUT"/>
-
                         <ListBoxItem Content="Help Topics" Tag="HELP"/>
                         <ListBoxItem Content="User Guide" Tag="USERGUIDE"/>
                         <ListBoxItem Content="FAQ" Tag="FAQ"/>
                         <ListBoxItem Content="Keyboard Shortcuts" Tag="SHORTCUTS"/>
                         <ListBoxItem Content="Release Notes" Tag="RELEASE"/>
+                        <ListBoxItem Content="About Lab Imager" Tag="ABOUT"/>
                     </ListBox>
                 </Border>
 
@@ -181,7 +180,6 @@
         </Grid>
     </Border>
 </Window>
-
 
 
 

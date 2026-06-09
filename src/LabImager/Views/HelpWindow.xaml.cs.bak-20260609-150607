@@ -470,32 +470,11 @@ namespace LabImager.Views
             return new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(hex)!);
         }
 
-
-        private static string NormalizeLicenseMarkdown(string content)
-        {
-            var lines = content.Replace("\r\n", "\n").Split('\n');
-
-            for (var i = 0; i < lines.Length; i++)
-            {
-                var line = lines[i].Trim();
-
-                if (System.Text.RegularExpressions.Regex.IsMatch(line, @"^\d+\.\s+[A-Z].+$"))
-                {
-                    lines[i] = "## " + line;
-                }
-            }
-
-            if (!content.TrimStart().StartsWith("#"))
-            {
-                lines[0] = "# " + lines[0].Trim();
-            }
-
-            return string.Join("\n", lines);
-        }
         private void ShowAbout()
         {
             DocumentPanel.Visibility = Visibility.Collapsed;
             AboutPanel.Visibility = Visibility.Visible;
+            AboutText.Text = _helpContentService.LoadDocument("docs", "application", "ABOUT.md");
         }
 
         private void LoadLogo()
@@ -523,7 +502,6 @@ namespace LabImager.Views
             DocumentPanel.Visibility = Visibility.Visible;
 
             var content = _helpContentService.LoadDocument("LICENSE.md");
-            content = NormalizeLicenseMarkdown(content);
             DocumentViewer.Document = BuildProfessionalDocument(content);
 
             Dispatcher.BeginInvoke(new Action(() =>
@@ -534,26 +512,12 @@ namespace LabImager.Views
                 }
             }), System.Windows.Threading.DispatcherPriority.Background);
         }
-
-        private void WebsiteLink_Click(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(
-                new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = "https://msetech.org",
-                    UseShellExecute = true
-                });
-        }
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
     }
 }
-
-
-
 
 
 
