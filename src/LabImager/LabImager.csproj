@@ -11,7 +11,45 @@
 
   <ItemGroup>
     <PackageReference Include="DirectShowLib.Net" Version="3.0.0" />
+    <PackageReference Include="PdfSharp" Version="6.2.2" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="..\..\docs\help\HELP.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>docs\help\HELP.md</Link>
+    </None>
+    <None Include="..\..\docs\help\USER-GUIDE.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>docs\help\USER-GUIDE.md</Link>
+    </None>
+    <None Include="..\..\docs\help\FAQ.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>docs\help\FAQ.md</Link>
+    </None>
+    <None Include="..\..\docs\help\KEYBOARD-SHORTCUTS.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>docs\help\KEYBOARD-SHORTCUTS.md</Link>
+    </None>
+    <None Include="..\..\docs\releases\RELEASE-NOTES.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>docs\releases\RELEASE-NOTES.md</Link>
+    </None>
+    <None Include="..\..\docs\application\ABOUT.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>docs\application\ABOUT.md</Link>
+    </None>
+    <None Include="..\..\docs\assets\branding\mse_logo.png" Condition="Exists('..\..\docs\assets\branding\mse_logo.png')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>docs\assets\branding\mse_logo.png</Link>
+    </None>
+      <None Include="..\..\LICENSE.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>LICENSE.md</Link>
+    </None>
+  </ItemGroup>
 </Project>
+
+
+
+
 

@@ -13,10 +13,10 @@
         Foreground="#E5E7EB">
 
     <Window.Resources>
-                <Style x:Key="CameraComboBoxItemStyle"
+        <Style x:Key="CameraComboBoxItemStyle"
                TargetType="ComboBoxItem">
-            <Setter Property="Foreground" Value="#111827"/>
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#E5E7EB"/>
+            <Setter Property="Background" Value="#171D24"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
     
@@ -167,6 +167,7 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center">
+
                         <Button Content="-"
                                 Width="44"
                                 Height="34"
@@ -2587,7 +2588,7 @@
                             <Button x:Name="StartPreviewButton"
                                     Style="{StaticResource ViewportTransportButtonStyle}"
                                     Click="StartPreviewButton_Click"
-                                    Content="Start"
+                                    Content="▶  Start"
                                     ToolTip="Start preview"
                                     Background="#14532D"
                                     BorderBrush="#22C55E"/>
@@ -2595,7 +2596,7 @@
                             <Button x:Name="FreezePreviewButton"
                                     Style="{StaticResource ViewportTransportButtonStyle}"
                                     Click="FreezePreviewButton_Click"
-                                    Content="Freeze"
+                                    Content="❄  Freeze"
                                     ToolTip="Freeze / resume preview"
                                     Background="#92400E"
                                     BorderBrush="#F59E0B"/>
@@ -2603,7 +2604,7 @@
                             <Button x:Name="StopPreviewButton"
                                     Style="{StaticResource ViewportTransportButtonStyle}"
                                     Click="StopPreviewButton_Click"
-                                    Content="Stop"
+                                    Content="■  Stop"
                                     ToolTip="Stop preview"
                                     Background="#334155"
                                     BorderBrush="#334155"/>
@@ -2611,7 +2612,7 @@
                             <Button x:Name="RecordPreviewButton"
                                     Style="{StaticResource ViewportTransportButtonStyle}"
                                     Click="RecordPreviewButton_Click"
-                                    Content="Record"
+                                    Content="⏺  Record"
                                     ToolTip="Start / Stop Recording"
                                     Background="#450A0A"
                                     BorderBrush="#EF4444"/>
@@ -2666,7 +2667,7 @@
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,0"/>
 
-                            <TextBox x:Name="ProjectNameTextBox" Height="44"
+                            <TextBox Height="44"
                                      Margin="0,0,0,0"
                                      Background="#0B0F12"
                                      Foreground="#E5E7EB"
@@ -2679,7 +2680,7 @@
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,0"/>
 
-                            <TextBox x:Name="BoardDeviceTextBox" Height="44"
+                            <TextBox Height="44"
                                      Margin="0,0,0,0"
                                      Background="#0B0F12"
                                      Foreground="#E5E7EB"
@@ -2692,7 +2693,7 @@
                                        FontWeight="SemiBold"
                                        Margin="0,0,0,0"/>
 
-                            <TextBox x:Name="TechnicianTextBox" Height="44"
+                            <TextBox Height="44"
                                      Margin="0,0,0,0"
                                      Background="#0B0F12"
                                      Foreground="#E5E7EB"
@@ -2707,35 +2708,19 @@
 
                             <ComboBox x:Name="CameraSelector" Style="{StaticResource ReadableDisabledComboBoxStyle}"
                                       SelectionChanged="CameraSelector_SelectionChanged"
-                                      
+                                      ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
                                       Height="38"
                                       MaxDropDownHeight="185"
                                       Margin="0,0,0,0"
-                                      Background="White"
+                                      Background="#171D24"
                                       Foreground="#111827"
                                       BorderBrush="#334155"
                                       FontSize="13"
                                       Padding="10"/>
 
-                            <TextBlock Text="Capture Format"
-                                       FontSize="13"
-                                       FontWeight="SemiBold"
-                                       Margin="0,8,0,0"/>
-
-                            <ComboBox x:Name="CaptureFormatSelector"
-                                      Style="{StaticResource ReadableDisabledComboBoxStyle}"
-                                      
-                                      Height="38"
-                                      MaxDropDownHeight="185"
-                                      Margin="0,0,0,0"
-                                      Background="White"
-                                      Foreground="#111827"
-                                      BorderBrush="#334155"
-                                      FontSize="13"
-                                      Padding="10"/>
                             <Button x:Name="SetDefaultCameraButton" Style="{StaticResource DarkHoverButtonStyle}"
                                     Click="SetDefaultCameraButton_Click"
-                                    Content="Set Default"
+                                    Content="★  Set Default"
                                     ToolTip="Set selected camera as default source"
                                     Height="28"
                                     Margin="0,0,0,0"
@@ -2757,139 +2742,70 @@
 
                                 <DockPanel>
                                     <Border DockPanel.Dock="Top"
-        Height="88"
-        Background="#101820"
-        BorderBrush="#38BDF8"
-        BorderThickness="0,0,0,1"
-        Padding="7">
+                                            Height="76"
+                                            Background="#171D24"
+                                            BorderBrush="#334155"
+                                            BorderThickness="0,0,0,1"
+                                            Padding="6,5">
 
-    <StackPanel>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="0,0,0,4">
+                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="↶" Width="24" Margin="0,0,4,0" ToolTip="Undo" Click="NotesUndoButton_Click"/>
+                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="↷" Width="24" Margin="0,0,8,0" ToolTip="Redo" Click="NotesRedoButton_Click"/>
 
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Undo" Width="54" Height="30" Margin="0,0,5,0" ToolTip="Undo" Click="NotesUndoButton_Click"/>
-            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Redo" Width="54" Height="30" Margin="0,0,10,0" ToolTip="Redo" Click="NotesRedoButton_Click"/>
+                                                <ComboBox x:Name="NotesFontSelector" SelectionChanged="NotesFontSelector_SelectionChanged"
+                                                          Foreground="#111827" Background="#171D24" BorderBrush="#334155" ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
+                                                          Width="110"
+                                                          Height="28"
+                                                          SelectedIndex="0"
+                                                          Margin="0,0,8,0">
+                                                    <ComboBoxItem Content="Segoe UI" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Calibri" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Arial" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Verdana" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Tahoma" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Georgia" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Times New Roman" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Cambria" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Book Antiqua" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Garamond" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Consolas" Foreground="#E5E7EB" Background="#171D24"/>
+                                                    <ComboBoxItem Content="Courier New" Foreground="#E5E7EB" Background="#171D24"/>
+                                                </ComboBox>
 
-            <ComboBox x:Name="NotesFontSelector"
-                      SelectionChanged="NotesFontSelector_SelectionChanged"
-                      Foreground="#111827"
-                      Background="White"
-                      BorderBrush="#38BDF8"
-                      
-                      Width="150"
-                      Height="30"
-                      SelectedIndex="0"
-                      Margin="0,0,8,0">
-                <ComboBoxItem Content="Segoe UI"/>
-                <ComboBoxItem Content="Calibri"/>
-                <ComboBoxItem Content="Arial"/>
-                <ComboBoxItem Content="Verdana"/>
-                <ComboBoxItem Content="Tahoma"/>
-                <ComboBoxItem Content="Georgia"/>
-                <ComboBoxItem Content="Times New Roman"/>
-                <ComboBoxItem Content="Cambria"/>
-                <ComboBoxItem Content="Book Antiqua"/>
-                <ComboBoxItem Content="Garamond"/>
-                <ComboBoxItem Content="Consolas"/>
-                <ComboBoxItem Content="Courier New"/>
-            </ComboBox>
+                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="B" Width="28" Margin="0,0,4,0" FontWeight="Bold" Click="NotesBoldButton_Click"/>
+                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="I" Width="28" Margin="0,0,4,0" FontStyle="Italic" Click="NotesItalicButton_Click"/>
+                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="U" Width="28" Margin="0,0,4,0" Click="NotesUnderlineButton_Click"/>
+                                                <Button x:Name="NotesColorButton" Style="{StaticResource DarkHoverButtonStyle}" Content="A" Width="28" ToolTip="Choose text color" Click="NotesColorButton_Click">
+                                                    <Button.ContextMenu>
+                                                        <ContextMenu>
+                                                            <MenuItem Header="White" Tag="White" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Black" Tag="Black" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Gray" Tag="Gray" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Yellow" Tag="Gold" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Orange" Tag="Orange" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Red" Tag="Red" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Pink" Tag="HotPink" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Purple" Tag="MediumPurple" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Blue" Tag="DodgerBlue" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Cyan" Tag="Cyan" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Green" Tag="LimeGreen" Click="NotesTextColorMenuItem_Click"/>
+                                                            <MenuItem Header="Brown" Tag="SaddleBrown" Click="NotesTextColorMenuItem_Click"/>
+                                                        </ContextMenu>
+                                                    </Button.ContextMenu>
+                                                </Button>
+                                            </StackPanel>
 
-            <ComboBox x:Name="NotesFontSizeSelector"
-                      SelectionChanged="NotesFontSizeSelector_SelectionChanged"
-                      Foreground="#111827"
-                      Background="White"
-                      BorderBrush="#38BDF8"
-                      
-                      Width="82"
-                      Height="30"
-                      SelectedIndex="4"
-                      Margin="0,0,8,0">
-                <ComboBoxItem Content="8 pt" Tag="8"/>
-                <ComboBoxItem Content="9 pt" Tag="9"/>
-                <ComboBoxItem Content="10 pt" Tag="10"/>
-                <ComboBoxItem Content="11 pt" Tag="11"/>
-                <ComboBoxItem Content="12 pt" Tag="12"/>
-                <ComboBoxItem Content="14 pt" Tag="14"/>
-                <ComboBoxItem Content="16 pt" Tag="16"/>
-                <ComboBoxItem Content="18 pt" Tag="18"/>
-                <ComboBoxItem Content="20 pt" Tag="20"/>
-                <ComboBoxItem Content="24 pt" Tag="24"/>
-                <ComboBoxItem Content="28 pt" Tag="28"/>
-                <ComboBoxItem Content="32 pt" Tag="32"/>
-                <ComboBoxItem Content="36 pt" Tag="36"/>
-                <ComboBoxItem Content="48 pt" Tag="48"/>
-                <ComboBoxItem Content="72 pt" Tag="72"/>
-            </ComboBox>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Bullet" Width="48" Margin="0,0,4,0" ToolTip="Bulleted list" Click="NotesBulletButton_Click"/>
+                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Align" Width="48" Margin="0,0,4,0" ToolTip="Cycle paragraph alignment" Click="NotesAlignButton_Click"/>
+                                                <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Outline" Width="58" Margin="0,0,4,0" ToolTip="Numbered outline" Click="NotesOutlineButton_Click"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
 
-            <Button x:Name="NotesColorButton"
-                    Style="{StaticResource DarkHoverButtonStyle}"
-                    Content="Color ▼"
-                    Width="90"
-                    Height="30"
-                    ToolTip="Text color"
-                    Click="NotesColorButton_Click">
-                <Button.ContextMenu>
-                    <ContextMenu Opened="NotesColorContextMenu_Opened">
-                        <MenuItem Tag="Default" IsCheckable="True" Click="NotesTextColorMenuItem_Click">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="12" Height="12" BorderBrush="#64748B" BorderThickness="1" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Unedited (Default)" Foreground="#111827"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-
-                        <MenuItem Tag="Black" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="Black" Margin="0,0,8,0"/><TextBlock Text="Black" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="Gray" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="Gray" Margin="0,0,8,0"/><TextBlock Text="Gray" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="Gold" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="Gold" Margin="0,0,8,0"/><TextBlock Text="Yellow" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="Orange" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="Orange" Margin="0,0,8,0"/><TextBlock Text="Orange" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="Red" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="Red" Margin="0,0,8,0"/><TextBlock Text="Red" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="HotPink" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="HotPink" Margin="0,0,8,0"/><TextBlock Text="Pink" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="MediumPurple" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="MediumPurple" Margin="0,0,8,0"/><TextBlock Text="Purple" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="DodgerBlue" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="DodgerBlue" Margin="0,0,8,0"/><TextBlock Text="Blue" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="Cyan" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="Cyan" Margin="0,0,8,0"/><TextBlock Text="Cyan" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="LimeGreen" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="LimeGreen" Margin="0,0,8,0"/><TextBlock Text="Green" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                        <MenuItem Tag="SaddleBrown" IsCheckable="True" Click="NotesTextColorMenuItem_Click"><MenuItem.Header><StackPanel Orientation="Horizontal"><Border Width="12" Height="12" Background="SaddleBrown" Margin="0,0,8,0"/><TextBlock Text="Brown" Foreground="#111827"/></StackPanel></MenuItem.Header></MenuItem>
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal">
-            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Formatting ▼" Width="116" Height="30" Margin="0,0,8,0" Click="NotesDropdownButton_Click">
-                <Button.ContextMenu>
-                    <ContextMenu Opened="NotesFormattingContextMenu_Opened">
-                        <MenuItem Header="Bold" Tag="Bold" IsCheckable="True" Click="NotesBoldButton_Click"/>
-                        <MenuItem Header="Italic" Tag="Italic" IsCheckable="True" Click="NotesItalicButton_Click"/>
-                        <MenuItem Header="Underline" Tag="Underline" IsCheckable="True" Click="NotesUnderlineButton_Click"/>
-                        <Separator/>
-                        <MenuItem Header="Clear Formatting" Tag="Clear" Click="NotesClearFormattingMenuItem_Click"/>
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-
-            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Lists ▼" Width="82" Height="30" Margin="0,0,8,0" Click="NotesDropdownButton_Click">
-                <Button.ContextMenu>
-                    <ContextMenu Opened="NotesListsContextMenu_Opened">
-                        <MenuItem Header="Bulleted List" Tag="Bullet" IsCheckable="True" Click="NotesBulletButton_Click"/>
-                        <MenuItem Header="Numbered List" Tag="Numbered" IsCheckable="True" Click="NotesOutlineButton_Click"/>
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-
-            <Button Style="{StaticResource DarkHoverButtonStyle}" Content="Alignment ▼" Width="104" Height="30" Click="NotesDropdownButton_Click">
-                <Button.ContextMenu>
-                    <ContextMenu Opened="NotesAlignmentContextMenu_Opened">
-                        <MenuItem Header="Align Left" Tag="Left" IsCheckable="True" Click="NotesAlignmentMenuItem_Click"/>
-                        <MenuItem Header="Align Center" Tag="Center" IsCheckable="True" Click="NotesAlignmentMenuItem_Click"/>
-                        <MenuItem Header="Align Right" Tag="Right" IsCheckable="True" Click="NotesAlignmentMenuItem_Click"/>
-                        <MenuItem Header="Justify" Tag="Justify" IsCheckable="True" Click="NotesAlignmentMenuItem_Click"/>
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-        </StackPanel>
-    </StackPanel>
-</Border>
-<RichTextBox x:Name="NotesEditor" SelectionChanged="NotesEditor_SelectionChanged"
+                                    <RichTextBox x:Name="NotesEditor"
                                                  Height="185"
                                                  Background="#0B0F12"
                                                  Foreground="#E5E7EB"
@@ -2903,42 +2819,17 @@
                         </StackPanel>
 
                         </ScrollViewer>
-                        
-                        <Grid Grid.Row="2"
-                              Grid.RowSpan="2"
-                              Margin="0,10,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="12"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="0"
-                                    Click="CaptureScreenshotButton_Click"
-                                    Content="Capture"
-                                    ToolTip="Capture screenshot"
-                                    Height="32"
-                                    FontSize="13"
-                                    FontWeight="Bold"
-                                    Background="#171D24"
-                                    Foreground="#E5E7EB"
-                                    BorderBrush="#334155"/>
-
-                            <Button Grid.Column="2"
-                                    x:Name="ExportPdfButton"
-                                    Content="Export PDF"
-                                    ToolTip="Export latest captured evidence to PDF"
-                                    Height="32"
-                                    FontSize="13"
-                                    FontWeight="Bold"
-                                    Background="#171D24"
-                                    Foreground="#E5E7EB"
-                                    BorderBrush="#334155"
-                                    Style="{StaticResource ReadableDisabledButtonStyle}"
-                                    IsEnabled="False"
-                                    Click="ExportPdfButton_Click"/>
-                        </Grid>
-
+                        <Button Grid.Row="2"
+                                Click="CaptureScreenshotButton_Click"
+                                Content="📷  Capture"
+                                ToolTip="Capture screenshot"
+                                Height="32"
+                                FontSize="13"
+                                FontWeight="Bold"
+                                Background="#171D24"
+                                Foreground="#E5E7EB"
+                                BorderBrush="#334155"/>
                     </Grid>
                 </Border>
             </Grid>
@@ -2956,7 +2847,8 @@
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center">
 
-                        <TextBlock Text="OK" Foreground="#22C55E"
+                        <TextBlock Text=""
+                                   Foreground="#22C55E"
                                    FontSize="18"
                                    Margin="0,0,10,0"/>
 
@@ -2998,31 +2890,13 @@
 
                         <TextBlock Text="Help"
                                    FontSize="18"
-                                   Foreground="#0EA5E9"
-                                   Cursor="Hand"
-                                   MouseLeftButtonUp="HelpText_MouseLeftButtonUp"/>
+                                   Foreground="#0EA5E9"/>
                     </StackPanel>
                 </Grid>
             </Border>
         </Grid>
     </Border>
 </Window>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

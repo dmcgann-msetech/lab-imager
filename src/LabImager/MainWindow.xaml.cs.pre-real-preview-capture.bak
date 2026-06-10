@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -7,15 +6,10 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using LabImager.Services.Camera;
 using LabImager.Services.Capture;
-using LabImager.Models.Capture;
-using LabImager.Services.Reporting;
-using LabImager.Models.Reporting;
 using LabImager.Models.Session;
-using LabImager.Models.Camera;
 using LabImager.Services.Preview;
 using LabImager.Services.Recording;
 using LabImager.Services.Settings;
-using LabImager.Views;
 
 namespace LabImager
 {
@@ -26,8 +20,6 @@ namespace LabImager
         private readonly IViewportCaptureService _viewportCaptureService;
         private readonly ICameraPreviewService _cameraPreviewService;
         private readonly IRecordingService _recordingService;
-        private readonly IEvidencePdfExportService _evidencePdfExportService;
-        private LatestEvidenceCapture? _latestEvidenceCapture;
         private TextBlock? _recordingHeaderText;
 
         public MainWindow()
@@ -39,7 +31,6 @@ namespace LabImager
             _viewportCaptureService = new ViewportCaptureService();
             _cameraPreviewService = new DirectShowCameraPreviewService();
             _recordingService = new RecordingService();
-            _evidencePdfExportService = new EvidencePdfExportService();
 
             _recordingService.StateChanged += (_, _) => UpdateRecordingUi();
             _recordingService.ElapsedChanged += (_, _) => UpdateRecordingUi();
@@ -55,7 +46,6 @@ namespace LabImager
             };
 
             StopPreviewButton.IsEnabled = false;
-            ExportPdfButton.IsEnabled = false;
 
             LoadCameraDevices();
         }
@@ -80,7 +70,6 @@ namespace LabImager
                 SetDefaultCameraButton.IsEnabled = false;
                 StartPreviewButton.IsEnabled = false;
                 StopPreviewButton.IsEnabled = false;
-            ExportPdfButton.IsEnabled = false;
                 CameraStatusText.Text = "Source: Preview Unavailable";
 
                 CameraStatusText.Text = "Source: No Source Connected";
@@ -132,11 +121,9 @@ namespace LabImager
             FreezePreviewButton.IsEnabled = false;
             FreezePreviewButton.Content = "Freeze";
             StopPreviewButton.IsEnabled = false;
-            ExportPdfButton.IsEnabled = false;
             CameraStatusText.Text = "Source: Preview Idle";
 
             UpdateSelectedCameraState();
-            PopulateCaptureFormatsForSelectedCamera();
         }
 
         private void CameraSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -152,11 +139,9 @@ namespace LabImager
                 FreezePreviewButton.IsEnabled = false;
                 FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
-            ExportPdfButton.IsEnabled = false;
             }
 
             UpdateSelectedCameraState();
-            PopulateCaptureFormatsForSelectedCamera();
         }
 
         private void SetDefaultCameraButton_Click(object sender, RoutedEventArgs e)
@@ -228,15 +213,8 @@ namespace LabImager
                 ViewportPlaceholder.Visibility = Visibility.Collapsed;
                 PreviewHost.UpdateLayout();
 
-                var selectedFormat =
-                    CaptureFormatSelector.SelectedItem is ComboBoxItem selectedFormatItem &&
-                    selectedFormatItem.Tag is CameraCaptureFormat cameraCaptureFormat
-                        ? cameraCaptureFormat
-                        : null;
-
                 _cameraPreviewService.StartPreview(
                     source,
-                    selectedFormat,
                     PreviewPanel.Handle,
                     PreviewPanel.ClientSize.Width,
                     PreviewPanel.ClientSize.Height);
@@ -263,7 +241,6 @@ namespace LabImager
                 FreezePreviewButton.IsEnabled = false;
                 FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
-            ExportPdfButton.IsEnabled = false;
             }
         }
 
@@ -305,39 +282,17 @@ namespace LabImager
             FreezePreviewButton.IsEnabled = false;
             FreezePreviewButton.Content = "Freeze";
             StopPreviewButton.IsEnabled = false;
-            ExportPdfButton.IsEnabled = false;
         }
 
         private void RecordPreviewButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (_recordingService.State == RecordingState.Recording)
             {
-                if (_cameraPreviewService.IsRecording)
-                {
-                    _cameraPreviewService.StopRecording();
-                    _recordingService.Stop();
-
-                    CameraStatusText.Text = "Source: Recording Stopped";
-                    return;
-                }
-
-                if (!_cameraPreviewService.IsPreviewRunning)
-                {
-                    CameraStatusText.Text = "Source: Start Preview Before Recording";
-                    return;
-                }
-
-                var metadata = BuildCurrentSessionMetadata();
-                var outputPath = BuildRecordingOutputPath(metadata);
-
-                _cameraPreviewService.StartRecording(outputPath);
-                _recordingService.Start();
-
-                CameraStatusText.Text = $"Source: Recording Started: {outputPath}";
+                _recordingService.Stop();
             }
-            catch (Exception ex)
+            else
             {
-                CameraStatusText.Text = $"Source: Recording Failed: {ex.Message}";
+                _recordingService.Start();
             }
         }
 
@@ -386,72 +341,14 @@ namespace LabImager
                     : Visibility.Collapsed;
         }
 
-        private static string BuildRecordingOutputPath(SessionMetadata metadata)
-        {
-            var outputDir = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyVideos),
-                "Lab Imager",
-                "Recordings");
-
-            Directory.CreateDirectory(outputDir);
-
-            var timestamp = DateTime.Now.ToString("yyyyMMdd-HHmmss");
-
-            var parts = new[]
-                {
-                    SanitizeFileNamePart(metadata.ProjectName),
-                    SanitizeFileNamePart(metadata.BoardOrDevice),
-                    SanitizeFileNamePart(metadata.Technician)
-                }
-                .Where(part => !string.IsNullOrWhiteSpace(part))
-                .ToList();
-
-            var baseName = parts.Count > 0
-                ? timestamp + "_" + string.Join("_", parts)
-                : timestamp + "_lab-imager-recording";
-
-            return Path.Combine(outputDir, baseName + ".avi");
-        }
-
-        private static string SanitizeFileNamePart(string? value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return string.Empty;
-            }
-
-            var invalidChars = Path.GetInvalidFileNameChars();
-            var cleaned = new string(
-                value
-                    .Trim()
-                    .Select(ch => invalidChars.Contains(ch) ? '_' : ch)
-                    .ToArray());
-
-            while (cleaned.Contains("__", StringComparison.Ordinal))
-            {
-                cleaned = cleaned.Replace("__", "_");
-            }
-
-            return cleaned.Trim('_', ' ');
-        }
         private void CaptureScreenshotButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 var metadata = BuildCurrentSessionMetadata();
 
-                var originalPath = CapturePreviewPanelToPng();
-                var evidencePath = _viewportCaptureService.CreateEvidencePng(originalPath, metadata, NotesEditor.Document);
-
-                
-                _latestEvidenceCapture = new LatestEvidenceCapture
-                {
-                    OriginalImagePath = originalPath,
-                    EvidenceImagePath = evidencePath,
-                    CapturedAt = DateTime.Now
-                };
-
-                ExportPdfButton.IsEnabled = true;
+                var originalPath = _viewportCaptureService.CaptureElementToPng(ViewportSurface);
+                var evidencePath = _viewportCaptureService.CreateEvidencePng(originalPath, metadata);
 
                 CameraStatusText.Text = $"Source: Evidence Capture Saved: {evidencePath}";
             }
@@ -461,53 +358,6 @@ namespace LabImager
             }
         }
 
-
-        private void ExportPdfButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (_latestEvidenceCapture is null ||
-                    string.IsNullOrWhiteSpace(_latestEvidenceCapture.EvidenceImagePath) ||
-                    !File.Exists(_latestEvidenceCapture.EvidenceImagePath))
-                {
-                    CameraStatusText.Text = "Source: Export PDF Failed: Capture evidence first.";
-                    return;
-                }
-
-                var metadata = BuildCurrentSessionMetadata();
-                var outputPdfPath = Path.ChangeExtension(_latestEvidenceCapture.EvidenceImagePath, ".pdf");
-
-                var request = new EvidencePdfExportRequest
-                {
-                    EvidenceImagePath = _latestEvidenceCapture.OriginalImagePath,
-                    OutputPdfPath = outputPdfPath,
-                    ProjectName = metadata.ProjectName,
-                    BoardOrDevice = metadata.BoardOrDevice,
-                    Technician = metadata.Technician,
-                    SourceName = metadata.SourceName,
-                    SourceDevicePath = metadata.SourceDevicePath,
-                    CaptureFormat = GetSelectedCaptureFormatDisplayName(),
-                    NotesText = GetNotesPlainText(),
-                    CapturedAt = _latestEvidenceCapture.CapturedAt,
-                    ExportedAt = DateTime.Now
-                };
-
-                var savedPath = _evidencePdfExportService.Export(request);
-
-                CameraStatusText.Text = $"Source: Evidence PDF Exported: {savedPath}";
-            }
-            catch (Exception ex)
-            {
-                CameraStatusText.Text = $"Source: Export PDF Failed: {ex.Message}";
-            }
-        }
-
-        private string GetSelectedCaptureFormatDisplayName()
-        {
-            return CaptureFormatSelector.SelectedItem is ComboBoxItem selectedFormatItem
-                ? selectedFormatItem.Content?.ToString()?.Trim() ?? string.Empty
-                : string.Empty;
-        }
         private SessionMetadata BuildCurrentSessionMetadata()
         {
             var selectedCamera = CameraSelector.SelectedItem as ComboBoxItem;
@@ -529,88 +379,6 @@ namespace LabImager
             return range.Text.Trim();
         }
 
-        private string CapturePreviewPanelToPng()
-        {
-            if (PreviewPanel.ClientSize.Width <= 0 || PreviewPanel.ClientSize.Height <= 0)
-            {
-                throw new InvalidOperationException("Preview panel has no rendered size to capture.");
-            }
-
-            var capturesDirectory = System.IO.Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-                "Lab Imager",
-                "Captures");
-
-            System.IO.Directory.CreateDirectory(capturesDirectory);
-
-            var fileName = $"lab-imager-capture-{DateTime.Now:yyyyMMdd-HHmmss}-original.png";
-            var filePath = System.IO.Path.Combine(capturesDirectory, fileName);
-
-            var screenPoint = PreviewPanel.PointToScreen(System.Drawing.Point.Empty);
-
-            using var bitmap = new System.Drawing.Bitmap(
-                PreviewPanel.ClientSize.Width,
-                PreviewPanel.ClientSize.Height);
-
-            using (var graphics = System.Drawing.Graphics.FromImage(bitmap))
-            {
-                graphics.CopyFromScreen(
-                    screenPoint.X,
-                    screenPoint.Y,
-                    0,
-                    0,
-                    PreviewPanel.ClientSize);
-            }
-
-            bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-
-            return filePath;
-        }
-        private void PopulateCaptureFormatsForSelectedCamera()
-        {
-            CaptureFormatSelector.Items.Clear();
-
-            if (CameraSelector.SelectedItem is not ComboBoxItem selectedItem)
-            {
-                CaptureFormatSelector.IsEnabled = false;
-                return;
-            }
-
-            var cameraName = selectedItem.Content?.ToString()?.Replace(" (Default)", string.Empty) ?? string.Empty;
-            var cameraDevicePath = selectedItem.Tag?.ToString() ?? string.Empty;
-
-            if (string.IsNullOrWhiteSpace(cameraName) ||
-                cameraName == "No Cameras Detected")
-            {
-                CaptureFormatSelector.IsEnabled = false;
-                return;
-            }
-
-            var device = new Models.Camera.CameraDeviceInfo
-            {
-                Name = cameraName,
-                DevicePath = cameraDevicePath
-            };
-
-            var formats = _cameraDeviceService.GetAvailableFormats(device);
-
-            foreach (var format in formats)
-            {
-                CaptureFormatSelector.Items.Add(new ComboBoxItem
-                {
-                    Content = format.DisplayName,
-                    Tag = format,
-                    IsEnabled = format.IsAvailable
-                });
-            }
-
-            CaptureFormatSelector.IsEnabled = CaptureFormatSelector.Items.Count > 0;
-
-            if (CaptureFormatSelector.Items.Count > 0)
-            {
-                CaptureFormatSelector.SelectedIndex = 0;
-            }
-        }
         private void UpdateSelectedCameraState()
         {
             if (CameraSelector.SelectedItem is not ComboBoxItem selectedItem)
@@ -628,7 +396,6 @@ namespace LabImager
                 SetDefaultCameraButton.IsEnabled = false;
                 StartPreviewButton.IsEnabled = false;
                 StopPreviewButton.IsEnabled = false;
-            ExportPdfButton.IsEnabled = false;
                 CameraStatusText.Text = "Source: Preview Unavailable";
 
                 return;
@@ -644,7 +411,6 @@ namespace LabImager
                 FreezePreviewButton.IsEnabled = false;
                 FreezePreviewButton.Content = "Freeze";
                 StopPreviewButton.IsEnabled = false;
-            ExportPdfButton.IsEnabled = false;
             }
         }
 
@@ -659,21 +425,6 @@ namespace LabImager
             DragMove();
         }
 
-
-
-        private void HelpText_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            HelpButton_Click(sender, e);
-        }
-        private void HelpButton_Click(object sender, RoutedEventArgs e)
-        {
-            var helpWindow = new HelpWindow
-            {
-                Owner = this
-            };
-
-            helpWindow.ShowDialog();
-        }
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -684,38 +435,6 @@ namespace LabImager
             ToggleMaximizeRestore();
         }
 
-        private System.Windows.Documents.TextPointer? _savedNotesSelectionStart;
-        private System.Windows.Documents.TextPointer? _savedNotesSelectionEnd;
-
-        private void NotesEditor_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            if (NotesEditor is null)
-            {
-                return;
-            }
-
-            _savedNotesSelectionStart = NotesEditor.Selection.Start;
-            _savedNotesSelectionEnd = NotesEditor.Selection.End;
-        }
-
-        private TextRange GetActiveNotesSelection()
-        {
-            if (!NotesEditor.Selection.IsEmpty)
-            {
-                return NotesEditor.Selection;
-            }
-
-            if (_savedNotesSelectionStart is not null &&
-                _savedNotesSelectionEnd is not null &&
-                _savedNotesSelectionStart.CompareTo(_savedNotesSelectionEnd) != 0)
-            {
-                NotesEditor.Selection.Select(
-                    _savedNotesSelectionStart,
-                    _savedNotesSelectionEnd);
-            }
-
-            return NotesEditor.Selection;
-        }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -749,37 +468,6 @@ namespace LabImager
             {
                 NotesEditor.FontFamily = fontFamily;
             }
-
-            NotesEditor.Focus();
-        }
-
-        private void NotesFontSizeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (NotesEditor is null ||
-                NotesFontSizeSelector.SelectedItem is not ComboBoxItem selectedItem)
-            {
-                return;
-            }
-
-            var sizeText = selectedItem.Tag?.ToString() ?? selectedItem.Content?.ToString()?.Replace("pt", string.Empty).Trim();
-
-            if (!double.TryParse(sizeText, out var fontSize))
-            {
-                return;
-            }
-
-            var selection = GetActiveNotesSelection();
-
-            if (selection is null || selection.IsEmpty)
-            {
-                NotesEditor.Focus();
-                return;
-            }
-
-            selection.ApplyPropertyValue(
-                TextElement.FontSizeProperty,
-                fontSize
-            );
 
             NotesEditor.Focus();
         }
@@ -842,22 +530,14 @@ namespace LabImager
 
         private void NotesAlignButton_Click(object sender, RoutedEventArgs e)
         {
-            var selection = GetActiveNotesSelection();
+            var paragraph = NotesEditor.CaretPosition.Paragraph;
 
-            if (selection is null)
+            if (paragraph is null)
             {
-                NotesEditor.Focus();
                 return;
             }
 
-            var currentValue = selection.GetPropertyValue(Block.TextAlignmentProperty);
-
-            var currentAlignment =
-                currentValue is TextAlignment alignment
-                    ? alignment
-                    : TextAlignment.Left;
-
-            var nextAlignment = currentAlignment switch
+            var nextAlignment = paragraph.TextAlignment switch
             {
                 TextAlignment.Left => TextAlignment.Center,
                 TextAlignment.Center => TextAlignment.Right,
@@ -865,190 +545,15 @@ namespace LabImager
                 _ => TextAlignment.Left
             };
 
-            selection.ApplyPropertyValue(
+            NotesEditor.Selection.ApplyPropertyValue(
                 Block.TextAlignmentProperty,
                 nextAlignment
             );
 
+            paragraph.TextAlignment = nextAlignment;
             NotesEditor.Focus();
         }
 
-        private void NotesDropdownButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is not System.Windows.Controls.Button button || button.ContextMenu is null)
-            {
-                return;
-            }
-
-            button.ContextMenu.PlacementTarget = button;
-            button.ContextMenu.IsOpen = true;
-        }
-
-        private void NotesFormattingContextMenu_Opened(object sender, RoutedEventArgs e)
-        {
-            if (sender is not ContextMenu menu)
-            {
-                return;
-            }
-
-            var selection = GetActiveNotesSelection();
-
-            foreach (var item in menu.Items.OfType<MenuItem>())
-            {
-                if (item.Tag is not string tag)
-                {
-                    continue;
-                }
-
-                object value = tag switch
-                {
-                    "Bold" => selection.GetPropertyValue(TextElement.FontWeightProperty),
-                    "Italic" => selection.GetPropertyValue(TextElement.FontStyleProperty),
-                    "Underline" => selection.GetPropertyValue(Inline.TextDecorationsProperty),
-                    _ => DependencyProperty.UnsetValue
-                };
-
-                item.IsChecked = tag switch
-                {
-                    "Bold" => value is FontWeight weight && weight == FontWeights.Bold,
-                    "Italic" => value is System.Windows.FontStyle style && style == FontStyles.Italic,
-                    "Underline" => value == TextDecorations.Underline,
-                    _ => false
-                };
-            }
-        }
-
-        private void NotesListsContextMenu_Opened(object sender, RoutedEventArgs e)
-        {
-            if (sender is not ContextMenu menu)
-            {
-                return;
-            }
-
-            var paragraph = NotesEditor.CaretPosition.Paragraph;
-            var markerStyle = TextMarkerStyle.None;
-
-            if (paragraph?.Parent is ListItem listItem &&
-                listItem.Parent is List list)
-            {
-                markerStyle = list.MarkerStyle;
-            }
-
-            foreach (var item in menu.Items.OfType<MenuItem>())
-            {
-                item.IsChecked = item.Tag switch
-                {
-                    "Bullet" => markerStyle == TextMarkerStyle.Disc ||
-                                markerStyle == TextMarkerStyle.Circle ||
-                                markerStyle == TextMarkerStyle.Square ||
-                                markerStyle == TextMarkerStyle.Box,
-                    "Numbered" => markerStyle == TextMarkerStyle.Decimal ||
-                                  markerStyle == TextMarkerStyle.LowerRoman ||
-                                  markerStyle == TextMarkerStyle.UpperRoman ||
-                                  markerStyle == TextMarkerStyle.LowerLatin ||
-                                  markerStyle == TextMarkerStyle.UpperLatin,
-                    _ => false
-                };
-            }
-        }
-
-        private void NotesAlignmentContextMenu_Opened(object sender, RoutedEventArgs e)
-        {
-            if (sender is not ContextMenu menu)
-            {
-                return;
-            }
-
-            var selection = GetActiveNotesSelection();
-            var value = selection.GetPropertyValue(Block.TextAlignmentProperty);
-
-            var currentAlignment =
-                value is TextAlignment alignment
-                    ? alignment
-                    : TextAlignment.Left;
-
-            foreach (var item in menu.Items.OfType<MenuItem>())
-            {
-                item.IsChecked = item.Tag switch
-                {
-                    "Left" => currentAlignment == TextAlignment.Left,
-                    "Center" => currentAlignment == TextAlignment.Center,
-                    "Right" => currentAlignment == TextAlignment.Right,
-                    "Justify" => currentAlignment == TextAlignment.Justify,
-                    _ => false
-                };
-            }
-        }
-
-        private void NotesAlignmentMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is not MenuItem menuItem ||
-                menuItem.Tag is not string alignmentName)
-            {
-                return;
-            }
-
-            var selection = GetActiveNotesSelection();
-
-            var alignment = alignmentName switch
-            {
-                "Center" => TextAlignment.Center,
-                "Right" => TextAlignment.Right,
-                "Justify" => TextAlignment.Justify,
-                _ => TextAlignment.Left
-            };
-
-            selection.ApplyPropertyValue(
-                Block.TextAlignmentProperty,
-                alignment
-            );
-
-            NotesEditor.Focus();
-        }
-
-        private void NotesClearFormattingMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            var selection = GetActiveNotesSelection();
-
-            if (selection is null || selection.IsEmpty)
-            {
-                NotesEditor.Focus();
-                return;
-            }
-
-            selection.ClearAllProperties();
-            NotesEditor.Focus();
-        }
-
-        private void NotesColorContextMenu_Opened(object sender, RoutedEventArgs e)
-        {
-            if (sender is not ContextMenu menu)
-            {
-                return;
-            }
-
-            var selection = GetActiveNotesSelection();
-            var value = selection.GetPropertyValue(TextElement.ForegroundProperty);
-            var activeColor = "Default";
-
-            if (value is System.Windows.Media.SolidColorBrush brush)
-            {
-                activeColor = brush.Color.ToString();
-            }
-
-            foreach (var item in menu.Items.OfType<MenuItem>())
-            {
-                if (item.Tag is not string tag)
-                {
-                    continue;
-                }
-
-                item.IsChecked =
-                    tag == "Default"
-                        ? activeColor == "Default"
-                        : activeColor.Equals(((System.Windows.Media.SolidColorBrush)new System.Windows.Media.BrushConverter().ConvertFromString(tag)!).Color.ToString(), StringComparison.OrdinalIgnoreCase);
-            }
-        }
         private void NotesColorButton_Click(object sender, RoutedEventArgs e)
         {
             if (NotesColorButton.ContextMenu is null)
@@ -1092,6 +597,25 @@ namespace LabImager
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

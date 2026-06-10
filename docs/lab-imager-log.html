@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,7 +85,7 @@ tbody tr:nth-child(even){background:#fafcff}
 <tr><td>Sections 1-5</td><td>Project vision, repository identity, technology stack, hardware pipeline, and first milestone.</td></tr>
 <tr><td>Sections 6-10</td><td>Application layout, annotation model, file naming, project storage, and theme doctrine.</td></tr>
 <tr><td>Sections 11-15</td><td>Repository structure, Git workflow, icon/logo direction, future feature roadmap, and initial build constraints.</td></tr>
-<tr><td>Sections 16-29</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, and planned responsive-layout hardening.</td></tr>
+<tr><td>Sections 16-34</td><td>Approved UI concept, engineering viewport reconstruction, Phase 2 camera and preview integration, overlay investigations, M6 frame-pipeline stabilization, UI cleanup, Notes-toolbar functionalization, responsive-layout hardening backlog, M1 master checklist reconciliation, freeze/resume preview validation, responsive UI transport-control redesign, UI stabilization rollback, and M1-I recording timer header integration.</td></tr>
 <tr><td>Resources</td><td>Reusable commands, future setup commands, and ledger maintenance notes.</td></tr>
 </table>
 
@@ -240,15 +241,19 @@ Screenshot / annotation / saved record</pre>
 <h4>Pipeline Requirements</h4>
 <table>
 <tr><th>Requirement</th><th>Status</th><th>Notes</th></tr>
-<tr><td>Detect capture device</td><td><span class="status pending">Pending</span></td><td>Must enumerate available video input devices.</td></tr>
-<tr><td>Render live feed</td><td><span class="status pending">Pending</span></td><td>Must be low-latency enough for practical bench use.</td></tr>
-<tr><td>Freeze frame</td><td><span class="status pending">Pending</span></td><td>Needed before annotation workflow.</td></tr>
-<tr><td>Capture still frame</td><td><span class="status pending">Pending</span></td><td>PNG export required for milestone 1.</td></tr>
-<tr><td>Zoom/pan viewport</td><td><span class="status pending">Pending</span></td><td>View transform should not destroy the original captured image.</td></tr>
+<tr><td>Detect capture device</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. DirectShow device enumeration and source selector population are implemented and validated; see Sections 18, 20, 30, and 35.</td></tr>
+<tr><td>Render live feed</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Live DirectShow preview renders in the application viewport; see Sections 22, 30, and 35.</td></tr>
+<tr><td>Freeze frame</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Freeze and Resume preview controls were implemented and runtime validated; see Sections 31 and 35.</td></tr>
+<tr><td>Capture still frame</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. PNG screenshot export is implemented through the viewport capture service; see Sections 19, 30, and 35.</td></tr>
+<tr><td>Zoom/pan viewport</td><td><span class="status pending">Pending</span></td><td>Still open. View transform must preserve the original captured image and avoid destructive editing.</td></tr>
 </table>
 
+<div class="note ok">
+<strong>Reconciliation note 2026-06-05:</strong> This section began as an initial planning table. The current authoritative status has been reconciled in Section 35. Device detection, live feed, freeze frame, and still capture are no longer pending; only zoom/pan remains open from this original hardware-pipeline list.
+</div>
+
 <div class="note warn">
-<strong>Risk:</strong> HDMI capture devices can expose inconsistent names, formats, frame rates, and resolutions. Device enumeration and format negotiation must be treated as a first-class milestone, not an afterthought.
+<strong>Risk:</strong> HDMI capture devices can expose inconsistent names, formats, frame rates, and resolutions. Device enumeration and format negotiation must continue to be treated as a first-class engineering concern even though baseline enumeration is now complete.
 </div>
 <div class="page-num">4</div>
 </section>
@@ -263,15 +268,19 @@ Screenshot / annotation / saved record</pre>
 
 <h4>M1 Deliverables</h4>
 <table>
-<tr><th>Deliverable</th><th>Status</th></tr>
-<tr><td>Launch WPF application shell</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Detect available capture devices</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Select microscope capture device</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Render live microscope preview</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Capture PNG screenshot</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Apply timestamped default filename</td><td><span class="status pending">Pending</span></td></tr>
-<tr><td>Provide basic zoom control</td><td><span class="status pending">Pending</span></td></tr>
+<tr><th>Deliverable</th><th>Status</th><th>Completion / Reconciliation Reference</th></tr>
+<tr><td>Launch WPF application shell</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Shell, titlebar, theme, viewport, and status bar are implemented; see Sections 17, 18, 30, and 35.</td></tr>
+<tr><td>Detect available capture devices</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. DirectShow enumeration and source selector population are complete; see Sections 18, 20, 30, and 35.</td></tr>
+<tr><td>Select microscope capture device</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Source selector and default-source workflow are complete; see Sections 18, 20, 30, and 35.</td></tr>
+<tr><td>Render live microscope preview</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Live DirectShow preview is operational; see Sections 22, 30, and 35.</td></tr>
+<tr><td>Capture PNG screenshot</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. PNG viewport capture is implemented; see Sections 19, 30, and 35.</td></tr>
+<tr><td>Apply timestamped default filename</td><td><span class="status done">Complete</span></td><td>Reconciled 2026-06-05. Screenshot output uses timestamped PNG filenames; see Sections 19, 30, and 35.</td></tr>
+<tr><td>Provide basic zoom control</td><td><span class="status pending">Pending</span></td><td>Still open. Zoom/pan viewport work remains a future viewport-usability milestone.</td></tr>
 </table>
+
+<div class="note ok">
+<strong>Milestone reconciliation 2026-06-05:</strong> The original M1 planning table was created before implementation began. Subsequent development completed the WPF application shell, capture-device enumeration, source selection, default-source persistence, DirectShow preview rendering, freeze/resume controls, PNG screenshot export, timestamped filenames, and recording-state foundation. Only zoom/pan remains open from the original M1 deliverables. See Section 35 for the consolidated reconciliation record.
+</div>
 
 <h4>Explicitly Out of Scope for M1</h4>
 <ul>
@@ -548,6 +557,9 @@ Screenshot / annotation / saved record</pre>
 <tr><td>Future</td><td>Advanced imaging</td><td>Video recording, calibration, measurement tools, comparison mode.</td></tr>
 </table>
 
+<div class="note watch">
+<strong>Reconciliation note 2026-06-05:</strong> This roadmap is retained as the original phase plan. Phase 1 live capture and major portions of Phase 2 are now complete or partially complete. Recording-state foundation has started under Section 34, but actual video encoding remains future work. See Section 35 for current reconciled status.
+</div>
 <div class="page-num">14</div>
 </section>
 
@@ -580,7 +592,7 @@ Screenshot / annotation / saved record</pre>
 </ul>
 
 <div class="note ok">
-<strong>Current next engineering move:</strong> create the repository, add the planned folder structure, commit this log, then build the first WPF application shell.
+<strong>Reconciliation note 2026-06-05:</strong> This section is preserved as the initial safe-start doctrine. The repository, WPF shell, capture-device enumeration, live preview, screenshot export, freeze/resume, Notes tooling, responsive transport strip, and recording-state foundation have since been implemented. Use Section 35 for current status instead of this original startup checklist.
 </div>
 <div class="page-num">15</div>
 </section>
@@ -793,6 +805,10 @@ git push origin main</pre>
 <section class="page">
 <h3>18. Phase 2 UI Density, Camera Selector, Notes Toolbar, and Enumeration Foundation</h3>
 <p class="sub">Audit record for the Lab Imager Phase 2 interface refinement cycle, camera-selection workflow correction, DirectShow enumeration foundation, and pre-save-point stabilization.</p>
+
+<div class="note watch">
+<strong>Historical reconciliation note 2026-06-05:</strong> This section is retained as a point-in-time engineering record. Later completed work may supersede some pending or partial statuses here; see Section 35 for the current consolidated status.
+</div>
 
 <div class="note ok">
 <strong>Final status:</strong> The Lab Imager interface was refined from the oversized first-generation workstation shell into the approved compact widescreen engineering layout. The viewport remains dominant, the right-side Lab Session panel now includes camera-selection controls, the Notes area now has a two-row rich-text toolbar scaffold, and the top/bottom chrome has been reduced to a more professional software-instrument density.
@@ -1012,6 +1028,10 @@ git push origin main</pre>
 <section class="page">
 <h3>21. Preview State Management Framework</h3>
 <p class="sub">Preview lifecycle-control milestone establishing start/stop state handling before DirectShow live rendering integration.</p>
+
+<div class="note watch">
+<strong>Historical reconciliation note 2026-06-05:</strong> This section is retained as a point-in-time engineering record. Later completed work may supersede some pending or partial statuses here; see Section 35 for the current consolidated status.
+</div>
 <div class="note ok"><strong>Final status:</strong> Preview lifecycle controls are complete and synchronized to <code>main</code> under commit <code>7645ecd</code> with message <code>Add preview state controls and workflow</code>.</div>
 <h4>Purpose of This Log Entry</h4>
 <p>This entry records the creation of the first preview lifecycle management framework in Lab Imager. The milestone deliberately did not attempt live video rendering. Instead, it established the UI controls, state transitions, selected-source awareness, and preview service boundary needed before DirectShow graph work is connected to the viewport.</p>
@@ -1052,6 +1072,10 @@ git push origin main</pre>
 <section class="page">
 <h3>23. Approved Backlog and Forward Engineering Notes</h3>
 <p class="sub">Backlog items and future design decisions captured immediately after the M2-A live preview milestone.</p>
+
+<div class="note watch">
+<strong>Historical reconciliation note 2026-06-05:</strong> This section is retained as a point-in-time engineering record. Later completed work may supersede some pending or partial statuses here; see Section 35 for the current consolidated status.
+</div>
 <h4>Approved Backlog Items</h4>
 <table>
 <tr><th>ID</th><th>Item</th><th>Priority</th><th>Status</th></tr>
@@ -1237,6 +1261,10 @@ Frame pipeline:
 <p class="sub">Approved backlog item for resolution-aware scaling, adaptive right-panel behavior, and preservation of operator usability at smaller application sizes.</p>
 
 <div class="note watch">
+<strong>Historical reconciliation note 2026-06-05:</strong> This section is retained as a point-in-time engineering record. Later completed work may supersede some pending or partial statuses here; see Section 35 for the current consolidated status.
+</div>
+
+<div class="note watch">
 <strong>Planned item:</strong> The current Lab Imager shell is optimized for a large workstation window. When the application is reduced substantially, the right-side Lab Session panel becomes vertically constrained and the Notes area crowds the available space. This is approved future work and is intentionally deferred until the current functional pass is complete.
 </div>
 
@@ -1271,63 +1299,2442 @@ Frame pipeline:
 <div class="page-num">29</div>
 </section>
 
+
 <section class="page">
-<h3>30. M1 Requirements Reconciliation and Runtime Validation Review</h3>
-<p class="sub">Runtime validation review performed against the actual application rather than historical milestone assumptions.</p>
+<h3>30. M1 Requirements Reconciliation and Master Development Checklist</h3>
+<p class="sub">Authoritative checklist reconciliation performed against the actual runtime application state, build results, screenshots, feature-branch commit history, and verified operator workflow.</p>
 
 <div class="note ok">
-<strong>Final status:</strong> Runtime validation confirmed that device enumeration, source selection, default source restoration, live preview rendering, preview lifecycle controls, screenshot capture, and Notes functionality are operational. Several items previously marked as pending were reclassified based on observed behavior.
+<strong>Final status:</strong> Lab Imager has moved beyond the original static-audit condition. The application now has a working WPF shell, source enumeration, source selection, default source persistence, live DirectShow preview, screenshot capture, timestamped PNG output, operational Notes formatting, validated Freeze / Resume preview controls, and M1-I recording-state foundation with a top-header REC timer. This section is supplemented by Section 35, which reconciles older planning sections against the latest committed state.
 </div>
 
-<h4>Runtime Validation Results</h4>
+<h4>Purpose of This Reconciliation</h4>
+<p>
+This entry converts the master checklist into the project log so the ledger reflects what is actually complete, what was verified but intentionally deferred, and what remains open. The checklist below is not a generic roadmap; it is the current operational development state as of the frozen-preview validation checkpoint.
+</p>
+
+<h4>Verified Complete — Application Shell and Core UI</h4>
 <table>
-<tr><th>Requirement</th><th>Status</th><th>Notes</th></tr>
-<tr><td>Detect capture device</td><td><span class="status done">Complete</span></td><td>Multiple capture devices successfully enumerated.</td></tr>
-<tr><td>Source selection</td><td><span class="status done">Complete</span></td><td>Operator can select between detected devices.</td></tr>
-<tr><td>Default source persistence</td><td><span class="status done">Complete</span></td><td>Previously selected source restored correctly.</td></tr>
-<tr><td>Render live feed</td><td><span class="status done">Complete</span></td><td>Live camera image successfully displayed in viewport.</td></tr>
-<tr><td>Preview lifecycle controls</td><td><span class="status done">Complete</span></td><td>Start/Stop Preview workflow operational.</td></tr>
-<tr><td>Capture still frame</td><td><span class="status done">Complete</span></td><td>Screenshot subsystem available and previously validated.</td></tr>
-<tr><td>Notes subsystem</td><td><span class="status done">Complete</span></td><td>Formatting toolbar and editor operational.</td></tr>
-<tr><td>Freeze frame</td><td><span class="status pending">Pending</span></td><td>No verified freeze-frame workflow observed.</td></tr>
-<tr><td>Zoom / Pan viewport</td><td><span class="status pending">Pending</span></td><td>No viewport transform controls observed.</td></tr>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>WPF application shell</td><td><span class="status done">Complete</span></td><td>Application builds and launches under <code>net8.0-windows</code>.</td></tr>
+<tr><td>Custom title bar</td><td><span class="status done">Complete</span></td><td>Custom chrome remains active with window controls preserved.</td></tr>
+<tr><td>Dark theme implementation</td><td><span class="status done">Complete</span></td><td>Runtime UI uses the approved dark Lab Imager workstation theme.</td></tr>
+<tr><td>Main microscope viewport</td><td><span class="status done">Complete</span></td><td>Viewport is present and hosts the live preview surface.</td></tr>
+<tr><td>Right-side Lab Session panel</td><td><span class="status done">Complete</span></td><td>Project, board/device, technician, source, preview controls, Notes, and capture controls are visible.</td></tr>
+<tr><td>Status bar</td><td><span class="status done">Complete</span></td><td>Application state and preview status messages are displayed.</td></tr>
+<tr><td>Current operational baseline screenshot</td><td><span class="status done">Complete</span></td><td><code>docs/assets/ui/lab_design_4.png</code> archived as the current runtime baseline.</td></tr>
 </table>
 
-<h4>Outstanding Development Backlog</h4>
+<h4>Verified Complete — Capture Device and Preview Workflow</h4>
 <table>
-<tr><th>ID</th><th>Item</th><th>Status</th><th>Notes</th></tr>
-<tr>
-<td>M1-FF</td>
-<td>Freeze Frame</td>
-<td><span class="status pending">Pending</span></td>
-<td>Required workflow: Live Preview → Freeze Frame → Static View → Notes / Screenshot / Future Annotation → Resume Preview.</td>
-</tr>
-<tr>
-<td>M1-ZP</td>
-<td>Zoom / Pan Viewport</td>
-<td><span class="status pending">Pending</span></td>
-<td>Implementation should use viewport transforms only and must not modify the original source frame.</td>
-</tr>
-<tr>
-<td>UI-007</td>
-<td>Responsive UI Scaling</td>
-<td><span class="status pending">Pending</span></td>
-<td>Small-window behavior remains unresolved. Right-side panel, Notes editor, and Capture controls require adaptive sizing.</td>
-</tr>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Capture device enumeration</td><td><span class="status done">Complete</span></td><td>Multiple video input devices are detected and listed.</td></tr>
+<tr><td>Multiple camera detection</td><td><span class="status done">Complete</span></td><td>Runtime screenshot confirmed multiple available sources.</td></tr>
+<tr><td>Camera source selector</td><td><span class="status done">Complete</span></td><td>Source selector is populated and usable.</td></tr>
+<tr><td>Default camera selection</td><td><span class="status done">Complete</span></td><td>Default source can be set from the selected camera.</td></tr>
+<tr><td>Default camera persistence</td><td><span class="status done">Complete</span></td><td>Preferred source persists through JSON-backed settings.</td></tr>
+<tr><td>Default camera restoration on startup</td><td><span class="status done">Complete</span></td><td>Previously selected default source restores on launch.</td></tr>
+<tr><td>DirectShow integration</td><td><span class="status done">Complete</span></td><td>DirectShow service path is used for device enumeration and preview.</td></tr>
+<tr><td>WindowsFormsHost live rendering</td><td><span class="status done">Complete</span></td><td>Live camera feed renders inside the WPF viewport through the native preview host.</td></tr>
+<tr><td>Live camera preview</td><td><span class="status done">Complete</span></td><td>Preview has been runtime-validated with a real camera feed.</td></tr>
+<tr><td>Start Preview workflow</td><td><span class="status done">Complete</span></td><td>Start Preview begins the active live feed.</td></tr>
+<tr><td>Stop Preview workflow</td><td><span class="status done">Complete</span></td><td>Stop Preview terminates the live preview session.</td></tr>
+<tr><td>Preview status reporting</td><td><span class="status done">Complete</span></td><td>Status text updates for running, stopped, and frozen preview states.</td></tr>
+<tr><td>Freeze Frame button</td><td><span class="status done">Complete</span></td><td>Freeze control added between Start Preview and Stop Preview.</td></tr>
+<tr><td>Freeze Frame workflow</td><td><span class="status done">Complete</span></td><td>Live feed freezes during runtime validation.</td></tr>
+<tr><td>Resume Preview workflow</td><td><span class="status done">Complete</span></td><td>Freeze button toggles to Resume and live motion resumes after activation.</td></tr>
+<tr><td>Repeated freeze/resume baseline</td><td><span class="status done">Complete</span></td><td>Freeze/Resume behavior validated enough to close the M1 freeze requirement.</td></tr>
 </table>
+
+<h4>Verified Complete — Screenshot Capture</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Screenshot capture service</td><td><span class="status done">Complete</span></td><td><code>ViewportCaptureService</code> provides WPF visual capture and PNG encoding.</td></tr>
+<tr><td>PNG screenshot export</td><td><span class="status done">Complete</span></td><td>PNG output successfully generated.</td></tr>
+<tr><td>Screenshot storage path</td><td><span class="status done">Complete</span></td><td>Captures write to <code>%USERPROFILE%\Pictures\Lab Imager\Captures</code>.</td></tr>
+<tr><td>Capture Screenshot UI workflow</td><td><span class="status done">Complete</span></td><td>Capture Screenshot button remains available in the Lab Session panel.</td></tr>
+<tr><td>Timestamped screenshot filename</td><td><span class="status done">Complete</span></td><td>Runtime filename verified as <code>lab-imager-capture-yyyyMMdd-HHmmss.png</code>.</td></tr>
+<tr><td>Screenshot filename format verification</td><td><span class="status done">Complete</span></td><td>Observed example followed the implemented timestamped filename pattern.</td></tr>
+<tr><td>Screenshot metadata behavior verification</td><td><span class="status done">Verified</span></td><td>Capture folder inspection confirmed current behavior: PNG files are created, but JSON sidecars are not yet generated.</td></tr>
+<tr><td>Metadata sidecar export</td><td><span class="status pending">Deferred</span></td><td>No <code>.json</code>, <code>.xml</code>, or <code>.txt</code> sidecar artifacts were found; implementation deferred to documentation workflow tier.</td></tr>
+<tr><td>Screenshot export while preview is active</td><td><span class="status watching">Needs final pass</span></td><td>Screenshot system is complete, but final regression validation should be repeated after Freeze/Resume changes.</td></tr>
+</table>
+
+<h4>Verified Complete — Notes and Session Fields</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Notes editor</td><td><span class="status done">Complete</span></td><td>RichTextBox-based Notes editor is active.</td></tr>
+<tr><td>Undo</td><td><span class="status done">Complete</span></td><td>Notes toolbar command validated.</td></tr>
+<tr><td>Redo</td><td><span class="status done">Complete</span></td><td>Notes toolbar command validated.</td></tr>
+<tr><td>Font selection</td><td><span class="status done">Complete</span></td><td>Professional font selector operational.</td></tr>
+<tr><td>Bold</td><td><span class="status done">Complete</span></td><td>Text formatting command validated.</td></tr>
+<tr><td>Italic</td><td><span class="status done">Complete</span></td><td>Text formatting command validated.</td></tr>
+<tr><td>Underline</td><td><span class="status done">Complete</span></td><td>Text formatting command validated.</td></tr>
+<tr><td>Bullet lists</td><td><span class="status done">Complete</span></td><td>Bullet command validated.</td></tr>
+<tr><td>Numbered outlines</td><td><span class="status done">Complete</span></td><td>Outline / numbering command validated.</td></tr>
+<tr><td>Text alignment</td><td><span class="status done">Complete</span></td><td>Alignment workflow validated.</td></tr>
+<tr><td>Text color selection</td><td><span class="status done">Complete</span></td><td>Color selection workflow validated.</td></tr>
+<tr><td>Project Name field</td><td><span class="status done">Complete</span></td><td>Field is present and editable in Lab Session panel.</td></tr>
+<tr><td>Board / Device field</td><td><span class="status done">Complete</span></td><td>Field is present and editable in Lab Session panel.</td></tr>
+<tr><td>Technician field</td><td><span class="status done">Complete</span></td><td>Field is present and editable in Lab Session panel.</td></tr>
+<tr><td>Indent functionality</td><td><span class="status pending">Pending</span></td><td>Word-style selected-block indentation remains open.</td></tr>
+</table>
+
+<h4>Verified Complete — Service Architecture and Build Control</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Camera preview service architecture</td><td><span class="status done">Complete</span></td><td><code>ICameraPreviewService</code> defines preview lifecycle boundaries.</td></tr>
+<tr><td>Settings service architecture</td><td><span class="status done">Complete</span></td><td>JSON-backed app settings service is implemented.</td></tr>
+<tr><td>Screenshot service architecture</td><td><span class="status done">Complete</span></td><td>Screenshot capture is isolated behind a capture service.</td></tr>
+<tr><td>Capture-device service architecture</td><td><span class="status done">Complete</span></td><td>Device enumeration is isolated behind a camera-device service.</td></tr>
+<tr><td>DirectShow frame pipeline foundation</td><td><span class="status partial">Partial / Foundation</span></td><td>Frame-pipeline scaffold exists and builds, but full decode/stride/final WPF rendering remains incomplete.</td></tr>
+<tr><td>Build stability</td><td><span class="status done">Complete</span></td><td>Latest build passed with zero errors.</td></tr>
+<tr><td>GitHub synchronization</td><td><span class="status done">Complete</span></td><td>Feature branch synchronized to <code>origin/feature/wpf-frame-pipeline</code>.</td></tr>
+</table>
+
+
+<h4>Verified Complete — Recording State Foundation</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Validation / Evidence</th></tr>
+<tr><td>Recording service folder</td><td><span class="status done">Complete</span></td><td><code>Services/Recording</code> added as the recording subsystem boundary.</td></tr>
+<tr><td>Recording state model</td><td><span class="status done">Complete</span></td><td><code>RecordingState</code> defines <code>Idle</code>, <code>Recording</code>, <code>Paused</code>, and <code>Stopped</code>.</td></tr>
+<tr><td>Recording service contract</td><td><span class="status done">Complete</span></td><td><code>IRecordingService</code> defines recording state, elapsed time, state events, and lifecycle commands.</td></tr>
+<tr><td>Recording service implementation</td><td><span class="status done">Complete</span></td><td><code>RecordingService</code> tracks elapsed recording time with a Dispatcher timer.</td></tr>
+<tr><td>Record button activation</td><td><span class="status done">Complete</span></td><td>The former Record placeholder now starts and stops recording-state tracking.</td></tr>
+<tr><td>Footer recording status</td><td><span class="status done">Complete</span></td><td>Footer displays recording state and elapsed time.</td></tr>
+<tr><td>Top-header REC timer</td><td><span class="status done">Complete</span></td><td>REC timer appears above the viewport coordinate ruler, outside the image area, and was position-refined in commit <code>7c6c5bc</code>.</td></tr>
+<tr><td>Actual video encoding</td><td><span class="status pending">Deferred</span></td><td>No MP4/AVI/frame-sequence output is implemented yet. This remains a future recording pipeline milestone.</td></tr>
+</table>
+
+<h4>Current Open Work — Ordered Execution Backlog</h4>
+<table>
+<tr><th>Order</th><th>Workstream</th><th>Status</th><th>Required Work</th></tr>
+<tr><td>1</td><td>Final screenshot regression pass</td><td><span class="status watching">Verify</span></td><td>Confirm PNG export still works while preview is actively running and after Freeze/Resume changes.</td></tr>
+<tr><td>2</td><td>Zoom / Pan Viewport</td><td><span class="status pending">Pending</span></td><td>Define viewport transform architecture; add zoom controls; add mouse-wheel zoom; add pan controls; add click-drag panning; preserve original frame integrity; define screenshot behavior during zoom; validate with live and frozen preview.</td></tr>
+<tr><td>3</td><td>Responsive UI Scaling</td><td><span class="status pending">Pending</span></td><td>Define minimum supported window size; add adaptive viewport sizing; add adaptive Notes sizing; add adaptive right-panel sizing; add scrolling where required; prevent right-side control clipping; validate at 1080p, 1440p, and larger workstation resolutions.</td></tr>
+<tr><td>4</td><td>Disabled Control Styling</td><td><span class="status pending">Pending</span></td><td>Disabled buttons must remain readable; disabled text styling is visually inconsistent and should be corrected globally.</td></tr>
+<tr><td>5</td><td>Application Icon / Branding</td><td><span class="status pending">Pending</span></td><td>Add proper application icon for title bar, taskbar, executable, Alt+Tab, Start Menu, and future installer identity.</td></tr>
+<tr><td>6</td><td>Notes Toolbar Completion</td><td><span class="status pending">Pending</span></td><td>Repair Indent functionality; validate multi-line indentation, selected-block indentation, and full-document indentation.</td></tr>
+<tr><td>7</td><td>Annotation Foundation</td><td><span class="status pending">Pending</span></td><td>Define annotation canvas architecture, overlay rendering strategy, arrow, rectangle, circle, text label, freehand marker, clear annotations, undo/redo, and annotation persistence strategy.</td></tr>
+<tr><td>8</td><td>Project Records</td><td><span class="status pending">Pending</span></td><td>Metadata sidecar generation, JSON export, project folder structure, session save workflow, capture history, and notes/project metadata persistence.</td></tr>
+<tr><td>9</td><td>Advanced Imaging</td><td><span class="status pending">Pending</span></td><td>Measurement framework, calibration framework, scale overlay, comparison mode, video encoding/output, playback, and advanced frame-pipeline reconciliation. Recording state/timer foundation is complete; actual encoded output remains pending.</td></tr>
+<tr><td>10</td><td>Project Library</td><td><span class="status pending">Pending</span></td><td>Project/session browser, SQLite schema, capture indexing, search by project, board, technician, date, and export project packet.</td></tr>
+</table>
+
+<h4>Master Development Checklist Snapshot</h4>
+<div class="note ok">
+<strong>Completed baseline:</strong> WPF shell, titlebar, dark theme, viewport, right panel, status bar, device enumeration, multi-camera detection, source selector, default source persistence/restoration, DirectShow integration, live preview, Start/Stop Preview, Freeze/Resume Preview, screenshot service, PNG export, timestamped filename, capture path, Notes editor, major Notes toolbar commands, session fields, service architecture, build stability, and GitHub synchronization.
+</div>
 
 <div class="note watch">
-<strong>Next Development Priority:</strong>
-<ol>
-<li>Freeze Frame</li>
-<li>Zoom / Pan Viewport</li>
-<li>Responsive UI Scaling</li>
-<li>Reconcile native DirectShow preview path versus WPF frame pipeline</li>
-<li>Resume advanced frame-pipeline work after M1 completion</li>
-</ol>
+<strong>Current recommended order:</strong> final screenshot regression pass → Zoom / Pan Viewport → Responsive UI Scaling → Disabled Control Styling → Application Icon → Indent repair → Annotation foundation → Project records and metadata → Advanced imaging → Project library/database.
 </div>
 
 <div class="page-num">30</div>
+</section>
+
+
+<section class="page">
+<h3>31. Freeze Preview and Resume Preview Validation</h3>
+<p class="sub">Operational freeze-frame milestone, preview-state control expansion, runtime validation, and feature-branch synchronization record.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Freeze Preview and Resume Preview are implemented, build-validated, runtime-validated, committed, and pushed to <code>origin/feature/wpf-frame-pipeline</code> under commit <code>1b274d7</code> with message <code>Add freeze and resume preview controls</code>.
+</div>
+
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the work completed after the M1 runtime reconciliation review. The objective was to close the remaining freeze-frame requirement by adding an operator-visible Freeze control, supporting Resume behavior, extending the preview service contract, and validating the workflow against an active DirectShow live preview session.
+</p>
+
+<h4>Implementation Summary</h4>
+<table>
+<tr><th>Area</th><th>Change</th><th>Status</th></tr>
+<tr><td>Preview service contract</td><td>Extended <code>ICameraPreviewService</code> with <code>IsPreviewFrozen</code>, <code>FreezePreview()</code>, and <code>ResumePreview()</code>.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>DirectShow preview service</td><td>Added freeze-state tracking and pause/resume behavior to the DirectShow preview implementation.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Stub preview service</td><td>Updated the stub implementation so it satisfies the expanded preview-service interface.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Main window UI</td><td>Added <code>FreezePreviewButton</code> between <code>Start Preview</code> and <code>Stop Preview</code>.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Code-behind workflow</td><td>Added <code>FreezePreviewButton_Click</code> to toggle between Freeze and Resume behavior.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Button-state logic</td><td>Corrected runtime enabling/disabling so the Freeze control becomes available during active preview.</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Status messaging</td><td>Added visible state feedback for <code>Preview Frozen</code> and resumed preview state.</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Files Modified</h4>
+<table>
+<tr><th>File</th><th>Purpose</th></tr>
+<tr><td><code>src/LabImager/MainWindow.xaml</code></td><td>Added the Freeze button to the preview-control row and adjusted the preview-control grid columns.</td></tr>
+<tr><td><code>src/LabImager/MainWindow.xaml.cs</code></td><td>Added freeze/resume event handling and corrected preview button-state transitions.</td></tr>
+<tr><td><code>src/LabImager/Services/Preview/ICameraPreviewService.cs</code></td><td>Expanded preview-service contract for frozen-state awareness and freeze/resume commands.</td></tr>
+<tr><td><code>src/LabImager/Services/Preview/DirectShowCameraPreviewService.cs</code></td><td>Implemented DirectShow preview pause/resume state handling.</td></tr>
+<tr><td><code>src/LabImager/Services/Preview/StubCameraPreviewService.cs</code></td><td>Updated stub behavior to match the expanded preview-service interface.</td></tr>
+<tr><td><code>docs/assets/ui/lab_design_4.png</code></td><td>Archived current operational UI screenshot for the frozen-preview validation state.</td></tr>
+</table>
+
+<h4>Runtime Validation Results</h4>
+<table>
+<tr><th>Validation Item</th><th>Result</th><th>Notes</th></tr>
+<tr><td>Application build</td><td><span class="status done">Passed</span></td><td><code>dotnet build</code> completed with zero errors.</td></tr>
+<tr><td>Start Preview</td><td><span class="status done">Passed</span></td><td>Live preview started successfully.</td></tr>
+<tr><td>Freeze Preview</td><td><span class="status done">Passed</span></td><td>Live feed froze and status changed to <code>Preview Frozen</code>.</td></tr>
+<tr><td>Resume Preview</td><td><span class="status done">Passed</span></td><td>Freeze button changed to Resume and live motion resumed after toggle.</td></tr>
+<tr><td>Stop Preview</td><td><span class="status done">Passed</span></td><td>Existing Stop Preview workflow remained operational.</td></tr>
+<tr><td>Screenshot capture</td><td><span class="status done">Preserved</span></td><td>Existing PNG screenshot workflow remained available.</td></tr>
+</table>
+
+<h4>Build Validation</h4>
+<pre>dotnet build R:\Lab-Imager\src\LabImager\LabImager.csproj</pre>
+<table>
+<tr><th>Build Item</th><th>Result</th></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Warnings</td><td><code>4</code> existing non-blocking warnings in <code>DirectShowFramePreviewService.cs</code>.</td></tr>
+<tr><td>Build result</td><td><span class="status done">Succeeded</span></td></tr>
+</table>
+
+<h4>Validation Screenshot</h4>
+<div style="margin:16px 0;border:1px solid var(--line);padding:10px;background:#f8fafc">
+<img src="assets/ui/lab_design_5.png" alt="Lab Imager freeze preview validation screenshot" style="max-width:100%;display:block;margin:0 auto;border:1px solid #cbd5e1">
+<p class="sub" style="text-align:center;margin-top:8px">Operational validation screenshot showing active camera preview in frozen state, <code>Preview Frozen</code> status text, and the Resume control visible in the preview-control row.</p>
+</div>
+
+<h4>Repository Validation</h4>
+<table>
+<tr><th>Repository Item</th><th>Result</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Commit</td><td><code>1b274d758026007064f3f6bb78bd4c88733b888d</code></td></tr>
+<tr><td>Commit message</td><td><code>Add freeze and resume preview controls</code></td></tr>
+<tr><td>Push target</td><td><code>origin/feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td></tr>
+<tr><td>Local / remote parity</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<h4>Command Record</h4>
+<pre>git status
+# On branch feature/wpf-frame-pipeline
+# Your branch is up to date with 'origin/feature/wpf-frame-pipeline'.
+# nothing to commit, working tree clean
+
+git rev-parse HEAD
+# 1b274d758026007064f3f6bb78bd4c88733b888d
+
+git ls-remote origin refs/heads/feature/wpf-frame-pipeline
+# 1b274d758026007064f3f6bb78bd4c88733b888d refs/heads/feature/wpf-frame-pipeline</pre>
+
+<h4>Next Work Order</h4>
+<ol>
+<li>Merge or reconcile <code>feature/wpf-frame-pipeline</code> to <code>main</code> when rested.</li>
+<li>Run the final screenshot regression pass against active preview and frozen preview.</li>
+<li>Implement Zoom / Pan Viewport.</li>
+<li>Implement Responsive UI Scaling so right-side controls do not clip at smaller window sizes.</li>
+<li>Fix Disabled Control Styling so disabled buttons remain readable and visually intentional.</li>
+<li>Add Application Icon / Branding for window, taskbar, executable, and future installer identity.</li>
+<li>Resume metadata sidecar generation after inspection workflow features are stable.</li>
+</ol>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Freeze Preview is now closed as a functional milestone. The project can proceed to viewport usability work: zoom, pan, responsive scaling, and final UI polish.
+</div>
+
+<div class="page-num">31</div>
+</section>
+
+<section class="page">
+<h3>32. Responsive UI Experiment, Default Source Live Refresh, and Minimalist Transport Controls</h3>
+<p class="sub">Lunch-break checkpoint record for the 1024x768 responsive-layout investigation, preserved scrollable-panel fallback branch, live default-source refresh correction, right-panel simplification, and viewport transport-control redesign.</p>
+
+<div class="note ok">
+<strong>Checkpoint status:</strong> This section began as the responsive-layout and transport-control redesign checkpoint. It has now been reconciled with the later M1-I recording work: the viewport transport strip remains the accepted operating model, the Record placeholder has been promoted into an active recording-state control, and the recording timer now uses a top-center header indicator rather than a viewport overlay. The current active branch remains <code>feature/wpf-frame-pipeline</code>.
+</div>
+
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the active UI architecture work performed after the Freeze / Resume milestone. The session focused on making Lab Imager usable at smaller lab workstation resolutions, especially the expected <code>1024x768</code> environment, while preserving the approved dark instrumentation design.
+</p>
+<p>
+The work confirmed that the right-side Lab Session panel should function primarily as a configuration and documentation panel, while live camera operation belongs with the viewport as a compact transport-control strip.
+</p>
+
+<h4>Responsive Layout Investigation Summary</h4>
+<table>
+<tr><th>Attempt / Finding</th><th>Result</th><th>Decision</th></tr>
+<tr><td>Scrollable right panel prototype</td><td>Validated that a ScrollViewer-based Lab Session panel can preserve access to controls when vertical space is limited.</td><td><span class="status done">Preserved as fallback</span></td></tr>
+<tr><td>Dedicated experiment branch</td><td>Created <code>experiment/scrollable-panel</code> and pushed commit <code>7e597e3</code> with message <code>Add scrollable lab session panel prototype</code>.</td><td><span class="status done">Saved</span></td></tr>
+<tr><td>Full-panel shrink / Viewbox experiments</td><td>Proved that scaling the panel internals without correcting parent column behavior produced unacceptable sizing and clipping.</td><td><span class="status watching">Rejected as primary approach</span></td></tr>
+<tr><td>Parent-column ratio correction</td><td>Identified that the previous right column remained fixed at <code>430</code>, preventing the intended proportional layout from applying.</td><td><span class="status done">Corrected</span></td></tr>
+<tr><td>3:1 layout test</td><td>Made the right panel too narrow for existing fixed-size controls.</td><td><span class="status watching">Not viable alone</span></td></tr>
+<tr><td>2:1 layout test</td><td>Provided a more realistic balance between viewport and Lab Session panel at small resolutions.</td><td><span class="status active">Current direction</span></td></tr>
+<tr><td>Thin vertical scrollbar</td><td>Reintroduced a thinner scroll fallback for constrained panel content.</td><td><span class="status active">Retained for review</span></td></tr>
+</table>
+
+<h4>Default Source Live Refresh Fix</h4>
+<div class="note ok">
+<strong>Resolved:</strong> The Set Default workflow now refreshes the camera selector immediately after saving, so the star marker and <code>(Default)</code> label move live without requiring an application restart.
+</div>
+<table>
+<tr><th>Issue</th><th>Fix</th><th>Status</th></tr>
+<tr><td>Default source saved but selector did not visually update.</td><td>Updated <code>SetDefaultCameraButton_Click</code> to clean the camera name, save the selected device path, reload camera devices, reselect the chosen item, and update status/title text.</td><td><span class="status done">Fixed</span></td></tr>
+<tr><td>Operator uncertainty after clicking Set Default.</td><td>The selected default camera now shows the star marker immediately, preventing second-guessing.</td><td><span class="status done">Fixed</span></td></tr>
+<tr><td>Settings persistence</td><td>Confirmed the Logitech camera persisted to <code>%APPDATA%\Lab Imager\appsettings.json</code> as the default source.</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<h4>Right Panel Minimalist Direction</h4>
+<table>
+<tr><th>Right Panel Item</th><th>Current / Intended Direction</th><th>Status</th></tr>
+<tr><td>Project Name</td><td>Remain in Lab Session panel as metadata.</td><td><span class="status active">Keep</span></td></tr>
+<tr><td>Board / Device</td><td>Remain in Lab Session panel as metadata.</td><td><span class="status active">Keep</span></td></tr>
+<tr><td>Technician</td><td>Remain in Lab Session panel as metadata.</td><td><span class="status active">Keep</span></td></tr>
+<tr><td>Source selector</td><td>Remain in Lab Session panel as configuration.</td><td><span class="status active">Keep</span></td></tr>
+<tr><td>Set Selected Source as Default</td><td>Shortened to <code>Set Default</code>; planned final styling as a pill button.</td><td><span class="status active">In progress</span></td></tr>
+<tr><td>Start / Freeze / Stop preview controls</td><td>Removed from right panel and relocated to the viewport transport strip.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Capture Screenshot</td><td>Shortened to <code>Capture</code>; planned final styling as a pill button.</td><td><span class="status active">In progress</span></td></tr>
+<tr><td>Preview Idle / Preview Running text</td><td>Currently still visible in the right panel; should be removed or moved exclusively to the status bar.</td><td><span class="status pending">Chore list</span></td></tr>
+</table>
+
+<h4>Viewport Transport-Control Redesign</h4>
+<div class="note ok">
+<strong>Design decision:</strong> Operational camera controls belong with the viewport, not inside the Lab Session panel. The transport strip now uses compact media-style controls near the bottom of the viewport.
+</div>
+<table>
+<tr><th>Control</th><th>Current Label</th><th>Purpose</th><th>Status</th></tr>
+<tr><td>Start Preview</td><td><code>▶</code></td><td>Start live camera preview.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Freeze / Resume</td><td><code>❄</code> / <code>▶</code></td><td>Freeze current live preview and resume motion.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Stop Preview</td><td><code>■</code></td><td>Stop live preview.</td><td><span class="status done">Moved</span></td></tr>
+<tr><td>Record control</td><td><code>Record</code></td><td>Starts and stops recording-state tracking through the new recording-service foundation.</td><td><span class="status done">Activated in M1-I</span></td></tr>
+<tr><td>Rewind / playback</td><td><code>⏮</code></td><td>Requested for future playback workflow once recording exists.</td><td><span class="status pending">Future</span></td></tr>
+</table>
+
+<h4>DirectShow Airspace Constraint Reconfirmed</h4>
+<div class="note warn">
+<strong>Important finding:</strong> The live preview surface still behaves as a native WindowsFormsHost / DirectShow surface. Any WPF overlay placed above the live video can be obscured or clipped by the video renderer. The compact transport strip was therefore reduced and positioned to minimize visual interference rather than relying on a heavy overlay architecture.
+</div>
+
+<h4>Current UI State After Transport Pass</h4>
+<table>
+<tr><th>Area</th><th>Current State</th><th>Status</th></tr>
+<tr><td>Viewport</td><td>Dominant inspection area remains active with grid, reticle, and placeholder design.</td><td><span class="status done">Good</span></td></tr>
+<tr><td>Transport controls</td><td>Compact controls are docked near the bottom line of the viewport and no longer dominate the right panel.</td><td><span class="status done">Good enough for checkpoint</span></td></tr>
+<tr><td>Right panel</td><td>Cleaner than before, but still has right-edge clipping, toolbar crowding, and redundant preview status text.</td><td><span class="status watching">Needs cleanup</span></td></tr>
+<tr><td>Set Default / Capture</td><td>Labels shortened; final pill-button polish still pending.</td><td><span class="status partial">Partial</span></td></tr>
+<tr><td>Notes toolbar</td><td>Functional but visually too wide for the constrained right panel.</td><td><span class="status pending">Chore list</span></td></tr>
+</table>
+
+<h4>Build Validation</h4>
+<pre>dotnet build D:\Lab-Imager\src\LabImager\LabImager.csproj</pre>
+<table>
+<tr><th>Build Item</th><th>Result</th></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Warnings</td><td><code>4</code> existing non-blocking warnings in <code>DirectShowFramePreviewService.cs</code>.</td></tr>
+<tr><td>Build result</td><td><span class="status done">Succeeded</span></td></tr>
+</table>
+
+<h4>Known Open UI Chores</h4>
+<table>
+<tr><th>Chore</th><th>Reason</th><th>Status</th></tr>
+<tr><td>Fix right-panel clipping / cut-off on the right edge.</td><td>Controls and scrollbar are visually crowding the panel boundary.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Clean up Notes toolbar overflow.</td><td>Toolbar still consumes too much horizontal space at small widths.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Finalize pill-button styling for Set Default and Capture.</td><td>Current buttons are shortened but still rectangular and visually unfinished.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Remove or relocate Preview Idle / Preview Running text.</td><td>Status should live in the bottom status bar unless a local indicator is intentionally designed.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Validate 1024x768 behavior on the actual lab display.</td><td>This resolution is a likely real deployment constraint.</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Add rewind/playback UI intentionally.</td><td>Playback controls should not imply functionality until recording/playback pipeline exists.</td><td><span class="status pending">Future</span></td></tr>
+<tr><td>Implement recording pipeline.</td><td>Recording state, timer, Record button wiring, footer state, and header indicator are now implemented. Actual video encoding remains deferred.</td><td><span class="status partial">Foundation complete</span></td></tr>
+<tr><td>Implement rewind/playback pipeline.</td><td>Depends on recording/session playback architecture.</td><td><span class="status pending">Future</span></td></tr>
+</table>
+
+<h4>Repository / Branch Notes</h4>
+<table>
+<tr><th>Branch / Commit</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>feature/wpf-frame-pipeline</code></td><td>Current active working branch for responsive UI and frame-pipeline work.</td><td><span class="status active">Active</span></td></tr>
+<tr><td><code>experiment/scrollable-panel</code></td><td>Preserved fallback implementation for scrollable Lab Session behavior.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>7e597e3</code></td><td><code>Add scrollable lab session panel prototype</code>.</td><td><span class="status done">Saved fallback</span></td></tr>
+</table>
+
+<h4>Next Safe Work Order After Lunch</h4>
+<ol>
+<li>Commit and push this log + current UI checkpoint.</li>
+<li>Fix the right-panel clipping and scrollbar crowding.</li>
+<li>Remove redundant <code>Preview Idle</code> text from the right panel or move all preview state to the status bar.</li>
+<li>Polish <code>Set Default</code> and <code>Capture</code> as proper pill buttons.</li>
+<li>Refactor Notes toolbar density so it fits the right panel cleanly.</li>
+<li>Re-evaluate whether <code>⏮</code> belongs as a visible disabled future placeholder now, or should wait until recording/playback architecture begins.</li>
+<li>Continue recording architecture from the completed M1-I state/timer foundation into future MP4/AVI/frame-sequence encoding work.</li>
+</ol>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> The current UI direction is approved enough to save. The transport controls are no longer the priority blocker; the right-side panel cleanup is now the main UI debt before continuing functional recording/playback planning.
+</div>
+
+<h4>Section 32 Reconciliation Addendum — Recording Work Now Completed</h4>
+<table>
+<tr><th>Original Section 32 Assumption</th><th>Updated State</th><th>Status</th></tr>
+<tr><td>Record was a disabled future placeholder.</td><td>Record is now wired into a recording-service foundation and toggles recording state.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td>Recording pipeline was future-only.</td><td>Recording state, elapsed-time tracking, footer integration, and header timer display are complete; actual video encoding remains deferred.</td><td><span class="status partial">Foundation complete</span></td></tr>
+<tr><td>Transport strip was only preview-oriented.</td><td>The transport strip now supports Start, Freeze, Stop, and Record state workflow.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td>Right panel remained the configuration/documentation zone.</td><td>This decision remains valid; recording feedback was placed outside the right panel and outside the camera image area.</td><td><span class="status done">Confirmed</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Updated Section 32 decision:</strong> The viewport-mounted transport-control direction remains correct. The Record control is no longer merely decorative, and recording feedback should remain in the top header band rather than inside the live-image viewport or the Lab Session panel.
+</div>
+
+<div class="page-num">32</div>
+</section>
+
+
+
+
+
+<section class="page">
+<h3>33. UI Stabilization and Hover-Layout Rollback Checkpoint</h3>
+<p class="sub">Repository stabilization record following hover-layout experimentation, UI rollback validation, and branch synchronization review.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Experimental hover-layout modifications were abandoned and the approved UI baseline was restored. The application builds successfully, launches successfully, and matches the approved responsive-layout transport-control design currently stored in the feature branch.
+</div>
+
+<h4>Repository State</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Branch</td><td><span class="status done">Active</span></td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Remote synchronization</td><td><span class="status done">Verified</span></td><td>Local branch matches origin.</td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td><td>No tracked modifications remain.</td></tr>
+<tr><td>UI baseline</td><td><span class="status done">Restored</span></td><td>Approved transport-control layout preserved.</td></tr>
+</table>
+
+<h4>Rollback Summary</h4>
+<table>
+<tr><th>Action</th><th>Result</th></tr>
+<tr><td>Experimental hover-state changes</td><td>Abandoned.</td></tr>
+<tr><td>Working-tree restoration</td><td>Completed using Git restore workflow.</td></tr>
+<tr><td>UI validation</td><td>Confirmed application returned to approved appearance.</td></tr>
+<tr><td>Build integrity</td><td>Preserved.</td></tr>
+<tr><td>Runtime validation</td><td>Successful.</td></tr>
+</table>
+
+<h4>Git Validation</h4>
+<pre>git restore .
+git status
+git log --oneline -20
+git push origin feature/wpf-frame-pipeline</pre>
+
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td>Branch synchronization</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Push status</td><td><span class="status done">Everything up-to-date</span></td></tr>
+<tr><td>Current HEAD</td><td><code>9e01c37</code></td></tr>
+</table>
+
+<h4>Workspace Cleanup</h4>
+<table>
+<tr><th>Item</th><th>Status</th></tr>
+<tr><td><code>MainWindow.xaml.bak-final-hover-layout-fix</code></td><td><span class="status watching">Optional cleanup</span></td></tr>
+</table>
+
+<div class="note watch">
+<strong>Decision:</strong> UI experimentation should occur on isolated checkpoints and must be validated visually before being accepted into the active baseline. The current interface is considered the approved working state.
+</div>
+
+<h4>Next Development Target</h4>
+<ol>
+<li>Finalize right-panel cleanup.</li>
+<li>Continue viewport usability improvements.</li>
+<li>Begin recording-system architecture planning.</li>
+<li>Prepare future playback workflow requirements.</li>
+</ol>
+
+
+<h4>Later Same-Day Recording Checkpoints</h4>
+<table>
+<tr><th>Commit</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>4c3604b</code></td><td>Recording timer header and recording UI integration.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>7c6c5bc</code></td><td>Final REC header positioning refinement.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+<div class="note watch">
+<strong>Supersession note:</strong> Section 33 remains the correct hover-layout rollback record. The later recording-specific state is recorded in Section 34 and supersedes the Section 33 <code>9e01c37</code> HEAD note for current branch position.
+</div>
+<div class="page-num">33</div>
+</section>
+
+<section class="page">
+<h3>34. M1-I Recording Service Foundation and Header Timer Integration</h3>
+<p class="sub">Recording-state service milestone, Record-button activation, footer status integration, top-header recording timer placement, validation record, and rollback checkpoints.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> M1-I Recording System Foundation is implemented, build-validated, runtime-reviewed, committed, and pushed to <code>origin/feature/wpf-frame-pipeline</code>. The latest confirmed rollback point is <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code> with message <code>Refine recording header positioning</code>.
+</div>
+
+<h4>Purpose of This Log Entry</h4>
+<p>
+This entry records the work completed after the UI stabilization checkpoint. The objective was to activate the previously disabled Record placeholder without adding actual video encoding yet. The implementation establishes the recording state model, elapsed-time tracking, Record button state workflow, footer recording indicators, and a visible top-center REC timer that does not obstruct the camera image or coordinate grid.
+</p>
+<p>
+The work also records the correction path for the timer display. Several layout attempts placed the timer too low, too high, inside the viewport, or directly on a separator line. The accepted direction is a small red text indicator centered horizontally in the title/header band, vertically balanced above the viewport coordinate ruler and outside the image area.
+</p>
+
+<h4>Implemented Recording Service Foundation</h4>
+<table>
+<tr><th>Component</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>Services/Recording/RecordingState.cs</code></td><td>Defines recording lifecycle states: <code>Idle</code>, <code>Recording</code>, <code>Paused</code>, and <code>Stopped</code>.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>Services/Recording/IRecordingService.cs</code></td><td>Provides the recording-service contract for state, elapsed time, state-change events, elapsed-time events, start, pause, resume, stop, and reset.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>Services/Recording/RecordingService.cs</code></td><td>Implements timer-backed elapsed-time tracking using a dispatcher timer and exposes state-change notifications for the UI.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>MainWindow.xaml.cs</code></td><td>Wires the recording service into the main window, handles Record button clicks, updates footer text, and manages the header REC timer.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>MainWindow.xaml</code></td><td>Record button enabled and footer recording text fields integrated with the existing status area.</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<h4>Recording State Workflow</h4>
+<table>
+<tr><th>Operator Action</th><th>Application Behavior</th><th>Status</th></tr>
+<tr><td>Click Record while idle/stopped.</td><td>Recording service enters <code>Recording</code> state and elapsed timer starts.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Elapsed timer tick.</td><td>UI refreshes the footer time and top header timer.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Click Record while recording.</td><td>Recording service stops and final elapsed time is preserved in state output.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Footer status update.</td><td>Footer shows <code>Recording: Recording</code> and elapsed time such as <code>00:00:07</code>.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Header REC display.</td><td>Header shows <code>REC 00:00:xx</code> in red while recording is active.</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Explicit Encoding Boundary</h4>
+<div class="note watch">
+<strong>Boundary:</strong> This milestone does not encode video and does not create MP4, AVI, or frame-sequence output. It intentionally implements state, UI, elapsed-time, and service architecture only. Video output remains a future recording pipeline milestone.
+</div>
+<table>
+<tr><th>Future Output Path</th><th>Status</th><th>Notes</th></tr>
+<tr><td>MP4 output</td><td><span class="status pending">Deferred</span></td><td>Requires encoder selection and frame pipeline integration.</td></tr>
+<tr><td>AVI output</td><td><span class="status pending">Deferred</span></td><td>Useful fallback if MP4 encoder path is not immediately practical.</td></tr>
+<tr><td>Frame sequence output</td><td><span class="status pending">Deferred</span></td><td>Potential diagnostic/export option for inspection workflows.</td></tr>
+</table>
+
+<h4>REC Header Placement Correction Record</h4>
+<table>
+<tr><th>Attempt</th><th>Issue</th><th>Resolution</th></tr>
+<tr><td>Viewport overlay placement</td><td>The REC timer appeared over or near the coordinate grid/image area and conflicted with the intended clean viewport.</td><td>Rejected; recording indicator must live outside the camera image area.</td></tr>
+<tr><td>XAML header injection</td><td>The named <code>RecordingHeaderText</code> element was not created in the expected name scope and caused <code>CS0103</code> build errors.</td><td>Removed broken XAML header attempt.</td></tr>
+<tr><td>Dynamic TextBlock creation</td><td>Initial dynamic insertion compiled after WPF namespace qualification but required placement tuning.</td><td>Accepted approach after namespace fixes.</td></tr>
+<tr><td>Special REC glyph / bullet</td><td>The intended bullet indicator rendered as a bad <code>?</code> character in the title/header area.</td><td>Removed special character and standardized to plain <code>REC 00:00:xx</code>.</td></tr>
+<tr><td>Font size / visual weight</td><td>Initial counter was too visually tall and distracting.</td><td>Reduced to smaller text and lighter weight.</td></tr>
+<tr><td>Vertical placement</td><td>Timer was too high, then too close to the line; final adjustment moved it slightly lower into the header band.</td><td>Final refined placement committed under <code>7c6c5bc</code>.</td></tr>
+</table>
+
+<h4>Build Errors Encountered and Resolved</h4>
+<table>
+<tr><th>Error</th><th>Cause</th><th>Fix</th></tr>
+<tr><td><code>CS0103: The name 'RecordingHeaderText' does not exist in the current context</code></td><td>XAML header element was not present or not generated into the expected code-behind name scope.</td><td>Removed dependency on the XAML-named element and created the header <code>TextBlock</code> dynamically.</td></tr>
+<tr><td><code>CS0176: Member 'HorizontalAlignment.Center' cannot be accessed with an instance reference</code></td><td>Name ambiguity caused the compiler to resolve alignment access incorrectly.</td><td>Qualified alignment values with <code>System.Windows.HorizontalAlignment.Center</code> and <code>System.Windows.VerticalAlignment.Top</code>.</td></tr>
+<tr><td><code>CS0104: 'Panel' is an ambiguous reference between System.Windows.Controls.Panel and System.Windows.Forms.Panel</code></td><td>Project uses both WPF and WinForms hosting namespaces.</td><td>Qualified panel references as <code>System.Windows.Controls.Panel</code>.</td></tr>
+</table>
+
+<h4>Validation Results</h4>
+<table>
+<tr><th>Validation Item</th><th>Result</th><th>Notes</th></tr>
+<tr><td><code>dotnet build src\LabImager\LabImager.csproj</code></td><td><span class="status done">Succeeded</span></td><td>Build passed with <code>0</code> errors.</td></tr>
+<tr><td>Warnings</td><td><span class="status watching">Existing non-blocking</span></td><td>Four existing <code>DirectShowFramePreviewService.cs</code> warnings remain: duplicate using directives and unused/assigned preview fields.</td></tr>
+<tr><td><code>dotnet run --project src\LabImager\LabImager.csproj</code></td><td><span class="status done">Succeeded</span></td><td>Application launched for visual validation.</td></tr>
+<tr><td>Record button</td><td><span class="status done">Operational</span></td><td>Record button starts recording-state timer.</td></tr>
+<tr><td>Footer status</td><td><span class="status done">Operational</span></td><td>Footer reports recording state and elapsed time.</td></tr>
+<tr><td>Header timer</td><td><span class="status done">Accepted</span></td><td>Small red <code>REC 00:00:xx</code> display is visible in the upper header band.</td></tr>
+</table>
+
+<h4>Repository Checkpoints</h4>
+<table>
+<tr><th>Commit</th><th>Message</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>4c3604b1fac5533e4ad0558353eec1282614da0b</code></td><td><code>Add recording timer header and recording UI integration</code></td><td>Saved the working recording integration and first functional header-timer state as a rollback point before further visual adjustment.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code></td><td><code>Refine recording header positioning</code></td><td>Preserved the refined header-timer vertical placement after final visual tuning.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<h4>Committed Backup Files Warning</h4>
+<div class="note warn">
+<strong>Repository hygiene issue:</strong> Commit <code>4c3604b</code> included temporary backup files <code>MainWindow.xaml.20260605-173207.fixrec.bak</code> and <code>MainWindow.xaml.cs.20260605-173207.fixrec.bak</code>. They were intentionally left in place during the safety checkpoint. They should be removed in a later cleanup commit once the current working UI is fully accepted.
+</div>
+
+<h4>Command Record</h4>
+<pre>dotnet build src\LabImager\LabImager.csproj
+
+dotnet run --project src\LabImager\LabImager.csproj
+
+git add .
+
+git commit -m "Add recording timer header and recording UI integration"
+
+git push origin feature/wpf-frame-pipeline
+
+git rev-parse HEAD
+# 4c3604b1fac5533e4ad0558353eec1282614da0b
+
+git commit -m "Refine recording header positioning"
+
+git push origin feature/wpf-frame-pipeline
+
+git rev-parse HEAD
+# 7c6c5bc1783d2f2f859bc36bd824423f7080e502</pre>
+
+<h4>Current State After M1-I</h4>
+<table>
+<tr><th>Area</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Recording state model</td><td><span class="status done">Complete</span></td><td>Idle, Recording, Paused, and Stopped states defined.</td></tr>
+<tr><td>Recording service foundation</td><td><span class="status done">Complete</span></td><td>Elapsed-time tracking and event-driven UI refresh implemented.</td></tr>
+<tr><td>Record button wiring</td><td><span class="status done">Complete</span></td><td>Record starts/stops recording-state workflow.</td></tr>
+<tr><td>Footer integration</td><td><span class="status done">Complete</span></td><td>Recording state and time appear in footer.</td></tr>
+<tr><td>Header REC timer</td><td><span class="status done">Accepted</span></td><td>Visible in top header band; not inside live camera feed.</td></tr>
+<tr><td>Actual video recording</td><td><span class="status pending">Deferred</span></td><td>No encoder/output file implementation yet.</td></tr>
+<tr><td>Branch synchronization</td><td><span class="status done">Complete</span></td><td>Latest pushed branch head is <code>7c6c5bc</code>.</td></tr>
+</table>
+
+<h4>Next Safe Work Order</h4>
+<ol>
+<li>Run <code>git status</code> and confirm the working tree is clean.</li>
+<li>Remove committed <code>.bak</code> files in a deliberate cleanup commit when ready.</li>
+<li>Update this log in the repository and commit it separately.</li>
+<li>Continue future recording work only after defining encoder/output strategy.</li>
+<li>Do not resume cosmetic hover or toolbar experiments unless directly required by functionality.</li>
+</ol>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> M1-I is complete as a recording-state and UI-feedback foundation. The accepted rollback target for the current working UI is <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code>.
+</div>
+
+<div class="page-num">34</div>
+</section>
+
+
+<section class="page">
+<h3>35. Historical Planning Reconciliation — Current Status Corrections</h3>
+<p class="sub">Clean reconciliation record for early planning sections whose original pending statuses were superseded by later implementation, validation, and repository checkpoints.</p>
+
+<div class="note ok">
+<strong>Reconciliation date:</strong> 2026-06-05. This section exists to prevent stale early-planning entries from contradicting the current engineering state. Older sections are retained for historical context, but the status table below is the consolidated current-status correction for the affected planning records.
+</div>
+
+<h4>Sections Reconciled</h4>
+<table>
+<tr><th>Section</th><th>Original Issue</th><th>Current Handling</th></tr>
+<tr><td>Section 4 — Hardware Capture Pipeline</td><td>Several pipeline requirements still showed <span class="status pending">Pending</span> even though device detection, live feed, freeze frame, and still capture were completed later.</td><td>Updated in place and cross-referenced to this reconciliation section.</td></tr>
+<tr><td>Section 5 — First Milestone: M1 Live Capture Window</td><td>The original M1 deliverables table still showed the entire first milestone as pending.</td><td>Updated in place with completion references and dated reconciliation notes.</td></tr>
+<tr><td>Section 14 — Future Feature Roadmap</td><td>The roadmap remained structurally useful but did not state that Phase 1 and part of Phase 2 had already been completed.</td><td>Historical note added; roadmap remains a phase-plan artifact.</td></tr>
+<tr><td>Section 15 — Initial Build Constraints and Safe Start Rules</td><td>The “current next engineering move” was obsolete after repository creation, WPF shell completion, capture work, preview work, and recording foundation.</td><td>Replaced with dated reconciliation note preserving the original safe-start doctrine.</td></tr>
+<tr><td>Sections 18, 21, 23, and 29</td><td>Point-in-time entries include pending/partial language that was correct when written but may now be superseded.</td><td>Historical reconciliation notes added so readers know to use this section for current status.</td></tr>
+<tr><td>Section 30 — M1 Requirements Reconciliation</td><td>Originally authoritative for the freeze/resume checkpoint, but did not yet include recording-state foundation.</td><td>Supplemented with a recording-state foundation table.</td></tr>
+<tr><td>Section 32 — Responsive UI / Transport Controls</td><td>Originally recorded Record as a placeholder control.</td><td>Already updated to reflect that Record has been promoted into the active recording-state workflow.</td></tr>
+<tr><td>Section 34 — M1-I Recording Service Foundation</td><td>New current recording checkpoint.</td><td>Accepted as the latest specific recording-system record.</td></tr>
+</table>
+
+<h4>Current M1 / M1-I Status Snapshot</h4>
+<table>
+<tr><th>Capability</th><th>Current Status</th><th>Primary Evidence</th></tr>
+<tr><td>WPF application shell</td><td><span class="status done">Complete</span></td><td>Sections 17, 18, and 30.</td></tr>
+<tr><td>Device enumeration</td><td><span class="status done">Complete</span></td><td>Sections 18, 20, and 30.</td></tr>
+<tr><td>Source selection</td><td><span class="status done">Complete</span></td><td>Sections 18, 20, 30, and 32.</td></tr>
+<tr><td>Default source persistence</td><td><span class="status done">Complete</span></td><td>Sections 20, 30, and 32.</td></tr>
+<tr><td>Live DirectShow preview</td><td><span class="status done">Complete</span></td><td>Sections 22 and 30.</td></tr>
+<tr><td>Start / Stop preview</td><td><span class="status done">Complete</span></td><td>Sections 21, 22, 30, and 32.</td></tr>
+<tr><td>Freeze / Resume preview</td><td><span class="status done">Complete</span></td><td>Sections 31 and 30.</td></tr>
+<tr><td>PNG screenshot export</td><td><span class="status done">Complete</span></td><td>Sections 19 and 30.</td></tr>
+<tr><td>Timestamped screenshot filename</td><td><span class="status done">Complete</span></td><td>Sections 19 and 30.</td></tr>
+<tr><td>Notes editor and formatting toolbar</td><td><span class="status done">Operational</span></td><td>Sections 28 and 30.</td></tr>
+<tr><td>Viewport transport-control model</td><td><span class="status done">Complete</span></td><td>Sections 32 and 33.</td></tr>
+<tr><td>Recording state foundation</td><td><span class="status done">Complete</span></td><td>Section 34 and commit <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code>.</td></tr>
+<tr><td>Top-header REC timer</td><td><span class="status done">Complete</span></td><td>Section 34 and commit <code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code>.</td></tr>
+<tr><td>Actual video encoding / output</td><td><span class="status pending">Deferred</span></td><td>Recording service is state/timer only; MP4/AVI/frame-sequence output remains future work.</td></tr>
+<tr><td>Zoom / pan viewport</td><td><span class="status pending">Pending</span></td><td>Still open from original M1 list.</td></tr>
+<tr><td>Metadata sidecar export</td><td><span class="status pending">Deferred</span></td><td>PNG output exists; JSON sidecar generation remains a later documentation workflow milestone.</td></tr>
+<tr><td>Annotation canvas / measurement tools</td><td><span class="status pending">Future</span></td><td>Still intentionally deferred until viewport and capture workflows are stable.</td></tr>
+</table>
+
+<h4>Repository Checkpoints Referenced by Reconciliation</h4>
+<table>
+<tr><th>Commit</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>9e01c37</code></td><td>Pre-recording stable UI baseline after hover-layout rollback and M1 UI polish.</td><td><span class="status done">Superseded baseline</span></td></tr>
+<tr><td><code>4c3604b1fac5533e4ad0558353eec1282614da0b</code></td><td>Recording timer header and recording UI integration checkpoint.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>7c6c5bc1783d2f2f859bc36bd824423f7080e502</code></td><td>Refined recording header positioning; latest confirmed rollback point.</td><td><span class="status done">Current recording checkpoint</span></td></tr>
+</table>
+
+<div class="note watch">
+<strong>Reader guidance:</strong> When older sections show a pending or partial status that conflicts with later work, use this Section 35 snapshot and the later milestone sections as the current source of truth. The older sections remain valuable because they explain why the architecture evolved the way it did.
+</div>
+
+<div class="page-num">35</div>
+</section>
+
+<section class="page">
+<h3>36. Hard Stable UI Rollback Checkpoint</h3>
+<p class="sub">Permanent recovery checkpoint after UI glyph cleanup, alignment recovery, XAML stabilization, and repository tagging.</p>
+
+<div class="note ok">
+<strong>Hard stable rollback established:</strong><br>
+Commit: <code>3424529</code><br>
+Tag: <code>stable-ui-rollback-2026-06-05</code><br>
+Branch: <code>feature/wpf-frame-pipeline</code><br>
+Status: build passing, runtime reviewed, remote synchronized, and working tree clean.
+</div>
+
+<h4>Purpose</h4>
+<p>
+This checkpoint was created after the UI was recovered from glyph corruption, broad-alignment fallout, XAML encoding instability, and repeated unsafe replacement attempts. It marks the approved state to return to if future UI, export, annotation, recording, or viewport work destabilizes the application.
+</p>
+
+<h4>Completed Stabilization Work</h4>
+<table>
+<tr><th>Area</th><th>Correction</th><th>Status</th></tr>
+<tr><td>Source selector</td><td>Removed broken default-source question-mark marker. Default source now displays cleanly as <code>HD Pro Webcam C920 (Default)</code>.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Set Default button</td><td>Removed fragile star glyph from the button label to avoid encoding and font-rendering problems.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Freeze control</td><td>Replaced bad <code>?</code> glyph output with readable <code>Freeze</code> text.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Help marker</td><td>Replaced bad <code>?</code> marker with readable <code>Help</code> text.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Notes toolbar</td><td>Accepted in left-aligned position inside the right-side Lab Session panel.</td><td><span class="status done">Approved</span></td></tr>
+<tr><td>Viewport placeholder</td><td>Restored after accidental alignment changes shifted center viewport text and icon.</td><td><span class="status done">Restored</span></td></tr>
+</table>
+
+<h4>Validation Record</h4>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td><code>dotnet build src\LabImager\LabImager.csproj</code></td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Build warnings</td><td><code>0</code></td></tr>
+<tr><td>Build errors</td><td><code>0</code></td></tr>
+<tr><td><code>dotnet run --project src\LabImager\LabImager.csproj</code></td><td><span class="status done">Runtime reviewed</span></td></tr>
+<tr><td>Remote branch push</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Rollback tag push</td><td><span class="status done">Completed</span></td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td></tr>
+</table>
+
+<h4>Repository Record</h4>
+<pre>git add src\LabImager\MainWindow.xaml src\LabImager\MainWindow.xaml.cs
+
+git commit -m "Create hard stable UI rollback checkpoint"
+
+git tag -a stable-ui-rollback-2026-06-05 -m "Hard stable UI rollback checkpoint after source glyph cleanup, notes alignment, and viewport restoration"
+
+git push origin feature/wpf-frame-pipeline
+
+git push origin stable-ui-rollback-2026-06-05</pre>
+
+<h4>Mandatory Rollback Command</h4>
+<div class="note warn">
+<strong>Use this exact rollback point if future edits destabilize the UI or build:</strong>
+</div>
+
+<pre>git reset --hard stable-ui-rollback-2026-06-05
+git clean -fd</pre>
+
+<h4>Engineering Rules Reinforced</h4>
+<ul>
+<li>Do not use broad PowerShell replacements across C# or XAML files.</li>
+<li>Do not blindly replace all question marks; nullable syntax, null-conditionals, null-coalescing, and ternary operators must remain intact.</li>
+<li>Do not globally replace <code>HorizontalAlignment</code> values.</li>
+<li>Do not use fragile glyphs when plain text communicates the same state more safely.</li>
+<li>Validate with build and runtime review before committing UI changes.</li>
+<li>Create a tag immediately after any hard-stable recovery point.</li>
+</ul>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Commit <code>3424529</code> and tag <code>stable-ui-rollback-2026-06-05</code> are the approved hard stable UI recovery point.
+</div>
+
+<div class="page-num">36</div>
+</section>
+
+
+<section class="page">
+<h3>37. Stable Evidence Capture Workflow and Rollback Checkpoint</h3>
+<p class="sub">Live camera capture, original PNG preservation, Polaroid-style evidence image generation, metadata embedding, validation matrix, and hard rollback tag.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Evidence capture is stable, validated, committed, pushed, and tagged as <code>stable-evidence-capture-2026-06-06</code>. The accepted rollback commit is <code>eb2acdd9e2151f6c8a15481c5e41567cbd803ae5</code>.
+</div>
+
+<h4>Implemented Evidence Capture Workflow</h4>
+<table>
+<tr><th>Capability</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Live camera preview capture</td><td><span class="status done">Complete</span></td><td>Capture now grabs the actual preview panel image instead of only the WPF placeholder surface.</td></tr>
+<tr><td>Original image export</td><td><span class="status done">Complete</span></td><td>Original camera frame is saved as a standalone PNG using <code>-original.png</code> suffix.</td></tr>
+<tr><td>Evidence image export</td><td><span class="status done">Complete</span></td><td>Evidence PNG combines the camera image with a white metadata section underneath, similar to a Polaroid layout.</td></tr>
+<tr><td>Session metadata model</td><td><span class="status done">Complete</span></td><td><code>SessionMetadata</code> stores project, board/device, technician, source, captured timestamp, and notes.</td></tr>
+<tr><td>Capture record model</td><td><span class="status done">Foundation</span></td><td><code>CaptureRecord</code> introduced as the future audit/log record structure.</td></tr>
+<tr><td>Notes metadata</td><td><span class="status done">Complete</span></td><td>Plain-text Notes content is embedded into the evidence image metadata section.</td></tr>
+</table>
+
+<h4>Core Code Structures Added</h4>
+<pre><code>public sealed class SessionMetadata
+{
+    public string ProjectName { get; init; } = string.Empty;
+    public string BoardOrDevice { get; init; } = string.Empty;
+    public string Technician { get; init; } = string.Empty;
+    public string SourceName { get; init; } = string.Empty;
+    public string SourceDevicePath { get; init; } = string.Empty;
+    public string NotesText { get; init; } = string.Empty;
+    public DateTime CapturedAt { get; init; } = DateTime.Now;
+}</code></pre>
+
+<pre><code>private SessionMetadata BuildCurrentSessionMetadata()
+{
+    var selectedCamera = CameraSelector.SelectedItem as ComboBoxItem;
+
+    return new SessionMetadata
+    {
+        ProjectName = ProjectNameTextBox.Text?.Trim() ?? string.Empty,
+        BoardOrDevice = BoardDeviceTextBox.Text?.Trim() ?? string.Empty,
+        Technician = TechnicianTextBox.Text?.Trim() ?? string.Empty,
+        SourceName = selectedCamera?.Content?.ToString()?.Trim() ?? string.Empty,
+        SourceDevicePath = selectedCamera?.Tag?.ToString()?.Trim() ?? string.Empty,
+        NotesText = GetNotesPlainText()
+    };
+}
+
+private string GetNotesPlainText()
+{
+    var range = new TextRange(
+        NotesEditor.Document.ContentStart,
+        NotesEditor.Document.ContentEnd);
+
+    return range.Text.Trim();
+}</code></pre>
+
+<pre><code>private void CaptureScreenshotButton_Click(object sender, RoutedEventArgs e)
+{
+    try
+    {
+        var metadata = BuildCurrentSessionMetadata();
+
+        var originalPath = CapturePreviewPanelToPng();
+        var evidencePath = _viewportCaptureService.CreateEvidencePng(
+            originalPath,
+            metadata);
+
+        CameraStatusText.Text = $"Source: Evidence Capture Saved: {evidencePath}";
+    }
+    catch (Exception ex)
+    {
+        CameraStatusText.Text = $"Source: Screenshot Failed: {ex.Message}";
+    }
+}</code></pre>
+
+<h4>Validation Matrix</h4>
+<table>
+<tr><th>Validation Item</th><th>Status</th></tr>
+<tr><td>Project field populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Board / Device field populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Technician field populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Multi-line Notes populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Long Notes populated</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Empty fields handled correctly</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Multiple captures in same session</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture while preview running</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture after Freeze</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture after Resume</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture after camera reselection</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Repository Checkpoint</h4>
+<table>
+<tr><th>Commit / Tag</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>21f9a33</code></td><td>Add session metadata and evidence capture foundation.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>3c98f7e</code></td><td>Wire session metadata into evidence capture workflow.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>ae6f5d9</code></td><td>Clean preview service imports and formatting.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>eb2acdd</code></td><td>Capture live camera image into evidence workflow.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>stable-evidence-capture-2026-06-06</code></td><td>Hard stable evidence-capture rollback tag.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<h4>Rollback Command</h4>
+<pre>git fetch --tags
+git reset --hard stable-evidence-capture-2026-06-06
+git clean -fd</pre>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Evidence capture is now milestone-complete. Future work should build capture logging, PDF evidence packages, and session persistence on top of this stable foundation without destabilizing the camera capture path.
+</div>
+
+<div class="page-num">37</div>
+</section>
+
+<section class="page">
+<h3>38. Standalone Source Recording Probe and Format Enumeration Research</h3>
+<p class="sub">Isolated DirectShow recording test harness, source-recording proof, AVI validation, camera quality investigation, and format-enumeration checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> A standalone recording probe was created under <code>tools/RecordingProbe</code>. Source recording was proven independently of the Lab Imager UI, and the probe was later expanded to enumerate camera capture formats.
+</div>
+
+<h4>Reason for Isolated Probe</h4>
+<div class="note warn">
+<strong>Engineering boundary:</strong> Recording work previously interfered with the live preview graph and could wedge the camera device. The recording probe was intentionally kept outside <code>MainWindow</code> until source recording could be proven independently.
+</div>
+
+<h4>Probe Scope</h4>
+<table>
+<tr><th>Component</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>tools/RecordingProbe/RecordingProbe.csproj</code></td><td>Standalone .NET console project for DirectShow recording tests.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>tools/RecordingProbe/Program.cs</code></td><td>Enumerates video devices, prompts for source index, records to AVI, and stops on Enter.</td><td><span class="status done">Added</span></td></tr>
+<tr><td>AVI output</td><td>Writes test recordings to <code>%USERPROFILE%\Videos\Lab Imager\Recording Probe</code>.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Format enumeration</td><td>Lists supported camera resolutions, frame rates, and media subtypes.</td><td><span class="status done">Added</span></td></tr>
+</table>
+
+<h4>Standalone Recording Probe Core</h4>
+<pre><code>var devices = DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice);
+
+for (var i = 0; i &lt; devices.Length; i++)
+{
+    Console.WriteLine($"{i}: {devices[i].Name}");
+}
+
+Console.Write("Select device index: ");
+var input = Console.ReadLine();</code></pre>
+
+<pre><code>captureBuilder.SetOutputFileName(
+    MediaSubType.Avi,
+    outputPath,
+    out muxFilter,
+    out sinkFilter);
+
+captureBuilder.RenderStream(
+    PinCategory.Capture,
+    MediaType.Video,
+    sourceFilter,
+    null,
+    muxFilter);
+
+mediaControl = (IMediaControl)graphBuilder;
+mediaControl.Run();
+
+Console.ReadLine();
+
+mediaControl.Stop();</code></pre>
+
+<h4>Key Findings</h4>
+<table>
+<tr><th>Finding</th><th>Result</th><th>Impact</th></tr>
+<tr><td>Camera can record through DirectShow.</td><td><span class="status done">Confirmed</span></td><td>Recording failure was not caused by total camera incompatibility.</td></tr>
+<tr><td>Default DirectShow recording quality was poor.</td><td><span class="status watching">Observed</span></td><td>Default graph selected low-quality output rather than an intended high-resolution mode.</td></tr>
+<tr><td>Razer Kiyo exposed multiple 60 FPS modes.</td><td><span class="status done">Confirmed</span></td><td>Supported modes included <code>640x360</code>, <code>640x480</code>, <code>1280x720</code>, and <code>1920x1080</code>.</td></tr>
+<tr><td>Media subtype translation was required.</td><td><span class="status done">Identified</span></td><td>Raw subtype GUIDs needed decoding into labels such as <code>H264</code>, <code>MJPG</code>, <code>YUY2</code>, and <code>NV12</code>.</td></tr>
+</table>
+
+<h4>Repository Checkpoints</h4>
+<table>
+<tr><th>Commit / Tag</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>9ada636</code></td><td>Add standalone source recording probe.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>recording-probe-working-2026-06-06</code></td><td>Tag preserving the first working standalone source-recording probe.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>c9815c6</code></td><td>Add capture format enumeration to recording probe.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<div class="note watch">
+<strong>Decision:</strong> Do not wire recording back into Lab Imager until selected capture format negotiation is implemented and validated. The app must not rely on hidden DirectShow defaults.
+</div>
+
+<div class="page-num">38</div>
+</section>
+
+<section class="page">
+<h3>39. Camera Capture Format Enumeration Foundation</h3>
+<p class="sub">Backend capture-format model, camera-service contract expansion, DirectShow format discovery, and service-level format ranking foundation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Backend capture-format enumeration was added to the Lab Imager camera service layer and committed under <code>1a5453a</code>.
+</div>
+
+<h4>Purpose</h4>
+<p>
+This milestone moved capture quality selection from hidden DirectShow default behavior toward explicit application-level format discovery. Lab Imager can now ask a selected camera what capture formats it supports before preview or recording format negotiation is implemented.
+</p>
+
+<h4>Implemented Backend Work</h4>
+<table>
+<tr><th>File / Component</th><th>Change</th><th>Status</th></tr>
+<tr><td><code>Models/Camera/CameraCaptureFormat.cs</code></td><td>Added model for display name, width, height, FPS, subtype, and availability.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>ICameraDeviceService</code></td><td>Expanded service contract with <code>GetAvailableFormats(CameraDeviceInfo device)</code>.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td><code>DirectShowCameraDeviceService</code></td><td>Added DirectShow capture-pin format enumeration using <code>IAMStreamConfig</code>.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>StubCameraDeviceService</code></td><td>Updated stub to satisfy expanded camera-device service contract.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td>Format ranking</td><td>Initial scoring prioritizes high-value formats before lower-resolution fallbacks.</td><td><span class="status partial">Foundation</span></td></tr>
+</table>
+
+<h4>Capture Format Model</h4>
+<pre><code>public sealed class CameraCaptureFormat
+{
+    public string DisplayName { get; init; } = string.Empty;
+    public int Width { get; init; }
+    public int Height { get; init; }
+    public double FramesPerSecond { get; init; }
+    public string SubType { get; init; } = string.Empty;
+    public bool IsAvailable { get; init; }
+
+    public override string ToString()
+    {
+        return DisplayName;
+    }
+}</code></pre>
+
+<h4>Camera Service Contract Expansion</h4>
+<pre><code>public interface ICameraDeviceService
+{
+    IReadOnlyList&lt;CameraDeviceInfo&gt; GetAvailableDevices();
+
+    IReadOnlyList&lt;CameraCaptureFormat&gt; GetAvailableFormats(
+        CameraDeviceInfo device);
+}</code></pre>
+
+<h4>Capture Format Dropdown XAML</h4>
+<pre><code>&lt;TextBlock Text="Capture Format"
+           FontSize="13"
+           FontWeight="SemiBold"
+           Margin="0,8,0,0"/&gt;
+
+&lt;ComboBox x:Name="CaptureFormatSelector"
+          Style="{StaticResource ReadableDisabledComboBoxStyle}"
+          ItemContainerStyle="{StaticResource CameraComboBoxItemStyle}"
+          Height="38"
+          MaxDropDownHeight="185"
+          Background="#171D24"
+          Foreground="#111827"
+          BorderBrush="#334155"
+          FontSize="13"
+          Padding="10"/&gt;</code></pre>
+
+<h4>Dropdown Population Logic</h4>
+<pre><code>private void PopulateCaptureFormatsForSelectedCamera()
+{
+    CaptureFormatSelector.Items.Clear();
+
+    if (CameraSelector.SelectedItem is not ComboBoxItem selectedItem)
+    {
+        CaptureFormatSelector.IsEnabled = false;
+        return;
+    }
+
+    var cameraName =
+        selectedItem.Content?.ToString()?.Replace(" (Default)", string.Empty)
+        ?? string.Empty;
+
+    var cameraDevicePath = selectedItem.Tag?.ToString() ?? string.Empty;
+
+    if (string.IsNullOrWhiteSpace(cameraName) ||
+        cameraName == "No Cameras Detected")
+    {
+        CaptureFormatSelector.IsEnabled = false;
+        return;
+    }
+
+    var device = new Models.Camera.CameraDeviceInfo
+    {
+        Name = cameraName,
+        DevicePath = cameraDevicePath
+    };
+
+    var formats = _cameraDeviceService.GetAvailableFormats(device);
+
+    foreach (var format in formats)
+    {
+        CaptureFormatSelector.Items.Add(new ComboBoxItem
+        {
+            Content = format.DisplayName,
+            Tag = format,
+            IsEnabled = format.IsAvailable
+        });
+    }
+
+    CaptureFormatSelector.IsEnabled = CaptureFormatSelector.Items.Count &gt; 0;
+
+    if (CaptureFormatSelector.Items.Count &gt; 0)
+    {
+        CaptureFormatSelector.SelectedIndex = 0;
+    }
+}</code></pre>
+
+<h4>Build Validation</h4>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td><code>dotnet build src\LabImager\LabImager.csproj</code></td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Errors</td><td><code>0</code></td></tr>
+<tr><td>Warnings</td><td>Existing non-blocking warnings only.</td></tr>
+</table>
+
+<h4>Repository Record</h4>
+<table>
+<tr><th>Commit</th><th>Message</th><th>Status</th></tr>
+<tr><td><code>1a5453a</code></td><td><code>Add camera capture format enumeration foundation</code></td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<div class="note watch">
+<strong>Boundary:</strong> This milestone discovers available formats but does not yet apply the selected format to preview or recording graphs.
+</div>
+
+<div class="page-num">39</div>
+</section>
+
+<section class="page">
+<h3>40. Capture Format Selection UI and Subtype Label Cleanup</h3>
+<p class="sub">Right-panel Capture Format dropdown, camera-format population workflow, FOURCC translation matrix, UI validation, and temporary-backup cleanup checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Capture Format selection is visible in the Lab Session panel, populated from the selected camera, and displays usable codec labels including <code>H264</code>, <code>MJPG</code>, <code>YUY2</code>, and <code>NV12</code>. Temporary format-dropdown backup files were removed in commit <code>76ff806</code>.
+</div>
+
+<h4>Implemented UI Work</h4>
+<table>
+<tr><th>Area</th><th>Change</th><th>Status</th></tr>
+<tr><td>Right-side panel</td><td>Added <code>Capture Format</code> label beneath Source selector.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Format selector</td><td>Added <code>CaptureFormatSelector</code> ComboBox using existing dark selector styling.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Initial population</td><td>Format dropdown populates during initial camera-state setup.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Camera-change population</td><td>Format dropdown repopulates when the selected source changes.</td><td><span class="status done">Complete</span></td></tr>
+<tr><td>Subtype labeling</td><td>Added FOURCC translation matrix so raw GUIDs display as readable labels.</td><td><span class="status done">Complete</span></td></tr>
+</table>
+
+<h4>Observed UI Result</h4>
+<table>
+<tr><th>Example Display</th><th>Status</th></tr>
+<tr><td><code>1920x1080 @ 60 FPS — YUY2</code></td><td><span class="status done">Displayed</span></td></tr>
+<tr><td><code>1920x1080 @ 60 FPS — H264</code></td><td><span class="status done">Displayed</span></td></tr>
+<tr><td><code>1920x1080 @ 60 FPS — NV12</code></td><td><span class="status done">Displayed</span></td></tr>
+<tr><td><code>640x480 @ 60 FPS — MJPG</code></td><td><span class="status done">Displayed</span></td></tr>
+<tr><td>Raw GUID display</td><td><span class="status done">Resolved for H264</span></td></tr>
+</table>
+
+<h4>Subtype Translation Matrix</h4>
+<pre><code>private static string GetSubtypeName(Guid subtype)
+{
+    var subtypeMap = new Dictionary&lt;Guid, string&gt;
+    {
+        [MediaSubType.MJPG] = "MJPG",
+        [MediaSubType.YUY2] = "YUY2",
+        [MediaSubType.NV12] = "NV12",
+        [FourCcToGuid("H264")] = "H264",
+        [FourCcToGuid("H265")] = "H265",
+        [FourCcToGuid("HEVC")] = "HEVC",
+        [FourCcToGuid("I420")] = "I420",
+        [FourCcToGuid("YV12")] = "YV12"
+    };
+
+    return subtypeMap.TryGetValue(subtype, out var name)
+        ? name
+        : subtype.ToString();
+}
+
+private static Guid FourCcToGuid(string fourCc)
+{
+    var bytes = System.Text.Encoding.ASCII.GetBytes(fourCc);
+    var value = BitConverter.ToUInt32(bytes, 0);
+
+    return new Guid(
+        (int)value,
+        0x0000,
+        0x0010,
+        0x80,
+        0x00,
+        0x00,
+        0xaa,
+        0x00,
+        0x38,
+        0x9b,
+        0x71);
+}</code></pre>
+
+<h4>Validation Result</h4>
+<table>
+<tr><th>Validation Item</th><th>Status</th></tr>
+<tr><td>App launches</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Source dropdown works</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture Format dropdown appears</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Capture Format dropdown populates</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Codec labels are readable</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Preview remains operational</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Evidence capture remains operational</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Repository Checkpoints</h4>
+<table>
+<tr><th>Commit</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>32348fd</code></td><td>Capture format dropdown and subtype-label work checkpoint.</td><td><span class="status done">Pushed</span></td></tr>
+<tr><td><code>76ff806</code></td><td>Remove temporary format dropdown backups.</td><td><span class="status done">Pushed</span></td></tr>
+</table>
+
+<h4>Current Branch State After Section 40</h4>
+<table>
+<tr><th>Item</th><th>State</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>HEAD</td><td><code>76ff806</code></td></tr>
+<tr><td>Remote synchronization</td><td><span class="status done">Up to date with origin</span></td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td></tr>
+</table>
+
+<h4>Next Engineering Target</h4>
+<ol>
+<li>Apply selected <code>CaptureFormatSelector</code> format to the DirectShow preview graph.</li>
+<li>Validate whether selecting <code>1920x1080 @ 60 FPS</code> or <code>1280x720 @ 60 FPS</code> improves live preview quality.</li>
+<li>Apply the same selected format to the recording graph after preview format negotiation is stable.</li>
+<li>Return to recording output after selected-format behavior is proven.</li>
+<li>Perform repository cleanup before packaging: remove tracked legacy backup artifacts, probe scaffolds that are no longer required, bin/obj output, and crash logs.</li>
+</ol>
+
+<div class="note watch">
+<strong>Boundary:</strong> The dropdown currently displays and stores the selected format only. It does not yet force the preview or recording graph to use that selected format.
+</div>
+
+<div class="page-num">40</div>
+</section>
+
+
+<section class="page">
+
+<h3>41. Repository Administration, Ownership Review, and Dependency Audit</h3>
+
+<p class="sub">
+Repository governance checkpoint established following implementation of the public-facing project README, ownership review, licensing assessment, and third-party dependency audit.
+</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Repository administration baseline established. Public GitHub presentation improved through creation of a project README, ownership declarations were documented, and dependency licensing was reviewed to confirm that current project components do not impose open-source disclosure requirements.
+</div>
+
+<h4>Repository Administration</h4>
+
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>README.md</td><td><span class="status done">Completed</span></td><td>Initial repository documentation created.</td></tr>
+<tr><td>Project Overview</td><td><span class="status done">Completed</span></td><td>Application purpose, scope, and current capabilities documented.</td></tr>
+<tr><td>Feature Summary</td><td><span class="status done">Completed</span></td><td>Camera, preview, evidence capture, metadata, and validation status documented.</td></tr>
+<tr><td>Build Instructions</td><td><span class="status done">Completed</span></td><td>Repository build and launch workflow documented.</td></tr>
+<tr><td>Repository Structure</td><td><span class="status done">Completed</span></td><td>High-level project layout documented.</td></tr>
+</table>
+
+<h4>Ownership Review</h4>
+
+<table>
+<tr><th>Category</th><th>Value</th></tr>
+<tr><td>Repository Visibility</td><td>Public</td></tr>
+<tr><td>Open Source License</td><td>None Selected</td></tr>
+<tr><td>Ownership</td><td>MSE McGann Systems Engineering</td></tr>
+<tr><td>Copyright</td><td>&copy; 2026 MSE McGann Systems Engineering</td></tr>
+<tr><td>Distribution Model</td><td>Public Visibility with Proprietary Ownership</td></tr>
+</table>
+
+<p>
+Repository visibility was reviewed to ensure that public availability of source code was not being incorrectly interpreted as open-source distribution. Ownership language was added to the README to clearly identify project ownership and preserve proprietary rights.
+</p>
+
+<h4>Third-Party Dependency Audit</h4>
+
+<table>
+<tr><th>Project</th><th>Package</th><th>Version</th><th>Status</th></tr>
+<tr><td>LabImager</td><td>DirectShowLib.Net</td><td>3.0.0</td><td><span class="status done">Reviewed</span></td></tr>
+<tr><td>RecordingProbe</td><td>DirectShowLib.Net</td><td>3.0.0</td><td><span class="status done">Reviewed</span></td></tr>
+</table>
+
+<h4>Dependency Audit Commands</h4>
+
+<pre><code>dotnet list src\LabImager\LabImager.csproj package
+
+dotnet list tools\RecordingProbe\RecordingProbe.csproj package</code></pre>
+
+<h4>Audit Results</h4>
+
+<table>
+<tr><th>Review Item</th><th>Result</th></tr>
+<tr><td>GPL Dependencies</td><td>None Identified</td></tr>
+<tr><td>AGPL Dependencies</td><td>None Identified</td></tr>
+<tr><td>LGPL Dependencies</td><td>None Identified</td></tr>
+<tr><td>Copyleft Obligations</td><td>None Identified</td></tr>
+<tr><td>Proprietary Distribution Impact</td><td>None Identified</td></tr>
+</table>
+
+<p>
+Dependency review determined that current package inventory consists solely of DirectShowLib.Net 3.0.0 in addition to standard Microsoft .NET platform components. No third-party packages requiring source disclosure, derivative work publication, or mandatory open-source distribution were identified during review.
+</p>
+
+<h4>Repository Governance Expansion</h4>
+
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr>
+<td>README Review</td>
+<td><span class="status done">Completed</span></td>
+<td>Repository documentation reviewed and expanded to include project overview, feature summary, build instructions, repository structure, ownership statements, and development status.</td>
+</tr>
+<tr>
+<td>License Strategy Review</td>
+<td><span class="status done">Completed</span></td>
+<td>Open-source licensing requirements reviewed against current project dependencies and ownership goals.</td>
+</tr>
+<tr>
+<td>Dependency License Audit</td>
+<td><span class="status done">Completed</span></td>
+<td>All active project package references reviewed to identify potential GPL, AGPL, LGPL, SSPL, or other copyleft obligations.</td>
+</tr>
+<tr>
+<td>Proprietary Distribution Model</td>
+<td><span class="status done">Confirmed</span></td>
+<td>Project confirmed to remain publicly visible while retaining proprietary ownership under MSE McGann Systems Engineering.</td>
+</tr>
+<tr>
+<td>LICENSE.md Planning</td>
+<td><span class="status done">Completed</span></td>
+<td>Proprietary software license drafted for future repository inclusion.</td>
+</tr>
+</table>
+
+<h4>Dependency Verification Evidence</h4>
+
+<pre><code>dotnet list src\LabImager\LabImager.csproj package
+
+Project 'LabImager' has the following package references
+
+Top-level Package
+DirectShowLib.Net 3.0.0
+
+dotnet list tools\RecordingProbe\RecordingProbe.csproj package
+
+Project 'RecordingProbe' has the following package references
+
+Top-level Package
+DirectShowLib.Net 3.0.0
+</code></pre>
+
+<p>
+Engineering review confirmed that current repository dependencies consist solely of DirectShowLib.Net 3.0.0 in addition to standard Microsoft .NET platform components. No GPL, AGPL, LGPL, SSPL, or other copyleft licensing obligations were identified. Current repository ownership and future commercial distribution plans remain unaffected by third-party dependency licensing.
+</p>
+
+<div class="note ok">
+<strong>Governance checkpoint:</strong> Repository administration, ownership declarations, dependency review, and licensing posture have now been formally documented. This establishes the initial governance baseline required before future release packaging, installer creation, public distribution, or commercial deployment activities.
+</div>
+
+<h4>Repository State</h4>
+
+<table>
+<tr><th>Item</th><th>Value</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Working Tree</td><td>Clean</td></tr>
+<tr><td>Repository Status</td><td>Synchronized with Origin</td></tr>
+<tr><td>Administrative Review</td><td>Completed</td></tr>
+</table>
+
+<h4>Future Administrative Work</h4>
+
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>LICENSE.md</td><td><span class="status pending">Pending</span></td><td>Formal proprietary license file recommended.</td></tr>
+<tr><td>GitHub Releases</td><td><span class="status pending">Pending</span></td><td>Create release records for major project milestones.</td></tr>
+<tr><td>Repository Topics</td><td><span class="status pending">Pending</span></td><td>Add discovery metadata to GitHub repository.</td></tr>
+<tr><td>Release Packaging</td><td><span class="status pending">Pending</span></td><td>Administrative work required prior to production release.</td></tr>
+</table>
+
+<div class="note">
+<strong>Checkpoint significance:</strong> This section marks the transition from feature-only development to formal repository administration and governance activities. Ownership, licensing posture, dependency review, and project presentation standards have now been documented and reviewed.
+</div>
+
+<div class="page-num">41</div>
+</section>
+
+<section class="page">
+<h3>42. Selected Capture Format Preview Graph Application</h3>
+<p class="sub">DirectShow capture-format negotiation milestone, UI-to-preview format handoff, runtime validation, and recording-path discovery.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Selected capture format application is implemented, build-validated, runtime-reviewed, committed, pushed, and synchronized to <code>origin/feature/wpf-frame-pipeline</code> under commit <code>167b18f</code> with message <code>Apply selected capture format to preview graph</code>.
+</div>
+
+<h4>Purpose</h4>
+<p>
+This section records the completion of the capture-format handoff between the Lab Session <code>Capture Format</code> dropdown and the active DirectShow preview graph. Previously, Lab Imager could enumerate and display camera formats, but the selected dropdown value was not applied to preview startup.
+</p>
+
+<h4>Implementation Summary</h4>
+<table>
+<tr><th>File / Component</th><th>Change</th><th>Status</th></tr>
+<tr><td><code>MainWindow.xaml.cs</code></td><td>Reads <code>CaptureFormatSelector.SelectedItem</code>, extracts <code>CameraCaptureFormat</code> from <code>ComboBoxItem.Tag</code>, and passes it into preview startup.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>ICameraPreviewService.cs</code></td><td>Expanded <code>StartPreview</code> to accept <code>CameraCaptureFormat? selectedFormat</code>.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td><code>DirectShowCameraPreviewService.cs</code></td><td>Added <code>IAMStreamConfig</code> format negotiation before <code>RenderStream()</code>.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>StubCameraPreviewService.cs</code></td><td>Updated stub implementation to match the expanded preview-service contract.</td><td><span class="status done">Updated</span></td></tr>
+</table>
+
+<h4>Selected Format Handoff</h4>
+<pre><code>var selectedFormat =
+    CaptureFormatSelector.SelectedItem is ComboBoxItem selectedFormatItem &&
+    selectedFormatItem.Tag is CameraCaptureFormat cameraCaptureFormat
+        ? cameraCaptureFormat
+        : null;
+
+_cameraPreviewService.StartPreview(
+    source,
+    selectedFormat,
+    PreviewPanel.Handle,
+    PreviewPanel.ClientSize.Width,
+    PreviewPanel.ClientSize.Height);</code></pre>
+
+<h4>Preview Graph Format Application</h4>
+<table>
+<tr><th>Step</th><th>Behavior</th></tr>
+<tr><td>1</td><td>Preview graph is created and the selected source filter is added.</td></tr>
+<tr><td>2</td><td><code>ApplySelectedFormat()</code> attempts to locate <code>IAMStreamConfig</code>.</td></tr>
+<tr><td>3</td><td>Stream capabilities are enumerated through <code>GetStreamCaps()</code>.</td></tr>
+<tr><td>4</td><td>Capabilities are matched against selected width, height, FPS, and subtype.</td></tr>
+<tr><td>5</td><td>The matching <code>AMMediaType</code> is applied using <code>SetFormat()</code>.</td></tr>
+<tr><td>6</td><td><code>RenderStream()</code> runs after selected-format application.</td></tr>
+</table>
+
+<h4>Runtime Validation</h4>
+<table>
+<tr><th>Validation Item</th><th>Result</th><th>Notes</th></tr>
+<tr><td>Build</td><td><span class="status done">Passed</span></td><td><code>dotnet build src\LabImager\LabImager.csproj</code> completed with zero errors.</td></tr>
+<tr><td>Application launch</td><td><span class="status done">Passed</span></td><td><code>dotnet run --project src\LabImager\LabImager.csproj</code> launched successfully.</td></tr>
+<tr><td>Selected format application</td><td><span class="status done">Validated</span></td><td>Preview quality visibly changed when different capture formats were selected.</td></tr>
+<tr><td><code>1920x1080 @ 60 FPS — MJPG</code></td><td><span class="status done">Best observed</span></td><td>Produced the cleanest observed preview with reduced jagged-edge behavior.</td></tr>
+</table>
+
+<h4>Repository Record</h4>
+<table>
+<tr><th>Item</th><th>Value</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Commit</td><td><code>167b18f</code></td></tr>
+<tr><td>Commit message</td><td><code>Apply selected capture format to preview graph</code></td></tr>
+<tr><td>Push target</td><td><code>origin/feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Working tree after cleanup</td><td><span class="status done">Clean</span></td></tr>
+</table>
+
+<h4>Recording Integration Discovery</h4>
+<div class="note warn">
+<strong>Important finding:</strong> The MainWindow Record button is not currently connected to the working DirectShow recording implementation. It drives the <code>RecordingService</code> timer/state workflow only.
+</div>
+
+<table>
+<tr><th>Recording Area</th><th>Current State</th><th>Status</th></tr>
+<tr><td>MainWindow Record button</td><td>Calls <code>_recordingService.Start()</code> and <code>_recordingService.Stop()</code>.</td><td><span class="status done">UI state only</span></td></tr>
+<tr><td><code>RecordingService</code></td><td>Tracks elapsed time and recording state using a dispatcher timer.</td><td><span class="status done">State foundation</span></td></tr>
+<tr><td>Encoded video output from MainWindow</td><td>No file writer, muxer, encoder, or output path is wired into the MainWindow recording path.</td><td><span class="status pending">Not implemented</span></td></tr>
+<tr><td>Working source recorder</td><td>Standalone DirectShow implementation exists under <code>tools/RecordingProbe</code>.</td><td><span class="status done">Proven separately</span></td></tr>
+</table>
+
+<h4>Remaining Validation / Follow-Up</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Freeze after selected format</td><td><span class="status pending">Pending final pass</span></td><td>Validate Freeze against selected high-quality format.</td></tr>
+<tr><td>Resume after selected format</td><td><span class="status pending">Pending final pass</span></td><td>Validate Resume after selected-format preview startup.</td></tr>
+<tr><td>Stop after selected format</td><td><span class="status pending">Pending final pass</span></td><td>Validate Stop does not wedge the camera.</td></tr>
+<tr><td>Camera reselection after selected format</td><td><span class="status pending">Pending final pass</span></td><td>Confirm camera reselection stops preview, repopulates formats, and starts preview again.</td></tr>
+<tr><td>Recording integration</td><td><span class="status pending">Future task</span></td><td>Wire the proven <code>RecordingProbe</code> recorder into MainWindow after preview format negotiation remains stable.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Capture format selection is no longer display-only. The selected format now flows into the DirectShow preview graph and produces observable preview-quality differences. Future recording integration must reuse this selected-format behavior rather than relying on DirectShow default negotiation.
+</div>
+
+<div class="page-num">42</div>
+</section>
+
+<section class="page">
+<h3>43. Integrated DirectShow AVI Recording Pipeline</h3>
+<p class="sub">Application-level recording integration, DirectShow graph rebuild strategy, AVI output validation, and recording milestone reconciliation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Integrated AVI recording is now operational inside Lab Imager. The Record control is no longer limited to timer/state tracking; it now starts and stops an application-level DirectShow recording workflow that produces validated AVI output.
+</div>
+
+<h4>Purpose</h4>
+<p>
+This section records the completion of the first functional video-recording implementation inside the Lab Imager application. Earlier work proved recording through the standalone <code>tools/RecordingProbe</code> project, but the MainWindow recording path still only controlled the recording timer and UI state. This milestone connects the application Record workflow to actual DirectShow AVI output.
+</p>
+
+<h4>Implementation Summary</h4>
+<table>
+<tr><th>File / Component</th><th>Change</th><th>Status</th></tr>
+<tr><td><code>MainWindow.xaml.cs</code></td><td>Updated the Record button workflow to build a timestamped AVI output path, call the preview service recording path, and then start or stop the recording timer state.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>ICameraPreviewService.cs</code></td><td>Expanded the preview service contract with <code>IsRecording</code>, <code>StartRecording(string outputPath)</code>, and <code>StopRecording()</code>.</td><td><span class="status done">Updated</span></td></tr>
+<tr><td><code>DirectShowCameraPreviewService.cs</code></td><td>Added DirectShow AVI mux / file sink recording support, recording graph state tracking, output directory creation, and recording cleanup behavior.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td><code>StubCameraPreviewService.cs</code></td><td>Updated the stub implementation to satisfy the expanded recording-capable preview-service interface.</td><td><span class="status done">Updated</span></td></tr>
+</table>
+
+<h4>Recording Graph Strategy</h4>
+<table>
+<tr><th>Step</th><th>Behavior</th></tr>
+<tr><td>1</td><td>The active camera source, selected capture format, preview handle, and preview dimensions are retained as current preview context.</td></tr>
+<tr><td>2</td><td>When recording starts, the application avoids dynamically attaching a recording branch to an already-running graph.</td></tr>
+<tr><td>3</td><td>The preview graph is rebuilt with the selected source, selected capture format, preview branch, AVI mux, and file sink prepared before graph execution.</td></tr>
+<tr><td>4</td><td>The graph is then run with both preview and recording output available from startup.</td></tr>
+<tr><td>5</td><td>When recording stops, the recording path is torn down and preview-only operation is restored.</td></tr>
+</table>
+
+<h4>DirectShow Failure Investigation</h4>
+<div class="note warn">
+<strong>Important finding:</strong> Attempting to bolt a recording branch onto an already-running preview graph caused repeated DirectShow failures and could destabilize the camera device. The observed failures included generic <code>0x80004005</code> errors and <code>0x80040217</code> connection failures.
+</div>
+
+<table>
+<tr><th>Attempt</th><th>Result</th><th>Decision</th></tr>
+<tr><td>Attach recording branch after preview was already running.</td><td><span class="status blocked">Failed</span></td><td>Rejected because DirectShow refused the runtime graph mutation.</td></tr>
+<tr><td>Route recording through Smart Tee during live graph mutation.</td><td><span class="status blocked">Failed</span></td><td>Rejected after repeated <code>RenderStream</code> failures.</td></tr>
+<tr><td>Route recording directly from source filter after preview was already running.</td><td><span class="status blocked">Failed</span></td><td>Rejected after <code>0x80040217</code> connection failure and camera instability.</td></tr>
+<tr><td>Rebuild graph with recording branch prepared before graph execution.</td><td><span class="status done">Succeeded</span></td><td>Accepted as the first working integrated AVI recording strategy.</td></tr>
+</table>
+
+<h4>Output Standard</h4>
+<table>
+<tr><th>Output Item</th><th>Standard</th><th>Purpose</th></tr>
+<tr><td>Default folder</td><td><code>%USERPROFILE%\Videos\Lab Imager\Recordings</code></td><td>Keeps video recordings in the Windows Videos library under the Lab Imager project folder.</td></tr>
+<tr><td>File format</td><td><code>.avi</code></td><td>Uses the DirectShow AVI mux path proven by the standalone recording probe.</td></tr>
+<tr><td>Filename pattern</td><td><code>yyyyMMdd-HHmmss_lab-imager-recording.avi</code></td><td>Preserves chronological recording order and prevents overwrite collisions.</td></tr>
+</table>
+
+<h4>Validation Results</h4>
+<table>
+<tr><th>Validation Item</th><th>Result</th><th>Notes</th></tr>
+<tr><td>Build</td><td><span class="status done">Passed</span></td><td><code>dotnet build src\LabImager\LabImager.csproj</code> completed with zero errors.</td></tr>
+<tr><td>Application launch</td><td><span class="status done">Passed</span></td><td><code>dotnet run --project src\LabImager\LabImager.csproj</code> launched successfully.</td></tr>
+<tr><td>Preview before recording</td><td><span class="status done">Validated</span></td><td>Camera preview started successfully before recording activation.</td></tr>
+<tr><td>Recording start</td><td><span class="status done">Validated</span></td><td>Record control entered active recording state and displayed the top-header <code>REC</code> timer.</td></tr>
+<tr><td>Recording output</td><td><span class="status done">Validated</span></td><td>AVI file was created in the configured recording folder.</td></tr>
+<tr><td>Recording file size</td><td><span class="status done">Validated</span></td><td>Output file was non-zero and measured <code>67,405,312</code> bytes.</td></tr>
+</table>
+
+<h4>Validated Recording Artifact</h4>
+<pre><code>Get-ChildItem "$env:USERPROFILE\Videos\Lab Imager\Recordings" -File |
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 10 Name, Length, LastWriteTime
+
+Name                                       Length LastWriteTime
+----                                       ------ -------------
+20260607-200821_lab-imager-recording.avi 67405312 6/7/2026 8:08:35 PM</code></pre>
+
+<h4>Requirement Reconciliation</h4>
+<table>
+<tr><th>Requirement</th><th>Previous Status</th><th>Current Status</th></tr>
+<tr><td>MainWindow recording path</td><td><span class="status pending">Not implemented</span></td><td><span class="status done">Implemented</span></td></tr>
+<tr><td>Encoded video output</td><td><span class="status pending">Deferred</span></td><td><span class="status done">Validated AVI output</span></td></tr>
+<tr><td>Standalone RecordingProbe dependency</td><td><span class="status partial">Required for proof</span></td><td><span class="status done">No longer required for normal recording workflow</span></td></tr>
+<tr><td>Record button</td><td><span class="status done">Timer/state only</span></td><td><span class="status done">Timer/state plus AVI output</span></td></tr>
+</table>
+
+<h4>Remaining Validation / Follow-Up</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Repeated start / stop recording cycles</td><td><span class="status pending">Pending final pass</span></td><td>Validate multiple recording sessions in one application run.</td></tr>
+<tr><td>Recording after Freeze / Resume</td><td><span class="status pending">Pending final pass</span></td><td>Confirm recording behavior after frozen-preview and resumed-preview states.</td></tr>
+<tr><td>Capture screenshot while recording</td><td><span class="status pending">Pending final pass</span></td><td>Validate evidence capture while recording is active.</td></tr>
+<tr><td>Recording quality review</td><td><span class="status watching">Monitor</span></td><td>AVI output works; future quality tuning may require format-specific recording validation.</td></tr>
+<tr><td>Playback workflow</td><td><span class="status pending">Future task</span></td><td>Rewind/playback remains a separate future workflow after recording stabilization.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Lab Imager now has a functional integrated AVI recording pipeline. Future work should treat basic recording as implemented and focus on repeatability validation, quality tuning, playback, evidence-package integration, and annotation/export workflows.
+</div>
+
+<div class="page-num">43</div>
+</section>
+
+<section class="page">
+<h3>44. Rich Notes Evidence Rendering and Font-Size Fidelity Stabilization</h3>
+<p class="sub">Formatted Notes rendering, WPF point-size correction, long-note clipping remediation, evidence PNG validation, and capture-output fidelity checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Rich Notes evidence rendering is operational and validated. Evidence PNG output now preserves formatted Notes content including bold, italic, underline, color, alignment, bullets, numbered lists, mixed formatting, multiple font sizes, and long Notes without clipping.
+</div>
+
+<h4>Problem Summary</h4>
+<table>
+<tr><th>Issue</th><th>Observed Behavior</th><th>Resolution</th></tr>
+<tr><td>Plain-text Notes export</td><td>Formatted Notes were reduced to unformatted text.</td><td>Evidence rendering now uses the formatted Notes document path.</td></tr>
+<tr><td>Long Notes clipping</td><td>Rendered Notes could be cut off when content exceeded the fixed render area.</td><td>Notes render height now expands dynamically.</td></tr>
+<tr><td>Font-size mismatch</td><td>Point sizes such as 8, 9, 10, 11, and 12 did not visually scale as expected.</td><td>Point values are converted to WPF device-independent pixels.</td></tr>
+</table>
+
+<h4>Font-Size Conversion Fix</h4>
+<pre><code>var wpfFontSize = pointSize * 96.0 / 72.0;</code></pre>
+
+<h4>Evidence Notes Rendering Pattern</h4>
+<pre><code>viewer.Measure(new System.Windows.Size(width, double.PositiveInfinity));
+viewer.Arrange(new Rect(0, 0, width, viewer.DesiredSize.Height));
+viewer.UpdateLayout();
+
+var height = Math.Max(1, (int)Math.Ceiling(viewer.DesiredSize.Height));</code></pre>
+
+<h4>Validation Matrix</h4>
+<table>
+<tr><th>Feature</th><th>Status</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Text color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Font size</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bullets</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Numbered lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Mixed formatting</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Long Notes</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<p class="sub">Formatted Notes rendering, WPF point-size correction, long-note clipping remediation, evidence PNG validation, and capture-output fidelity checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Rich Notes evidence rendering is operational and validated. Evidence PNG output now preserves formatted Notes content including bold, italic, underline, color, alignment, bullets, numbered lists, mixed formatting, multiple font sizes, and long Notes without clipping.
+</div>
+
+<h4>Purpose</h4>
+<p>
+This section records the stabilization work performed after evidence output testing showed that Notes content could not remain a plain-text export path. The Notes editor needed to preserve rich formatting into evidence output while keeping the generated evidence image clean, readable, and report-oriented.
+</p>
+
+<h4>Problem Summary</h4>
+<table>
+<tr><th>Issue</th><th>Observed Behavior</th><th>Resolution</th></tr>
+<tr><td>Plain-text Notes export</td><td>Formatted Notes were reduced to unformatted text.</td><td>Evidence rendering now uses the formatted Notes document path.</td></tr>
+<tr><td>Long Notes clipping</td><td>Rendered Notes could be cut off when content exceeded the fixed render area.</td><td>Notes render height now expands dynamically.</td></tr>
+<tr><td>Dark editor capture risk</td><td>Capturing the editor surface directly produced dark UI output instead of a clean evidence surface.</td><td>Formatted Notes are rendered onto a white report surface.</td></tr>
+<tr><td>Font-size mismatch</td><td>Point sizes such as 8, 9, 10, 11, and 12 did not visually scale as expected.</td><td>Point values are converted to WPF device-independent pixels.</td></tr>
+</table>
+
+<h4>Font-Size Conversion Fix</h4>
+<div class="note watch">
+<strong>Technical finding:</strong> WPF <code>FontSize</code> uses device-independent pixels, not typographic points. Dropdown point sizes must be converted before being applied to selected Notes text.
+</div>
+
+<pre><code>var wpfFontSize = pointSize * 96.0 / 72.0;</code></pre>
+
+<h4>Evidence Notes Rendering Pattern</h4>
+<pre><code>private static RenderTargetBitmap RenderNotesDocument(
+    FlowDocument sourceDocument,
+    double width)
+{
+    var xaml = XamlWriter.Save(sourceDocument);
+
+    using var stringReader = new StringReader(xaml);
+    using var xmlReader = XmlReader.Create(stringReader);
+
+    var clonedDocument = (FlowDocument)XamlReader.Load(xmlReader);
+
+    clonedDocument.Background = System.Windows.Media.Brushes.White;
+    clonedDocument.PagePadding = new Thickness(0);
+    clonedDocument.ColumnWidth = width;
+
+    var viewer = new System.Windows.Controls.RichTextBox
+    {
+        Document = clonedDocument,
+        Width = width,
+        Background = System.Windows.Media.Brushes.White,
+        BorderThickness = new Thickness(0),
+        Padding = new Thickness(0),
+        IsReadOnly = true,
+        VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
+        HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled
+    };
+
+    viewer.Measure(new System.Windows.Size(width, double.PositiveInfinity));
+    viewer.Arrange(new Rect(0, 0, width, viewer.DesiredSize.Height));
+    viewer.UpdateLayout();
+
+    var height = Math.Max(1, (int)Math.Ceiling(viewer.DesiredSize.Height));
+
+    var renderTarget = new RenderTargetBitmap(
+        (int)Math.Ceiling(width),
+        height,
+        96,
+        96,
+        PixelFormats.Pbgra32);
+
+    renderTarget.Render(viewer);
+    renderTarget.Freeze();
+
+    return renderTarget;
+}</code></pre>
+
+<h4>Validation Matrix</h4>
+<table>
+<tr><th>Feature</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td><td>Preserved in evidence PNG output.</td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td><td>Preserved in evidence PNG output.</td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td><td>Preserved in evidence PNG output.</td></tr>
+<tr><td>Text color</td><td><span class="status done">Verified</span></td><td>Multiple colors render correctly.</td></tr>
+<tr><td>Font size</td><td><span class="status done">Verified</span></td><td>8 pt, 9 pt, 10 pt, 11 pt, 12 pt, and larger sizes scale correctly.</td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td><td>Alignment survives evidence rendering.</td></tr>
+<tr><td>Bullets</td><td><span class="status done">Verified</span></td><td>Bullet list structure is preserved.</td></tr>
+<tr><td>Numbered lists</td><td><span class="status done">Verified</span></td><td>Numbered list structure is preserved.</td></tr>
+<tr><td>Mixed formatting</td><td><span class="status done">Verified</span></td><td>Combined styles render correctly.</td></tr>
+<tr><td>Long Notes</td><td><span class="status done">Verified</span></td><td>Evidence output expands instead of clipping.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Evidence PNG rendering is now stable for formatted Notes. Future PDF packaging should build from this rendering path rather than replacing it.
+</div>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Evidence PNG rendering is now stable for formatted Notes. Future PDF packaging should build from this rendering path rather than replacing it.
+</div>
+
+<div class="page-num">44</div>
+</section>
+
+<section class="page">
+<h3>45. Notes Formatting Engine Selection Preservation and Handler Repair</h3>
+<p class="sub">Selection-preservation recovery, font-size handler repair, alignment handler repair, clear-formatting workflow, color-default behavior, and formatting validation checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Notes formatting behavior is repaired and validated. Toolbar and dropdown commands now apply to the intended selected text by recovering the active Notes selection when toolbar controls take focus.
+</div>
+
+<h4>Selection Preservation Root Cause</h4>
+<div class="note warn">
+<strong>Root cause:</strong> Toolbar controls can steal focus from <code>NotesEditor</code>. Without saved selection recovery, formatting commands can apply to nothing, apply at the caret, or fail inconsistently.
+</div>
+
+<h4>Selection Preservation Pattern</h4>
+<pre><code>private TextPointer? _notesSelectionStart;
+private TextPointer? _notesSelectionEnd;
+
+private TextRange? GetActiveNotesSelection()
+{
+    if (NotesEditor.Selection is not null &&
+        !NotesEditor.Selection.IsEmpty)
+    {
+        return NotesEditor.Selection;
+    }
+
+    if (_notesSelectionStart is null || _notesSelectionEnd is null)
+    {
+        return null;
+    }
+
+    return new TextRange(_notesSelectionStart, _notesSelectionEnd);
+}</code></pre>
+
+<h4>Font Size Handler Repair</h4>
+<pre><code>var sizeText =
+    selectedItem.Tag?.ToString()
+    ?? selectedItem.Content?.ToString()?.Replace(" pt", string.Empty);
+
+var wpfFontSize = pointSize * 96.0 / 72.0;
+
+selection.ApplyPropertyValue(
+    TextElement.FontSizeProperty,
+    wpfFontSize);</code></pre>
+
+<h4>Alignment Handler Repair</h4>
+<pre><code>selection.ApplyPropertyValue(
+    Block.TextAlignmentProperty,
+    alignment);</code></pre>
+
+<h4>Clear Formatting Handler</h4>
+<pre><code>selection.ClearAllProperties();
+NotesEditor.Focus();</code></pre>
+
+<h4>Formatting Validation</h4>
+<table>
+<tr><th>Feature</th><th>Status</th></tr>
+<tr><td>Font family selection</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Font size selection</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Text color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bulleted lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Numbered lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Clear formatting</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Notes formatting is now stable enough to be considered complete for the current milestone.
+</div>
+
+<div class="page-num">45</div>
+</section>
+
+<section class="page">
+<h3>46. Notes Toolbar Dropdown Redesign and Native Windows Rendering Stabilization</h3>
+<p class="sub">Two-row Notes toolbar redesign, dropdown consolidation, checkmark-capable menu controls, custom styling rollback, Source and Capture Format readability recovery, and final UI validation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Notes toolbar dropdown redesign is complete and validated. All Notes dropdowns are readable and operational. Source and Capture Format selectors are readable after disabled ComboBox styling correction. Native Windows dropdown rendering is the accepted stable direction.
+</div>
+
+<h4>Final Toolbar Layout</h4>
+<table>
+<tr><th>Toolbar Row</th><th>Controls</th></tr>
+<tr><td>Row 1</td><td>Undo, Redo, Font, Size, Color</td></tr>
+<tr><td>Row 2</td><td>Formatting, Lists, Alignment</td></tr>
+</table>
+
+<h4>Dropdown Model</h4>
+<table>
+<tr><th>Dropdown</th><th>Entries</th><th>Status</th></tr>
+<tr><td>Font</td><td>Segoe UI, Calibri, Arial, Verdana, Tahoma, Georgia, Times New Roman, Cambria, Book Antiqua, Garamond, Consolas, Courier New</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Size</td><td>8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, 72</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Color</td><td>Unedited Default, Black, Gray, Yellow, Orange, Red, Pink, Purple, Blue, Cyan, Green, Brown</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Formatting</td><td>Bold, Italic, Underline, Clear Formatting</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Lists</td><td>Bulleted List, Numbered List</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Alignment</td><td>Align Left, Align Center, Align Right, Justify</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Accepted Notes Toolbar XAML Pattern</h4>
+<pre><code>&lt;Border DockPanel.Dock="Top"
+        Height="88"
+        Background="#101820"
+        BorderBrush="#38BDF8"
+        BorderThickness="0,0,0,1"
+        Padding="7"&gt;
+
+    &lt;StackPanel&gt;
+        &lt;StackPanel Orientation="Horizontal" Margin="0,0,0,5"&gt;
+            &lt;Button Content="Undo" Width="54" Height="30" Click="NotesUndoButton_Click"/&gt;
+            &lt;Button Content="Redo" Width="54" Height="30" Click="NotesRedoButton_Click"/&gt;
+
+            &lt;ComboBox x:Name="NotesFontSelector"
+                      SelectionChanged="NotesFontSelector_SelectionChanged"
+                      Foreground="#111827"
+                      Background="White"
+                      Width="150"
+                      Height="30"/&gt;
+
+            &lt;ComboBox x:Name="NotesFontSizeSelector"
+                      SelectionChanged="NotesFontSizeSelector_SelectionChanged"
+                      Foreground="#111827"
+                      Background="White"
+                      Width="82"
+                      Height="30"/&gt;
+
+            &lt;Button x:Name="NotesColorButton"
+                    Content="Color ▼"
+                    Width="90"
+                    Height="30"
+                    Click="NotesColorButton_Click"/&gt;
+        &lt;/StackPanel&gt;
+
+        &lt;StackPanel Orientation="Horizontal"&gt;
+            &lt;Button Content="Formatting ▼" Width="116" Height="30" Click="NotesDropdownButton_Click"/&gt;
+            &lt;Button Content="Lists ▼" Width="82" Height="30" Click="NotesDropdownButton_Click"/&gt;
+            &lt;Button Content="Alignment ▼" Width="104" Height="30" Click="NotesDropdownButton_Click"/&gt;
+        &lt;/StackPanel&gt;
+    &lt;/StackPanel&gt;
+&lt;/Border&gt;</code></pre>
+
+<h4>Menu Button Open Handler</h4>
+<pre><code>private void NotesDropdownButton_Click(object sender, RoutedEventArgs e)
+{
+    if (sender is not System.Windows.Controls.Button button ||
+        button.ContextMenu is null)
+    {
+        return;
+    }
+
+    button.ContextMenu.PlacementTarget = button;
+    button.ContextMenu.IsOpen = true;
+}</code></pre>
+
+<h4>Custom Styling Failure and Final Decision</h4>
+<div class="note warn">
+<strong>Failure class:</strong> Custom dropdown styling repeatedly created readability regressions including bright selection colors, white-on-white text, dark-on-dark text, inconsistent selected-item rendering, and collateral damage to Source and Capture Format controls.
+</div>
+
+<table>
+<tr><th>Attempt</th><th>Outcome</th><th>Decision</th></tr>
+<tr><td>Dark custom ComboBoxItem styling</td><td>Selection text became unreadable.</td><td><span class="status blocked">Rejected</span></td></tr>
+<tr><td>Global MenuItem and ContextMenu styling</td><td>Created wider UI readability regressions.</td><td><span class="status blocked">Rejected</span></td></tr>
+<tr><td>Native Windows dropdown rendering</td><td>Readable, stable, predictable, and acceptable.</td><td><span class="status done">Accepted</span></td></tr>
+</table>
+
+<h4>Readable Disabled ComboBox Style Repair</h4>
+<pre><code>&lt;Style x:Key="ReadableDisabledComboBoxStyle" TargetType="ComboBox"&gt;
+    &lt;Setter Property="Foreground" Value="#111827"/&gt;
+    &lt;Setter Property="Background" Value="White"/&gt;
+    &lt;Setter Property="BorderBrush" Value="#334155"/&gt;
+    &lt;Setter Property="BorderThickness" Value="1"/&gt;
+    &lt;Setter Property="Padding" Value="10,0"/&gt;
+
+    &lt;Style.Triggers&gt;
+        &lt;Trigger Property="IsEnabled" Value="False"&gt;
+            &lt;Setter Property="Opacity" Value="1"/&gt;
+            &lt;Setter Property="Foreground" Value="#111827"/&gt;
+            &lt;Setter Property="Background" Value="White"/&gt;
+            &lt;Setter Property="BorderBrush" Value="#334155"/&gt;
+        &lt;/Trigger&gt;
+    &lt;/Style.Triggers&gt;
+&lt;/Style&gt;</code></pre>
+
+<h4>Final Validation Results</h4>
+<table>
+<tr><th>Validation Item</th><th>Status</th></tr>
+<tr><td>Font dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Size dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Color dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Formatting dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Lists dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment dropdown readable and operational</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Source selector readable</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Capture Format selector readable</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Two-row toolbar layout</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>No horizontal overflow</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Evidence PNG formatting preservation</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Build</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Repository state</td><td><span class="status done">Clean / synchronized</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Notes toolbar redesign is complete. Native Windows dropdown rendering is the approved stable direction.
+</div>
+
+<div class="page-num">46</div>
+</section>
+
+<section class="page">
+<h3>47. Rich Notes Evidence Rendering and Font-Size Fidelity Stabilization</h3>
+<p class="sub">Formatted Notes rendering, WPF point-size correction, long-note clipping remediation, evidence PNG validation, and capture-output fidelity checkpoint.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Rich Notes evidence rendering is operational and validated. Evidence PNG output now preserves formatted Notes content including bold, italic, underline, color, alignment, bullets, numbered lists, mixed formatting, multiple font sizes, and long Notes without clipping.
+</div>
+
+<h4>Major Findings</h4>
+
+<table>
+<tr><th>Issue</th><th>Observed Behavior</th><th>Resolution</th></tr>
+<tr><td>Plain-text Notes export</td><td>Formatted Notes were reduced to unformatted text.</td><td>Evidence rendering now uses the formatted FlowDocument path.</td></tr>
+<tr><td>Long Notes clipping</td><td>Notes content exceeded fixed render height.</td><td>Render height now expands dynamically.</td></tr>
+<tr><td>Dark editor capture risk</td><td>Editor appearance polluted evidence output.</td><td>Notes are rendered onto a clean white report surface.</td></tr>
+<tr><td>Font-size mismatch</td><td>Point sizes rendered inconsistently.</td><td>Point values are converted to WPF device-independent pixels.</td></tr>
+</table>
+
+<h4>WPF Font-Size Conversion</h4>
+
+<pre><code>var wpfFontSize = pointSize * 96.0 / 72.0;</code></pre>
+
+<h4>Validation Results</h4>
+
+<table>
+<tr><th>Feature</th><th>Status</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bullets</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Numbered Lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Mixed Formatting</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Long Notes</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Rich Notes evidence rendering is now considered production-stable for Milestone 1 evidence capture workflows.
+</div>
+
+<div class="page-num">47</div>
+</section>
+
+<section class="page">
+<h3>48. Notes Formatting Engine Selection Preservation and Handler Repair</h3>
+<p class="sub">Selection-preservation recovery, formatting handler stabilization, font-size repair, alignment repair, and active-selection recovery architecture.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Notes formatting operations now reliably apply to user-selected text even after toolbar controls temporarily steal focus from the editor.
+</div>
+
+<h4>Root Cause Analysis</h4>
+
+<div class="note warn">
+<strong>Root cause:</strong> ComboBoxes and dropdown menus temporarily removed focus from the RichTextBox, causing formatting operations to lose the active selection.
+</div>
+
+<h4>Selection Preservation Architecture</h4>
+
+<pre><code>private TextPointer? _notesSelectionStart;
+private TextPointer? _notesSelectionEnd;
+
+private TextRange? GetActiveNotesSelection()
+{
+    ...
+}</code></pre>
+
+<h4>Repairs Completed</h4>
+
+<table>
+<tr><th>Component</th><th>Status</th></tr>
+<tr><td>Font Family Selection</td><td><span class="status done">Repaired</span></td></tr>
+<tr><td>Font Size Selection</td><td><span class="status done">Repaired</span></td></tr>
+<tr><td>Alignment Operations</td><td><span class="status done">Repaired</span></td></tr>
+<tr><td>Color Operations</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Bullet Lists</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Numbered Lists</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Clear Formatting</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<h4>Validation Results</h4>
+
+<table>
+<tr><th>Formatting Feature</th><th>Status</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Font Family</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Font Size</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> The Notes formatting engine is now stable enough to support long-term editor expansion without requiring further architectural changes.
+</div>
+
+<div class="page-num">48</div>
+</section>
+
+<section class="page">
+<h3>49. Notes Toolbar Dropdown Redesign</h3>
+<p class="sub">Two-row toolbar redesign, editor modernization, dropdown architecture conversion, menu consolidation, and formatting workflow simplification.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> The Notes toolbar was redesigned from a collection of standalone utility controls into a structured editor-style toolbar while preserving all underlying functionality.
+</div>
+
+<h4>Design Objective</h4>
+
+<p>
+Redesign the Notes toolbar to resemble a professional document editor while preserving all existing formatting, export, reporting, capture, preview, and recording functionality.
+</p>
+
+<h4>Final Toolbar Layout</h4>
+
+<table>
+<tr><th>Row</th><th>Controls</th></tr>
+<tr><td>Row 1</td><td>Undo | Redo | Font | Size | Color</td></tr>
+<tr><td>Row 2</td><td>Formatting | Lists | Alignment</td></tr>
+</table>
+
+<h4>Dropdown Conversions</h4>
+
+<table>
+<tr><th>Control</th><th>Status</th></tr>
+<tr><td>Font Selector</td><td><span class="status done">Converted</span></td></tr>
+<tr><td>Font Size Selector</td><td><span class="status done">Converted</span></td></tr>
+<tr><td>Color Selector</td><td><span class="status done">Converted</span></td></tr>
+<tr><td>Formatting Menu</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td>Lists Menu</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td>Alignment Menu</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<h4>Formatting Menu</h4>
+
+<ul>
+<li>Bold</li>
+<li>Italic</li>
+<li>Underline</li>
+<li>Clear Formatting</li>
+</ul>
+
+<h4>Lists Menu</h4>
+
+<ul>
+<li>Bulleted List</li>
+<li>Numbered List</li>
+</ul>
+
+<h4>Alignment Menu</h4>
+
+<ul>
+<li>Align Left</li>
+<li>Align Center</li>
+<li>Align Right</li>
+<li>Justify</li>
+</ul>
+
+<h4>Menu State Tracking</h4>
+
+<p>
+Dropdown menus now support active-state checkmark indicators to reflect the currently selected formatting mode and improve user awareness during editing operations.
+</p>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Toolbar modernization is complete and accepted as the new Notes editor baseline.
+</div>
+
+<div class="page-num">49</div>
+</section>
+
+<section class="page">
+<h3>50. Dropdown Readability Remediation and Native Windows Rendering Rollback</h3>
+<p class="sub">Dropdown readability failures, custom styling rollback, Source selector remediation, Capture Format remediation, and final UI stabilization.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Native Windows dropdown rendering was adopted as the approved solution after multiple custom styling attempts introduced readability regressions throughout the application.
+</div>
+
+<h4>Readability Failures Encountered</h4>
+
+<table>
+<tr><th>Failure</th><th>Impact</th></tr>
+<tr><td>White-on-white text</td><td>Unreadable selections.</td></tr>
+<tr><td>Dark-on-dark text</td><td>Unreadable selections.</td></tr>
+<tr><td>Overly bright highlight colors</td><td>Poor readability.</td></tr>
+<tr><td>Custom MenuItem styling</td><td>Inconsistent appearance.</td></tr>
+<tr><td>Disabled ComboBox styling</td><td>Source and Capture Format text became unreadable.</td></tr>
+</table>
+
+<h4>Rollback Decisions</h4>
+
+<table>
+<tr><th>Approach</th><th>Decision</th></tr>
+<tr><td>Custom ComboBox styling</td><td><span class="status blocked">Rejected</span></td></tr>
+<tr><td>Custom ContextMenu styling</td><td><span class="status blocked">Rejected</span></td></tr>
+<tr><td>Native Windows dropdown rendering</td><td><span class="status done">Accepted</span></td></tr>
+</table>
+
+<h4>Source and Capture Format Recovery</h4>
+
+<p>
+The Source selector and Capture Format selector were restored to readable operation after disabled-state styling changes introduced severe contrast issues.
+</p>
+
+<h4>Final Validation</h4>
+
+<table>
+<tr><th>Component</th><th>Status</th></tr>
+<tr><td>Font Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Size Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Color Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Formatting Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Lists Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment Dropdown</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Source Selector</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Capture Format Selector</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Build</td><td><span class="status done">Passed</span></td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Native Windows rendering is now the approved dropdown strategy for Lab Imager. Future UI modernization efforts must prioritize readability and stability over aggressive custom styling.
+</div>
+
+<div class="page-num">50</div>
+</section>
+
+<section class="page">
+<h3>51. Notes Modernization Validation and Repository Stabilization Checkpoint</h3>
+<p class="sub">Final validation record for Notes toolbar modernization, evidence-format preservation, dropdown readability recovery, build verification, and repository synchronization.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Notes modernization sprint is complete, validated, and synchronized. All Notes dropdowns are operational, evidence PNG formatting preservation is verified, long Notes rendering is verified, Source and Capture Format selectors remain readable, and the repository is clean.
+</div>
+
+<h4>Validation Summary</h4>
+<table>
+<tr><th>Validation Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Notes toolbar redesign</td><td><span class="status done">Complete</span></td><td>Two-row toolbar accepted.</td></tr>
+<tr><td>Font dropdown</td><td><span class="status done">Verified</span></td><td>Readable and operational.</td></tr>
+<tr><td>Font size dropdown</td><td><span class="status done">Verified</span></td><td>Readable, operational, and point-size behavior validated.</td></tr>
+<tr><td>Color dropdown</td><td><span class="status done">Verified</span></td><td>Readable and operational.</td></tr>
+<tr><td>Formatting dropdown</td><td><span class="status done">Verified</span></td><td>Bold, italic, underline, and clear formatting available.</td></tr>
+<tr><td>Lists dropdown</td><td><span class="status done">Verified</span></td><td>Bulleted and numbered list workflows validated.</td></tr>
+<tr><td>Alignment dropdown</td><td><span class="status done">Verified</span></td><td>Left, center, right, and justify workflows validated.</td></tr>
+<tr><td>Source selector readability</td><td><span class="status done">Verified</span></td><td>Readable after disabled ComboBox style correction.</td></tr>
+<tr><td>Capture Format selector readability</td><td><span class="status done">Verified</span></td><td>Readable after disabled ComboBox style correction.</td></tr>
+<tr><td>Evidence PNG formatting preservation</td><td><span class="status done">Verified</span></td><td>Rich Notes formatting preserved in generated evidence output.</td></tr>
+<tr><td>Long Notes rendering</td><td><span class="status done">Verified</span></td><td>Evidence output expands instead of clipping.</td></tr>
+</table>
+
+<h4>Formatting Preservation Verified</h4>
+<table>
+<tr><th>Formatting Feature</th><th>Status</th></tr>
+<tr><td>Bold</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Italic</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Underline</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Text Color</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Multiple Font Sizes</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Alignment</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Bullets</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Numbered Lists</td><td><span class="status done">Verified</span></td></tr>
+<tr><td>Mixed Formatting</td><td><span class="status done">Verified</span></td></tr>
+</table>
+
+<h4>Build and Repository Verification</h4>
+<pre><code>dotnet build src\LabImager\LabImager.csproj
+# Build succeeded.
+# 0 Error(s)
+
+git add .
+git commit -m "Complete notes toolbar redesign and formatting validation"
+# nothing to commit, working tree clean
+
+git push origin feature/wpf-frame-pipeline
+# Everything up-to-date</code></pre>
+
+<table>
+<tr><th>Repository Item</th><th>Status</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Working tree</td><td><span class="status done">Clean</span></td></tr>
+<tr><td>Remote synchronization</td><td><span class="status done">Up to date with origin</span></td></tr>
+<tr><td>Build state</td><td><span class="status done">Passing</span></td></tr>
+</table>
+
+<h4>Current Remaining Workflows</h4>
+<table>
+<tr><th>Workflow</th><th>Status</th><th>Next Action</th></tr>
+<tr><td>HTML evidence report validation</td><td><span class="status pending">Pending</span></td><td>Confirm rich Notes formatting carries into HTML report output.</td></tr>
+<tr><td>Evidence packaging workflow</td><td><span class="status pending">Pending</span></td><td>Save original PNG, annotated/evidence PNG, and generate PDF package.</td></tr>
+<tr><td>Annotation capture validation</td><td><span class="status pending">Pending</span></td><td>Confirm annotations render into saved evidence output while preserving original image.</td></tr>
+<tr><td>Recording playback workflow</td><td><span class="status pending">Future</span></td><td>Define rewind/playback and AVI review workflow.</td></tr>
+</table>
+
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Notes editor modernization is closed for this sprint. The next documentation task is roadmap reconciliation before any new code work begins.
+</div>
+
+<div class="page-num">51</div>
+</section>
+
+<section class="page">
+<h3>52. Evidence PDF Export Module Implementation and Validation</h3>
+<p class="sub">Modular PDF export workflow, original-image report generation, Windows font resolver implementation, metadata export, notes export, and final PDF layout validation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Evidence PDF export is implemented, build-validated, runtime-tested, and visually approved. The new workflow generates a clean Lab Imager evidence report PDF using the original captured image, session metadata, capture format, timestamp data, and Notes content without modifying the existing capture, notes, preview, annotation, or recording pipelines.
+</div>
+
+<h4>Implementation Principle</h4>
+<div class="note ok">
+<strong>Architecture rule applied:</strong> This feature was added as an isolated module. Existing working systems were preserved. Capture, evidence PNG generation, recording, Notes formatting, preview, and source-selection behavior were not refactored.
+</div>
+
+<h4>Module Components Added</h4>
+<table>
+<tr><th>Component</th><th>Purpose</th><th>Status</th></tr>
+<tr><td><code>Models/Reporting/LatestEvidenceCapture.cs</code></td><td>Tracks the latest original PNG, evidence PNG, and capture timestamp after a successful Capture action.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Models/Reporting/EvidencePdfExportRequest.cs</code></td><td>Defines the PDF export request payload including image path, output path, metadata, notes, captured time, and exported time.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Services/Reporting/IEvidencePdfExportService.cs</code></td><td>Provides the interface boundary for PDF export behavior.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Services/Reporting/EvidencePdfExportService.cs</code></td><td>Generates the Lab Imager evidence report PDF.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>Services/Reporting/WindowsFontResolver.cs</code></td><td>Provides PdfSharp with access to installed Windows fonts under .NET 8.</td><td><span class="status done">Added</span></td></tr>
+<tr><td><code>PdfSharp</code></td><td>PDF generation dependency used by the isolated reporting module.</td><td><span class="status done">Added</span></td></tr>
+</table>
+
+<h4>UI Workflow Added</h4>
+<table>
+<tr><th>Control</th><th>Behavior</th><th>Status</th></tr>
+<tr><td><code>Capture</code></td><td>Existing capture behavior preserved. Creates original PNG and evidence PNG.</td><td><span class="status done">Unchanged</span></td></tr>
+<tr><td><code>Export PDF</code></td><td>New button added beside Capture in the Lab Session action area.</td><td><span class="status done">Added</span></td></tr>
+<tr><td>Export PDF default state</td><td>Disabled until a successful capture occurs.</td><td><span class="status done">Implemented</span></td></tr>
+<tr><td>Export PDF active state</td><td>Enabled after the latest evidence capture is recorded.</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Output Workflow</h4>
+<table>
+<tr><th>Output</th><th>Description</th><th>Status</th></tr>
+<tr><td><code>-original.png</code></td><td>Clean original camera capture.</td><td><span class="status done">Preserved</span></td></tr>
+<tr><td><code>-evidence.png</code></td><td>Evidence image containing the capture plus metadata/Notes layout.</td><td><span class="status done">Preserved</span></td></tr>
+<tr><td><code>-evidence.pdf</code></td><td>New formal PDF evidence report generated from the original image plus current metadata and Notes.</td><td><span class="status done">Implemented</span></td></tr>
+</table>
+
+<h4>PDF Report Layout</h4>
+<table>
+<tr><th>PDF Section</th><th>Content</th><th>Status</th></tr>
+<tr><td>Title</td><td><code>LAB IMAGER EVIDENCE REPORT</code></td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Metadata block</td><td>Project, Board / Device, Technician, Captured time, Exported time, Camera, and Capture Format.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Image block</td><td>Original captured camera image, centered horizontally and scaled for page fit.</td><td><span class="status done">Validated</span></td></tr>
+<tr><td>Notes block</td><td>Plain-text Notes content from the current Lab Session Notes field.</td><td><span class="status done">Validated</span></td></tr>
+</table>
+
+<h4>Key Design Correction</h4>
+<div class="note ok">
+<strong>Resolved duplication:</strong> Initial PDF testing embedded the evidence PNG, which caused metadata and Notes to appear twice. The final PDF workflow now embeds the original PNG instead, then lets the PDF module generate the report metadata and Notes sections directly.
+</div>
+
+<h4>Font Resolver Issue and Resolution</h4>
+<table>
+<tr><th>Issue</th><th>Cause</th><th>Resolution</th></tr>
+<tr><td>PDF export failed with <code>No appropriate font found for family name 'Arial'</code>.</td><td>PdfSharp under .NET 8 does not automatically resolve Windows fonts without an explicit font resolver.</td><td>Implemented <code>WindowsFontResolver</code> and assigned it through <code>GlobalFontSettings.FontResolver</code>.</td></tr>
+<tr><td>Report font consistency</td><td>PDF generation needed predictable Windows font access.</td><td>Registered common Windows fonts including Segoe UI, Calibri, Arial, Verdana, Tahoma, Georgia, Times New Roman, Cambria, Book Antiqua, Garamond, Consolas, and Courier New.</td></tr>
+</table>
+
+<h4>Validation Evidence</h4>
+<table>
+<tr><th>Validation</th><th>Result</th></tr>
+<tr><td><code>dotnet build src\LabImager\LabImager.csproj</code></td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Build errors</td><td><code>0</code></td></tr>
+<tr><td>Known warnings</td><td>Existing DirectShow nullable warnings only.</td></tr>
+<tr><td>Application launch</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Capture workflow</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Export PDF button enablement</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>PDF file creation</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>PDF opening / readability</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Metadata export</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Original image embedding</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Notes export</td><td><span class="status done">Passed</span></td></tr>
+<tr><td>Image centering</td><td><span class="status done">Passed</span></td></tr>
+</table>
+
+<h4>Validated Sample Output</h4>
+<table>
+<tr><th>Sample Field</th><th>Observed Value</th></tr>
+<tr><td>Project</td><td><code>Beta Test 1</code></td></tr>
+<tr><td>Board / Device</td><td><code>Test Board 6</code></td></tr>
+<tr><td>Technician</td><td><code>Brady Cabral</code></td></tr>
+<tr><td>Camera</td><td><code>HD Pro Webcam C920 (Default)</code></td></tr>
+<tr><td>Capture Format</td><td><code>2560x1472 @ 2 FPS - YUY2</code></td></tr>
+<tr><td>Notes</td><td><code>Metadata top</code></td></tr>
+</table>
+
+<h4>Known Follow-Up Item</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Status bar long-message handling</td><td><span class="status pending">Future polish</span></td><td>Long exception messages can overflow the footer status bar. Recommended future solution is a dedicated status/error message strip or controlled truncation with tooltip support.</td></tr>
+<tr><td>Rich Notes in PDF</td><td><span class="status pending">Future polish</span></td><td>PDF currently exports Notes as plain text. Rich Notes rendering remains preserved in evidence PNG output.</td></tr>
+<tr><td>PDF branding polish</td><td><span class="status pending">Optional</span></td><td>Future pass may add logo, page numbering, and refined report header styling.</td></tr>
+</table>
+
+<h4>Final Decision</h4>
+<div class="note ok">
+<strong>Checkpoint decision:</strong> Evidence PDF Export is complete for Milestone 1. The application now supports original PNG output, evidence PNG output, and formal PDF evidence report generation. Future work should treat PDF export as a working reporting module and avoid modifying the stable capture pipeline unless absolutely necessary.
+</div>
+
+<div class="page-num">52</div>
+</section>
+
+<section class="page">
+<h3>53. Roadmap Consolidation and M1 Closeout Planning</h3>
+<p class="sub">Roadmap modernization following completion of Evidence PDF Export and transition from feature-development phase into validation and release-preparation phase.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> The project roadmap was rewritten and simplified to reflect the actual state of the application. Completed feature-development milestones were removed from the active backlog and remaining work was reorganized into validation, hardening, cleanup, and merge-preparation phases.
+</div>
+
+<h4>Roadmap Review Findings</h4>
+<table>
+<tr><th>Area</th><th>Status</th><th>Result</th></tr>
+<tr><td>Camera Enumeration</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Capture Format Selection</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Live Preview</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Freeze / Resume</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Evidence PNG Export</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+<tr><td>Integrated Recording</td><td><span class="status done">Complete</span></td><td>Moved to hardening phase.</td></tr>
+<tr><td>Evidence PDF Export</td><td><span class="status done">Complete</span></td><td>Removed from active backlog.</td></tr>
+</table>
+
+<h4>Remaining Active Work</h4>
+<ol>
+<li>Annotation Preservation Validation</li>
+<li>Recording Hardening Pass</li>
+<li>M1 Final Validation Review</li>
+<li>Merge Preparation</li>
+</ol>
+
+<div class="note ok">
+<strong>Roadmap decision:</strong> Lab Imager has exited primary feature-development mode for Milestone 1. Remaining work is focused on validation, hardening, cleanup, documentation synchronization, and merge readiness.
+</div>
+
+<div class="page-num">53</div>
+</section>
+
+<section class="page">
+<h3>54. Technical Debt Cleanup Completion and Zero-Warning Build Validation</h3>
+<p class="sub">Repository cleanup, backup artifact removal, build verification, and final warning review following Evidence PDF Export implementation.</p>
+
+<div class="note ok">
+<strong>Final status:</strong> Technical Debt Cleanup was completed successfully. Repository backup artifacts were removed, project structure was reviewed, and the solution was validated with a clean build containing zero warnings and zero errors.
+</div>
+
+<h4>Repository Cleanup</h4>
+<table>
+<tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+<tr><td>Legacy UI backup artifacts</td><td><span class="status done">Removed</span></td><td>Historical .bak files deleted from repository.</td></tr>
+<tr><td>Experimental rollback artifacts</td><td><span class="status done">Removed</span></td><td>Obsolete development backups removed.</td></tr>
+<tr><td>Evidence PDF module backups</td><td><span class="status done">Removed</span></td><td>Temporary implementation backups removed.</td></tr>
+<tr><td>Repository organization</td><td><span class="status done">Validated</span></td><td>Reporting module integrated successfully.</td></tr>
+</table>
+
+<h4>Build Validation</h4>
+<pre>dotnet build src\LabImager\LabImager.csproj</pre>
+
+<table>
+<tr><th>Metric</th><th>Result</th></tr>
+<tr><td>Errors</td><td><span class="status done">0</span></td></tr>
+<tr><td>Warnings</td><td><span class="status done">0</span></td></tr>
+<tr><td>Build Status</td><td><span class="status done">PASSING</span></td></tr>
+</table>
+
+<h4>Current Repository State</h4>
+<table>
+<tr><th>Item</th><th>Value</th></tr>
+<tr><td>Branch</td><td><code>feature/wpf-frame-pipeline</code></td></tr>
+<tr><td>Latest Commit</td><td><code>a0e88fa</code></td></tr>
+<tr><td>Commit Message</td><td><code>Implement evidence PDF export and reporting module</code></td></tr>
+<tr><td>Working Tree</td><td><span class="status done">Clean</span></td></tr>
+<tr><td>Remote Status</td><td><span class="status done">Synchronized</span></td></tr>
+</table>
+
+<h4>Technical Debt Status</h4>
+<div class="note ok">
+<strong>Decision:</strong> Technical Debt Cleanup is considered complete for Milestone 1. No known build warnings remain and no active repository hygiene issues are currently open.
+</div>
+
+<h4>Remaining Milestone 1 Work</h4>
+<table>
+<tr><th>Task</th><th>Status</th></tr>
+<tr><td>Annotation Preservation Validation</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Recording Hardening Pass</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>M1 Final Validation Review</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td>Merge Preparation</td><td><span class="status pending">Pending</span></td></tr>
+</table>
+
+<div class="page-num">54</div>
+</section>
+
+<section class="page">
+<h3>55. Integrated Help Center Modernization and Documentation Framework</h3>
+
+<p class="sub">
+Migration from basic markdown help viewing to an integrated Windows-style Help Center.
+</p>
+
+<div class="note ok">
+<strong>Status:</strong> Completed and validated.
+</div>
+
+<h4>Implemented Components</h4>
+
+<ul>
+<li>Dedicated Help Center window</li>
+<li>Left-side navigation panel</li>
+<li>Multi-document help architecture</li>
+<li>Help Topics integration</li>
+<li>User Guide integration</li>
+<li>FAQ integration</li>
+<li>Keyboard Shortcuts integration</li>
+<li>Release Notes integration</li>
+<li>About Lab Imager integration</li>
+</ul>
+
+<h4>Help Center Improvements</h4>
+
+<ul>
+<li>Replaced raw markdown display architecture</li>
+<li>Introduced FlowDocument-based document rendering</li>
+<li>Added section-aware rendering pipeline</li>
+<li>Added heading hierarchy support</li>
+<li>Added bullet-list support</li>
+<li>Added numbered-list support</li>
+<li>Added table rendering support</li>
+<li>Added code-block rendering support</li>
+<li>Added document navigation workflow</li>
+</ul>
+
+<h4>Branding Integration</h4>
+
+<ul>
+<li>MSE branding assets integrated into About page</li>
+<li>Dedicated About Lab Imager experience created</li>
+<li>Application information centralized into Help Center</li>
+</ul>
+
+<h4>Result</h4>
+
+<p>
+Lab Imager now contains a self-contained desktop Help Center modeled after traditional Windows application documentation systems. Documentation is packaged with the application and accessible directly from the user interface without requiring external viewers.
+</p>
+
+<h4>Final Polish Pass</h4>
+
+<ul>
+<li>Promoted About Lab Imager to the top of Help Center navigation.</li>
+<li>Integrated MSE logo branding into the About page.</li>
+<li>Added clickable MSE website hyperlink.</li>
+<li>Added in-application license viewing workflow.</li>
+<li>Refined About page presentation using native WPF layouts.</li>
+<li>Improved Help Center navigation flow and presentation consistency.</li>
+<li>Updated document rendering and visual polish across Help Center pages.</li>
+</ul>
+
+<h4>Final Result</h4>
+
+<p>
+The Help Center evolved from a documentation viewer into a fully integrated application support system providing product information, documentation access, release information, licensing information, branding, and navigation through a unified desktop interface.
+</p>
+
+<div class="page-num">55</div>
+</section>
+
+
 </section>
 
 <section class="page">
@@ -1337,6 +3744,25 @@ Frame pipeline:
 <div class="note watch">
 These commands are starting points. Paths should be adjusted once the GitHub repository is cloned locally.
 </div>
+
+
+<h4>Approved UI Screenshots</h4>
+<ul>
+<li>
+<strong>Lab Design 5 (Responsive UI Baseline)</strong><br>
+<img src="assets/ui/lab_design_5.png"
+     alt="Lab Design 5"
+     style="max-width:100%;border:1px solid #cbd5e1" />
+<br>
+Current approved UI showing:
+viewport-mounted transport controls,
+source selector workflow,
+Set Default button,
+Notes toolbar integration,
+responsive-layout refinements,
+and compact control density.
+</li>
+</ul>
 
 <h4>Create Initial .NET WPF Project</h4>
 <pre>dotnet new sln -n LabImager
@@ -1381,7 +3807,7 @@ PY</pre>
 
 <h4>Standing Ledger Rule</h4>
 <div class="note ok">
-Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not regenerate older sections unless explicitly required. Preserve chronological section order and keep the filename stable.
+Insert future numbered sections immediately before the <code>Resources</code> section. Do not regenerate older sections unless explicitly required. Preserve chronological section order and keep the filename stable.
 </div>
 
 <div class="page-num">Resources</div>
@@ -1389,3 +3815,5 @@ Insert future sections immediately before <code>&lt;/body&gt;</code>. Do not reg
 
 </body>
 </html>
+
+

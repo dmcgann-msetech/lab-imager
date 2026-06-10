@@ -7,9 +7,26 @@ public interface ICameraPreviewService
 {
     bool IsPreviewRunning { get; }
 
-    void StartPreview(CameraDeviceInfo source, IntPtr previewHandle, int width, int height);
+    bool IsPreviewFrozen { get; }
+
+    bool IsRecording { get; }
+
+    void StartPreview(
+        CameraDeviceInfo source,
+        CameraCaptureFormat? selectedFormat,
+        IntPtr previewHandle,
+        int width,
+        int height);
 
     void ResizePreview(int width, int height);
 
+    void FreezePreview();
+
+    void ResumePreview();
+
     void StopPreview();
+
+    void StartRecording(string outputPath);
+
+    void StopRecording();
 }

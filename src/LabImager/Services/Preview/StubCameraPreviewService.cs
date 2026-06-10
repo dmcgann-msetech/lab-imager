@@ -7,27 +7,59 @@ public sealed class StubCameraPreviewService : ICameraPreviewService
 {
     public bool IsPreviewRunning { get; private set; }
 
-    public CameraDeviceInfo? ActiveSource { get; private set; }
+    public bool IsPreviewFrozen { get; private set; }
 
-    public void StartPreview(CameraDeviceInfo source, IntPtr previewHandle, int width, int height)
+    public bool IsRecording { get; private set; }
+
+    public void StartPreview(
+        CameraDeviceInfo source,
+        CameraCaptureFormat? selectedFormat,
+        IntPtr previewHandle,
+        int width,
+        int height)
     {
-        if (string.IsNullOrWhiteSpace(source.Name))
-        {
-            throw new ArgumentException("Cannot start preview without a valid source name.", nameof(source));
-        }
-
-        ActiveSource = source;
         IsPreviewRunning = true;
+        IsPreviewFrozen = false;
     }
 
     public void ResizePreview(int width, int height)
     {
-        // Stub intentionally does nothing.
+    }
+
+    public void FreezePreview()
+    {
+        if (!IsPreviewRunning)
+        {
+            return;
+        }
+
+        IsPreviewFrozen = true;
+    }
+
+    public void ResumePreview()
+    {
+        if (!IsPreviewRunning)
+        {
+            return;
+        }
+
+        IsPreviewFrozen = false;
     }
 
     public void StopPreview()
     {
-        ActiveSource = null;
         IsPreviewRunning = false;
+        IsPreviewFrozen = false;
+        IsRecording = false;
+    }
+
+    public void StartRecording(string outputPath)
+    {
+        IsRecording = true;
+    }
+
+    public void StopRecording()
+    {
+        IsRecording = false;
     }
 }
