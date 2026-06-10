@@ -1,4 +1,4 @@
-# Lab Imager
+# LabImager
 
 Windows-native microscope and HDMI capture workstation for electronics inspection, soldering documentation, timestamped evidence capture, and laboratory workflows.
 
@@ -6,9 +6,9 @@ Windows-native microscope and HDMI capture workstation for electronics inspectio
 
 ## Overview
 
-Lab Imager is a Windows-native engineering workstation designed for electronics inspection, microscope imaging, evidence capture, annotation workflows, repair documentation, and laboratory record generation.
+LabImager is a Windows-native engineering workstation designed for electronics inspection, microscope imaging, evidence capture, annotation workflows, repair documentation, and laboratory record generation.
 
-Unlike general-purpose camera software, Lab Imager is focused on bench-top technical work where images, notes, metadata, and future recordings must be captured as part of a repeatable engineering workflow.
+Unlike general-purpose camera software, LabImager is focused on bench-top technical work where images, notes, metadata, and supporting documentation must be captured as part of a repeatable engineering workflow.
 
 Primary use cases include:
 
@@ -20,6 +20,20 @@ Primary use cases include:
 * Laboratory documentation
 * Repair and rework validation
 * Technical reporting and evidence generation
+
+---
+
+## Release Information
+
+**Current Version:** v1.0.0
+
+**Status:** Released
+
+**Release Date:** June 2026
+
+**Distribution:** GitHub Releases
+
+**Installer:** LabImager v1.0 Setup.exe
 
 ---
 
@@ -38,15 +52,16 @@ Primary use cases include:
 * Live camera preview
 * Start preview
 * Stop preview
-* Freeze frame
+* Freeze preview
 * Resume preview
 
 ### Evidence Capture
 
-* PNG image capture
-* Timestamped evidence export
-* Metadata embedding
-* Evidence PDF generation
+* Original PNG capture
+* Evidence PNG generation
+* Evidence PDF export
+* Timestamped evidence workflow
+* Metadata integration
 * Original image preservation
 * Multiple evidence captures per session
 
@@ -58,90 +73,164 @@ Primary use cases include:
 * Multi-line notes
 * Session documentation workflow
 
+### Rich Notes Editor
+
+* Font selection
+* Font sizing
+* Text formatting
+* Text alignment
+* Bullet lists
+* Numbered lists
+* Annotation preservation
+
+### Help Center
+
+* Integrated Help Center
+* User Guide
+* FAQ
+* Keyboard Shortcuts
+* Release Notes
+* About Page
+* License Viewer
+
+### Documentation Framework
+
+* Engineering logbook
+* Roadmap tracking
+* Release documentation
+* Governance documentation
+* Offline packaged documentation
+
 ---
 
 ## Validation Status
 
-### Validated
+### Release Validated
 
 * Camera enumeration
 * Camera selection
+* Capture format selection
 * Live preview
-* Freeze frame
+* Freeze preview
 * Resume preview
 * Evidence capture
+* Evidence PDF export
 * Metadata workflow
 * Multiple captures per session
 * Capture while preview is running
 * Capture after freeze
 * Capture after resume
 * Capture after camera reselection
-* Capture format selection UI
+* Rich Notes editor
+* Integrated Help Center
+* Installer packaging
 
-### Under Active Validation
+### Deferred Validation
 
-* Capture format application to preview graph
-* Preview graph reconfiguration
-* Recording graph architecture
-* DirectShow recording pipeline integration
+Recording functionality has been deferred beyond Version 1.0 and will be revisited during future development cycles.
 
 ---
 
 ## Project Status
 
-### Current Milestone
+### Current Release
 
-**M1 – Evidence Capture and Camera Integration**
+**LabImager v1.0**
+
+Status:
+
+Released
 
 ### Completed
 
 * Camera detection
+* Camera persistence
+* Camera format selection
 * Live preview workflow
-* Freeze frame workflow
+* Freeze preview workflow
 * Resume preview workflow
 * Evidence capture workflow
-* PNG evidence export
+* Original PNG preservation
 * Evidence PDF generation
 * Metadata integration
 * Multiple evidence captures per session
-* Capture format selection UI
-* Camera persistence
-* Engineering documentation framework
+* Rich Notes editor modernization
+* Integrated Help Center
+* About page
+* Documentation framework
+* Installer packaging
+* GitHub release management
+* Main branch release merge
+* Version tagging and release process
 
-### In Progress
+### Post-Release Development
 
-* Capture format application and validation within preview graph
-* DirectShow recording pipeline implementation
-* Recording graph stabilization
-* Smart Tee architecture validation
-* Preview graph reliability testing
+#### Version 1.0.1
 
-### Planned
+* Remove obsolete Settings gear from main UI
+* Repository cleanup review
+* Nullable reference warning cleanup
+* General UI polish
 
-* Recording export workflow
-* Session persistence enhancements
-* Screenshot annotation export
-* Combined PNG and PDF evidence packaging
-* Playback and review workflow
-* Release packaging
-* Installer generation
+#### Version 1.1
+
+* Disable camera source changes while preview is active
+* Disable capture format changes while preview is active
+* Prompt user before preview graph reconfiguration
+* Recording hardening
+* Recording validation
+* Recording workflow stabilization
+
+#### Future Releases
+
+* Recording playback
+* Rewind controls
+* Frame stepping
+* Timeline navigation
+* Zoom and pan viewport enhancements
+* Additional evidence workflow improvements
 
 ---
 
 ## Requirements
 
-* Windows 10 or Windows 11
+### Operating System
+
+* Windows 10
+* Windows 11
+
+### Runtime
+
 * .NET 8 Desktop Runtime
-* DirectShow-compatible camera or HDMI capture device
+
+### Hardware
+
+* DirectShow-compatible camera
+* HDMI microscope
+* HDMI capture device
 
 ---
 
-## Build
+## Installation
+
+Download the latest installer from the GitHub Releases page.
+
+Install:
+
+```text
+LabImager v1.0 Setup.exe
+```
+
+Follow the installer wizard to complete installation.
+
+---
+
+## Build From Source
 
 ```bash
 git clone https://github.com/dmcgann-msetech/lab-imager.git
 
-cd Lab-Imager
+cd lab-imager
 
 dotnet restore
 
@@ -163,15 +252,22 @@ src/
    │  ├─ Capture/
    │  ├─ Preview/
    │  ├─ Recording/
-   │  └─ Settings/
+   │  ├─ Reporting/
+   │  └─ Help/
+   ├─ Views/
+   ├─ Templates/
    ├─ MainWindow.xaml
    └─ MainWindow.xaml.cs
 
 docs/
+├─ application/
+├─ governance/
+├─ help/
+├─ releases/
+├─ assets/
 ├─ cover.html
 ├─ roadmap.html
-├─ lab-imager-log.html
-└─ assets/
+└─ lab-imager-log.html
 
 tools/
 └─ RecordingProbe/
@@ -189,35 +285,43 @@ Project cover page and repository documentation front matter.
 
 ### docs/roadmap.html
 
-Active roadmap, backlog tracking, milestone planning, and implementation priorities.
+Active roadmap, backlog tracking, release planning, and future development tracking.
 
 ### docs/lab-imager-log.html
 
-Engineering history, architecture decisions, validation records, implementation checkpoints, troubleshooting records, and milestone progression.
+Engineering history, architecture decisions, validation records, implementation checkpoints, troubleshooting records, release milestones, and development progression.
 
 ---
 
-## Development Branch
+## Branch Strategy
 
-The primary development branch is:
+### Primary Branch
+
+```text
+main
+```
+
+### Historical Release Branch
 
 ```text
 feature/wpf-frame-pipeline
 ```
 
+Retained for historical reference, rollback support, and development history preservation.
+
 ---
 
 ## Development Status
 
-This project is currently under active development.
+LabImager v1.0 has been released.
 
-Features and architecture may change between milestones as validation and hardware testing continue.
+The application is currently in active maintenance and enhancement mode, with future functionality planned for Version 1.0.1, Version 1.1, and later releases.
 
 ---
 
 ## Ownership and Copyright
 
-Lab Imager is developed and maintained by MSE McGann Systems Engineering.
+LabImager is developed and maintained by MSE McGann Systems Engineering.
 
 Copyright © 2026 MSE McGann Systems Engineering.
 
@@ -229,4 +333,4 @@ The Software is proprietary and is not open source.
 
 No permission is granted to copy, modify, redistribute, sublicense, commercialize, create derivative works from, or otherwise use the Software except as expressly authorized in writing by MSE McGann Systems Engineering.
 
-See `LICENSE.md` for full licensing terms.
+See LICENSE.md for full licensing terms.
